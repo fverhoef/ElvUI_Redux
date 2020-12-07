@@ -43,9 +43,13 @@ function InventoryDatabase:Update()
         "Trinket0Slot",
         "Trinket1Slot",
         "MainHandSlot",
-        "SecondaryHandSlot",
-        "RangedSlot"
+        "SecondaryHandSlot"
     }
+
+    if Module.isClassic then
+        table.insert(slots, "RangedSlot")
+    end
+
     for i, slot in next, slots do
         local link = GetInventoryItemLink("player", GetInventorySlotInfo(slot))
         if link then
