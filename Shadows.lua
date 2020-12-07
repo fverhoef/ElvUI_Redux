@@ -67,7 +67,9 @@ function Shadows:CreateShadows()
     Shadows:CreateShadow(B.BankFrame)
 
     -- BG Score
-    Shadows:CreateShadow(_G.WorldStateScoreFrame.backdrop)
+    if Module.isClassic then
+        Shadows:CreateShadow(_G.WorldStateScoreFrame.backdrop)
+    end
 
     -- Chat
     Shadows:CreateShadow(_G.LeftChatPanel.backdrop)
@@ -377,11 +379,7 @@ end
 
 function Shadows:CreateShadow(frame, config)
     if frame and (not frame.shadow) then
-        frame.shadow = CreateFrame("Frame", nil, frame)
-        if (not config) then
-            config = E.db[addonName].shadows
-        end
-        frame.shadow.config = config
+        frame:CreateShadow()
         Shadows:RegisterShadow(frame.shadow)
         Shadows:UpdateShadow(frame.shadow)
     end
@@ -411,8 +409,8 @@ function Shadows:UpdateShadows()
     end
 
     Shadows:CreateShadows()
-    for frame, _ in pairs(Shadows.registeredShadows) do
-        Shadows:UpdateShadow(frame)
+    for shadow, _ in pairs(Shadows.registeredShadows) do
+        Shadows:UpdateShadow(shadow)
     end
 end
 
