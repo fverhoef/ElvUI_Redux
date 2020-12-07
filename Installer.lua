@@ -52,7 +52,9 @@ function Installer:SetupGeneral()
     E.db["general"]["minimap"]["locationText"] = "SHOW"
     E.db["general"]["minimap"]["locationFont"] = DEFAULT_FONT
     E.db["general"]["minimap"]["locationFontSize"] = 14
-    E.db["general"]["minimap"]["icons"]["tracking"]["scale"] = 0.75
+    if Module.isClassic then
+        E.db["general"]["minimap"]["icons"]["tracking"]["scale"] = 0.75
+    end
 
     E.private["general"]["dmgfont"] = "Adventure"
     E.private["general"]["normTex"] = DEFAULT_STATUSBAR

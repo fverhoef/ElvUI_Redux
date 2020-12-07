@@ -154,9 +154,11 @@ function Shadows:CreateShadows()
     -- Friends Frame
     Shadows:CreateShadow(_G.FriendsFrame.backdrop)
     Shadows:CreateShadow(_G.AddFriendFrame)
-    Shadows:CreateShadow(_G.GuildInfoFrame.backdrop)
-    Shadows:CreateShadow(_G.GuildMemberDetailFrame)
-    Shadows:CreateShadow(_G.GuildControlPopupFrame.backdrop)
+    if Module.isClassic then
+        Shadows:CreateShadow(_G.GuildInfoFrame.backdrop)
+        Shadows:CreateShadow(_G.GuildMemberDetailFrame)
+        Shadows:CreateShadow(_G.GuildControlPopupFrame.backdrop)
+    end
     Shadows:CreateShadow(_G.RaidInfoFrame)
     for i = 1, #_G.FRIENDSFRAME_SUBFRAMES do
         local tab = _G["FriendsFrameTab" .. i]
@@ -177,7 +179,9 @@ function Shadows:CreateShadows()
 
     -- Help
     Shadows:CreateShadow(_G.HelpFrame)
-    Shadows:CreateShadow(_G.HelpFrameHeader.backdrop)
+    if Module.isClassic then
+        Shadows:CreateShadow(_G.HelpFrameHeader.backdrop)
+    end
 
     -- Interface Options
     Shadows:CreateShadow(_G.InterfaceOptionsFrame)
@@ -243,7 +247,9 @@ function Shadows:CreateShadows()
 
     -- Quest Frame
     Shadows:CreateShadow(_G.QuestFrame.backdrop)
-    Shadows:CreateShadow(_G.QuestLogFrame.backdrop)
+    if Module.isClassic then
+        Shadows:CreateShadow(_G.QuestLogFrame.backdrop)
+    end
 
     -- Raid Utility Panel
     Shadows:CreateShadow(RaidUtilityPanel)
