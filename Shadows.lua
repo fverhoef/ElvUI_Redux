@@ -380,6 +380,9 @@ end
 function Shadows:CreateShadow(frame, config)
     if frame and (not frame.shadow) then
         frame:CreateShadow()
+        if (not config) then
+            config = E.db[addonName].shadows
+        end
         frame.shadow.config = config
         Shadows:RegisterShadow(frame.shadow)
         Shadows:UpdateShadow(frame.shadow)
