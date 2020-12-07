@@ -380,6 +380,7 @@ end
 function Shadows:CreateShadow(frame, config)
     if frame and (not frame.shadow) then
         frame:CreateShadow()
+        frame.shadow.config = config
         Shadows:RegisterShadow(frame.shadow)
         Shadows:UpdateShadow(frame.shadow)
     end
