@@ -6,11 +6,13 @@ Module.minimapIconStyles = {
     Square = "Square",
     Round = "Round"
 }
+Module.borderThemes = {"Alliance", "Horde", "Metal", "DiamondMetal"}
 
 if E.db[addonName] == nil then
     E.db[addonName] = {}
 end
 P[addonName] = {
+    artwork = {enabled = true, borderTheme = "DiamondMetal"},
     automation = {
         enabled = true,
         fastLoot = true,
@@ -37,8 +39,45 @@ function Module:InsertOptions()
         childGroups = "tab",
         args = {
             name = {order = 1, type = "header", name = Module.title},
-            automation = {
+            artwork = {
                 order = 10,
+                type = "group",
+                name = L["Artwork"],
+                args = {
+                    enabled = {
+                        order = 1,
+                        type = "toggle",
+                        name = L["Enabled"],
+                        get = function(info)
+                            return E.db[addonName].artwork.enabled
+                        end,
+                        set = function(info, value)
+                            E.db[addonName].artwork.enabled = value
+                            Module.Artwork:UpdateArtwork()
+                        end
+                    },
+                    lineBreak = {type = "header", name = "", order = 2},
+                    borderTheme = {
+                        order = 10,
+                        type = "select",
+                        name = L["Theme"],
+                        values = Module.borderThemes,
+                        get = function()
+                            for key, val in pairs(Module.borderThemes) do
+                                if E.db[addonName].artwork.borderTheme == val then
+                                    return key
+                                end
+                            end
+                        end,
+                        set = function(_, key)
+                            E.db[addonName].artwork.borderTheme = Module.borderThemes[key]
+                            Module.Artwork:UpdateArtwork()
+                        end
+                    }
+                }
+            },
+            automation = {
+                order = 20,
                 type = "group",
                 name = L["Automation"],
                 args = {
@@ -177,7 +216,7 @@ function Module:InsertOptions()
                 }
             },
             minimapButtonFrame = {
-                order = 20,
+                order = 30,
                 type = "group",
                 name = L["Minimap Button Frame"],
                 args = {
@@ -263,7 +302,7 @@ function Module:InsertOptions()
                 }
             },
             shadows = {
-                order = 30,
+                order = 40,
                 type = "group",
                 name = L["Shadows"],
                 args = {
@@ -313,7 +352,7 @@ function Module:InsertOptions()
                 }
             },
             tooltips = {
-                order = 40,
+                order = 50,
                 type = "group",
                 name = L["Tooltips"],
                 args = {

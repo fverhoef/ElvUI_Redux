@@ -71,22 +71,39 @@ end
 function Installer:SetupActionBars()
     E.db["actionbar"]["font"] = DEFAULT_FONT
     E.db["actionbar"]["fontOutline"] = "OUTLINE"
-    E.db["actionbar"]["bar1"]["buttons"] = 8
-    E.db["actionbar"]["bar1"]["buttonsPerRow"] = 10
+
+    E.db["actionbar"]["bar1"]["buttons"] = 12
+    E.db["actionbar"]["bar1"]["buttonsPerRow"] = 6
     E.db["actionbar"]["bar1"]["buttonsize"] = 38
     E.db["actionbar"]["bar1"]["point"] = "TOPLEFT"
-    E.db["actionbar"]["bar2"]["enabled"] = true
-    E.db["actionbar"]["bar3"]["buttons"] = 8
-    E.db["actionbar"]["bar3"]["buttonsPerRow"] = 10
+    E.db["actionbar"]["bar1"]["backdrop"] = false
+
+    E.db["actionbar"]["bar2"]["enabled"] = false
+
+    E.db["actionbar"]["bar3"]["buttons"] = 12
+    E.db["actionbar"]["bar3"]["buttonsPerRow"] = 1
+    E.db["actionbar"]["bar3"]["mouseover"] = true
     E.db["actionbar"]["bar3"]["point"] = "TOPLEFT"
-    E.db["actionbar"]["bar4"]["buttons"] = 8
-    E.db["actionbar"]["bar4"]["buttonsPerRow"] = 10
+    E.db["actionbar"]["bar3"]["backdrop"] = false
+
+    E.db["actionbar"]["bar4"]["buttons"] = 12
+    E.db["actionbar"]["bar4"]["buttonsPerRow"] = 1
+    E.db["actionbar"]["bar4"]["mouseover"] = true
     E.db["actionbar"]["bar4"]["point"] = "TOPLEFT"
     E.db["actionbar"]["bar4"]["backdrop"] = false
+
     E.db["actionbar"]["bar5"]["buttons"] = 12
-    E.db["actionbar"]["bar5"]["buttonsPerRow"] = 1
-    E.db["actionbar"]["bar5"]["mouseover"] = true
-    E.db["actionbar"]["bar5"]["point"] = "TOPRIGHT"
+    E.db["actionbar"]["bar5"]["buttonsPerRow"] = 12
+    E.db["actionbar"]["bar5"]["mouseover"] = false
+    E.db["actionbar"]["bar5"]["point"] = "TOPLEFT"
+    E.db["actionbar"]["bar5"]["backdrop"] = false
+
+    E.db["actionbar"]["bar6"]["buttons"] = 12
+    E.db["actionbar"]["bar6"]["buttonsPerRow"] = 12
+    E.db["actionbar"]["bar6"]["mouseover"] = false
+    E.db["actionbar"]["bar6"]["point"] = "TOPLEFT"
+    E.db["actionbar"]["bar6"]["backdrop"] = false
+
     E.db["actionbar"]["barPet"]["buttonsPerRow"] = 10
     E.db["actionbar"]["barPet"]["point"] = "TOPLEFT"
     E.db["actionbar"]["barPet"]["backdrop"] = false
@@ -165,18 +182,18 @@ function Installer:SetupUnitFrames()
     E.db["unitframe"]["units"]["player"]["height"] = 38
     E.db["unitframe"]["units"]["player"]["aurabar"]["enable"] = false
     E.db["unitframe"]["units"]["player"]["debuffs"]["yOffset"] = 10
-    E.db["unitframe"]["units"]["player"]["castbar"]["width"] = 265
+    E.db["unitframe"]["units"]["player"]["castbar"]["width"] = 238
     E.db["unitframe"]["units"]["player"]["castbar"]["height"] = 25
     E.db["unitframe"]["units"]["player"]["name"]["text_format"] = ""
     E.db["unitframe"]["units"]["player"]["health"]["text_format"] = ""
     E.db["unitframe"]["units"]["player"]["power"]["height"] = 20
     E.db["unitframe"]["units"]["player"]["power"]["detachFromFrame"] = true
-    E.db["unitframe"]["units"]["player"]["power"]["detachedWidth"] = 318
+    E.db["unitframe"]["units"]["player"]["power"]["detachedWidth"] = 238
     E.db["unitframe"]["units"]["player"]["power"]["text_format"] = ""
     E.db["unitframe"]["units"]["player"]["power"]["powerPrediction"] = true
     E.db["unitframe"]["units"]["player"]["power"]["EnergyManaRegen"] = true
     E.db["unitframe"]["units"]["player"]["classbar"]["detachFromFrame"] = true
-    E.db["unitframe"]["units"]["player"]["classbar"]["detachedWidth"] = 318
+    E.db["unitframe"]["units"]["player"]["classbar"]["detachedWidth"] = 238
     E.db["unitframe"]["units"]["player"]["raidRoleIcons"]["xOffset"] = 2
     E.db["unitframe"]["units"]["player"]["raidRoleIcons"]["yOffset"] = -18
     E.db["unitframe"]["units"]["player"]["RestIcon"]["yOffset"] = 3
@@ -334,17 +351,19 @@ function Installer:SetupUnitFrames()
 end
 
 function Installer:SetupMovers()
+    E.db["movers"] = E.db["movers"] or {}
     E.db["movers"]["ElvUIBagMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-4,30"
     E.db["movers"]["ElvUIBankMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,4,31"
     E.db["movers"]["PetAB"] = "BOTTOM,ElvUIParent,BOTTOM,0,38"
-    E.db["movers"]["ElvAB_1"] = "BOTTOM,ElvUIParent,BOTTOM,0,284"
-    E.db["movers"]["ElvAB_4"] = "BOTTOM,ElvUIParent,BOTTOM,0,218"
-    E.db["movers"]["ElvAB_3"] = "BOTTOM,ElvUIParent,BOTTOM,0,251"
-    E.db["movers"]["ElvAB_5"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-4,-401"
+    E.db["movers"]["ElvAB_1"] = "BOTTOM,ElvUIParent,BOTTOM,0,245"
+    E.db["movers"]["ElvAB_3"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-4,-401"
+    E.db["movers"]["ElvAB_4"] = "TOPRIGHT,ElvAB_3,TOPLEFT,-4,0"
+    E.db["movers"]["ElvAB_5"] = "BOTTOM,ElvUIParent,BOTTOM,0,4"
+    E.db["movers"]["ElvAB_6"] = "BOTTOM,ElvAB_5,TOP,0,2"
     E.db["movers"]["VehicleLeaveButton"] = "BOTTOM,ElvUIParent,BOTTOM,0,73"
-    E.db["movers"]["ShiftAB"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,1018,39"
+    E.db["movers"]["ShiftAB"] = "BOTTOM,ElvUIParent,BOTTOM,0,73"
     E.db["movers"]["ElvUF_PlayerMover"] = "BOTTOM,ElvUIParent,BOTTOM,-290,284"
-    E.db["movers"]["ElvUF_PlayerCastbarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,191"
+    E.db["movers"]["ElvUF_PlayerCastbarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,218"
     E.db["movers"]["PlayerPowerBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,324"
     E.db["movers"]["ClassBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,346"
     E.db["movers"]["ElvUF_TargetMover"] = "BOTTOM,ElvUIParent,BOTTOM,290,284"

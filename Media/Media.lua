@@ -15,6 +15,18 @@ Module.media = {
             onePixel = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\StatusBars\\OnePixel",
             redux = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\StatusBars\\Redux",
         },
+        frames = {
+            alliance = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Frame\\UIFrameAlliance",
+            allianceVertical = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Frame\\UIFrameAllianceVertical",
+            horde = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Frame\\UIFrameHorde",
+            hordeVertical = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Frame\\UIFrameHordeVertical",
+            neutral = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Frame\\UIFrameNeutral",
+            neutralVertical = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Frame\\UIFrameNeutralVertical",
+            metal = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Frame\\UIFrameGenericMetal",
+            metalVertical = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Frame\\UIFrameGenericMetalVertical",
+            diamondMetal = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Frame\\UIFrameDiamondMetal8x",
+            diamondMetalVertical = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Frame\\UIFrameDiamondMetalVertical8x",
+        },
         
         arrowUp_ElvUI = "Interface\\Addons\\ElvUI\\Media\\Textures\\ArrowUp",
         minimapButtonBorder1 = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\MinimapButtonBorder1",

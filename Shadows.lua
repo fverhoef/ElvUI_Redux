@@ -434,7 +434,7 @@ function Shadows:UpdateShadow(shadow)
         shadow:SetFrameLevel(1)
         shadow:SetFrameStrata(frame:GetFrameStrata())
         shadow:SetOutside(frame, shadow.config.size or 3, shadow.config.size or 3)
-        shadow:SetBackdrop({edgeFile = LSM:Fetch("border", "ElvUI GlowBorder"), edgeSize = E:Scale(shadow.config.size > 3 and shadow.config.size or 3)})
+        shadow:SetBackdrop({edgeFile = LSM:Fetch("border", "ElvUI GlowBorder"), edgeSize = E:Scale(shadow.config.size or 3)})
         shadow:SetBackdropColor(shadow.config.color.r, shadow.config.color.g, shadow.config.color.b, 0)
         shadow:SetBackdropBorderColor(shadow.config.color.r, shadow.config.color.g, shadow.config.color.b, shadow.config.color.a)
     end

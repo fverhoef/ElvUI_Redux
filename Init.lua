@@ -15,6 +15,7 @@ _G[addonName] = Module
 function Module:Initialize()
     EP:RegisterPlugin(Module.name, Module.InsertOptions)
 
+    Module.Artwork:Initialize()
     Module.Automation:Initialize()
     Module.InventoryDatabase:Initialize()
     Module.MinimapButtonFrame:Initialize()

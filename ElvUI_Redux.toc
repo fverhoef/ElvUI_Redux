@@ -12,6 +12,7 @@ Media\Media.lua
 Config.lua
 Utilities.lua
 
+Artwork.lua
 Automation.lua
 InventoryDatabase.lua
 MinimapButtonFrame.lua
