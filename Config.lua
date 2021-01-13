@@ -6,13 +6,14 @@ Module.minimapIconStyles = {
     Square = "Square",
     Round = "Round"
 }
-Module.borderThemes = {"Alliance", "Horde", "Metal", "DiamondMetal"}
+Module.frameThemes = {"None", "Alliance", "Horde", "Metal", "Neutral"}
+Module.buttonThemes = {"None", "Red", "GoldRed", "Silver"}
 
 if E.db[addonName] == nil then
     E.db[addonName] = {}
 end
 P[addonName] = {
-    artwork = {enabled = true, borderTheme = "DiamondMetal"},
+    artwork = {enabled = true, frameTheme = "Metal", buttonTheme = "Silver"},
     automation = {
         enabled = true,
         fastLoot = true,
@@ -57,20 +58,37 @@ function Module:InsertOptions()
                         end
                     },
                     lineBreak = {type = "header", name = "", order = 2},
-                    borderTheme = {
+                    frameTheme = {
                         order = 10,
                         type = "select",
-                        name = L["Theme"],
-                        values = Module.borderThemes,
+                        name = L["Frame Theme"],
+                        values = Module.frameThemes,
                         get = function()
-                            for key, val in pairs(Module.borderThemes) do
-                                if E.db[addonName].artwork.borderTheme == val then
+                            for key, val in pairs(Module.frameThemes) do
+                                if E.db[addonName].artwork.frameTheme == val then
                                     return key
                                 end
                             end
                         end,
                         set = function(_, key)
-                            E.db[addonName].artwork.borderTheme = Module.borderThemes[key]
+                            E.db[addonName].artwork.frameTheme = Module.frameThemes[key]
+                            Module.Artwork:UpdateArtwork()
+                        end
+                    },
+                    buttonTheme = {
+                        order = 10,
+                        type = "select",
+                        name = L["Button Theme"],
+                        values = Module.buttonThemes,
+                        get = function()
+                            for key, val in pairs(Module.buttonThemes) do
+                                if E.db[addonName].artwork.buttonTheme == val then
+                                    return key
+                                end
+                            end
+                        end,
+                        set = function(_, key)
+                            E.db[addonName].artwork.buttonTheme = Module.buttonThemes[key]
                             Module.Artwork:UpdateArtwork()
                         end
                     }

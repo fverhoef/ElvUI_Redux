@@ -3,9 +3,7 @@ local Module = addonTable[1]
 local LSM = LibStub("LibSharedMedia-3.0")
 
 Module.media = {
-    fonts = {
-        adventure = "Interface\\AddOns\\" .. addonName .. "\\Media\\Fonts\\Adventure.ttf"
-    },
+    fonts = {adventure = "Interface\\AddOns\\" .. addonName .. "\\Media\\Fonts\\Adventure.ttf"},
     textures = {
         statusBars = {
             kait1 = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\StatusBars\\Kait1",
@@ -13,7 +11,7 @@ Module.media = {
             melli = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\StatusBars\\Melli",
             melliDark = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\StatusBars\\MelliDark",
             onePixel = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\StatusBars\\OnePixel",
-            redux = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\StatusBars\\Redux",
+            redux = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\StatusBars\\Redux"
         },
         frames = {
             alliance = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Frame\\UIFrameAlliance",
@@ -25,9 +23,22 @@ Module.media = {
             metal = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Frame\\UIFrameGenericMetal",
             metalVertical = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Frame\\UIFrameGenericMetalVertical",
             diamondMetal = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Frame\\UIFrameDiamondMetal8x",
-            diamondMetalVertical = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Frame\\UIFrameDiamondMetalVertical8x",
+            diamondMetalVertical = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Frame\\UIFrameDiamondMetalVertical8x"
         },
-        
+        buttons = {
+            redButton = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Buttons\\128RedButton",
+            goldRedButton = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Buttons\\128GoldRedButton",
+            silverButton_Left_Down = "Interface\\Buttons\\UI-SilverButtonLG-Left-Down",
+            silverButton_Left_Hi = "Interface\\Buttons\\UI-SilverButtonLG-Left-Hi",
+            silverButton_Left_Up = "Interface\\Buttons\\UI-SilverButtonLG-Left-Up",
+            silverButton_Mid_Down = "Interface\\Buttons\\UI-SilverButtonLG-Mid-Down",
+            silverButton_Mid_Hi = "Interface\\Buttons\\UI-SilverButtonLG-Mid-Hi",
+            silverButton_Mid_Up = "Interface\\Buttons\\UI-SilverButtonLG-Mid-Up",
+            silverButton_Right_Down = "Interface\\Buttons\\UI-SilverButtonLG-Right-Down",
+            silverButton_Right_Hi = "Interface\\Buttons\\UI-SilverButtonLG-Right-Hi",
+            silverButton_Right_Up = "Interface\\Buttons\\UI-SilverButtonLG-Right-Up",
+        },
+
         arrowUp_ElvUI = "Interface\\Addons\\ElvUI\\Media\\Textures\\ArrowUp",
         minimapButtonBorder1 = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\MinimapButtonBorder1",
         minimapButtonBorder2 = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\MinimapButtonBorder2",
@@ -35,7 +46,7 @@ Module.media = {
     }
 }
 
-LSM:Register("font", "Adventure", Module.media.fonts.adventure )
+LSM:Register("font", "Adventure", Module.media.fonts.adventure)
 LSM:Register("statusbar", "Kait1", Module.media.textures.statusBars.kait1)
 LSM:Register("statusbar", "Kait2", Module.media.textures.statusBars.kait2)
 LSM:Register("statusbar", "Melli", Module.media.textures.statusBars.melli)

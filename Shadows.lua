@@ -252,7 +252,9 @@ function Shadows:CreateShadows()
     end
 
     -- Raid Utility Panel
-    Shadows:CreateShadow(RaidUtilityPanel)
+    Shadows:CreateShadow(_G.RaidUtilityPanel)
+    Shadows:CreateShadow(_G.RaidUtility_ShowButton)
+    Shadows:CreateShadow(_G.RaidUtility_CloseButton)
     Shadows:CreateShadow(_G.RaidControlButton)
 
     -- Ready Check
