@@ -1,7 +1,7 @@
 local addonName, addonTable = ...
-local Module = addonTable[1]
-local MinimapButtonFrame = Module:NewModule(addonName .. "MinimapButtonFrame", "AceHook-3.0", "AceEvent-3.0", "AceTimer-3.0")
-Module.MinimapButtonFrame = MinimapButtonFrame
+local Addon = addonTable[1]
+local MinimapButtonFrame = Addon:NewModule(addonName .. "MinimapButtonFrame", "AceHook-3.0", "AceEvent-3.0", "AceTimer-3.0")
+Addon.MinimapButtonFrame = MinimapButtonFrame
 local E, L, V, P, G = unpack(ElvUI)
 
 MinimapButtonFrame.Buttons = {}
@@ -81,7 +81,7 @@ function MinimapButtonFrame:CreateButtonFrame()
     Minimap.ButtonFrame.Container:CreateBackdrop()
 
     Minimap.ButtonFrame.Toggle = CreateFrame("Button", "MinimapButtonFrameToggle", Minimap.ButtonFrame)
-    Minimap.ButtonFrame.Toggle:SetNormalTexture(Module.media.textures.arrowUp_ElvUI)
+    Minimap.ButtonFrame.Toggle:SetNormalTexture(Addon.media.textures.arrowUp_ElvUI)
     Minimap.ButtonFrame.Toggle:SetPoint("TOPRIGHT", Minimap.ButtonFrame, "TOPRIGHT", -5, 0)
     Minimap.ButtonFrame.Toggle:SetSize(16, 16)
     Minimap.ButtonFrame.Toggle:SetScript("OnEnter", function(btn)
@@ -118,8 +118,8 @@ function MinimapButtonFrame:CreateButtonFrame()
         Minimap.ButtonFrame.Toggle:GetNormalTexture():SetRotation(0)
     end
 
-    Module.Shadows:CreateShadow(Minimap.ButtonFrame)
-    Module.Shadows:CreateShadow(Minimap.ButtonFrame.Container)
+    Addon.Shadows:CreateShadow(Minimap.ButtonFrame)
+    Addon.Shadows:CreateShadow(Minimap.ButtonFrame.Container)
 
     MinimapButtonFrame:UpdateFramePosition()
 end
@@ -272,10 +272,10 @@ function MinimapButtonFrame:StyleButton(button)
             region.SetTexCoord = region.__setTexCoord
             region:SetTexCoord(unpack(region.__texCoords))
 
-            if E.db[addonName].minimapButtonFrame.iconStyle == Module.minimapIconStyles.Round then
+            if E.db[addonName].minimapButtonFrame.iconStyle == Addon.minimapIconStyles.Round then
                 if region.__textureID == 136430 or region.__texture == "interface\\minimap\\minimap-trackingborder" then
                     region:SetSize(32, 32)
-                    region:SetTexture(Module.media.textures.minimapButtonBorder1)
+                    region:SetTexture(Addon.media.textures.minimapButtonBorder1)
                 elseif region.__textureID == 136467 or region.__texture == "interface\\minimap\\ui-minimap-background" then
                     region:SetTexture(region.__texture)
                     region:SetAlpha(0.6)
@@ -295,7 +295,7 @@ function MinimapButtonFrame:StyleButton(button)
                         region:SetTexture("Interface\\Icons\\INV_Staff_20")
                     end
                     region:SetTexCoord(0, 1, 0, 1)
-                    region:SetMask(Module.media.textures.portraitAlphaMask)
+                    region:SetMask(Addon.media.textures.portraitAlphaMask)
                     region.SetTexCoord = function()
                         return
                     end

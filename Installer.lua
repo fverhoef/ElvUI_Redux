@@ -1,7 +1,7 @@
 local addonName, addonTable = ...
-local Module = addonTable[1]
-local Installer = Module:NewModule(addonName .. "Installer", "AceHook-3.0", "AceEvent-3.0", "AceTimer-3.0")
-Module.Installer = Installer
+local Addon = addonTable[1]
+local Installer = Addon:NewModule(addonName .. "Installer", "AceHook-3.0", "AceEvent-3.0", "AceTimer-3.0")
+Addon.Installer = Installer
 local E, L, V, P, G = unpack(ElvUI)
 
 local DEFAULT_FONT = "Expressway"
@@ -32,7 +32,7 @@ function Installer:NewProfile()
         hideOnEscape = 1,
         timeout = 0,
         OnShow = function(self, data)
-            self.editBox:SetText(Module.name)
+            self.editBox:SetText(Addon.name)
         end,
         OnAccept = function(self, data, data2)
             local text = self.editBox:GetText()
@@ -52,7 +52,7 @@ function Installer:SetupGeneral()
     E.db["general"]["minimap"]["locationText"] = "SHOW"
     E.db["general"]["minimap"]["locationFont"] = DEFAULT_FONT
     E.db["general"]["minimap"]["locationFontSize"] = 14
-    if Module.isClassic then
+    if Addon.isClassic then
         E.db["general"]["minimap"]["icons"]["tracking"]["scale"] = 0.75
     end
 
@@ -390,12 +390,12 @@ function Installer:SetupPlugins()
 end
 
 Installer.InstallerData = {
-    Title = format("%s %s", Module.title, "Installation"),
-    Name = Module.name,
+    Title = format("%s %s", Addon.title, "Installation"),
+    Name = Addon.name,
     -- tutorialImage = "Interface\\AddOns\\" .. addonName .. "\\Media\\logo.tga",
     Pages = {
         [1] = function()
-            PluginInstallFrame.SubTitle:SetFormattedText("Welcome to the installation for %s.", Module.title)
+            PluginInstallFrame.SubTitle:SetFormattedText("Welcome to the installation for %s.", Addon.title)
             PluginInstallFrame.Desc1:SetText("Please press the 'Create Profile' button if you wish to create a new profile, otherwise click the 'Cancel' button.")
             
             PluginInstallFrame.Option1:Show()

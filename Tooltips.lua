@@ -1,7 +1,7 @@
 local addonName, addonTable = ...
-local Module = addonTable[1]
-local Tooltips = Module:NewModule(addonName .. "Tooltips", "AceHook-3.0", "AceEvent-3.0", "AceTimer-3.0")
-Module.Tooltips = Tooltips
+local Addon = addonTable[1]
+local Tooltips = Addon:NewModule(addonName .. "Tooltips", "AceHook-3.0", "AceEvent-3.0", "AceTimer-3.0")
+Addon.Tooltips = Tooltips
 local E, L, V, P, G = unpack(ElvUI)
 
 function Tooltips:Initialize()
@@ -35,7 +35,7 @@ function Tooltips:HookSetItem(tip)
             end
             Tooltips:AddVendorPrice(tooltip, sellPrice, classID)
 
-            local itemId = Module:GetItemIdFromLink(itemLink)
+            local itemId = Addon:GetItemIdFromLink(itemLink)
             if itemId then
                 Tooltips:AddItemCount(tooltip, itemId)
             end
@@ -79,8 +79,8 @@ function Tooltips:AddItemCount(tooltip, itemId)
         return
     end
 
-    if Module.InventoryDatabase then
-        Module.InventoryDatabase:UpdateItemCount(itemId)
+    if Addon.InventoryDatabase then
+        Addon.InventoryDatabase:UpdateItemCount(itemId)
     end
 
     local characterDatabase = ElvDB.items.realm[E.myrealm].character
@@ -106,7 +106,7 @@ function Tooltips:AddItemCount(tooltip, itemId)
                 value = value .. L["Bank"] .. ": " .. bankCount
             end
 
-            tooltip:AddDoubleLine(Module:Hex(RAID_CLASS_COLORS[char.class or "PRIEST"]) .. name .. "|r:", value)
+            tooltip:AddDoubleLine(Addon:Hex(RAID_CLASS_COLORS[char.class or "PRIEST"]) .. name .. "|r:", value)
         end
     end
 end

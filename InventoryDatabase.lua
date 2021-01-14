@@ -1,7 +1,7 @@
 local addonName, addonTable = ...
-local Module = addonTable[1]
-local InventoryDatabase = Module:NewModule(addonName .. "InventoryDatabase", "AceHook-3.0", "AceEvent-3.0", "AceTimer-3.0")
-Module.InventoryDatabase = InventoryDatabase
+local Addon = addonTable[1]
+local InventoryDatabase = Addon:NewModule(addonName .. "InventoryDatabase", "AceHook-3.0", "AceEvent-3.0", "AceTimer-3.0")
+Addon.InventoryDatabase = InventoryDatabase
 local E, L, V, P, G = unpack(ElvUI)
 local B = E:GetModule("Bags")
 
@@ -46,14 +46,14 @@ function InventoryDatabase:Update()
         "SecondaryHandSlot"
     }
 
-    if Module.isClassic then
+    if Addon.isClassic then
         table.insert(slots, "RangedSlot")
     end
 
     for i, slot in next, slots do
         local link = GetInventoryItemLink("player", GetInventorySlotInfo(slot))
         if link then
-            local itemId = Module:GetItemIdFromLink(link)
+            local itemId = Addon:GetItemIdFromLink(link)
             if itemId then
                 db.equipped["" .. itemId] = 1
             end

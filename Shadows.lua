@@ -1,7 +1,7 @@
 local addonName, addonTable = ...
-local Module = addonTable[1]
-local Shadows = Module:NewModule(addonName .. "Shadows", "AceHook-3.0", "AceEvent-3.0", "AceTimer-3.0")
-Module.Shadows = Shadows
+local Addon = addonTable[1]
+local Shadows = Addon:NewModule(addonName .. "Shadows", "AceHook-3.0", "AceEvent-3.0", "AceTimer-3.0")
+Addon.Shadows = Shadows
 local E, L, V, P, G = unpack(ElvUI)
 local LSM = LibStub("LibSharedMedia-3.0")
 local A = E:GetModule("Auras")
@@ -48,26 +48,12 @@ function Shadows:CreateShadows()
     -- Addon Manager
     Shadows:CreateShadow(_G.AddonList)
 
-    -- Auras
-    if not A.hookedShadows then
-        hooksecurefunc(A, "UpdateAura", function(self, button)
-            Shadows:CreateShadow(button)
-        end)
-        hooksecurefunc(A, "UpdateStatusBar", function(self, button)
-            Shadows:CreateShadow(button)
-        end)
-        hooksecurefunc(A, "UpdateTempEnchant", function(self, button)
-            Shadows:CreateShadow(button)
-        end)
-        A.hookedShadows = true
-    end
-
     -- Bags
     Shadows:CreateShadow(B.BagFrame)
     Shadows:CreateShadow(B.BankFrame)
 
     -- BG Score
-    if Module.isClassic then
+    if Addon.isClassic then
         Shadows:CreateShadow(_G.WorldStateScoreFrame.backdrop)
     end
 
@@ -83,23 +69,6 @@ function Shadows:CreateShadows()
     Shadows:CreateShadow(DB.expBar)
     Shadows:CreateShadow(DB.petExpBar)
     Shadows:CreateShadow(DB.repBar)
-
-    -- ElvUI Options
-    if not E.hookedShadows then
-        hooksecurefunc(E, "Config_WindowOpened", function()
-            local optionsFrame = E:Config_GetWindow()
-            if optionsFrame then
-                Shadows:CreateShadow(optionsFrame)
-            end
-        end)
-
-        -- ElvUI Popups
-        hooksecurefunc(E, "StaticPopupSpecial_Show", function(self, frame)
-            Shadows:CreateShadow(frame)
-        end)
-
-        E.hookedShadows = true
-    end
 
     -- Channels
     Shadows:CreateShadow(_G.ChannelFrame)
@@ -154,7 +123,7 @@ function Shadows:CreateShadows()
     -- Friends Frame
     Shadows:CreateShadow(_G.FriendsFrame.backdrop)
     Shadows:CreateShadow(_G.AddFriendFrame)
-    if Module.isClassic then
+    if Addon.isClassic then
         Shadows:CreateShadow(_G.GuildInfoFrame.backdrop)
         Shadows:CreateShadow(_G.GuildMemberDetailFrame)
         Shadows:CreateShadow(_G.GuildControlPopupFrame.backdrop)
@@ -179,7 +148,7 @@ function Shadows:CreateShadows()
 
     -- Help
     Shadows:CreateShadow(_G.HelpFrame)
-    if Module.isClassic then
+    if Addon.isClassic then
         Shadows:CreateShadow(_G.HelpFrameHeader.backdrop)
     end
 
@@ -206,24 +175,6 @@ function Shadows:CreateShadows()
         Shadows:CreateShadow(_G["MirrorTimer" .. i .. "StatusBar"])
     end
 
-    -- NamePlates
-    if not NP.hookedShadows then
-        hooksecurefunc(NP, "UpdatePlate", function(self, nameplate)
-            if not nameplate.Health.shadow then
-                Shadows:CreateShadow(nameplate.Health)
-                Shadows:CreateShadow(nameplate.Power)
-                Shadows:CreateShadow(nameplate.Castbar)
-                hooksecurefunc(nameplate.Buffs, "PostUpdateIcon", function(self, unit, button)
-                    Shadows:CreateShadow(button)
-                end)
-                hooksecurefunc(nameplate.Debuffs, "PostUpdateIcon", function(self, unit, button)
-                    Shadows:CreateShadow(button)
-                end)
-            end
-        end)
-        NP.hookedShadows = true
-    end
-
     -- Panels
     Shadows:CreateShadow(LO.BottomPanel)
     Shadows:CreateShadow(LO.TopPanel)
@@ -247,7 +198,7 @@ function Shadows:CreateShadows()
 
     -- Quest Frame
     Shadows:CreateShadow(_G.QuestFrame.backdrop)
-    if Module.isClassic then
+    if Addon.isClassic then
         Shadows:CreateShadow(_G.QuestLogFrame.backdrop)
     end
 
@@ -562,5 +513,64 @@ function Shadows:LoadTrainerFrame()
         Shadows:CreateShadow(_G.ClassTrainerFrame.backdrop)
     else
         Shadows:ScheduleTimer("LoadTrainerFrame", 0.01)
+    end
+end
+
+-- ElvUI Overrides
+local originalConfig_WindowOpened = E.Config_WindowOpened
+E.Config_WindowOpened = function(...)
+    originalConfig_WindowOpened(...)
+
+    local optionsFrame = E:Config_GetWindow()
+    if optionsFrame then
+        Shadows:CreateShadow(optionsFrame)
+    end
+end
+
+local originalStaticPopupSpecial_Show = E.StaticPopupSpecial_Show
+E.StaticPopupSpecial_Show = function(...)
+    originalStaticPopupSpecial_Show(...)
+
+    local _, frame = ...
+    Shadows:CreateShadow(frame)
+end
+
+local originalUpdateAura = A.UpdateAura
+A.UpdateAura = function(...)
+    originalUpdateAura(...)
+
+    local _, button = ...
+    Shadows:CreateShadow(button)
+end
+local originalUpdateStatusBar = A.UpdateStatusBar
+A.UpdateStatusBar = function(...)
+    originalUpdateStatusBar(...)
+
+    local _, button = ...
+    Shadows:CreateShadow(button)
+end
+local originalUpdateTempEnchant = A.UpdateTempEnchant
+A.UpdateTempEnchant = function(...)
+    originalUpdateTempEnchant(...)
+
+    local _, button = ...
+    Shadows:CreateShadow(button)
+end
+
+local originalUpdatePlate = NP.UpdatePlate
+NP.UpdatePlate = function(...)
+    originalUpdatePlate(...)
+
+    local _, nameplate = ...
+    if not nameplate.Health.shadow then
+        Shadows:CreateShadow(nameplate.Health)
+        Shadows:CreateShadow(nameplate.Power)
+        Shadows:CreateShadow(nameplate.Castbar)
+        hooksecurefunc(nameplate.Buffs, "PostUpdateIcon", function(self, unit, button)
+            Shadows:CreateShadow(button)
+        end)
+        hooksecurefunc(nameplate.Debuffs, "PostUpdateIcon", function(self, unit, button)
+            Shadows:CreateShadow(button)
+        end)
     end
 end

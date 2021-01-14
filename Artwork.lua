@@ -1,7 +1,7 @@
 local addonName, addonTable = ...
-local Module = addonTable[1]
-local Artwork = Module:NewModule(addonName .. "Artwork", "AceHook-3.0", "AceEvent-3.0", "AceTimer-3.0")
-Module.Artwork = Artwork
+local Addon = addonTable[1]
+local Artwork = Addon:NewModule(addonName .. "Artwork", "AceHook-3.0", "AceEvent-3.0", "AceTimer-3.0")
+Addon.Artwork = Artwork
 local E, L, V, P, G = unpack(ElvUI)
 local S = E:GetModule("Skins")
 
@@ -12,75 +12,75 @@ Artwork.atlas = {
             leftWidth = 73,
             rightWidth = 28,
 
-            left = {Module.media.textures.buttons.redButton, 0.00195312, 0.572266, 0.254395, 0.316895},
-            right = {Module.media.textures.buttons.redButton, 0.25390625, 0.474609375, 0.444824, 0.507324},
-            center = {Module.media.textures.buttons.redButton, 0, 0.125, 0.000488281, 0.0629883},
+            left = {Addon.media.textures.buttons.redButton, 0.00195312, 0.572266, 0.254395, 0.316895},
+            right = {Addon.media.textures.buttons.redButton, 0.25390625, 0.474609375, 0.444824, 0.507324},
+            center = {Addon.media.textures.buttons.redButton, 0, 0.125, 0.000488281, 0.0629883},
 
-            leftDisabled = {Module.media.textures.buttons.redButton, 0.00195312, 0.572266, 0.317871, 0.380371},
-            rightDisabled = {Module.media.textures.buttons.redButton, 0.48140900, 0.701171875, 0.444824, 0.507324},
-            centerDisabled = {Module.media.textures.buttons.redButton, 0, 0.125, 0.0639648, 0.126465},
+            leftDisabled = {Addon.media.textures.buttons.redButton, 0.00195312, 0.572266, 0.317871, 0.380371},
+            rightDisabled = {Addon.media.textures.buttons.redButton, 0.48140900, 0.701171875, 0.444824, 0.507324},
+            centerDisabled = {Addon.media.textures.buttons.redButton, 0, 0.125, 0.0639648, 0.126465},
 
-            leftPressed = {Module.media.textures.buttons.redButton, 0.00195312, 0.572266, 0.381348, 0.443848},
-            rightPressed = {Module.media.textures.buttons.redButton, 0.255859, 0.478516, 0.444824, 0.507324},
-            centerPressed = {Module.media.textures.buttons.redButton, 0, 0.125, 0.127441, 0.189941}
+            leftPressed = {Addon.media.textures.buttons.redButton, 0.00195312, 0.572266, 0.381348, 0.443848},
+            rightPressed = {Addon.media.textures.buttons.redButton, 0.255859, 0.478516, 0.444824, 0.507324},
+            centerPressed = {Addon.media.textures.buttons.redButton, 0, 0.125, 0.127441, 0.189941}
         },
         ["Silver"] = {
             offset = {-1, 1},
             leftWidth = 10,
             rightWidth = 10,
 
-            left = {Module.media.textures.buttons.silverButton_Left_Up, 0, 12 / 32, 0, 0.734375},
-            right = {Module.media.textures.buttons.silverButton_Right_Up, 20 / 32, 1, 0, 0.734375},
-            center = {Module.media.textures.buttons.silverButton_Mid_Up, 0, 1, 0, 0.734375},
+            left = {Addon.media.textures.buttons.silverButton_Left_Up, 0, 12 / 32, 0, 0.734375},
+            right = {Addon.media.textures.buttons.silverButton_Right_Up, 20 / 32, 1, 0, 0.734375},
+            center = {Addon.media.textures.buttons.silverButton_Mid_Up, 0, 1, 0, 0.734375},
 
-            leftPressed = {Module.media.textures.buttons.silverButton_Left_Down, 0, 12 / 32, 0, 0.734375},
-            rightPressed = {Module.media.textures.buttons.silverButton_Right_Down, 20 / 32, 1, 0, 0.734375},
-            centerPressed = {Module.media.textures.buttons.silverButton_Mid_Down, 0, 1, 0, 0.734375},
+            leftPressed = {Addon.media.textures.buttons.silverButton_Left_Down, 0, 12 / 32, 0, 0.734375},
+            rightPressed = {Addon.media.textures.buttons.silverButton_Right_Down, 20 / 32, 1, 0, 0.734375},
+            centerPressed = {Addon.media.textures.buttons.silverButton_Mid_Down, 0, 1, 0, 0.734375},
 
-            leftHighlight = {Module.media.textures.buttons.silverButton_Left_Hi, 0, 12 / 32, 0, 0.734375},
-            rightHighlight = {Module.media.textures.buttons.silverButton_Right_Hi, 20 / 32, 1, 0, 0.734375},
-            centerHighlight = {Module.media.textures.buttons.silverButton_Mid_Hi, 0, 1, 0, 0.734375}
+            leftHighlight = {Addon.media.textures.buttons.silverButton_Left_Hi, 0, 12 / 32, 0, 0.734375},
+            rightHighlight = {Addon.media.textures.buttons.silverButton_Right_Hi, 20 / 32, 1, 0, 0.734375},
+            centerHighlight = {Addon.media.textures.buttons.silverButton_Mid_Hi, 0, 1, 0, 0.734375}
         }
     },
     frames = {
         ["Alliance"] = {
-            size = {84, 84},
-            offset = {-12, 12},
-            topLeft = {Module.media.textures.frames.alliance, 0.000976562, 0.163086, 0.579102, 0.741211},
-            topRight = {Module.media.textures.frames.alliance, 0.163086, 0.000976562, 0.579102, 0.741211},
-            bottomLeft = {Module.media.textures.frames.alliance, 0.000976562, 0.163086, 0.741211, 0.579102},
-            bottomRight = {Module.media.textures.frames.alliance, 0.163086, 0.000976562, 0.741211, 0.579102},
-            top = {Module.media.textures.frames.alliance, 0, 0.25, 0.0322266, 0.0615234, nil, 15},
-            bottom = {Module.media.textures.frames.alliance, 0, 0.25, 0.000976562, 0.0302734, nil, 15},
-            left = {Module.media.textures.frames.allianceVertical, 0.015625, 0.484375, 0, 1, 15},
-            right = {Module.media.textures.frames.allianceVertical, 0.515625, 0.984375, 0, 1, 15},
-            closeButtonBackground = {Module.media.textures.frames.alliance, 0.165039, 0.197266, 0.579102, 0.610352, 33, 32}
+            scale = 0.5,
+            offset = {-24, 24},
+            topLeft = {Addon.media.textures.frames.alliance, 166, 166, 1 / 1024, 167 / 1024, 593 / 1024, 759 / 1024},
+            topRight = {Addon.media.textures.frames.alliance, 166, 166, 167 / 1024, 1 / 1024, 593 / 1024, 759 / 1024},
+            bottomLeft = {Addon.media.textures.frames.alliance, 166, 166, 1 / 1024, 167 / 1024, 759 / 1024, 593 / 1024},
+            bottomRight = {Addon.media.textures.frames.alliance, 166, 166, 167 / 1024, 1 / 1024, 759 / 1024, 593 / 1024},
+            top = {Addon.media.textures.frames.alliance, 256, 30, 0, 0.25, 0.0322266, 0.0615234},
+            bottom = {Addon.media.textures.frames.alliance, 256, 30, 0, 0.25, 1 / 1024, 0.0302734},
+            left = {Addon.media.textures.frames.allianceVertical, 30, 256, 0.015625, 0.484375, 0, 1},
+            right = {Addon.media.textures.frames.allianceVertical, 30, 256, 0.515625, 0.984375, 0, 1},
+            closeButtonBackground = {Addon.media.textures.frames.alliance, 33, 32, 169 / 1024, 202 / 1024, 593 / 1024, 625 / 1024}
         },
         ["Horde"] = {
-            size = {84, 84},
-            offset = {-12, 12},
-            topLeft = {Module.media.textures.frames.horde, 0.000976562, 0.163086, 0.783203, 0.945312},
-            topRight = {Module.media.textures.frames.horde, 0.163086, 0.000976562, 0.783203, 0.945312},
-            bottomLeft = {Module.media.textures.frames.horde, 0.000976562, 0.163086, 0.945312, 0.783203},
-            bottomRight = {Module.media.textures.frames.horde, 0.163086, 0.000976562, 0.945312, 0.783203},
-            top = {Module.media.textures.frames.horde, 0, 0.25, 0.117188, 0.146484, nil, 15},
-            bottom = {Module.media.textures.frames.horde, 0, 0.25, 0.0859375, 0.115234, nil, 15},
-            left = {Module.media.textures.frames.hordeVertical, 0.015625, 0.484375, 0, 1, 15},
-            right = {Module.media.textures.frames.hordeVertical, 0.515625, 0.984375, 0, 1, 15},
-            closeButtonBackground = {Module.media.textures.frames.horde, 0.833984, 0.866211, 0.148438, 0.179688, 33, 32}
+            scale = 0.5,
+            offset = {-24, 24},
+            topLeft = {Addon.media.textures.frames.horde, 166, 166, 1 / 1024, 167 / 1024, 802 / 1024, 968 / 1024},
+            topRight = {Addon.media.textures.frames.horde, 166, 166, 167 / 1024, 1 / 1024, 802 / 1024, 968 / 1024},
+            bottomLeft = {Addon.media.textures.frames.horde, 166, 166, 1 / 1024, 167 / 1024, 968 / 1024, 802 / 1024},
+            bottomRight = {Addon.media.textures.frames.horde, 166, 166, 167 / 1024, 1 / 1024, 968 / 1024, 802 / 1024},
+            top = {Addon.media.textures.frames.horde, 256, 30, 0, 0.25, 0.117188, 0.146484},
+            bottom = {Addon.media.textures.frames.horde, 256, 30, 0, 0.25, 0.0859375, 0.115234},
+            left = {Addon.media.textures.frames.hordeVertical, 30, 256, 0.015625, 0.484375, 0, 1},
+            right = {Addon.media.textures.frames.hordeVertical, 30, 256, 0.515625, 0.984375, 0, 1},
+            closeButtonBackground = {Addon.media.textures.frames.horde, 33, 32, 0.833984, 0.866211, 0.148438, 0.179688}
         },
         ["Metal"] = {
-            size = {84, 84},
-            offset = {-12, 12},
-            topLeft = {Module.media.textures.frames.metal, 0.00390625, 0.652344, 0.253906, 0.902344},
-            topRight = {Module.media.textures.frames.metal, 0.652344, 0.00390625, 0.253906, 0.902344},
-            bottomLeft = {Module.media.textures.frames.metal, 0.00390625, 0.652344, 0.902344, 0.253906},
-            bottomRight = {Module.media.textures.frames.metal, 0.652344, 0.00390625, 0.902344, 0.253906},
-            top = {Module.media.textures.frames.metal, 0, 1, 0.128906, 0.246094, nil, 15},
-            bottom = {Module.media.textures.frames.metal, 0, 1, 0.00390625, 0.121094, nil, 15},
-            left = {Module.media.textures.frames.metalVertical, 0.015625, 0.484375, 0, 1, 15},
-            right = {Module.media.textures.frames.metalVertical, 0.515625, 0.984375, 0, 1, 15},
-            closeButtonBackground = {Module.media.textures.frames.metal, 0.660156, 0.789062, 0.253906, 0.378906, 33, 32}
+            scale = 0.5,
+            offset = {-24, 24},
+            topLeft = {Addon.media.textures.frames.metal, 166, 166, 1 / 256, 167 / 256, 65 / 256, 231 / 256},
+            topRight = {Addon.media.textures.frames.metal, 166, 166, 167 / 256, 1 / 256, 65 / 256, 231 / 256},
+            bottomLeft = {Addon.media.textures.frames.metal, 166, 166, 1 / 256, 167 / 256, 231 / 256, 65 / 256},
+            bottomRight = {Addon.media.textures.frames.metal, 166, 166, 167 / 256, 1 / 256, 231 / 256, 0.253906},
+            top = {Addon.media.textures.frames.metal, 256, 30, 0, 1, 33 / 256, 63 / 256},
+            bottom = {Addon.media.textures.frames.metal, 256, 30, 0, 1, 1 / 256, 31 / 256},
+            left = {Addon.media.textures.frames.metalVertical, 30, 256, 1 / 64, 31 / 64, 0, 1},
+            right = {Addon.media.textures.frames.metalVertical, 30, 256, 33 / 64, 63 / 64, 0, 1},
+            closeButtonBackground = {Addon.media.textures.frames.metal, 33, 32, 0.660156, 0.789062, 0.253906, 0.378906}
         }
     },
     nestedFrames = {}
@@ -130,22 +130,6 @@ function Artwork:Initialize()
     for i = 1, 4 do
         Artwork:SkinFrame(_G["ElvUI_StaticPopup" .. i])
     end
-
-    if not E.hookedArtwork then
-        hooksecurefunc(E, "Config_WindowOpened", function()
-            local optionsFrame = E:Config_GetWindow()
-            if optionsFrame then
-                Artwork:SkinFrame(optionsFrame)
-            end
-        end)
-
-        -- ElvUI Popups
-        hooksecurefunc(E, "StaticPopupSpecial_Show", function(self, frame)
-            Artwork:SkinFrame(frame)
-        end)
-
-        E.hookedArtwork = true
-    end
 end
 
 function Artwork:UpdateArtwork()
@@ -164,7 +148,11 @@ end
 
 -- Frames
 function Artwork:SkinFrame(frame)
-    if not frame and not Artwork:IsFrameRegistered(frame) then
+    if not frame then
+        return
+    end
+    if Artwork:IsFrameRegistered(frame) then
+        Artwork:UpdateFrame(frame)
         return
     end
 
@@ -207,7 +195,7 @@ end
 
 -- Frame Close Buttons
 function Artwork:SkinCloseButton(closeButton, atlas)
-    if closeButton then
+    if closeButton and not closeButton.Background then
         closeButton.Background = closeButton:CreateTexture(nil, "ARTWORK")
         closeButton.Background:SetAllPoints(closeButton)
         Artwork:UpdateCloseButton(closeButton, atlas)
@@ -225,7 +213,7 @@ function Artwork:UpdateCloseButton(closeButton, atlas)
             local texture = atlas.closeButtonBackground and atlas.closeButtonBackground[1]
             background:SetTexture(texture)
             if texture then
-                background:SetTexCoord(atlas.closeButtonBackground[2], atlas.closeButtonBackground[3], atlas.closeButtonBackground[4], atlas.closeButtonBackground[5])
+                background:SetTexCoord(atlas.closeButtonBackground[4], atlas.closeButtonBackground[5], atlas.closeButtonBackground[6], atlas.closeButtonBackground[7])
             end
         end
     end
@@ -239,17 +227,40 @@ function Artwork:CreateBorder(frame, atlas)
 
     -- TODO: handle situation where size is outside frame size
     local parent = frame.backdrop or frame
-    frame.Border = CreateFrame("Frame", nil, parent)
-    frame.Border:SetAllPoints(parent)
+    border = CreateFrame("Frame", nil, parent)
 
-    frame.Border.TopLeft = Artwork:CreateBorderPart(frame.Border, atlas and atlas.topLeft)
-    frame.Border.TopRight = Artwork:CreateBorderPart(frame.Border, atlas and atlas.topRight)
-    frame.Border.BottomLeft = Artwork:CreateBorderPart(frame.Border, atlas and atlas.bottomLeft)
-    frame.Border.BottomRight = Artwork:CreateBorderPart(frame.Border, atlas and atlas.bottomRight)
-    frame.Border.Top = Artwork:CreateBorderPart(frame.Border, atlas and atlas.top)
-    frame.Border.Bottom = Artwork:CreateBorderPart(frame.Border, atlas and atlas.bottom)
-    frame.Border.Left = Artwork:CreateBorderPart(frame.Border, atlas and atlas.left)
-    frame.Border.Right = Artwork:CreateBorderPart(frame.Border, atlas and atlas.right)
+    border.TopLeft = border:CreateTexture(nil, "ARTWORK")
+    border.TopRight = border:CreateTexture(nil, "ARTWORK")
+    border.BottomLeft = border:CreateTexture(nil, "ARTWORK")
+    border.BottomRight = border:CreateTexture(nil, "ARTWORK")
+    border.Top = border:CreateTexture(nil, "ARTWORK")
+    border.Bottom = border:CreateTexture(nil, "ARTWORK")
+    border.Left = border:CreateTexture(nil, "ARTWORK")
+    border.Right = border:CreateTexture(nil, "ARTWORK")
+
+    border.Top:SetHorizTile(true)
+    border.Bottom:SetHorizTile(true)
+    border.Left:SetVertTile(true)
+    border.Right:SetVertTile(true)
+
+    border.TopLeft:SetPoint("TOPLEFT", border, "TOPLEFT")
+    border.TopRight:SetPoint("TOPRIGHT", border, "TOPRIGHT")
+    border.BottomLeft:SetPoint("BOTTOMLEFT", border, "BOTTOMLEFT")
+    border.BottomRight:SetPoint("BOTTOMRIGHT", border, "BOTTOMRIGHT")
+    border.Top:SetPoint("TOPLEFT", border.TopLeft, "TOPRIGHT")
+    border.Top:SetPoint("TOPRIGHT", border.TopRight, "TOPLEFT")
+    border.Bottom:SetPoint("BOTTOMLEFT", border.BottomLeft, "BOTTOMRIGHT")
+    border.Bottom:SetPoint("BOTTOMRIGHT", border.BottomRight, "BOTTOMLEFT")
+    border.Left:SetPoint("TOPLEFT", border.TopLeft, "BOTTOMLEFT")
+    border.Left:SetPoint("BOTTOMLEFT", border.BottomLeft, "TOPLEFT")
+    border.Right:SetPoint("TOPRIGHT", border.TopRight, "BOTTOMRIGHT")
+    border.Right:SetPoint("BOTTOMRIGHT", border.BottomRight, "TOPRIGHT")
+
+    border:SetScript("OnShow", function(self)
+        Artwork:UpdateBorderScale(self)
+    end)
+
+    frame.Border = border
 
     Artwork:UpdateBorder(frame.Border, atlas)
 end
@@ -263,65 +274,79 @@ function Artwork:UpdateBorder(border, atlas)
         border:Hide()
     else
         border:Show()
-        local width, height = unpack(atlas.size)
-        local offsetX, offsetY = unpack(atlas.offset)
+        local parent = border:GetParent()
+        local offsetX, offsetY = atlas.offset[1], atlas.offset[2]
+        border:SetPoint("TOPLEFT", parent, "TOPLEFT", offsetX, offsetY)
+        border:SetPoint("BOTTOMRIGHT", parent, "BOTTOMRIGHT", -offsetX, -offsetY)
 
-        Artwork:UpdateBorderPart(border.TopLeft, atlas.topLeft)
-        border.TopLeft:SetPoint("TOPLEFT", border, offsetX, offsetY)
-        border.TopLeft:SetSize(width, height)
+        border.TopLeft:SetSize(atlas.topLeft[2], atlas.topLeft[3])
+        border.TopLeft:SetTexture(atlas.topLeft[1])
+        border.TopLeft:SetTexCoord(atlas.topLeft[4], atlas.topLeft[5], atlas.topLeft[6], atlas.topLeft[7])
 
-        Artwork:UpdateBorderPart(border.TopRight, atlas.topRight)
-        border.TopRight:SetPoint("TOPRIGHT", border, -1 * offsetX, offsetY)
-        border.TopRight:SetSize(width, height)
+        border.TopRight:SetSize(atlas.topRight[2], atlas.topRight[3])
+        border.TopRight:SetTexture(atlas.topRight[1])
+        border.TopRight:SetTexCoord(atlas.topRight[4], atlas.topRight[5], atlas.topRight[6], atlas.topRight[7])
 
-        Artwork:UpdateBorderPart(border.BottomLeft, atlas.bottomLeft)
-        border.BottomLeft:SetPoint("BOTTOMLEFT", border, offsetX, -1 * offsetY)
-        border.BottomLeft:SetSize(width, height)
+        border.BottomLeft:SetSize(atlas.bottomLeft[2], atlas.bottomLeft[3])
+        border.BottomLeft:SetTexture(atlas.bottomLeft[1])
+        border.BottomLeft:SetTexCoord(atlas.bottomLeft[4], atlas.bottomLeft[5], atlas.bottomLeft[6], atlas.bottomLeft[7])
 
-        Artwork:UpdateBorderPart(border.BottomRight, atlas.bottomRight)
-        border.BottomRight:SetPoint("BOTTOMRIGHT", border, -1 * offsetX, -1 * offsetY)
-        border.BottomRight:SetSize(width, height)
+        border.BottomRight:SetSize(atlas.bottomRight[2], atlas.bottomRight[3])
+        border.BottomRight:SetTexture(atlas.bottomRight[1])
+        border.BottomRight:SetTexCoord(atlas.bottomRight[4], atlas.bottomRight[5], atlas.bottomRight[6], atlas.bottomRight[7])
 
-        Artwork:UpdateBorderPart(border.Top, atlas.top)
-        border.Top:SetPoint("TOPLEFT", border.TopLeft, "TOPRIGHT")
-        border.Top:SetPoint("TOPRIGHT", border.TopRight, "TOPLEFT")
-        border.Top:SetHeight(atlas.top[7] or height)
+        border.Top:SetSize(atlas.top[2], atlas.top[3])
+        border.Top:SetTexture(atlas.top[1], "MIRROR")
+        border.Top:SetTexCoord(atlas.top[4], atlas.top[5], atlas.top[6], atlas.top[7])
 
-        Artwork:UpdateBorderPart(border.Bottom, atlas.bottom)
-        border.Bottom:SetPoint("BOTTOMLEFT", border.BottomLeft, "BOTTOMRIGHT")
-        border.Bottom:SetPoint("BOTTOMRIGHT", border.BottomRight, "BOTTOMLEFT")
-        border.Bottom:SetHeight(atlas.bottom[7] or height)
+        border.Bottom:SetSize(atlas.bottom[2], atlas.bottom[3])
+        border.Bottom:SetTexture(atlas.bottom[1], "MIRROR")
+        border.Bottom:SetTexCoord(atlas.bottom[4], atlas.bottom[5], atlas.bottom[6], atlas.bottom[7])
 
-        Artwork:UpdateBorderPart(border.Left, atlas.left)
-        border.Left:SetPoint("TOPLEFT", border.TopLeft, "BOTTOMLEFT")
-        border.Left:SetPoint("BOTTOMLEFT", border.BottomLeft, "TOPLEFT")
-        border.Left:SetWidth(atlas.left[6] or width)
+        border.Left:SetSize(atlas.left[2], atlas.left[3])
+        border.Left:SetTexture(atlas.left[1], nil, "MIRROR")
+        border.Left:SetTexCoord(atlas.left[4], atlas.left[5], atlas.left[6], atlas.left[7])
 
-        Artwork:UpdateBorderPart(border.Right, atlas.right)
-        border.Right:SetPoint("TOPRIGHT", border.TopRight, "BOTTOMRIGHT")
-        border.Right:SetPoint("BOTTOMRIGHT", border.BottomRight, "TOPRIGHT")
-        border.Right:SetWidth(atlas.right[6] or width)
+        border.Right:SetSize(atlas.right[2], atlas.right[3])
+        border.Right:SetTexture(atlas.right[1], nil, "MIRROR")
+        border.Right:SetTexCoord(atlas.right[4], atlas.right[5], atlas.right[6], atlas.right[7])
+
+        Artwork:UpdateBorderScale(border)
     end
 end
 
-function Artwork:CreateBorderPart(border, atlas)
-    local part = border:CreateTexture(nil, "ARTWORK")
-    part:SetParent(border)
-    Artwork:UpdateBorderPart(part, atlas)
-
-    return part
-end
-
-function Artwork:UpdateBorderPart(part, atlas)
-    if atlas then
-        part:SetTexture(atlas[1])
-        part:SetTexCoord(atlas[2], atlas[3], atlas[4], atlas[5])
+function Artwork:UpdateBorderScale(border)
+    if not border then
+        return
     end
+
+    local atlas = Artwork.atlas.frames[E.db[addonName].artwork.frameTheme]
+    if not E.db[addonName].artwork.enabled or not atlas then
+        return
+    end
+
+    local parent = border:GetParent()
+    local scale = atlas.scale
+    local minWidth = atlas.topLeft[2] + atlas.topRight[2]
+    local minHeight = atlas.topLeft[3] + atlas.bottomLeft[3]
+
+    local parentWidth, parentHeight = parent:GetSize()
+    if parentWidth > 0 and parentWidth < (scale * minWidth) then
+        scale = parentWidth / minWidth
+    end
+    if parentHeight > 0 and parentHeight < (scale * minHeight) then
+        scale = parentHeight / minHeight
+    end
+    border:SetScale(scale)
 end
 
 -- Buttons
 function Artwork:SkinButton(button)
-    if not button and not Artwork:IsButtonRegistered(button) then
+    if not button then
+        return
+    end
+    if Artwork:IsButtonRegistered(button) then
+        Artwork:UpdateButton(button)
         return
     end
 
@@ -363,7 +388,7 @@ function Artwork:UpdateButton(button)
     else
         local offsetX, offsetY = unpack(atlas.offset)
         E:TogglePixelBorders(button, false)
-        
+
         button.ArtworkLeft:Show()
         button.ArtworkLeft:SetWidth(atlas.leftWidth)
         button.ArtworkLeft:SetPoint("TOPLEFT", button, "TOPLEFT", offsetX, offsetY)
@@ -470,4 +495,22 @@ S.HandleNextPrevButton = function(...)
     btn.artworkType = "NEXT_PREV"
 
     originalHandleNextPrevButton(...)
+end
+
+local originalConfig_WindowOpened = E.Config_WindowOpened
+E.Config_WindowOpened = function(...)
+    originalConfig_WindowOpened(...)
+
+    local optionsFrame = E:Config_GetWindow()
+    if optionsFrame then
+        Artwork:SkinFrame(optionsFrame)
+    end
+end
+
+local originalStaticPopupSpecial_Show = E.StaticPopupSpecial_Show
+E.StaticPopupSpecial_Show = function(...)
+    originalStaticPopupSpecial_Show(...)
+
+    local _, frame = ...
+    Artwork:SkinFrame(frame)
 end

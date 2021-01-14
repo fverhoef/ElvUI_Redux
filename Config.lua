@@ -1,13 +1,13 @@
 local addonName, addonTable = ...
-local Module = addonTable[1]
+local Addon = addonTable[1]
 local E, L, V, P, G = unpack(ElvUI)
 
-Module.minimapIconStyles = {
+Addon.minimapIconStyles = {
     Square = "Square",
     Round = "Round"
 }
-Module.frameThemes = {"None", "Alliance", "Horde", "Metal", "Neutral"}
-Module.buttonThemes = {"None", "Red", "GoldRed", "Silver"}
+Addon.frameThemes = {"None", "Alliance", "Horde", "Metal", "Neutral"}
+Addon.buttonThemes = {"None", "Red", "GoldRed", "Silver"}
 
 if E.db[addonName] == nil then
     E.db[addonName] = {}
@@ -27,19 +27,19 @@ P[addonName] = {
         disableVendorRefundWarning = true,
         disableMailRefundWarning = true
     },
-    minimapButtonFrame = {enabled = true, iconStyle = Module.minimapIconStyles.Square, iconSize = 22, buttonsPerRow = 6, buttonSpacing = 2, collapsed = true},
+    minimapButtonFrame = {enabled = true, iconStyle = Addon.minimapIconStyles.Square, iconSize = 22, buttonsPerRow = 6, buttonSpacing = 2, collapsed = true},
     shadows = {enabled = true, color = {r = 0, g = 0, b = 0, a = 0.5}, size = 3},
     tooltips = {enabled = true, showIcons = true, showItemCount = true, showVendorPrice = true, showItemLevel = true, colors = {itemLevel = {220 / 255, 195 / 255, 30 / 255}}}
 }
 
-function Module:InsertOptions()
+function Addon:InsertOptions()
     E.Options.args[addonName] = {
         order = 100,
         type = "group",
-        name = Module.title,
+        name = Addon.title,
         childGroups = "tab",
         args = {
-            name = {order = 1, type = "header", name = Module.title},
+            name = {order = 1, type = "header", name = Addon.title},
             artwork = {
                 order = 10,
                 type = "group",
@@ -54,7 +54,7 @@ function Module:InsertOptions()
                         end,
                         set = function(info, value)
                             E.db[addonName].artwork.enabled = value
-                            Module.Artwork:UpdateArtwork()
+                            Addon.Artwork:UpdateArtwork()
                         end
                     },
                     lineBreak = {type = "header", name = "", order = 2},
@@ -62,34 +62,34 @@ function Module:InsertOptions()
                         order = 10,
                         type = "select",
                         name = L["Frame Theme"],
-                        values = Module.frameThemes,
+                        values = Addon.frameThemes,
                         get = function()
-                            for key, val in pairs(Module.frameThemes) do
+                            for key, val in pairs(Addon.frameThemes) do
                                 if E.db[addonName].artwork.frameTheme == val then
                                     return key
                                 end
                             end
                         end,
                         set = function(_, key)
-                            E.db[addonName].artwork.frameTheme = Module.frameThemes[key]
-                            Module.Artwork:UpdateArtwork()
+                            E.db[addonName].artwork.frameTheme = Addon.frameThemes[key]
+                            Addon.Artwork:UpdateArtwork()
                         end
                     },
                     buttonTheme = {
                         order = 10,
                         type = "select",
                         name = L["Button Theme"],
-                        values = Module.buttonThemes,
+                        values = Addon.buttonThemes,
                         get = function()
-                            for key, val in pairs(Module.buttonThemes) do
+                            for key, val in pairs(Addon.buttonThemes) do
                                 if E.db[addonName].artwork.buttonTheme == val then
                                     return key
                                 end
                             end
                         end,
                         set = function(_, key)
-                            E.db[addonName].artwork.buttonTheme = Module.buttonThemes[key]
-                            Module.Artwork:UpdateArtwork()
+                            E.db[addonName].artwork.buttonTheme = Addon.buttonThemes[key]
+                            Addon.Artwork:UpdateArtwork()
                         end
                     }
                 }
@@ -248,7 +248,7 @@ function Module:InsertOptions()
                         set = function(info, value)
                             E.db[addonName].minimapButtonFrame.enabled = value
                             if value then
-                                Module.MinimapButtonFrame:Initialize()
+                                Addon.MinimapButtonFrame:Initialize()
                             else
                                 ReloadUI()
                             end
@@ -259,17 +259,17 @@ function Module:InsertOptions()
                         order = 10,
                         type = "select",
                         name = L["Icon Style"],
-                        values = Module.minimapIconStyles,
+                        values = Addon.minimapIconStyles,
                         get = function()
-                            for key, val in pairs(Module.minimapIconStyles) do
+                            for key, val in pairs(Addon.minimapIconStyles) do
                                 if E.db[addonName].minimapButtonFrame.iconStyle == val then
                                     return val
                                 end
                             end
                         end,
                         set = function(_, key)
-                            E.db[addonName].minimapButtonFrame.iconStyle = Module.minimapIconStyles[key]
-                            Module.MinimapButtonFrame:UpdateButtonFrame()
+                            E.db[addonName].minimapButtonFrame.iconStyle = Addon.minimapIconStyles[key]
+                            Addon.MinimapButtonFrame:UpdateButtonFrame()
                         end
                     },
                     iconSize = {
@@ -284,7 +284,7 @@ function Module:InsertOptions()
                         end,
                         set = function(info, value)
                             E.db[addonName].minimapButtonFrame.iconSize = value
-                            Module.MinimapButtonFrame:UpdateButtonFrame()
+                            Addon.MinimapButtonFrame:UpdateButtonFrame()
                         end
                     },
                     buttonSpacing = {
@@ -299,7 +299,7 @@ function Module:InsertOptions()
                         end,
                         set = function(info, value)
                             E.db[addonName].minimapButtonFrame.buttonSpacing = value
-                            Module.MinimapButtonFrame:UpdateButtonFrame()
+                            Addon.MinimapButtonFrame:UpdateButtonFrame()
                         end
                     },
                     buttonsPerRow = {
@@ -314,7 +314,7 @@ function Module:InsertOptions()
                         end,
                         set = function(info, value)
                             E.db[addonName].minimapButtonFrame.buttonsPerRow = value
-                            Module.MinimapButtonFrame:UpdateButtonFrame()
+                            Addon.MinimapButtonFrame:UpdateButtonFrame()
                         end
                     },
                 }
@@ -333,7 +333,7 @@ function Module:InsertOptions()
                         end,
                         set = function(info, value)
                             E.db[addonName].shadows.enabled = value
-                            Module.Shadows:UpdateShadows()
+                            Addon.Shadows:UpdateShadows()
                         end
                     },
                     lineBreak = {type = "header", name = "", order = 2},
@@ -349,7 +349,7 @@ function Module:InsertOptions()
                         set = function(info, r, g, b, a)
                             local t = E.db[addonName].shadows.color
                             t.r, t.g, t.b, t.a = r, g, b, a
-                            Module.Shadows:UpdateShadows()
+                            Addon.Shadows:UpdateShadows()
                         end
                     },
                     size = {
@@ -364,7 +364,7 @@ function Module:InsertOptions()
                         end,
                         set = function(info, value)
                             E.db[addonName].shadows.size = value
-                            Module.Shadows:UpdateShadows()
+                            Addon.Shadows:UpdateShadows()
                         end
                     }
                 }
@@ -451,7 +451,7 @@ function Module:InsertOptions()
                         name = "Install/Update",
                         desc = "Run the installation process.",
                         func = function()
-                            E:GetModule("PluginInstaller"):Queue(Module.Installer.InstallerData)
+                            E:GetModule("PluginInstaller"):Queue(Addon.Installer.InstallerData)
                             E:ToggleOptionsUI()
                         end
                     }

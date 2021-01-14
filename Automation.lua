@@ -1,7 +1,7 @@
 local addonName, addonTable = ...
-local Module = addonTable[1]
-local Automation = Module:NewModule(addonName .. "Automation", "AceHook-3.0", "AceEvent-3.0", "AceTimer-3.0")
-Module.Automation = Automation
+local Addon = addonTable[1]
+local Automation = Addon:NewModule(addonName .. "Automation", "AceHook-3.0", "AceEvent-3.0", "AceTimer-3.0")
+Addon.Automation = Automation
 local E, L, V, P, G = unpack(ElvUI)
 
 local fastLootDelay = 0
@@ -109,7 +109,7 @@ function Automation:Repair()
         if canRepair then
             if GetMoney() >= repairCost and repairCost > 0 then
                 RepairAllItems()
-                Module:Print("Repaired for " .. GetCoinText(repairCost) .. ".") -- TODO: Localization
+                Addon:Print("Repaired for " .. GetCoinText(repairCost) .. ".") -- TODO: Localization
             end
         end
     end
@@ -149,7 +149,7 @@ end
 
 function Automation:ReportVendorResult()
     if totalVendorPrice > 0 then
-        Module:Print("Sold trash for " .. GetCoinText(totalVendorPrice) .. ".") -- TODO: Localization
+        Addon:Print("Sold trash for " .. GetCoinText(totalVendorPrice) .. ".") -- TODO: Localization
     end
 end
 
@@ -157,7 +157,7 @@ function Automation:AcceptSummon()
     if not UnitAffectingCombat("player") then
         local summoner = GetSummonConfirmSummoner()
         local summonArea = GetSummonConfirmAreaName()
-        Module:Print("Accepting summons from " .. summoner .. " to " .. summonArea .. " in 10 seconds.")
+        Addon:Print("Accepting summons from " .. summoner .. " to " .. summonArea .. " in 10 seconds.")
         C_Timer.After(10, function()
             local newSummoner = GetSummonConfirmSummoner()
             local newSummonArea = GetSummonConfirmAreaName()

@@ -1,16 +1,16 @@
 local addonName, addonTable = ...
-local Module = addonTable[1]
+local Addon = addonTable[1]
 local E, L, V, P, G = unpack(ElvUI)
 
-function Module:Print(value, ...)
-    print(Module.title .. ":", string.format(value, ...))
+function Addon:Print(value, ...)
+    print(Addon.title .. ":", string.format(value, ...))
 end
 
-function Module:PrintError(value, ...)
-    print(Module.title .. ": error ", string.format(value, ...))
+function Addon:PrintError(value, ...)
+    print(Addon.title .. ": error ", string.format(value, ...))
 end
 
-function Module:Hex(r, g, b)
+function Addon:Hex(r, g, b)
     if (type(r) == "table") then
         if (r.r) then
             r, g, b = r.r, r.g, r.b
@@ -22,7 +22,7 @@ function Module:Hex(r, g, b)
     return string.format("|cff%02x%02x%02x", r * 255, g * 255, b * 255)
 end
 
-function Module:ParseItemLink(itemLink)
+function Addon:ParseItemLink(itemLink)
     if not itemLink then
         return {}
     end
@@ -32,6 +32,6 @@ function Module:ParseItemLink(itemLink)
     return {itemId = itemId, color = color}
 end
 
-function Module:GetItemIdFromLink(itemLink)
-    return Module:ParseItemLink(itemLink).itemId
+function Addon:GetItemIdFromLink(itemLink)
+    return Addon:ParseItemLink(itemLink).itemId
 end
