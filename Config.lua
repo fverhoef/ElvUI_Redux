@@ -6,7 +6,7 @@ Addon.minimapIconStyles = {
     Square = "Square",
     Round = "Round"
 }
-Addon.frameThemes = {"None", "Alliance", "Horde", "Metal", "Neutral"}
+Addon.frameThemes = {"None", "Alliance", "Horde", "Marine", "Mechagon", "Metal", "Neutral", "Kyrian", "Necrolord", "NightFae", "Oribos", "Venthyr"}
 Addon.buttonThemes = {"None", "Red", "GoldRed", "Silver"}
 
 if E.db[addonName] == nil then

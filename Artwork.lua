@@ -50,10 +50,10 @@ Artwork.atlas = {
             topRight = {Addon.media.textures.frames.alliance, 166, 166, 167 / 1024, 1 / 1024, 593 / 1024, 759 / 1024},
             bottomLeft = {Addon.media.textures.frames.alliance, 166, 166, 1 / 1024, 167 / 1024, 759 / 1024, 593 / 1024},
             bottomRight = {Addon.media.textures.frames.alliance, 166, 166, 167 / 1024, 1 / 1024, 759 / 1024, 593 / 1024},
-            top = {Addon.media.textures.frames.alliance, 256, 30, 0, 0.25, 0.0322266, 0.0615234},
-            bottom = {Addon.media.textures.frames.alliance, 256, 30, 0, 0.25, 1 / 1024, 0.0302734},
-            left = {Addon.media.textures.frames.allianceVertical, 30, 256, 0.015625, 0.484375, 0, 1},
-            right = {Addon.media.textures.frames.allianceVertical, 30, 256, 0.515625, 0.984375, 0, 1},
+            top = {Addon.media.textures.frames.alliance, 256, 30, 0, 256 / 1024, 33 / 1024, 63 / 1024},
+            bottom = {Addon.media.textures.frames.alliance, 256, 30, 0, 256 / 1024, 1 / 1024, 31 / 1024},
+            left = {Addon.media.textures.frames.allianceVertical, 30, 256, 1 / 64, 31 / 64, 0, 1},
+            right = {Addon.media.textures.frames.allianceVertical, 30, 256, 33 / 64, 63 / 64, 0, 1},
             closeButtonBackground = {Addon.media.textures.frames.alliance, 33, 32, 169 / 1024, 202 / 1024, 593 / 1024, 625 / 1024}
         },
         ["Horde"] = {
@@ -63,11 +63,50 @@ Artwork.atlas = {
             topRight = {Addon.media.textures.frames.horde, 166, 166, 167 / 1024, 1 / 1024, 802 / 1024, 968 / 1024},
             bottomLeft = {Addon.media.textures.frames.horde, 166, 166, 1 / 1024, 167 / 1024, 968 / 1024, 802 / 1024},
             bottomRight = {Addon.media.textures.frames.horde, 166, 166, 167 / 1024, 1 / 1024, 968 / 1024, 802 / 1024},
-            top = {Addon.media.textures.frames.horde, 256, 30, 0, 0.25, 0.117188, 0.146484},
-            bottom = {Addon.media.textures.frames.horde, 256, 30, 0, 0.25, 0.0859375, 0.115234},
-            left = {Addon.media.textures.frames.hordeVertical, 30, 256, 0.015625, 0.484375, 0, 1},
-            right = {Addon.media.textures.frames.hordeVertical, 30, 256, 0.515625, 0.984375, 0, 1},
-            closeButtonBackground = {Addon.media.textures.frames.horde, 33, 32, 0.833984, 0.866211, 0.148438, 0.179688}
+            top = {Addon.media.textures.frames.horde, 256, 30, 0, 256 / 1024, 120 / 1024, 150 / 1024},
+            bottom = {Addon.media.textures.frames.horde, 256, 30, 0, 256 / 1024, 88 / 1024, 118 / 1024},
+            left = {Addon.media.textures.frames.hordeVertical, 30, 256, 1 / 64, 31 / 64, 0, 1},
+            right = {Addon.media.textures.frames.hordeVertical, 30, 256, 33 / 64, 63 / 64, 0, 1},
+            closeButtonBackground = {Addon.media.textures.frames.horde, 33, 32, 854 / 1024, 887 / 1024, 152 / 1024, 184 / 1024}
+        },
+        ["Kyrian"] = {
+            scale = 0.5,
+            offset = {-24, 24},
+            topLeft = {Addon.media.textures.frames.kyrian, 166, 166, 1 / 1024, 167 / 1024, 152 / 1024, 318 / 1024},
+            topRight = {Addon.media.textures.frames.kyrian, 166, 166, 167 / 1024, 1 / 1024, 152 / 1024, 318 / 1024},
+            bottomLeft = {Addon.media.textures.frames.kyrian, 166, 166, 1 / 1024, 167 / 1024, 320 / 1024, 486 / 1024},
+            bottomRight = {Addon.media.textures.frames.kyrian, 166, 166, 167 / 1024, 1 / 1024, 320 / 1024, 486 / 1024},
+            top = {Addon.media.textures.frames.kyrian, 256, 30, 0, 256 / 1024, 120 / 1024, 150 / 1024},
+            bottom = {Addon.media.textures.frames.kyrian, 256, 30, 0, 256 / 1024, 1 / 1024, 31 / 1024},
+            left = {Addon.media.textures.frames.kyrianVertical, 30, 256, 1 / 64, 31 / 64, 0, 1},
+            right = {Addon.media.textures.frames.kyrianVertical, 30, 256, 33 / 64, 63 / 64, 0, 1},
+            closeButtonBackground = {Addon.media.textures.frames.kyrian, 33, 32, 1 / 1024, 34 / 1024, 824 / 1024, 856 / 1024}
+        },
+        ["Marine"] = {
+            scale = 0.5,
+            offset = {-24, 24},
+            topLeft = {Addon.media.textures.frames.marine, 166, 166, 167 / 1024, 1 / 1024, 593 / 1024, 759 / 1024},
+            topRight = {Addon.media.textures.frames.marine, 166, 166, 1 / 1024, 167 / 1024, 593 / 1024, 759 / 1024},
+            bottomLeft = {Addon.media.textures.frames.marine, 166, 166, 167 / 1024, 1 / 1024, 759 / 1024, 593 / 1024},
+            bottomRight = {Addon.media.textures.frames.marine, 166, 166, 1 / 1024, 167 / 1024, 759 / 1024, 593 / 1024},
+            top = {Addon.media.textures.frames.marine, 256, 30, 0, 256 / 1024, 33 / 1024, 63 / 1024},
+            bottom = {Addon.media.textures.frames.marine, 256, 30, 0, 256 / 1024, 1 / 1024, 31 / 1024},
+            left = {Addon.media.textures.frames.marineVertical, 30, 256, 1 / 64, 31 / 64, 0, 1},
+            right = {Addon.media.textures.frames.marineVertical, 30, 256, 33 / 64, 63 / 64, 0, 1},
+            closeButtonBackground = {Addon.media.textures.frames.marine, 33, 32, 169 / 1024, 202 / 1024, 593 / 1024, 625 / 1024}
+        },
+        ["Mechagon"] = {
+            scale = 0.5,
+            offset = {-24, 24},
+            topLeft = {Addon.media.textures.frames.mechagon, 166, 166, 1 / 1024, 167 / 1024, 593 / 1024, 759 / 1024},
+            topRight = {Addon.media.textures.frames.mechagon, 166, 166, 167 / 1024, 1 / 1024, 593 / 1024, 759 / 1024},
+            bottomLeft = {Addon.media.textures.frames.mechagon, 166, 166, 1 / 1024, 167 / 1024, 759 / 1024, 593 / 1024},
+            bottomRight = {Addon.media.textures.frames.mechagon, 166, 166, 167 / 1024, 1 / 1024, 759 / 1024, 593 / 1024},
+            top = {Addon.media.textures.frames.mechagon, 256, 30, 0, 256 / 1024, 120 / 1024, 150 / 1024},
+            bottom = {Addon.media.textures.frames.mechagon, 256, 30, 0, 256 / 1024, 88 / 1024, 118 / 1024},
+            left = {Addon.media.textures.frames.mechagonVertical, 30, 256, 1 / 64, 31 / 64, 0, 1},
+            right = {Addon.media.textures.frames.mechagonVertical, 30, 256, 33 / 64, 63 / 64, 0, 1},
+            closeButtonBackground = {Addon.media.textures.frames.mechagon, 33, 32, 169 / 1024, 202 / 1024, 593 / 1024, 625 / 1024}
         },
         ["Metal"] = {
             scale = 0.5,
@@ -75,12 +114,77 @@ Artwork.atlas = {
             topLeft = {Addon.media.textures.frames.metal, 166, 166, 1 / 256, 167 / 256, 65 / 256, 231 / 256},
             topRight = {Addon.media.textures.frames.metal, 166, 166, 167 / 256, 1 / 256, 65 / 256, 231 / 256},
             bottomLeft = {Addon.media.textures.frames.metal, 166, 166, 1 / 256, 167 / 256, 231 / 256, 65 / 256},
-            bottomRight = {Addon.media.textures.frames.metal, 166, 166, 167 / 256, 1 / 256, 231 / 256, 0.253906},
+            bottomRight = {Addon.media.textures.frames.metal, 166, 166, 167 / 256, 1 / 256, 231 / 256, 65 / 256},
             top = {Addon.media.textures.frames.metal, 256, 30, 0, 1, 33 / 256, 63 / 256},
             bottom = {Addon.media.textures.frames.metal, 256, 30, 0, 1, 1 / 256, 31 / 256},
             left = {Addon.media.textures.frames.metalVertical, 30, 256, 1 / 64, 31 / 64, 0, 1},
             right = {Addon.media.textures.frames.metalVertical, 30, 256, 33 / 64, 63 / 64, 0, 1},
-            closeButtonBackground = {Addon.media.textures.frames.metal, 33, 32, 0.660156, 0.789062, 0.253906, 0.378906}
+            closeButtonBackground = {Addon.media.textures.frames.metal, 33, 32, 169 / 256, 202 / 256, 65 / 256, 97 / 256}
+        },
+        ["Necrolord"] = {
+            scale = 0.5,
+            offset = {-24, 24},
+            topLeft = {Addon.media.textures.frames.necrolord, 166, 166, 1 / 1024, 167 / 1024, 318 / 1024, 152 / 1024},
+            topRight = {Addon.media.textures.frames.necrolord, 166, 166, 167 / 1024, 1 / 1024, 318 / 1024, 152 / 1024},
+            bottomLeft = {Addon.media.textures.frames.necrolord, 166, 166, 1 / 1024, 167 / 1024, 152 / 1024, 318 / 1024},
+            bottomRight = {Addon.media.textures.frames.necrolord, 166, 166, 167 / 1024, 1 / 1024, 152 / 1024, 318 / 1024},
+            top = {Addon.media.textures.frames.necrolord, 256, 30, 0, 256 / 1024, 120 / 1024, 150 / 1024},
+            bottom = {Addon.media.textures.frames.necrolord, 256, 30, 0, 256 / 1024, 1 / 1024, 31 / 1024},
+            left = {Addon.media.textures.frames.necrolordVertical, 30, 256, 1 / 64, 31 / 64, 0, 1},
+            right = {Addon.media.textures.frames.necrolordVertical, 30, 256, 33 / 64, 63 / 64, 0, 1},
+            closeButtonBackground = {Addon.media.textures.frames.necrolord, 33, 32, 1 / 1024, 34 / 1024, 824 / 1024, 856 / 1024}
+        },
+        ["Neutral"] = {
+            scale = 0.5,
+            offset = {-24, 24},
+            topLeft = {Addon.media.textures.frames.neutral, 166, 166, 1 / 1024, 167 / 1024, 738 / 1024, 904 / 1024},
+            topRight = {Addon.media.textures.frames.neutral, 166, 166, 167 / 1024, 1 / 1024, 738 / 1024, 904 / 1024},
+            bottomLeft = {Addon.media.textures.frames.neutral, 166, 166, 1 / 1024, 167 / 1024, 904 / 1024, 738 / 1024},
+            bottomRight = {Addon.media.textures.frames.neutral, 166, 166, 167 / 1024, 1 / 1024, 904 / 1024, 738 / 1024},
+            top = {Addon.media.textures.frames.neutral, 256, 30, 0, 256 / 1024, 1 / 1024, 31 / 1024},
+            bottom = {Addon.media.textures.frames.neutral, 256, 30, 0, 256 / 1024, 120 / 1024, 150 / 1024},
+            left = {Addon.media.textures.frames.neutralVertical, 30, 256, 1 / 64, 31 / 64, 0, 1},
+            right = {Addon.media.textures.frames.neutralVertical, 30, 256, 33 / 64, 63 / 64, 0, 1},
+            closeButtonBackground = {Addon.media.textures.frames.neutral, 33, 32, 1 / 1024, 34 / 1024, 593 / 1024, 625 / 1024}
+        },
+        ["NightFae"] = {
+            scale = 0.5,
+            offset = {-24, 24},
+            topLeft = {Addon.media.textures.frames.nightFae, 166, 166, 1 / 1024, 167 / 1024, 489 / 1024, 655 / 1024},
+            topRight = {Addon.media.textures.frames.nightFae, 166, 166, 167 / 1024, 1 / 1024, 489 / 1024, 655 / 1024},
+            bottomLeft = {Addon.media.textures.frames.nightFae, 166, 166, 167 / 1024, 1 / 1024, 689 / 1024, 855 / 1024},
+            bottomRight = {Addon.media.textures.frames.nightFae, 166, 166, 1 / 1024, 167 / 1024, 689 / 1024, 855 / 1024},
+            top = {Addon.media.textures.frames.nightFae, 256, 30, 0, 256 / 1024, 120 / 1024, 150 / 1024},
+            bottom = {Addon.media.textures.frames.nightFae, 256, 30, 0, 256 / 1024, 1 / 1024, 31 / 1024},
+            left = {Addon.media.textures.frames.nightFaeVertical, 30, 256, 1 / 64, 31 / 64, 0, 1},
+            right = {Addon.media.textures.frames.nightFaeVertical, 30, 256, 33 / 64, 63 / 64, 0, 1},
+            closeButtonBackground = {Addon.media.textures.frames.nightFae, 33, 32, 1 / 1024, 34 / 1024, 657 / 1024, 689 / 1024}
+        },
+        ["Oribos"] = {
+            scale = 0.5,
+            offset = {-24, 24},
+            topLeft = {Addon.media.textures.frames.oribos, 166, 166, 1 / 256, 167 / 256, 488 / 1024, 654 / 1024},
+            topRight = {Addon.media.textures.frames.oribos, 166, 166, 167 / 256, 1 / 256, 488 / 1024, 654 / 1024},
+            bottomLeft = {Addon.media.textures.frames.oribos, 166, 166, 1 / 256, 167 / 256, 654 / 1024, 488 / 1024},
+            bottomRight = {Addon.media.textures.frames.oribos, 166, 166, 167 / 256, 1 / 256, 654 / 1024, 488 / 1024},
+            top = {Addon.media.textures.frames.oribos, 256, 30, 0, 1, 120 / 1024, 150 / 1024},
+            bottom = {Addon.media.textures.frames.oribos, 256, 30, 0, 1, 88 / 1024, 118 / 1024},
+            left = {Addon.media.textures.frames.oribosVertical, 30, 256, 1 / 64, 31 / 64, 0, 1},
+            right = {Addon.media.textures.frames.oribosVertical, 30, 256, 33 / 64, 63 / 64, 0, 1},
+            closeButtonBackground = {Addon.media.textures.frames.oribos, 33, 32, 169 / 256, 202 / 256, 152 / 1024, 184 / 1024}
+        },
+        ["Venthyr"] = {
+            scale = 0.5,
+            offset = {-24, 24},
+            topLeft = {Addon.media.textures.frames.venthyr, 166, 166, 1 / 1024, 167 / 1024, 152 / 1024, 318 / 1024},
+            topRight = {Addon.media.textures.frames.venthyr, 166, 166, 167 / 1024, 1 / 1024, 152 / 1024, 318 / 1024},
+            bottomLeft = {Addon.media.textures.frames.venthyr, 166, 166, 1 / 1024, 167 / 1024, 318 / 1024, 152 / 1024},
+            bottomRight = {Addon.media.textures.frames.venthyr, 166, 166, 167 / 1024, 1 / 1024, 318 / 1024, 152 / 1024},
+            top = {Addon.media.textures.frames.venthyr, 256, 30, 0, 256 / 1024, 120 / 1024, 150 / 1024},
+            bottom = {Addon.media.textures.frames.venthyr, 256, 30, 0, 256 / 1024, 1 / 1024, 31 / 1024},
+            left = {Addon.media.textures.frames.venthyrVertical, 30, 256, 1 / 64, 31 / 64, 0, 1},
+            right = {Addon.media.textures.frames.venthyrVertical, 30, 256, 33 / 64, 63 / 64, 0, 1},
+            closeButtonBackground = {Addon.media.textures.frames.venthyr, 33, 32, 1 / 1024, 34 / 1024, 824 / 1024, 856 / 1024}
         }
     },
     nestedFrames = {}
@@ -124,6 +228,7 @@ function Artwork:Initialize()
     Artwork:SkinFrame(_G.LootHistoryFrame)
     Artwork:SkinFrame(_G.MasterLooterFrame)
     Artwork:SkinFrame(_G.ReadyCheckFrame)
+    Artwork:SkinFrame(_G.WorldMapFrame)
     for i = 1, 4 do
         Artwork:SkinFrame(_G["StaticPopup" .. i])
     end
@@ -225,7 +330,6 @@ function Artwork:CreateBorder(frame, atlas)
         return
     end
 
-    -- TODO: handle situation where size is outside frame size
     local parent = frame.backdrop or frame
     border = CreateFrame("Frame", nil, parent)
 
