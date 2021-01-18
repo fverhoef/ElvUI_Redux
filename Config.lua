@@ -12,7 +12,7 @@ if E.db[addonName] == nil then
     E.db[addonName] = {}
 end
 P[addonName] = {
-    artwork = {enabled = true, frameBackground = "Marine", frameBackgroundColor = {r = 1, g = 1, b = 1, a = 1}, frameBorder = "Metal", buttonTheme = "None"},
+    artwork = {enabled = true, frameBackground = "Marine", frameBackgroundColor = {r = 1, g = 1, b = 1, a = 1}, frameBorder = "Metal", buttonBorder = "Mechagon", highlightButtonBorder = "NightFae"},
     automation = {
         enabled = true,
         fastLoot = true,
@@ -123,7 +123,42 @@ function Addon:InsertOptions()
                             t.r, t.g, t.b, t.a = r, g, b, a
                             Addon.Artwork:UpdateArtwork()
                         end
-                    }
+                    },
+                    lineBreak = {type = "header", name = "", order = 50},
+                    buttonBorder = {
+                        order = 51,
+                        type = "select",
+                        name = L["Button Border Theme"],
+                        values = Addon.borders,
+                        get = function()
+                            for key, val in pairs(Addon.borders) do
+                                if E.db[addonName].artwork.buttonBorder == val then
+                                    return key
+                                end
+                            end
+                        end,
+                        set = function(_, key)
+                            E.db[addonName].artwork.buttonBorder = Addon.borders[key]
+                            Addon.Artwork:UpdateArtwork()
+                        end
+                    },
+                    highlightButtonBorder = {
+                        order = 52,
+                        type = "select",
+                        name = L["Button Border Theme (Highlight)"],
+                        values = Addon.borders,
+                        get = function()
+                            for key, val in pairs(Addon.borders) do
+                                if E.db[addonName].artwork.highlightButtonBorder == val then
+                                    return key
+                                end
+                            end
+                        end,
+                        set = function(_, key)
+                            E.db[addonName].artwork.highlightButtonBorder = Addon.borders[key]
+                            Addon.Artwork:UpdateArtwork()
+                        end
+                    },
                 }
             },
             automation = {

@@ -325,3 +325,11 @@ end
 function Artwork:GetFrameBackground()
     return Artwork.atlas.backgrounds[E.db[addonName].artwork.frameBackground]
 end
+
+function Artwork:GetButtonBorderAtlas()
+    return Artwork.atlas.borders[E.db[addonName].artwork.buttonBorder]
+end
+
+function Artwork:GetHighlightButtonBorderAtlas()
+    return Artwork.atlas.borders[E.db[addonName].artwork.highlightButtonBorder]
+end

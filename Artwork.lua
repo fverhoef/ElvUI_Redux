@@ -100,9 +100,9 @@ function Artwork:SkinFrame(frame, useNormalBorder)
     local frameBorderAtlas = Artwork:GetFrameBorderAtlas()
     local closeButtonAtlas = Artwork:GetCloseButtonBackgroundAtlas()
 
-    Artwork:CreateBackground(frame, frameBackground)
-    Artwork:CreateBorder(frame, frame.useNormalBorder and normalBorderAtlas or frameBorderAtlas)
-    Artwork:SkinCloseButton(frame.closeButton or frame.CloseButton or _G[(frame:GetName() or "?") .. "CloseButton"], closeButtonAtlas)
+    frame.ArtworkBackground = Artwork:CreateBackground(frame, frameBackground)
+    frame.Border = Artwork:CreateBorder(frame, frame.useNormalBorder and normalBorderAtlas or frameBorderAtlas)
+    Artwork:SkinCloseButton(Artwork:GetCloseButton(frame), closeButtonAtlas)
 
     Artwork.registry.frames[frame] = true
 end
@@ -117,9 +117,9 @@ function Artwork:UpdateFrame(frame)
     local frameBorderAtlas = Artwork:GetFrameBorderAtlas()
     local closeButtonAtlas = Artwork:GetCloseButtonBackgroundAtlas()
 
-    Artwork:UpdateBackground(frame, frameBackground)
+    Artwork:UpdateBackground(frame.ArtworkBackground, frameBackground)
     Artwork:UpdateBorder(frame.Border, frame.useNormalBorder and normalBorderAtlas or frameBorderAtlas)
-    Artwork:UpdateCloseButton(frame.closeButton or frame.CloseButton or _G[(frame:GetName() or "?") .. "CloseButton"], closeButtonAtlas)
+    Artwork:UpdateCloseButton(Artwork:GetCloseButton(frame), closeButtonAtlas)
 end
 
 function Artwork:SkinNestedFrame(frame)
@@ -137,6 +137,10 @@ function Artwork:UpdateNestedFrame(frame)
 end
 
 -- Frame Close Buttons
+function Artwork:GetCloseButton(frame)
+    return frame.closeButton or frame.CloseButton or _G[(frame:GetName() or "?") .. "CloseButton"]
+end
+
 function Artwork:SkinCloseButton(button, backgroundAtlas)
     if button and not button.Background then
         if not backgroundAtlas then
@@ -168,7 +172,7 @@ end
 
 -- Backgrounds
 function Artwork:CreateBackground(frame, texture)
-    if frame.ArtworkBackground then
+    if not frame then
         return
     end
 
@@ -181,13 +185,12 @@ function Artwork:CreateBackground(frame, texture)
     background.Texture:SetVertTile(true)
     background.Texture:SetAllPoints(background)
 
-    frame.ArtworkBackground = background
-
     Artwork:UpdateBackground(background, texture)
+
+    return background
 end
 
-function Artwork:UpdateBackground(frame, texture)
-    local background = frame.ArtworkBackground
+function Artwork:UpdateBackground(background, texture)
     if not background then
         return
     end
@@ -204,22 +207,20 @@ function Artwork:UpdateBackground(frame, texture)
 end
 
 -- Borders
-function Artwork:CreateBorder(frame, atlas)
-    if frame.Border then
-        return
-    end
+function Artwork:CreateBorder(frame, atlas, layer)
+    layer = layer or "ARTWORK"
 
     local parent = frame.backdrop or frame
     local border = CreateFrame("Frame", nil, parent)
 
-    border.TopLeft = border:CreateTexture(nil, "ARTWORK")
-    border.TopRight = border:CreateTexture(nil, "ARTWORK")
-    border.BottomLeft = border:CreateTexture(nil, "ARTWORK")
-    border.BottomRight = border:CreateTexture(nil, "ARTWORK")
-    border.Top = border:CreateTexture(nil, "ARTWORK")
-    border.Bottom = border:CreateTexture(nil, "ARTWORK")
-    border.Left = border:CreateTexture(nil, "ARTWORK")
-    border.Right = border:CreateTexture(nil, "ARTWORK")
+    border.TopLeft = border:CreateTexture(nil, layer)
+    border.TopRight = border:CreateTexture(nil, layer)
+    border.BottomLeft = border:CreateTexture(nil, layer)
+    border.BottomRight = border:CreateTexture(nil, layer)
+    border.Top = border:CreateTexture(nil, layer)
+    border.Bottom = border:CreateTexture(nil, layer)
+    border.Left = border:CreateTexture(nil, layer)
+    border.Right = border:CreateTexture(nil, layer)
 
     border.TopLeft:SetPoint("TOPLEFT", border, "TOPLEFT")
     border.TopRight:SetPoint("TOPRIGHT", border, "TOPRIGHT")
@@ -238,9 +239,9 @@ function Artwork:CreateBorder(frame, atlas)
         Artwork:UpdateBorderScale(self, atlas)
     end)
 
-    frame.Border = border
+    Artwork:UpdateBorder(border, atlas)
 
-    Artwork:UpdateBorder(frame.Border, atlas)
+    return border
 end
 
 function Artwork:UpdateBorder(border, atlas)
@@ -336,21 +337,25 @@ function Artwork:SkinButton(button)
         return
     end
 
-    button.ArtworkLeft = button:CreateTexture(nil, "BACKGROUND")
-    button.ArtworkRight = button:CreateTexture(nil, "BACKGROUND")
-    button.ArtworkCenter = button:CreateTexture(nil, "BACKGROUND")
+    local borderAtlas = Artwork:GetButtonBorderAtlas()
+    local highlightBorderAtlas = Artwork:GetHighlightButtonBorderAtlas()
 
-    button.ArtworkLeftHighlight = button:CreateTexture(nil, "HIGHLIGHT")
-    button.ArtworkRightHighlight = button:CreateTexture(nil, "HIGHLIGHT")
-    button.ArtworkCenterHighlight = button:CreateTexture(nil, "HIGHLIGHT")
+    button.Border = Artwork:CreateBorder(button, borderAtlas)
+    button.HighlightBorder = Artwork:CreateBorder(button, highlightBorderAtlas)
 
-    button:HookScript("OnMouseDown", function()
+    button:HookScript("OnEnter", function()
+        button.isMouseOver = true
+        Artwork:UpdateButton(button)
     end)
-
-    button:HookScript("OnMouseUp", function()
+    button:HookScript("OnLeave", function()
+        button.isMouseOver = false
+        Artwork:UpdateButton(button)
     end)
 
     Artwork:UpdateButton(button)
+
+    button.Border:Show()
+    button.HighlightBorder:Hide()
 
     Artwork.registry.buttons[button] = true
 end
@@ -360,65 +365,26 @@ function Artwork:UpdateButton(button)
         return
     end
 
-    local atlas = Artwork.atlas.buttons[E.db[addonName].artwork.buttonTheme]
+    local borderAtlas = Artwork:GetButtonBorderAtlas()
+    local highlightBorderAtlas = Artwork:GetHighlightButtonBorderAtlas()
 
-    if not E.db[addonName].artwork.enabled or not atlas then
+    local isBorderShown = button.Border:IsShown()
+    Artwork:UpdateBorder(button.Border, borderAtlas)
+    Artwork:UpdateBorder(button.HighlightBorder, highlightBorderAtlas)
+
+    if not E.db[addonName].artwork.enabled or not borderAtlas then
         E:TogglePixelBorders(button, true)
-
-        button.ArtworkLeft:Hide()
-        button.ArtworkCenter:Hide()
-        button.ArtworkRight:Hide()
-        button.ArtworkLeftHighlight:Hide()
-        button.ArtworkCenterHighlight:Hide()
-        button.ArtworkRightHighlight:Hide()
+        button.Border:Hide()
+        button.HighlightBorder:Hide()
     else
-        local offsetX, offsetY = unpack(atlas.offset)
         E:TogglePixelBorders(button, false)
 
-        button.ArtworkLeft:Show()
-        button.ArtworkLeft:SetWidth(atlas.leftWidth)
-        button.ArtworkLeft:SetPoint("TOPLEFT", button, "TOPLEFT", offsetX, offsetY)
-        button.ArtworkLeft:SetPoint("BOTTOMLEFT", button, "BOTTOMLEFT", offsetX, -1 * offsetY)
-        button.ArtworkLeft:SetTexture(atlas.left[1])
-        button.ArtworkLeft:SetTexCoord(atlas.left[2], atlas.left[3], atlas.left[4], atlas.left[5])
-
-        button.ArtworkRight:Show()
-        button.ArtworkRight:SetWidth(atlas.rightWidth)
-        button.ArtworkRight:SetPoint("TOPRIGHT", button, "TOPRIGHT", -1 * offsetX, offsetY)
-        button.ArtworkRight:SetPoint("BOTTOMRIGHT", button, "BOTTOMRIGHT", -1 * offsetX, -1 * offsetY)
-        button.ArtworkRight:SetTexture(atlas.right[1])
-        button.ArtworkRight:SetTexCoord(atlas.right[2], atlas.right[3], atlas.right[4], atlas.right[5])
-
-        button.ArtworkCenter:Show()
-        button.ArtworkCenter:SetPoint("TOPLEFT", button.ArtworkLeft, "TOPRIGHT")
-        button.ArtworkCenter:SetPoint("BOTTOMRIGHT", button.ArtworkRight, "BOTTOMLEFT")
-        button.ArtworkCenter:SetTexture(atlas.center[1])
-        button.ArtworkCenter:SetTexCoord(atlas.center[2], atlas.center[3], atlas.center[4], atlas.center[5])
-
-        if atlas.leftHighlight then
-            button.ArtworkLeftHighlight:Show()
-            button.ArtworkLeftHighlight:SetWidth(atlas.leftWidth)
-            button.ArtworkLeftHighlight:SetPoint("TOPLEFT", button, "TOPLEFT", offsetX, offsetY)
-            button.ArtworkLeftHighlight:SetPoint("BOTTOMLEFT", button, "BOTTOMLEFT", offsetX, -1 * offsetY)
-            button.ArtworkLeftHighlight:SetTexture(atlas.leftHighlight[1])
-            button.ArtworkLeftHighlight:SetTexCoord(atlas.leftHighlight[2], atlas.leftHighlight[3], atlas.leftHighlight[4], atlas.leftHighlight[5])
-
-            button.ArtworkRightHighlight:Show()
-            button.ArtworkRightHighlight:SetWidth(atlas.rightWidth)
-            button.ArtworkRightHighlight:SetPoint("TOPRIGHT", button, "TOPRIGHT", -1 * offsetX, offsetY)
-            button.ArtworkRightHighlight:SetPoint("BOTTOMRIGHT", button, "BOTTOMRIGHT", -1 * offsetX, -1 * offsetY)
-            button.ArtworkRightHighlight:SetTexture(atlas.rightHighlight[1])
-            button.ArtworkRightHighlight:SetTexCoord(atlas.rightHighlight[2], atlas.rightHighlight[3], atlas.rightHighlight[4], atlas.rightHighlight[5])
-
-            button.ArtworkCenterHighlight:Show()
-            button.ArtworkCenterHighlight:SetPoint("TOPLEFT", button.ArtworkLeftHighlight, "TOPRIGHT")
-            button.ArtworkCenterHighlight:SetPoint("BOTTOMRIGHT", button.ArtworkRightHighlight, "BOTTOMLEFT")
-            button.ArtworkCenterHighlight:SetTexture(atlas.centerHighlight[1])
-            button.ArtworkCenterHighlight:SetTexCoord(atlas.centerHighlight[2], atlas.centerHighlight[3], atlas.centerHighlight[4], atlas.centerHighlight[5])
+        if button.isMouseOver then
+            button.HighlightBorder:Show()
+            button.Border:Hide()
         else
-            button.ArtworkLeftHighlight:SetTexture()
-            button.ArtworkCenterHighlight:SetTexture()
-            button.ArtworkRightHighlight:SetTexture()
+            button.Border:Show()
+            button.HighlightBorder:Hide()
         end
     end
 end
