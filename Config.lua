@@ -2,18 +2,17 @@ local addonName, addonTable = ...
 local Addon = addonTable[1]
 local E, L, V, P, G = unpack(ElvUI)
 
-Addon.minimapIconStyles = {
-    Square = "Square",
-    Round = "Round"
-}
-Addon.frameThemes = {"None", "Alliance", "Horde", "Marine", "Mechagon", "Metal", "Neutral", "Kyrian", "Necrolord", "NightFae", "Oribos", "Venthyr"}
+Addon.minimapIconStyles = {Square = "Square", Round = "Round"}
+Addon.borders = {"None", "Alliance", "Horde", "Neutral", "Marine", "Mechagon", "Kyrian", "Necrolord", "NightFae", "Venthyr"}
+Addon.frameBackgrounds = {"None", "Alliance", "Horde", "Neutral", "Marine", "Mechagon", "Kyrian", "Necrolord", "NightFae", "Oribos", "Venthyr"}
+Addon.frameBorders = {"None", "Alliance", "Horde", "Neutral", "Metal", "Marine", "Mechagon", "Kyrian", "Necrolord", "NightFae", "Oribos", "Venthyr"}
 Addon.buttonThemes = {"None", "Red", "GoldRed", "Silver"}
 
 if E.db[addonName] == nil then
     E.db[addonName] = {}
 end
 P[addonName] = {
-    artwork = {enabled = true, frameTheme = "Metal", buttonTheme = "Silver"},
+    artwork = {enabled = true, frameBackground = "Marine", frameBackgroundColor = {r = 1, g = 1, b = 1, a = 1}, frameBorder = "Metal", buttonTheme = "None"},
     automation = {
         enabled = true,
         fastLoot = true,
@@ -58,37 +57,70 @@ function Addon:InsertOptions()
                         end
                     },
                     lineBreak = {type = "header", name = "", order = 2},
-                    frameTheme = {
+                    border = {
                         order = 10,
                         type = "select",
-                        name = L["Frame Theme"],
-                        values = Addon.frameThemes,
+                        name = L["Border Theme"],
+                        values = Addon.borders,
                         get = function()
-                            for key, val in pairs(Addon.frameThemes) do
-                                if E.db[addonName].artwork.frameTheme == val then
+                            for key, val in pairs(Addon.borders) do
+                                if E.db[addonName].artwork.border == val then
                                     return key
                                 end
                             end
                         end,
                         set = function(_, key)
-                            E.db[addonName].artwork.frameTheme = Addon.frameThemes[key]
+                            E.db[addonName].artwork.border = Addon.borders[key]
                             Addon.Artwork:UpdateArtwork()
                         end
                     },
-                    buttonTheme = {
-                        order = 10,
+                    lineBreak = {type = "header", name = "", order = 20},
+                    frameBorder = {
+                        order = 21,
                         type = "select",
-                        name = L["Button Theme"],
-                        values = Addon.buttonThemes,
+                        name = L["Frame Border Theme"],
+                        values = Addon.frameBorders,
                         get = function()
-                            for key, val in pairs(Addon.buttonThemes) do
-                                if E.db[addonName].artwork.buttonTheme == val then
+                            for key, val in pairs(Addon.frameBorders) do
+                                if E.db[addonName].artwork.frameBorder == val then
                                     return key
                                 end
                             end
                         end,
                         set = function(_, key)
-                            E.db[addonName].artwork.buttonTheme = Addon.buttonThemes[key]
+                            E.db[addonName].artwork.frameBorder = Addon.frameBorders[key]
+                            Addon.Artwork:UpdateArtwork()
+                        end
+                    },
+                    frameBackground = {
+                        order = 22,
+                        type = "select",
+                        name = L["Frame Background"],
+                        values = Addon.frameBackgrounds,
+                        get = function()
+                            for key, val in pairs(Addon.frameBackgrounds) do
+                                if E.db[addonName].artwork.frameBackground == val then
+                                    return key
+                                end
+                            end
+                        end,
+                        set = function(_, key)
+                            E.db[addonName].artwork.frameBackground = Addon.frameBackgrounds[key]
+                            Addon.Artwork:UpdateArtwork()
+                        end
+                    },
+                    frameBackgroundColor = {
+                        order = 23,
+                        type = "color",
+                        name = L["Frame Background Color"],
+                        hasAlpha = true,
+                        get = function(info)
+                            local t = E.db[addonName].artwork.frameBackgroundColor
+                            return t.r, t.g, t.b, t.a
+                        end,
+                        set = function(info, r, g, b, a)
+                            local t = E.db[addonName].artwork.frameBackgroundColor
+                            t.r, t.g, t.b, t.a = r, g, b, a
                             Addon.Artwork:UpdateArtwork()
                         end
                     }
@@ -316,7 +348,7 @@ function Addon:InsertOptions()
                             E.db[addonName].minimapButtonFrame.buttonsPerRow = value
                             Addon.MinimapButtonFrame:UpdateButtonFrame()
                         end
-                    },
+                    }
                 }
             },
             shadows = {
@@ -440,10 +472,10 @@ function Addon:InsertOptions()
                     }
                 }
             },
-            profiles = {
+            installer = {
                 order = 100,
                 type = "group",
-                name = L["Profiles"],
+                name = L["Installer"],
                 args = {
                     install = {
                         order = 10,
