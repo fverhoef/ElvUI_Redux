@@ -3,16 +3,60 @@ local Addon = addonTable[1]
 local E, L, V, P, G = unpack(ElvUI)
 
 Addon.minimapIconStyles = {Square = "Square", Round = "Round"}
-Addon.borders = {"None", "Alliance", "Horde", "Neutral", "Marine", "Mechagon", "Kyrian", "Necrolord", "NightFae", "Venthyr"}
-Addon.frameBackgrounds = {"None", "Alliance", "Horde", "Neutral", "Marine", "Mechagon", "Kyrian", "Necrolord", "NightFae", "Oribos", "Venthyr"}
-Addon.frameBorders = {"None", "Alliance", "Horde", "Neutral", "Metal", "Marine", "Mechagon", "Kyrian", "Necrolord", "NightFae", "Oribos", "Venthyr"}
-Addon.buttonThemes = {"None", "Red", "GoldRed", "Silver"}
+Addon.borders = {"None", "Goldpaw", "Onyx", "Retina"}
+Addon.frameBackgrounds = {
+    "None",
+    "Alliance",
+    "Horde",
+    "Neutral",
+    "Marine",
+    "Mechagon",
+    "Kyrian",
+    "Necrolord",
+    "NightFae",
+    "Oribos",
+    "Venthyr"
+}
+Addon.frameBorders = {
+    "None",
+    "Alliance",
+    "Horde",
+    "Neutral",
+    "Metal",
+    "Marine",
+    "Mechagon",
+    "Kyrian",
+    "Necrolord",
+    "NightFae",
+    "Oribos",
+    "Venthyr"
+}
+Addon.thinFrameBorders = {
+    "None",
+    "Alliance",
+    "Horde",
+    "Neutral",
+    "Marine",
+    "Mechagon",
+    "Kyrian",
+    "Necrolord",
+    "NightFae",
+    "Venthyr"
+}
 
 if E.db[addonName] == nil then
     E.db[addonName] = {}
 end
 P[addonName] = {
-    artwork = {enabled = true, frameBackground = "Marine", frameBackgroundColor = {r = 1, g = 1, b = 1, a = 1}, frameBorder = "Metal", buttonBorder = "Mechagon", highlightButtonBorder = "NightFae"},
+    artwork = {
+        enabled = true,
+        frameBackground = "Marine",
+        frameBackgroundColor = {1, 1, 1, 1},
+        frameBorder = "Metal",
+        buttonBorder = "Retina",
+        buttonBorderColor = {20 / 255, 20 / 255, 20 / 255},
+        buttonBorderHighlightColor = {80 / 255, 80 / 255, 80 / 255}
+    },
     automation = {
         enabled = true,
         fastLoot = true,
@@ -26,9 +70,23 @@ P[addonName] = {
         disableVendorRefundWarning = true,
         disableMailRefundWarning = true
     },
-    minimapButtonFrame = {enabled = true, iconStyle = Addon.minimapIconStyles.Square, iconSize = 22, buttonsPerRow = 6, buttonSpacing = 2, collapsed = true},
-    shadows = {enabled = true, color = {r = 0, g = 0, b = 0, a = 0.5}, size = 3},
-    tooltips = {enabled = true, showIcons = true, showItemCount = true, showVendorPrice = true, showItemLevel = true, colors = {itemLevel = {220 / 255, 195 / 255, 30 / 255}}}
+    minimapButtonFrame = {
+        enabled = true,
+        iconStyle = Addon.minimapIconStyles.Square,
+        iconSize = 22,
+        buttonsPerRow = 6,
+        buttonSpacing = 2,
+        collapsed = true
+    },
+    shadows = {enabled = true, color = {0, 0, 0, 0.5}, size = 3},
+    tooltips = {
+        enabled = true,
+        showIcons = true,
+        showItemCount = true,
+        showVendorPrice = true,
+        showItemLevel = true,
+        colors = {itemLevel = {220 / 255, 195 / 255, 30 / 255}}
+    }
 }
 
 function Addon:InsertOptions()
@@ -56,25 +114,7 @@ function Addon:InsertOptions()
                             Addon.Artwork:UpdateArtwork()
                         end
                     },
-                    lineBreak = {type = "header", name = "", order = 2},
-                    border = {
-                        order = 10,
-                        type = "select",
-                        name = L["Border Theme"],
-                        values = Addon.borders,
-                        get = function()
-                            for key, val in pairs(Addon.borders) do
-                                if E.db[addonName].artwork.border == val then
-                                    return key
-                                end
-                            end
-                        end,
-                        set = function(_, key)
-                            E.db[addonName].artwork.border = Addon.borders[key]
-                            Addon.Artwork:UpdateArtwork()
-                        end
-                    },
-                    lineBreak = {type = "header", name = "", order = 20},
+                    lineBreak2 = {type = "header", name = "UI Frames", order = 20},
                     frameBorder = {
                         order = 21,
                         type = "select",
@@ -92,8 +132,25 @@ function Addon:InsertOptions()
                             Addon.Artwork:UpdateArtwork()
                         end
                     },
-                    frameBackground = {
+                    border = {
                         order = 22,
+                        type = "select",
+                        name = L["Frame Border Theme (Thin)"],
+                        values = Addon.thinFrameBorders,
+                        get = function()
+                            for key, val in pairs(Addon.thinFrameBorders) do
+                                if E.db[addonName].artwork.thinFrameBorder == val then
+                                    return key
+                                end
+                            end
+                        end,
+                        set = function(_, key)
+                            E.db[addonName].artwork.thinFrameBorder = Addon.thinFrameBorders[key]
+                            Addon.Artwork:UpdateArtwork()
+                        end
+                    },
+                    frameBackground = {
+                        order = 30,
                         type = "select",
                         name = L["Frame Background"],
                         values = Addon.frameBackgrounds,
@@ -110,21 +167,21 @@ function Addon:InsertOptions()
                         end
                     },
                     frameBackgroundColor = {
-                        order = 23,
+                        order = 31,
                         type = "color",
                         name = L["Frame Background Color"],
                         hasAlpha = true,
                         get = function(info)
                             local t = E.db[addonName].artwork.frameBackgroundColor
-                            return t.r, t.g, t.b, t.a
+                            return t[1], t[2], t[3], t[4]
                         end,
                         set = function(info, r, g, b, a)
                             local t = E.db[addonName].artwork.frameBackgroundColor
-                            t.r, t.g, t.b, t.a = r, g, b, a
+                            t[1], t[2], t[3], t[4] = r, g, b, a
                             Addon.Artwork:UpdateArtwork()
                         end
                     },
-                    lineBreak = {type = "header", name = "", order = 50},
+                    lineBreak3 = {type = "header", name = L["Buttons"], order = 50},
                     buttonBorder = {
                         order = 51,
                         type = "select",
@@ -142,23 +199,34 @@ function Addon:InsertOptions()
                             Addon.Artwork:UpdateArtwork()
                         end
                     },
-                    highlightButtonBorder = {
+                    buttonBorderColor = {
                         order = 52,
-                        type = "select",
-                        name = L["Button Border Theme (Highlight)"],
-                        values = Addon.borders,
-                        get = function()
-                            for key, val in pairs(Addon.borders) do
-                                if E.db[addonName].artwork.highlightButtonBorder == val then
-                                    return key
-                                end
-                            end
+                        type = "color",
+                        name = L["Button Border Color"],
+                        get = function(info)
+                            local t = E.db[addonName].artwork.buttonBorderColor
+                            return t[1], t[2], t[3], t[4]
                         end,
-                        set = function(_, key)
-                            E.db[addonName].artwork.highlightButtonBorder = Addon.borders[key]
+                        set = function(info, r, g, b)
+                            local t = E.db[addonName].artwork.buttonBorderColor
+                            t[1], t[2], t[3], t[4] = r, g, b, a
                             Addon.Artwork:UpdateArtwork()
                         end
                     },
+                    buttonBorderHighlightColor = {
+                        order = 53,
+                        type = "color",
+                        name = L["Button Border Highlight Color"],
+                        get = function(info)
+                            local t = E.db[addonName].artwork.buttonBorderHighlightColor
+                            return t[1], t[2], t[3], t[4]
+                        end,
+                        set = function(info, r, g, b)
+                            local t = E.db[addonName].artwork.buttonBorderHighlightColor
+                            t[1], t[2], t[3], t[4] = r, g, b, a
+                            Addon.Artwork:UpdateArtwork()
+                        end
+                    }
                 }
             },
             automation = {

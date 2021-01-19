@@ -55,7 +55,17 @@ function Artwork:Initialize()
     for i = 1, 4 do
         Artwork:SkinFrame(_G["ElvUI_StaticPopup" .. i], true)
     end
+
+    B.BagFrame.Title = B.BagFrame:CreateFontString("OVERLAY")
+    B.BagFrame.Title:FontTemplate()
+    B.BagFrame.Title:Point("TOP", B.BagFrame, "TOP", 0, -5)
+    B.BagFrame.Title:SetText(INVENTORY_TOOLTIP)
     Artwork:SkinFrame(B.BagFrame)
+
+    B.BankFrame.Title = B.BankFrame:CreateFontString("OVERLAY")
+    B.BankFrame.Title:FontTemplate()
+    B.BankFrame.Title:Point("TOP", B.BankFrame, "TOP", 0, -5)
+    B.BankFrame.Title:SetText(BANK)
     Artwork:SkinFrame(B.BankFrame)
 
     -- skin any tab that isn't handled by overriding Skins.HandleTab
@@ -84,7 +94,7 @@ function Artwork:UpdateArtwork()
 end
 
 -- Frames
-function Artwork:SkinFrame(frame, useNormalBorder)
+function Artwork:SkinFrame(frame, useThinBorder)
     if not frame then
         return
     end
@@ -93,15 +103,15 @@ function Artwork:SkinFrame(frame, useNormalBorder)
         return
     end
 
-    frame.useNormalBorder = useNormalBorder
+    frame.useThinBorder = useThinBorder
 
     local frameBackground = Artwork:GetFrameBackground()
-    local normalBorderAtlas = Artwork:GetNormalBorderAtlas()
+    local thinBorderAtlas = Artwork:GetThinFrameBorderAtlas()
     local frameBorderAtlas = Artwork:GetFrameBorderAtlas()
     local closeButtonAtlas = Artwork:GetCloseButtonBackgroundAtlas()
 
     frame.ArtworkBackground = Artwork:CreateBackground(frame, frameBackground)
-    frame.Border = Artwork:CreateBorder(frame, frame.useNormalBorder and normalBorderAtlas or frameBorderAtlas)
+    frame.Border = Artwork:CreateBorder(frame, frame.useThinBorder and thinBorderAtlas or frameBorderAtlas)
     Artwork:SkinCloseButton(Artwork:GetCloseButton(frame), closeButtonAtlas)
 
     Artwork.registry.frames[frame] = true
@@ -113,12 +123,12 @@ function Artwork:UpdateFrame(frame)
     end
 
     local frameBackground = Artwork:GetFrameBackground()
-    local normalBorderAtlas = Artwork:GetNormalBorderAtlas()
+    local thinBorderAtlas = Artwork:GetThinFrameBorderAtlas()
     local frameBorderAtlas = Artwork:GetFrameBorderAtlas()
     local closeButtonAtlas = Artwork:GetCloseButtonBackgroundAtlas()
 
     Artwork:UpdateBackground(frame.ArtworkBackground, frameBackground)
-    Artwork:UpdateBorder(frame.Border, frame.useNormalBorder and normalBorderAtlas or frameBorderAtlas)
+    Artwork:UpdateBorder(frame.Border, frame.useThinBorder and thinBorderAtlas or frameBorderAtlas)
     Artwork:UpdateCloseButton(Artwork:GetCloseButton(frame), closeButtonAtlas)
 end
 
@@ -201,8 +211,8 @@ function Artwork:UpdateBackground(background, texture)
         background:Show()
         background.Texture:SetTexture(texture, "MIRROR", "MIRROR")
 
-        local color = E.db[addonName].artwork.frameBackgroundColor or {r = 0, g = 0, b = 0, a = 1}
-        background.Texture:SetVertexColor(color.r, color.g, color.b, color.a)
+        local color = E.db[addonName].artwork.frameBackgroundColor or {0, 0, 0, 1}
+        background.Texture:SetVertexColor(unpack(color))
     end
 end
 
@@ -281,22 +291,22 @@ function Artwork:UpdateBorder(border, atlas)
             border.Top:SetSize(atlas.top[2], atlas.top[3])
             border.Top:SetTexture(atlas.top[1], "MIRROR")
             border.Top:SetTexCoord(atlas.top[4], atlas.top[5], atlas.top[6], atlas.top[7])
-            border.Top:SetHorizTile(atlas.top[4] == 0)
+            border.Top:SetHorizTile(atlas.horizontalTiling)
 
             border.Bottom:SetSize(atlas.bottom[2], atlas.bottom[3])
             border.Bottom:SetTexture(atlas.bottom[1], "MIRROR")
             border.Bottom:SetTexCoord(atlas.bottom[4], atlas.bottom[5], atlas.bottom[6], atlas.bottom[7])
-            border.Bottom:SetHorizTile(atlas.bottom[4] == 0)
+            border.Bottom:SetHorizTile(atlas.horizontalTiling)
 
             border.Left:SetSize(atlas.left[2], atlas.left[3])
             border.Left:SetTexture(atlas.left[1], nil, "MIRROR")
             border.Left:SetTexCoord(atlas.left[4], atlas.left[5], atlas.left[6], atlas.left[7])
-            border.Left:SetVertTile(atlas.left[6] == 0)
+            border.Left:SetVertTile(atlas.verticalTiling)
 
             border.Right:SetSize(atlas.right[2], atlas.right[3])
             border.Right:SetTexture(atlas.right[1], nil, "MIRROR")
             border.Right:SetTexCoord(atlas.right[4], atlas.right[5], atlas.right[6], atlas.right[7])
-            border.Right:SetVertTile(atlas.right[6] == 0)
+            border.Right:SetVertTile(atlas.verticalTiling)
         end
 
         Artwork:UpdateBorderScale(border, atlas)
@@ -327,6 +337,28 @@ function Artwork:UpdateBorderScale(border, atlas)
     border:SetScale(scale)
 end
 
+function Artwork:UpdateBorderColor(border, color)
+    if not border then
+        return
+    end
+
+    local parts = {
+        border.TopLeft,
+        border.TopRight,
+        border.BottomLeft,
+        border.BottomRight,
+        border.Top,
+        border.Bottom,
+        border.Left,
+        border.Right
+    }
+    for _, part in ipairs(parts) do
+        if part then
+            part:SetVertexColor(unpack(color))
+        end
+    end
+end
+
 -- Buttons
 function Artwork:SkinButton(button)
     if not button then
@@ -338,24 +370,11 @@ function Artwork:SkinButton(button)
     end
 
     local borderAtlas = Artwork:GetButtonBorderAtlas()
-    local highlightBorderAtlas = Artwork:GetHighlightButtonBorderAtlas()
 
     button.Border = Artwork:CreateBorder(button, borderAtlas)
-    button.HighlightBorder = Artwork:CreateBorder(button, highlightBorderAtlas)
-
-    button:HookScript("OnEnter", function()
-        button.isMouseOver = true
-        Artwork:UpdateButton(button)
-    end)
-    button:HookScript("OnLeave", function()
-        button.isMouseOver = false
-        Artwork:UpdateButton(button)
-    end)
 
     Artwork:UpdateButton(button)
-
-    button.Border:Show()
-    button.HighlightBorder:Hide()
+    Artwork:UpdateBorderColor(button.Border, E.db[addonName].artwork.buttonBorderColor)
 
     Artwork.registry.buttons[button] = true
 end
@@ -366,26 +385,27 @@ function Artwork:UpdateButton(button)
     end
 
     local borderAtlas = Artwork:GetButtonBorderAtlas()
-    local highlightBorderAtlas = Artwork:GetHighlightButtonBorderAtlas()
 
     local isBorderShown = button.Border:IsShown()
     Artwork:UpdateBorder(button.Border, borderAtlas)
-    Artwork:UpdateBorder(button.HighlightBorder, highlightBorderAtlas)
+    Artwork:UpdateBorderColor(button.Border, E.db[addonName].artwork.buttonBorderColor)
 
     if not E.db[addonName].artwork.enabled or not borderAtlas then
         E:TogglePixelBorders(button, true)
+        if button.pixelBorders then
+            button.pixelBorders.CENTER:SetPoint("TOPLEFT", button, "TOPLEFT", 0, 0)
+            button.pixelBorders.CENTER:SetPoint("BOTTOMRIGHT", button, "BOTTOMRIGHT", 0, 0)
+        end
+
         button.Border:Hide()
-        button.HighlightBorder:Hide()
     else
         E:TogglePixelBorders(button, false)
-
-        if button.isMouseOver then
-            button.HighlightBorder:Show()
-            button.Border:Hide()
-        else
-            button.Border:Show()
-            button.HighlightBorder:Hide()
+        if button.pixelBorders then
+            button.pixelBorders.CENTER:SetPoint("TOPLEFT", button, "TOPLEFT", 2, -2)
+            button.pixelBorders.CENTER:SetPoint("BOTTOMRIGHT", button, "BOTTOMRIGHT", -2, 2)
         end
+
+        button.Border:Show()
     end
 end
 
@@ -454,7 +474,7 @@ function Artwork:UpdateTab(tab)
         return
     end
 
-    local atlas = Artwork:GetNormalBorderAtlas()
+    local atlas = Artwork:GetThinFrameBorderAtlas()
 
     if not E.db[addonName].artwork.enabled or not atlas then
         E:TogglePixelBorders(tab, true)
@@ -566,14 +586,30 @@ S.HandleButton = function(...)
 
     local _, button, strip, isDeclineButton, useCreateBackdrop, noSetTemplate = ...
 
-    if strip then
+    if noSetTemplate then
         return
     end
     if button.artworkType == "SCROLL_UP" or button.artworkType == "SCROLL_DOWN" or button.artworkType == "NEXT_PREV" then
-        return
+        -- return
     end
 
     Artwork:SkinButton(button)
+end
+
+local originalSetModifiedBackdrop = S.SetModifiedBackdrop
+S.SetModifiedBackdrop = function(...)
+    originalSetModifiedBackdrop(...)
+
+    local button = ...
+    Artwork:UpdateBorderColor(button.Border, E.db[addonName].artwork.buttonBorderHighlightColor)
+end
+
+local originalSetOriginalBackdrop = S.SetOriginalBackdrop
+S.SetOriginalBackdrop = function(...)
+    originalSetOriginalBackdrop(...)
+
+    local button = ...
+    Artwork:UpdateBorderColor(button.Border, E.db[addonName].artwork.buttonBorderColor)
 end
 
 local originalHandleTab = S.HandleTab
@@ -584,27 +620,44 @@ S.HandleTab = function(...)
     Artwork:SkinTab(tab, "DOWN")
 end
 
+local function GrabScrollBarElement(frame, elements)
+    local frameName = frame:GetName()
+
+    for _, element in ipairs(elements) do
+        local part = frame[element] or frameName and (_G[frameName .. element] or strfind(frameName, element)) or nil
+        if part then
+            return part
+        end
+    end
+end
+
 local originalHandleScrollBar = S.HandleScrollBar
 S.HandleScrollBar = function(...)
-    local function GrabScrollBarElement(frame, element)
-        local FrameName = frame:GetName()
-        return frame[element] or FrameName and (_G[FrameName .. element] or strfind(FrameName, element)) or nil
-    end
-
     local _, frame, thumbTrimY, thumbTrimX = ...
 
     local parent = frame:GetParent()
-    local ScrollUpButton = GrabScrollBarElement(frame, "ScrollUpButton") or GrabScrollBarElement(frame, "UpButton") or GrabScrollBarElement(frame, "ScrollUp") or
-                               GrabScrollBarElement(parent, "scrollUp")
-    local ScrollDownButton = GrabScrollBarElement(frame, "ScrollDownButton") or GrabScrollBarElement(frame, "DownButton") or GrabScrollBarElement(frame, "ScrollDown") or
-                                 GrabScrollBarElement(parent, "scrollDown")
-    local Thumb = GrabScrollBarElement(frame, "ThumbTexture") or GrabScrollBarElement(frame, "thumbTexture") or frame.GetThumbTexture and frame:GetThumbTexture()
+    local up = GrabScrollBarElement(frame, {"ScrollUpButton", "UpButton", "ScrollUp", "scrollUp"})
+    local down = GrabScrollBarElement(frame, {"ScrollDownButton", "DownButton", "ScrollDown", "scrollDown"})
+    local thumb = GrabScrollBarElement(frame, {"Thumb"})
+    local thumbTexture = GrabScrollBarElement(frame, {"ThumbTexture", "thumbTexture"}) or frame.GetThumbTexture and frame:GetThumbTexture()
 
-    ScrollUpButton.artworkType = "SCROLL_UP"
-    ScrollDownButton.artworkType = "SCROLL_DOWN"
-    Thumb.artworkType = "SCROLL_THUMB"
+    if up then
+        up.artworkType = "SCROLL_UP"
+    end
+    if down then
+        down.artworkType = "SCROLL_DOWN"
+    end
+    if thumb then
+        thumb.artworkType = "SCROLL_THUMB"
+    end
 
     originalHandleScrollBar(...)
+
+    frame.backdrop:Hide()
+    if thumb then
+        print("Thumb found")
+        thumb:SetSize(16, 100)
+    end
 end
 
 local originalHandleNextPrevButton = S.HandleNextPrevButton

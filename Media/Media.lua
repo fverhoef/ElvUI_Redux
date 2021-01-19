@@ -3,7 +3,9 @@ local Addon = addonTable[1]
 local LSM = LibStub("LibSharedMedia-3.0")
 
 Addon.media = {
-    fonts = {adventure = "Interface\\AddOns\\" .. addonName .. "\\Media\\Fonts\\Adventure.ttf"},
+    fonts = {
+        adventure = "Interface\\AddOns\\" .. addonName .. "\\Media\\Fonts\\Adventure.ttf"
+    },
     textures = {
         statusBars = {
             kait1 = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\StatusBars\\Kait1",
@@ -41,6 +43,19 @@ Addon.media = {
             venthyrTopLeft = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Borders\\Border_Venthyr_TopLeft",
             venthyrTop = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Borders\\Border_Venthyr_Top",
             venthyrLeft = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Borders\\Border_Venthyr_Left",
+            retinaTopLeft = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Borders\\Border_Retina_TopLeft",
+            retinaTop = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Borders\\Border_Retina_Top",
+            retinaLeft = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Borders\\Border_Retina_Left",
+            goldpawTopLeft = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Borders\\Border_Goldpaw_TopLeft",
+            goldpawTop = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Borders\\Border_Goldpaw_Top",
+            goldpawBottomLeft = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Borders\\Border_Goldpaw_BottomLeft",
+            goldpawBottom = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Borders\\Border_Goldpaw_Bottom",
+            goldpawLeft = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Borders\\Border_Goldpaw_Left",
+            onyxTopLeft = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Borders\\Border_Onyx_TopLeft",
+            onyxTop = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Borders\\Border_Onyx_Top",
+            onyxBottomLeft = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Borders\\Border_Onyx_BottomLeft",
+            onyxBottom = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Borders\\Border_Onyx_Bottom",
+            onyxLeft = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Borders\\Border_Onyx_Left"
         },
         backgrounds = {
             alliance = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Backgrounds\\UIFrameAllianceBackground",
@@ -52,7 +67,7 @@ Addon.media = {
             necrolord = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Backgrounds\\UIFrameNecrolordBackground",
             nightFae = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Backgrounds\\UIFrameNightFaeBackground",
             oribos = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Backgrounds\\UIFrameOribosBackground",
-            venthyr = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Backgrounds\\UIFrameVenthyrBackground",
+            venthyr = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Backgrounds\\UIFrameVenthyrBackground"
         },
         closeButtons = {
             alliance = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Borders\\FrameBorder_Alliance_CloseButton",
@@ -65,7 +80,7 @@ Addon.media = {
             neutral = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Borders\\FrameBorder_Neutral_CloseButton",
             nightFae = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Borders\\FrameBorder_NightFae_CloseButton",
             oribos = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Borders\\FrameBorder_Oribos_CloseButton",
-            venthyr = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Borders\\FrameBorder_Venthyr_CloseButton",
+            venthyr = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Borders\\FrameBorder_Venthyr_CloseButton"
         },
         frameBorders = {
             allianceTopLeft = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Borders\\FrameBorder_Alliance_TopLeft",
@@ -112,20 +127,15 @@ Addon.media = {
             venthyrBottomLeft = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Borders\\FrameBorder_Venthyr_BottomLeft",
             venthyrBottomRight = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Borders\\FrameBorder_Venthyr_BottomRight",
             venthyrHorizontal = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Borders\\FrameBorder_Venthyr_Horizontal",
-            venthyrVertical = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Borders\\FrameBorder_Venthyr_Vertical",
+            venthyrVertical = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Borders\\FrameBorder_Venthyr_Vertical"
         },
         buttons = {
             redButton = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Buttons\\128RedButton",
             goldRedButton = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Buttons\\128GoldRedButton",
-            silverButton_Left_Down = "Interface\\Buttons\\UI-SilverButtonLG-Left-Down",
-            silverButton_Left_Hi = "Interface\\Buttons\\UI-SilverButtonLG-Left-Hi",
-            silverButton_Left_Up = "Interface\\Buttons\\UI-SilverButtonLG-Left-Up",
-            silverButton_Mid_Down = "Interface\\Buttons\\UI-SilverButtonLG-Mid-Down",
-            silverButton_Mid_Hi = "Interface\\Buttons\\UI-SilverButtonLG-Mid-Hi",
-            silverButton_Mid_Up = "Interface\\Buttons\\UI-SilverButtonLG-Mid-Up",
-            silverButton_Right_Down = "Interface\\Buttons\\UI-SilverButtonLG-Right-Down",
-            silverButton_Right_Hi = "Interface\\Buttons\\UI-SilverButtonLG-Right-Hi",
-            silverButton_Right_Up = "Interface\\Buttons\\UI-SilverButtonLG-Right-Up",
+            soulBinds_ScrollBar_Down = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Buttons\\Soulbinds_ScrollBar_Down",
+            soulBinds_ScrollBar_Thumb = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Buttons\\Soulbinds_ScrollBar_Thumb",
+            soulBinds_ScrollBar_Track = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Buttons\\Soulbinds_ScrollBar_Track",
+            soulBinds_ScrollBar_Background = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Buttons\\Soulbinds_ScrollBar_Background"
         },
 
         arrowUp_ElvUI = "Interface\\Addons\\ElvUI\\Media\\Textures\\ArrowUp",
