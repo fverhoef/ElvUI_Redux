@@ -53,9 +53,11 @@ P[addonName] = {
         frameBackground = "Marine",
         frameBackgroundColor = {1, 1, 1, 1},
         frameBorder = "Metal",
-        buttonBorder = "Retina",
+        buttonBorder = "BeautyCase",
         buttonBorderColor = {20 / 255, 20 / 255, 20 / 255},
-        buttonBorderHighlightColor = {80 / 255, 80 / 255, 80 / 255}
+        buttonBorderHighlightColor = {80 / 255, 80 / 255, 80 / 255},
+        tooltipBorder = "BeautyCase",
+        tooltipBorderColor = {20 / 255, 20 / 255, 20 / 255},
     },
     automation = {
         enabled = true,
@@ -114,7 +116,7 @@ function Addon:InsertOptions()
                             Addon.Artwork:UpdateArtwork()
                         end
                     },
-                    lineBreak2 = {type = "header", name = "UI Frames", order = 20},
+                    lineBreak1 = {type = "header", name = "Frames", order = 20},
                     frameBorder = {
                         order = 21,
                         type = "select",
@@ -181,7 +183,7 @@ function Addon:InsertOptions()
                             Addon.Artwork:UpdateArtwork()
                         end
                     },
-                    lineBreak3 = {type = "header", name = L["Buttons"], order = 50},
+                    lineBreak2 = {type = "header", name = L["Buttons"], order = 50},
                     buttonBorder = {
                         order = 51,
                         type = "select",
@@ -226,7 +228,39 @@ function Addon:InsertOptions()
                             t[1], t[2], t[3], t[4] = r, g, b, a
                             Addon.Artwork:UpdateArtwork()
                         end
-                    }
+                    },
+                    lineBreak3 = {type = "header", name = L["Tooltips"], order = 60},
+                    tooltipBorder = {
+                        order = 61,
+                        type = "select",
+                        name = L["Tooltip Border Theme"],
+                        values = Addon.borders,
+                        get = function()
+                            for key, val in pairs(Addon.borders) do
+                                if E.db[addonName].artwork.tooltipBorder == val then
+                                    return key
+                                end
+                            end
+                        end,
+                        set = function(_, key)
+                            E.db[addonName].artwork.tooltipBorder = Addon.borders[key]
+                            Addon.Artwork:UpdateArtwork()
+                        end
+                    },
+                    tooltipBorderColor = {
+                        order = 62,
+                        type = "color",
+                        name = L["Tooltip Border Color"],
+                        get = function(info)
+                            local t = E.db[addonName].artwork.tooltipBorderColor
+                            return t[1], t[2], t[3], t[4]
+                        end,
+                        set = function(info, r, g, b)
+                            local t = E.db[addonName].artwork.tooltipBorderColor
+                            t[1], t[2], t[3], t[4] = r, g, b, a
+                            Addon.Artwork:UpdateArtwork()
+                        end
+                    },
                 }
             },
             automation = {

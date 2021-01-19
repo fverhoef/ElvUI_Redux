@@ -5,6 +5,7 @@ Addon.Artwork = Artwork
 local E, L, V, P, G = unpack(ElvUI)
 local B = E:GetModule("Bags")
 local S = E:GetModule("Skins")
+local TT = E:GetModule("Tooltip")
 
 -- Registry
 Artwork.registry = {frames = {}, nestedFrames = {}, buttons = {}, tabs = {}}
@@ -372,9 +373,7 @@ function Artwork:SkinButton(button)
     local borderAtlas = Artwork:GetButtonBorderAtlas()
 
     button.Border = Artwork:CreateBorder(button, borderAtlas)
-
     Artwork:UpdateButton(button)
-    Artwork:UpdateBorderColor(button.Border, E.db[addonName].artwork.buttonBorderColor)
 
     Artwork.registry.buttons[button] = true
 end
@@ -386,7 +385,6 @@ function Artwork:UpdateButton(button)
 
     local borderAtlas = Artwork:GetButtonBorderAtlas()
 
-    local isBorderShown = button.Border:IsShown()
     Artwork:UpdateBorder(button.Border, borderAtlas)
     Artwork:UpdateBorderColor(button.Border, E.db[addonName].artwork.buttonBorderColor)
 
@@ -559,6 +557,59 @@ function Artwork:UpdateTab(tab)
     end
 end
 
+-- Tooltips
+function Artwork:SkinTooltip(tip)
+    if tip.Border then
+        Artwork:UpdateTooltip(tip)
+        return
+    end
+
+    local borderAtlas = Artwork:GetTooltipBorderAtlas()
+
+    tip.Border = Artwork:CreateBorder(tip, borderAtlas)
+    Artwork:UpdateTooltip(tip)
+end
+
+-- Tooltips
+function Artwork:UpdateTooltip(tip)
+    if not tip.Border then
+        return
+    end
+
+    local borderAtlas = Artwork:GetTooltipBorderAtlas()
+
+    Artwork:UpdateBorder(tip.Border, borderAtlas)
+
+    local color = E.db[addonName].artwork.tooltipBorderColor
+	local _, link = tip:GetItem()
+	if link then
+		local _, _, quality = GetItemInfo(link)
+		if quality and quality > 1 then
+			color = {GetItemQualityColor(quality)}
+		end
+    end
+    
+    Artwork:UpdateBorderColor(tip.Border, color)
+
+    if not E.db[addonName].artwork.enabled or not borderAtlas then
+        E:TogglePixelBorders(tip, true)
+        if tip.pixelBorders then
+            tip.pixelBorders.CENTER:SetPoint("TOPLEFT", tip, "TOPLEFT", 0, 0)
+            tip.pixelBorders.CENTER:SetPoint("BOTTOMRIGHT", tip, "BOTTOMRIGHT", 0, 0)
+        end
+
+        tip.Border:Hide()
+    else
+        E:TogglePixelBorders(tip, false)
+        if tip.pixelBorders then
+            tip.pixelBorders.CENTER:SetPoint("TOPLEFT", tip, "TOPLEFT", 2, -2)
+            tip.pixelBorders.CENTER:SetPoint("BOTTOMRIGHT", tip, "BOTTOMRIGHT", -2, 2)
+        end
+
+        tip.Border:Show()
+    end
+end
+
 -- ElvUI Overrides
 local originalHandleFrame = S.HandleFrame
 S.HandleFrame = function(...)
@@ -680,4 +731,12 @@ E.StaticPopupSpecial_Show = function(...)
 
     local _, frame = ...
     Artwork:SkinFrame(frame, true)
+end
+
+local originalSetStyle = TT.SetStyle
+TT.SetStyle = function(...)
+    originalSetStyle(...)
+
+    local _, tt = ...
+    Artwork:SkinTooltip(tt)
 end
