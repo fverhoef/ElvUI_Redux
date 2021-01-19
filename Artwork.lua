@@ -653,11 +653,7 @@ S.HandleScrollBar = function(...)
 
     originalHandleScrollBar(...)
 
-    frame.backdrop:Hide()
-    if thumb then
-        print("Thumb found")
-        thumb:SetSize(16, 100)
-    end
+    --frame.backdrop:Hide()
 end
 
 local originalHandleNextPrevButton = S.HandleNextPrevButton

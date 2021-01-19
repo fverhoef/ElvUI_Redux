@@ -17,6 +17,30 @@ Artwork.atlas = {
         ["Venthyr"] = Addon.media.textures.backgrounds.venthyr
     },
     borders = {
+        ["BeautyCase"] = {
+            scale = 0.5,
+            offset = {0, 0},
+            topLeft = {Addon.media.textures.borders.beautyCaseTopLeft, 8, 8, 0, 1, 0, 1},
+            topRight = {Addon.media.textures.borders.beautyCaseTopLeft, 8, 8, 1, 0, 0, 1},
+            bottomLeft = {Addon.media.textures.borders.beautyCaseBottomLeft, 8, 8, 0, 1, 0, 1},
+            bottomRight = {Addon.media.textures.borders.beautyCaseBottomLeft, 8, 8, 1, 0, 0, 1},
+            top = {Addon.media.textures.borders.beautyCaseTop, 32, 8, 0, 1, 0, 1},
+            bottom = {Addon.media.textures.borders.beautyCaseBottom, 32, 8, 0, 1, 0, 1},
+            left = {Addon.media.textures.borders.beautyCaseLeft, 8, 32, 0, 1, 0, 1},
+            right = {Addon.media.textures.borders.beautyCaseLeft, 8, 32, 1, 0, 0, 1}
+        },
+        ["Clean"] = {
+            scale = 0.5,
+            offset = {0, 0},
+            topLeft = {Addon.media.textures.borders.cleanTopLeft, 8, 8, 0, 1, 0, 1},
+            topRight = {Addon.media.textures.borders.cleanTopRight, 8, 8, 0, 1, 0, 1},
+            bottomLeft = {Addon.media.textures.borders.cleanBottomLeft, 8, 8, 0, 1, 0, 1},
+            bottomRight = {Addon.media.textures.borders.cleanBottomRight, 8, 8, 0, 1, 0, 1},
+            top = {Addon.media.textures.borders.cleanTop, 32, 8, 0, 1, 0, 1},
+            bottom = {Addon.media.textures.borders.cleanBottom, 32, 8, 0, 1, 0, 1},
+            left = {Addon.media.textures.borders.cleanLeft, 8, 32, 0, 1, 0, 1},
+            right = {Addon.media.textures.borders.cleanRight, 8, 32, 0, 1, 0, 1}
+        },
         ["Goldpaw"] = {
             scale = 0.5,
             offset = {0, 0},
@@ -40,6 +64,18 @@ Artwork.atlas = {
             bottom = {Addon.media.textures.borders.onyxBottom, 32, 8, 0, 1, 0, 1},
             left = {Addon.media.textures.borders.onyxLeft, 8, 32, 0, 1, 0, 1},
             right = {Addon.media.textures.borders.onyxLeft, 8, 32, 1, 0, 0, 1}
+        },
+        ["Renaitre (Square)"] = {
+            scale = 0.5,
+            offset = {0, 0},
+            topLeft = {Addon.media.textures.borders.renaitreSquareThinTopLeft, 8, 8, 0, 1, 0, 1},
+            topRight = {Addon.media.textures.borders.renaitreSquareThinTopLeft, 8, 8, 1, 0, 0, 1},
+            bottomLeft = {Addon.media.textures.borders.renaitreSquareThinBottomLeft, 8, 8, 0, 1, 0, 1},
+            bottomRight = {Addon.media.textures.borders.renaitreSquareThinBottomLeft, 8, 8, 1, 0, 0, 1},
+            top = {Addon.media.textures.borders.renaitreSquareThinTop, 32, 8, 0, 1, 0, 1},
+            bottom = {Addon.media.textures.borders.renaitreSquareThinBottom, 32, 8, 0, 1, 0, 1},
+            left = {Addon.media.textures.borders.renaitreSquareThinLeft, 8, 32, 0, 1, 0, 1},
+            right = {Addon.media.textures.borders.renaitreSquareThinLeft, 8, 32, 1, 0, 0, 1}
         },
         ["Retina"] = {
             scale = 0.5,

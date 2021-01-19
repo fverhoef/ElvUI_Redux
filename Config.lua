@@ -3,7 +3,7 @@ local Addon = addonTable[1]
 local E, L, V, P, G = unpack(ElvUI)
 
 Addon.minimapIconStyles = {Square = "Square", Round = "Round"}
-Addon.borders = {"None", "Goldpaw", "Onyx", "Retina"}
+Addon.borders = {"None", "BeautyCase", "Clean", "Goldpaw", "Onyx", "Renaitre (Square)", "Retina"}
 Addon.frameBackgrounds = {
     "None",
     "Alliance",
