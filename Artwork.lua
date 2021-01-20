@@ -101,22 +101,22 @@ function Artwork:UpdateArtwork()
         Artwork:UpdateButton(button)
     end
 
+    for tab, _ in pairs(Artwork.registry.tabs) do
+        Artwork:UpdateTab(tab)
+    end
+
     for button, _ in pairs(Artwork.registry.actionButtons) do
         Artwork:UpdateActionButton(button)
     end
 
-    for tab, _ in pairs(Artwork.registry.tabs) do
-        Artwork:UpdateTab(tab)
+    for button, _ in pairs(Artwork.registry.bagButtons) do
+        Artwork:UpdateBagButton(button)
     end
 end
 
 -- Frames
 function Artwork:SkinFrame(frame, useThinBorder)
-    if not frame then
-        return
-    end
-    if Artwork:IsFrameRegistered(frame) then
-        Artwork:UpdateFrame(frame)
+    if not frame or Artwork:IsFrameRegistered(frame) then
         return
     end
 
@@ -169,7 +169,7 @@ function Artwork:UpdateFrame(frame)
 end
 
 function Artwork:SkinNestedFrame(frame)
-    if not frame and not Artwork:IsFrameRegistered(frame) then
+    if not frame or Artwork:IsFrameRegistered(frame) then
         return
     end
 
@@ -218,11 +218,7 @@ end
 
 -- Frame Tabs
 function Artwork:SkinTab(tab, orientation)
-    if not tab then
-        return
-    end
-    if Artwork:IsTabRegistered(tab) then
-        Artwork:UpdateTab(tab)
+    if not tab or Artwork:IsTabRegistered(tab) then
         return
     end
 
@@ -549,11 +545,7 @@ end
 
 -- Buttons
 function Artwork:SkinButton(button)
-    if not button then
-        return
-    end
-    if Artwork:IsButtonRegistered(button) then
-        Artwork:UpdateButton(button)
+    if not button or Artwork:IsButtonRegistered(button) then
         return
     end
 
@@ -586,24 +578,22 @@ end
 
 -- Action Buttons
 function Artwork:SkinActionButton(button)
-    if not button then
-        return
-    end
-    if Artwork:IsActionButtonRegistered(button) then
-        Artwork:UpdateActionButton(button)
+    if not button or Artwork:IsActionButtonRegistered(button) then
         return
     end
 
     local borderAtlas = Artwork:GetActionButtonBorderAtlas()
 
-    button.ArtworkBorder = Artwork:CreateBorder(button, borderAtlas, "BACKGROUND")
+    button.ArtworkBorder = Artwork:CreateBorder(button, borderAtlas)
     Artwork:UpdateActionButton(button)
+    Artwork:UpdateBorderColor(button.ArtworkBorder, E.db[addonName].artwork.actionButtonBorderColor)
 
     Artwork:SecureHook(button, "SetBackdropBorderColor", function(self, r, g, b, a)
-        if not r then
-            r, g, b, a = unpack(E.db[addonName].artwork.actionButtonBorderColor)
+        local color = {r, g, b, a}
+        if r == 0 and g == 0 and b == 0 then
+            color = E.db[addonName].artwork.actionButtonBorderColor
         end
-        Artwork:UpdateBorderColor(self.ArtworkBorder, {r, g, b, a})
+        Artwork:UpdateBorderColor(self.ArtworkBorder, color)
     end)
 
     Artwork.registry.actionButtons[button] = true
@@ -617,7 +607,6 @@ function Artwork:UpdateActionButton(button)
     local borderAtlas = Artwork:GetActionButtonBorderAtlas()
 
     Artwork:UpdateBorder(button.ArtworkBorder, borderAtlas)
-    Artwork:UpdateBorderColor(button.ArtworkBorder, E.db[addonName].artwork.actionButtonBorderColor)
 
     local name = button:GetName()
     local icon = _G[name .. "Icon"]
@@ -647,24 +636,22 @@ end
 
 -- Bag Buttons
 function Artwork:SkinBagButton(button)
-    if not button then
-        return
-    end
-    if Artwork:IsBagButtonRegistered(button) then
-        Artwork:UpdateBagButton(button)
+    if not button or Artwork:IsBagButtonRegistered(button) then
         return
     end
 
     local borderAtlas = Artwork:GetBagButtonBorderAtlas()
 
-    button.ArtworkBorder = Artwork:CreateBorder(button, borderAtlas, "BACKGROUND")
+    button.ArtworkBorder = Artwork:CreateBorder(button, borderAtlas)
     Artwork:UpdateBagButton(button)
+    Artwork:UpdateBorderColor(button.ArtworkBorder, E.db[addonName].artwork.bagButtonBorderColor)
 
     Artwork:SecureHook(button, "SetBackdropBorderColor", function(self, r, g, b, a)
-        if not r then
-            r, g, b, a = unpack(E.db[addonName].artwork.bagButtonBorderColor)
+        local color = {r, g, b, a}
+        if r == 0 and g == 0 and b == 0 then
+            color = E.db[addonName].artwork.bagButtonBorderColor
         end
-        Artwork:UpdateBorderColor(self.ArtworkBorder, {r, g, b, a})
+        Artwork:UpdateBorderColor(self.ArtworkBorder, color)
     end)
 
     Artwork.registry.bagButtons[button] = true
@@ -678,7 +665,6 @@ function Artwork:UpdateBagButton(button)
     local borderAtlas = Artwork:GetBagButtonBorderAtlas()
 
     Artwork:UpdateBorder(button.ArtworkBorder, borderAtlas)
-    Artwork:UpdateBorderColor(button.ArtworkBorder, E.db[addonName].artwork.bagButtonBorderColor)
 
     local name = button:GetName()
     local icon = _G[name .. "Icon"]

@@ -58,7 +58,6 @@ P[addonName] = {
         buttonBorderHighlightColor = {90 / 255, 90 / 255, 90 / 255},
         actionButtonBorder = "BeautyCase",
         actionButtonBorderColor = {60 / 255, 60 / 255, 60 / 255},
-        actionButtonBorderHighlightColor = {90 / 255, 90 / 255, 90 / 255},
         bagButtonBorder = "BeautyCase",
         bagButtonBorderColor = {60 / 255, 60 / 255, 60 / 255},
         tooltipBorder = "BeautyCase",
@@ -324,20 +323,6 @@ function Addon:InsertOptions()
                         end,
                         set = function(info, r, g, b)
                             local t = E.db[addonName].artwork.actionButtonBorderColor
-                            t[1], t[2], t[3], t[4] = r, g, b, a
-                            Addon.Artwork:UpdateArtwork()
-                        end
-                    },
-                    actionButtonBorderHighlightColor = {
-                        order = 63,
-                        type = "color",
-                        name = L["Action Button Border Highlight Color"],
-                        get = function(info)
-                            local t = E.db[addonName].artwork.actionButtonBorderHighlightColor
-                            return t[1], t[2], t[3], t[4]
-                        end,
-                        set = function(info, r, g, b)
-                            local t = E.db[addonName].artwork.actionButtonBorderHighlightColor
                             t[1], t[2], t[3], t[4] = r, g, b, a
                             Addon.Artwork:UpdateArtwork()
                         end
