@@ -91,7 +91,7 @@ Artwork.atlas = {
         },
         ["Shadowlands"] = {
             scale = 0.5,
-            offset = {-2, 2},
+            offset = {-4, 4},
             verticalTiling = true,
             horizontalTiling = true,
             topLeft = {Addon.media.textures.borders.shadowlandsTopLeft, 16, 16, 0, 1, 0, 1},
@@ -296,6 +296,14 @@ end
 
 function Artwork:GetButtonBorderAtlas()
     return Artwork.atlas.borders[E.db[addonName].artwork.buttonBorder]
+end
+
+function Artwork:GetActionButtonBorderAtlas()
+    return Artwork.atlas.borders[E.db[addonName].artwork.actionButtonBorder]
+end
+
+function Artwork:GetBagButtonBorderAtlas()
+    return Artwork.atlas.borders[E.db[addonName].artwork.bagButtonBorder]
 end
 
 function Artwork:GetTooltipBorderAtlas()

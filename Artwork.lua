@@ -4,12 +4,13 @@ local Artwork = Addon:NewModule(addonName .. "Artwork", "AceHook-3.0", "AceEvent
 Addon.Artwork = Artwork
 local AS = unpack(AddOnSkins)
 local E, L, V, P, G = unpack(ElvUI)
+local AB = E:GetModule("ActionBars")
 local B = E:GetModule("Bags")
 local S = E:GetModule("Skins")
 local TT = E:GetModule("Tooltip")
 
 -- Registry
-Artwork.registry = {frames = {}, nestedFrames = {}, buttons = {}, tabs = {}}
+Artwork.registry = {frames = {}, nestedFrames = {}, buttons = {}, actionButtons = {}, bagButtons = {}, tabs = {}}
 
 function Artwork:IsFrameRegistered(frame)
     return Artwork.registry.frames[frame] or Artwork.registry.nestedFrames[frame] or false
@@ -30,6 +31,14 @@ end
 
 function Artwork:IsButtonRegistered(button)
     return Artwork.registry.buttons[button] or false
+end
+
+function Artwork:IsActionButtonRegistered(button)
+    return Artwork.registry.actionButtons[button] or false
+end
+
+function Artwork:IsBagButtonRegistered(button)
+    return Artwork.registry.bagButtons[button] or false
 end
 
 function Artwork:IsTabRegistered(tab)
@@ -92,6 +101,10 @@ function Artwork:UpdateArtwork()
         Artwork:UpdateButton(button)
     end
 
+    for button, _ in pairs(Artwork.registry.actionButtons) do
+        Artwork:UpdateActionButton(button)
+    end
+
     for tab, _ in pairs(Artwork.registry.tabs) do
         Artwork:UpdateTab(tab)
     end
@@ -116,7 +129,7 @@ function Artwork:SkinFrame(frame, useThinBorder)
     local borderAtlas = frame.useThinBorder and thinBorderAtlas or frameBorderAtlas
 
     frame.ArtworkBackground = Artwork:CreateBackground(frame, frameBackground)
-    frame.Border = Artwork:CreateBorder(frame, borderAtlas)
+    frame.ArtworkBorder = Artwork:CreateBorder(frame, borderAtlas)
     Artwork:SkinCloseButton(Artwork:GetCloseButton(frame), closeButtonAtlas)
 
     Artwork:UpdateFrame(frame)
@@ -141,17 +154,17 @@ function Artwork:UpdateFrame(frame)
     }
 
     Artwork:UpdateBackground(frame.ArtworkBackground, frameBackground)
-    Artwork:UpdateBorder(frame.Border, borderAtlas)
+    Artwork:UpdateBorder(frame.ArtworkBorder, borderAtlas)
 
     if not E.db[addonName].artwork.enabled or not borderAtlas then
         Artwork:EnablePixelBorders(frame)
-        frame.Border:Hide()
+        frame.ArtworkBorder:Hide()
     else
         Artwork:DisablePixelBorders(frame)
-        frame.Border:Show()
+        frame.ArtworkBorder:Show()
     end
 
-    Artwork:UpdateBorderColor(frame.Border, borderColor)
+    Artwork:UpdateBorderColor(frame.ArtworkBorder, borderColor)
     Artwork:UpdateCloseButton(Artwork:GetCloseButton(frame), closeButtonAtlas)
 end
 
@@ -199,6 +212,158 @@ function Artwork:UpdateCloseButton(button, backgroundAtlas)
             if texture then
                 background:SetTexCoord(backgroundAtlas[4], backgroundAtlas[5], backgroundAtlas[6], backgroundAtlas[7])
             end
+        end
+    end
+end
+
+-- Frame Tabs
+function Artwork:SkinTab(tab, orientation)
+    if not tab then
+        return
+    end
+    if Artwork:IsTabRegistered(tab) then
+        Artwork:UpdateTab(tab)
+        return
+    end
+
+    tab.orientation = orientation
+    tab.originalPoint = {tab:GetPoint()}
+
+    local parent = tab.backdrop or tab
+    local border = CreateFrame("Frame", nil, parent)
+
+    border.TopLeft = border:CreateTexture(nil, "ARTWORK")
+    border.TopRight = border:CreateTexture(nil, "ARTWORK")
+    border.BottomLeft = border:CreateTexture(nil, "ARTWORK")
+    border.BottomRight = border:CreateTexture(nil, "ARTWORK")
+    border.Top = border:CreateTexture(nil, "ARTWORK")
+    border.Bottom = border:CreateTexture(nil, "ARTWORK")
+    border.Left = border:CreateTexture(nil, "ARTWORK")
+    border.Right = border:CreateTexture(nil, "ARTWORK")
+
+    if orientation == "DOWN" then
+        border.BottomLeft:SetPoint("BOTTOMLEFT", border, "BOTTOMLEFT")
+        border.BottomRight:SetPoint("BOTTOMRIGHT", border, "BOTTOMRIGHT")
+        border.Bottom:SetPoint("BOTTOMLEFT", border.BottomLeft, "BOTTOMRIGHT")
+        border.Bottom:SetPoint("BOTTOMRIGHT", border.BottomRight, "BOTTOMLEFT")
+        border.Left:SetPoint("TOPLEFT", border, "TOPLEFT")
+        border.Left:SetPoint("BOTTOMLEFT", border.BottomLeft, "TOPLEFT")
+        border.Right:SetPoint("TOPRIGHT", border, "TOPRIGHT")
+        border.Right:SetPoint("BOTTOMRIGHT", border.BottomRight, "TOPRIGHT")
+
+        border.Top:Hide()
+        border.TopLeft:Hide()
+        border.TopRight:Hide()
+    elseif orientation == "RIGHT" then
+        border.TopRight:SetPoint("TOPRIGHT", border, "TOPRIGHT")
+        border.BottomRight:SetPoint("BOTTOMRIGHT", border, "BOTTOMRIGHT")
+        border.Top:SetPoint("TOPLEFT", border, "TOPLEFT")
+        border.Top:SetPoint("TOPRIGHT", border.TopRight, "TOPLEFT")
+        border.Bottom:SetPoint("BOTTOMLEFT", border, "BOTTOMLEFT")
+        border.Bottom:SetPoint("BOTTOMRIGHT", border.BottomRight, "BOTTOMLEFT")
+        border.Right:SetPoint("TOPRIGHT", border.TopRight, "BOTTOMRIGHT")
+        border.Right:SetPoint("BOTTOMRIGHT", border.BottomRight, "TOPRIGHT")
+
+        border.Left:Hide()
+        border.TopLeft:Hide()
+        border.BottomLeft:Hide()
+    end
+
+    tab.ArtworkBorder = border
+
+    Artwork:UpdateTab(tab)
+
+    Artwork.registry.tabs[tab] = true
+end
+
+function Artwork:UpdateTab(tab)
+    if not tab or not tab.ArtworkBorder then
+        return
+    end
+
+    local atlas = Artwork:GetFrameTabBorderAtlas()
+
+    Artwork:UpdateBorderColor(tab.ArtworkBorder, E.db[addonName].artwork.frameTabBorderColor or {1, 1, 1})
+
+    if not E.db[addonName].artwork.enabled or not atlas then
+        Artwork:EnablePixelBorders(tab)
+        tab.ArtworkBorder:Hide()
+
+        if tab.originalPoint then
+            tab:ClearAllPoints()
+            tab:SetPoint(unpack(tab.originalPoint))
+        end
+    else
+        Artwork:DisablePixelBorders(tab)
+        tab.ArtworkBorder:Show()
+
+        if tab.originalPoint[2] == tab:GetParent() then
+            local frameBorderAtlas = Artwork:GetFrameBorderAtlas()
+
+            tab:ClearAllPoints()
+            if frameBorderAtlas and tab.orientation == "DOWN" then
+                tab:SetPoint(tab.originalPoint[1], tab.originalPoint[2], tab.originalPoint[3], tab.originalPoint[4],
+                             tab.originalPoint[5] - frameBorderAtlas.scale * frameBorderAtlas.offset[2] + 3)
+            elseif frameBorderAtlas and tab.orientation == "RIGHT" then
+                tab:SetPoint(tab.originalPoint[1], tab.originalPoint[2], tab.originalPoint[3], tab.originalPoint[4] - frameBorderAtlas.scale * frameBorderAtlas.offset[1] - 3,
+                             tab.originalPoint[5])
+            else
+                tab:SetPoint(unpack(tab.originalPoint))
+            end
+        end
+
+        local parent = tab.backdrop or tab
+        local border = tab.ArtworkBorder
+
+        if tab.atlas ~= atlas then
+            tab.atlas = atlas
+
+            local offsetX, offsetY = atlas.offset[1], atlas.offset[2]
+            border:SetPoint("TOPLEFT", parent, "TOPLEFT", offsetX + (tab.orientation == "RIGHT" and 4 or 0), offsetY - (tab.orientation == "DOWN" and 6 or -4))
+            border:SetPoint("BOTTOMRIGHT", parent, "BOTTOMRIGHT", -offsetX + (tab.orientation == "RIGHT" and 4 or 0), -offsetY - (tab.orientation == "DOWN" and 2 or 4))
+
+            border.TopLeft:SetSize(atlas.topLeft[2], atlas.topLeft[3])
+            border.TopLeft:SetTexture(atlas.topLeft[1])
+            border.TopLeft:SetTexCoord(atlas.topLeft[4], atlas.topLeft[5], atlas.topLeft[6], atlas.topLeft[7])
+
+            border.TopRight:SetSize(atlas.topRight[2], atlas.topRight[3])
+            border.TopRight:SetTexture(atlas.topRight[1])
+            border.TopRight:SetTexCoord(atlas.topRight[4], atlas.topRight[5], atlas.topRight[6], atlas.topRight[7])
+
+            border.BottomLeft:SetSize(atlas.bottomLeft[2], atlas.bottomLeft[3])
+            border.BottomLeft:SetTexture(atlas.bottomLeft[1])
+            border.BottomLeft:SetTexCoord(atlas.bottomLeft[4], atlas.bottomLeft[5], atlas.bottomLeft[6], atlas.bottomLeft[7])
+
+            border.BottomRight:SetSize(atlas.bottomRight[2], atlas.bottomRight[3])
+            border.BottomRight:SetTexture(atlas.bottomRight[1])
+            border.BottomRight:SetTexCoord(atlas.bottomRight[4], atlas.bottomRight[5], atlas.bottomRight[6], atlas.bottomRight[7])
+
+            border.Top:SetSize(atlas.top[2], atlas.top[3])
+            border.Top:SetTexture(atlas.top[1], "MIRROR")
+            border.Top:SetTexCoord(atlas.top[4], atlas.top[5], atlas.top[6], atlas.top[7])
+            border.Top:SetHorizTile(atlas.horizontalTiling)
+
+            border.Bottom:SetSize(atlas.bottom[2], atlas.bottom[3])
+            border.Bottom:SetTexture(atlas.bottom[1], "MIRROR")
+            border.Bottom:SetTexCoord(atlas.bottom[4], atlas.bottom[5], atlas.bottom[6], atlas.bottom[7])
+            border.Bottom:SetHorizTile(atlas.horizontalTiling)
+
+            border.Left:SetSize(atlas.left[2], atlas.left[3])
+            border.Left:SetTexture(atlas.left[1], nil, "MIRROR")
+            border.Left:SetTexCoord(atlas.left[4], atlas.left[5], atlas.left[6], atlas.left[7])
+            border.Left:SetVertTile(atlas.verticalTiling)
+
+            border.Right:SetSize(atlas.right[2], atlas.right[3])
+            border.Right:SetTexture(atlas.right[1], nil, "MIRROR")
+            border.Right:SetTexCoord(atlas.right[4], atlas.right[5], atlas.right[6], atlas.right[7])
+            border.Right:SetVertTile(atlas.verticalTiling)
+        end
+
+        border:SetScale(atlas.scale)
+
+        tab:SetFrameLevel(math.max(0, parent:GetFrameLevel() - 10))
+        if tab.backdrop then
+            tab.backdrop:SetFrameLevel(math.max(0, tab:GetFrameLevel() - 1))
         end
     end
 end
@@ -394,7 +559,7 @@ function Artwork:SkinButton(button)
 
     local borderAtlas = Artwork:GetButtonBorderAtlas()
 
-    button.Border = Artwork:CreateBorder(button, borderAtlas)
+    button.ArtworkBorder = Artwork:CreateBorder(button, borderAtlas)
     Artwork:UpdateButton(button)
 
     Artwork.registry.buttons[button] = true
@@ -407,191 +572,161 @@ function Artwork:UpdateButton(button)
 
     local borderAtlas = Artwork:GetButtonBorderAtlas()
 
-    Artwork:UpdateBorder(button.Border, borderAtlas)
-    Artwork:UpdateBorderColor(button.Border, E.db[addonName].artwork.buttonBorderColor)
+    Artwork:UpdateBorder(button.ArtworkBorder, borderAtlas)
+    Artwork:UpdateBorderColor(button.ArtworkBorder, E.db[addonName].artwork.buttonBorderColor)
 
     if not E.db[addonName].artwork.enabled or not borderAtlas then
         Artwork:EnablePixelBorders(button)
-        button.Border:Hide()
+        button.ArtworkBorder:Hide()
     else
         Artwork:DisablePixelBorders(button)
-        button.Border:Show()
+        button.ArtworkBorder:Show()
     end
 end
 
--- Tabs
-function Artwork:SkinTab(tab, orientation)
-    if not tab then
+-- Action Buttons
+function Artwork:SkinActionButton(button)
+    if not button then
         return
     end
-    if Artwork:IsTabRegistered(tab) then
-        Artwork:UpdateTab(tab)
+    if Artwork:IsActionButtonRegistered(button) then
+        Artwork:UpdateActionButton(button)
         return
     end
 
-    tab.orientation = orientation
-    tab.originalPoint = {tab:GetPoint()}
+    local borderAtlas = Artwork:GetActionButtonBorderAtlas()
 
-    local parent = tab.backdrop or tab
-    local border = CreateFrame("Frame", nil, parent)
+    button.ArtworkBorder = Artwork:CreateBorder(button, borderAtlas, "BACKGROUND")
+    Artwork:UpdateActionButton(button)
 
-    border.TopLeft = border:CreateTexture(nil, "ARTWORK")
-    border.TopRight = border:CreateTexture(nil, "ARTWORK")
-    border.BottomLeft = border:CreateTexture(nil, "ARTWORK")
-    border.BottomRight = border:CreateTexture(nil, "ARTWORK")
-    border.Top = border:CreateTexture(nil, "ARTWORK")
-    border.Bottom = border:CreateTexture(nil, "ARTWORK")
-    border.Left = border:CreateTexture(nil, "ARTWORK")
-    border.Right = border:CreateTexture(nil, "ARTWORK")
+    Artwork:SecureHook(button, "SetBackdropBorderColor", function(self, r, g, b, a)
+        if not r then
+            r, g, b, a = unpack(E.db[addonName].artwork.actionButtonBorderColor)
+        end
+        Artwork:UpdateBorderColor(self.ArtworkBorder, {r, g, b, a})
+    end)
 
-    if orientation == "DOWN" then
-        border.BottomLeft:SetPoint("BOTTOMLEFT", border, "BOTTOMLEFT")
-        border.BottomRight:SetPoint("BOTTOMRIGHT", border, "BOTTOMRIGHT")
-        border.Bottom:SetPoint("BOTTOMLEFT", border.BottomLeft, "BOTTOMRIGHT")
-        border.Bottom:SetPoint("BOTTOMRIGHT", border.BottomRight, "BOTTOMLEFT")
-        border.Left:SetPoint("TOPLEFT", border, "TOPLEFT")
-        border.Left:SetPoint("BOTTOMLEFT", border.BottomLeft, "TOPLEFT")
-        border.Right:SetPoint("TOPRIGHT", border, "TOPRIGHT")
-        border.Right:SetPoint("BOTTOMRIGHT", border.BottomRight, "TOPRIGHT")
-
-        border.Top:Hide()
-        border.TopLeft:Hide()
-        border.TopRight:Hide()
-    elseif orientation == "RIGHT" then
-        border.TopRight:SetPoint("TOPRIGHT", border, "TOPRIGHT")
-        border.BottomRight:SetPoint("BOTTOMRIGHT", border, "BOTTOMRIGHT")
-        border.Top:SetPoint("TOPLEFT", border, "TOPLEFT")
-        border.Top:SetPoint("TOPRIGHT", border.TopRight, "TOPLEFT")
-        border.Bottom:SetPoint("BOTTOMLEFT", border, "BOTTOMLEFT")
-        border.Bottom:SetPoint("BOTTOMRIGHT", border.BottomRight, "BOTTOMLEFT")
-        border.Right:SetPoint("TOPRIGHT", border.TopRight, "BOTTOMRIGHT")
-        border.Right:SetPoint("BOTTOMRIGHT", border.BottomRight, "TOPRIGHT")
-
-        border.Left:Hide()
-        border.TopLeft:Hide()
-        border.BottomLeft:Hide()
-    end
-
-    tab.Border = border
-
-    Artwork:UpdateTab(tab)
-
-    Artwork.registry.tabs[tab] = true
+    Artwork.registry.actionButtons[button] = true
 end
 
-function Artwork:UpdateTab(tab)
-    if not tab or not tab.Border then
+function Artwork:UpdateActionButton(button)
+    if not button then
         return
     end
 
-    local atlas = Artwork:GetFrameTabBorderAtlas()
+    local borderAtlas = Artwork:GetActionButtonBorderAtlas()
 
-    Artwork:UpdateBorderColor(tab.Border, E.db[addonName].artwork.frameTabBorderColor or {1, 1, 1})
+    Artwork:UpdateBorder(button.ArtworkBorder, borderAtlas)
+    Artwork:UpdateBorderColor(button.ArtworkBorder, E.db[addonName].artwork.actionButtonBorderColor)
 
-    if not E.db[addonName].artwork.enabled or not atlas then
-        Artwork:EnablePixelBorders(tab)
-        tab.Border:Hide()
+    local name = button:GetName()
+    local icon = _G[name .. "Icon"]
 
-        if tab.originalPoint then
-            tab:ClearAllPoints()
-            tab:SetPoint(unpack(tab.originalPoint))
+    if not E.db[addonName].artwork.enabled or not borderAtlas then
+        Artwork:EnablePixelBorders(button)
+        button.ArtworkBorder:Hide()
+
+        if icon then
+            icon:SetInside()
+        end
+        if button.hover then
+            button.hover:SetInside()
         end
     else
-        Artwork:DisablePixelBorders(tab)
-        tab.Border:Show()
+        Artwork:DisablePixelBorders(button)
+        button.ArtworkBorder:Show()
 
-        if tab.originalPoint[2] == tab:GetParent() then
-            local frameBorderAtlas = Artwork:GetFrameBorderAtlas()
-
-            tab:ClearAllPoints()
-            if frameBorderAtlas and tab.orientation == "DOWN" then
-                tab:SetPoint(tab.originalPoint[1], tab.originalPoint[2], tab.originalPoint[3], tab.originalPoint[4],
-                             tab.originalPoint[5] - frameBorderAtlas.scale * frameBorderAtlas.offset[2] + 3)
-            elseif frameBorderAtlas and tab.orientation == "RIGHT" then
-                tab:SetPoint(tab.originalPoint[1], tab.originalPoint[2], tab.originalPoint[3], tab.originalPoint[4] - frameBorderAtlas.scale * frameBorderAtlas.offset[1] - 3,
-                             tab.originalPoint[5])
-            else
-                tab:SetPoint(unpack(tab.originalPoint))
-            end
+        if icon then
+            icon:SetInside(nil, 4, 4)
         end
-
-        local parent = tab.backdrop or tab
-        local border = tab.Border
-
-        if tab.atlas ~= atlas then
-            tab.atlas = atlas
-
-            local offsetX, offsetY = atlas.offset[1], atlas.offset[2]
-            border:SetPoint("TOPLEFT", parent, "TOPLEFT", offsetX + (tab.orientation == "RIGHT" and 4 or 0), offsetY - (tab.orientation == "DOWN" and 6 or -4))
-            border:SetPoint("BOTTOMRIGHT", parent, "BOTTOMRIGHT", -offsetX + (tab.orientation == "RIGHT" and 4 or 0), -offsetY - (tab.orientation == "DOWN" and 2 or 4))
-
-            border.TopLeft:SetSize(atlas.topLeft[2], atlas.topLeft[3])
-            border.TopLeft:SetTexture(atlas.topLeft[1])
-            border.TopLeft:SetTexCoord(atlas.topLeft[4], atlas.topLeft[5], atlas.topLeft[6], atlas.topLeft[7])
-
-            border.TopRight:SetSize(atlas.topRight[2], atlas.topRight[3])
-            border.TopRight:SetTexture(atlas.topRight[1])
-            border.TopRight:SetTexCoord(atlas.topRight[4], atlas.topRight[5], atlas.topRight[6], atlas.topRight[7])
-
-            border.BottomLeft:SetSize(atlas.bottomLeft[2], atlas.bottomLeft[3])
-            border.BottomLeft:SetTexture(atlas.bottomLeft[1])
-            border.BottomLeft:SetTexCoord(atlas.bottomLeft[4], atlas.bottomLeft[5], atlas.bottomLeft[6], atlas.bottomLeft[7])
-
-            border.BottomRight:SetSize(atlas.bottomRight[2], atlas.bottomRight[3])
-            border.BottomRight:SetTexture(atlas.bottomRight[1])
-            border.BottomRight:SetTexCoord(atlas.bottomRight[4], atlas.bottomRight[5], atlas.bottomRight[6], atlas.bottomRight[7])
-
-            border.Top:SetSize(atlas.top[2], atlas.top[3])
-            border.Top:SetTexture(atlas.top[1], "MIRROR")
-            border.Top:SetTexCoord(atlas.top[4], atlas.top[5], atlas.top[6], atlas.top[7])
-            border.Top:SetHorizTile(atlas.horizontalTiling)
-
-            border.Bottom:SetSize(atlas.bottom[2], atlas.bottom[3])
-            border.Bottom:SetTexture(atlas.bottom[1], "MIRROR")
-            border.Bottom:SetTexCoord(atlas.bottom[4], atlas.bottom[5], atlas.bottom[6], atlas.bottom[7])
-            border.Bottom:SetHorizTile(atlas.horizontalTiling)
-
-            border.Left:SetSize(atlas.left[2], atlas.left[3])
-            border.Left:SetTexture(atlas.left[1], nil, "MIRROR")
-            border.Left:SetTexCoord(atlas.left[4], atlas.left[5], atlas.left[6], atlas.left[7])
-            border.Left:SetVertTile(atlas.verticalTiling)
-
-            border.Right:SetSize(atlas.right[2], atlas.right[3])
-            border.Right:SetTexture(atlas.right[1], nil, "MIRROR")
-            border.Right:SetTexCoord(atlas.right[4], atlas.right[5], atlas.right[6], atlas.right[7])
-            border.Right:SetVertTile(atlas.verticalTiling)
+        if button.hover then
+            button.hover:SetInside(nil, 2, 2)
         end
+    end
+end
 
-        border:SetScale(atlas.scale)
+-- Bag Buttons
+function Artwork:SkinBagButton(button)
+    if not button then
+        return
+    end
+    if Artwork:IsBagButtonRegistered(button) then
+        Artwork:UpdateBagButton(button)
+        return
+    end
 
-        tab:SetFrameLevel(math.max(0, parent:GetFrameLevel() - 10))
-        if tab.backdrop then
-            tab.backdrop:SetFrameLevel(math.max(0, tab:GetFrameLevel() - 1))
+    local borderAtlas = Artwork:GetBagButtonBorderAtlas()
+
+    button.ArtworkBorder = Artwork:CreateBorder(button, borderAtlas, "BACKGROUND")
+    Artwork:UpdateBagButton(button)
+
+    Artwork:SecureHook(button, "SetBackdropBorderColor", function(self, r, g, b, a)
+        if not r then
+            r, g, b, a = unpack(E.db[addonName].artwork.bagButtonBorderColor)
+        end
+        Artwork:UpdateBorderColor(self.ArtworkBorder, {r, g, b, a})
+    end)
+
+    Artwork.registry.bagButtons[button] = true
+end
+
+function Artwork:UpdateBagButton(button)
+    if not button then
+        return
+    end
+
+    local borderAtlas = Artwork:GetBagButtonBorderAtlas()
+
+    Artwork:UpdateBorder(button.ArtworkBorder, borderAtlas)
+    Artwork:UpdateBorderColor(button.ArtworkBorder, E.db[addonName].artwork.bagButtonBorderColor)
+
+    local name = button:GetName()
+    local icon = _G[name .. "Icon"]
+
+    if not E.db[addonName].artwork.enabled or not borderAtlas then
+        Artwork:EnablePixelBorders(button)
+        button.ArtworkBorder:Hide()
+
+        if icon then
+            icon:SetInside()
+        end
+        if button.hover then
+            button.hover:SetInside()
+        end
+    else
+        Artwork:DisablePixelBorders(button)
+        button.ArtworkBorder:Show()
+
+        if icon then
+            icon:SetInside(nil, 4, 4)
+        end
+        if button.hover then
+            button.hover:SetInside(nil, 2, 2)
         end
     end
 end
 
 -- Tooltips
 function Artwork:SkinTooltip(tip)
-    if tip.Border then
+    if tip.ArtworkBorder then
         Artwork:UpdateTooltip(tip)
         return
     end
 
     local borderAtlas = Artwork:GetTooltipBorderAtlas()
 
-    tip.Border = Artwork:CreateBorder(tip, borderAtlas)
+    tip.ArtworkBorder = Artwork:CreateBorder(tip, borderAtlas)
     Artwork:UpdateTooltip(tip)
 end
 
 function Artwork:UpdateTooltip(tip)
-    if not tip.Border then
+    if not tip.ArtworkBorder then
         return
     end
 
     local borderAtlas = Artwork:GetTooltipBorderAtlas()
 
-    Artwork:UpdateBorder(tip.Border, borderAtlas)
+    Artwork:UpdateBorder(tip.ArtworkBorder, borderAtlas)
 
     local color = E.db[addonName].artwork.tooltipBorderColor
     if tip.GetItem then
@@ -604,14 +739,14 @@ function Artwork:UpdateTooltip(tip)
         end
     end
 
-    Artwork:UpdateBorderColor(tip.Border, color)
+    Artwork:UpdateBorderColor(tip.ArtworkBorder, color)
 
     if not E.db[addonName].artwork.enabled or not borderAtlas then
         Artwork:EnablePixelBorders(tip)
-        tip.Border:Hide()
+        tip.ArtworkBorder:Hide()
     else
         Artwork:DisablePixelBorders(tip)
-        tip.Border:Show()
+        tip.ArtworkBorder:Show()
     end
 end
 
@@ -666,11 +801,11 @@ Artwork:SecureHook(S, "HandleTab", function(self, tab, noBackdrop)
 end)
 
 Artwork:SecureHook(S, "SetModifiedBackdrop", function(button)
-    Artwork:UpdateBorderColor(button.Border, E.db[addonName].artwork.buttonBorderHighlightColor)
+    Artwork:UpdateBorderColor(button.ArtworkBorder, E.db[addonName].artwork.buttonBorderHighlightColor)
 end)
 
 Artwork:SecureHook(S, "SetOriginalBackdrop", function(button)
-    Artwork:UpdateBorderColor(button.Border, E.db[addonName].artwork.buttonBorderColor)
+    Artwork:UpdateBorderColor(button.ArtworkBorder, E.db[addonName].artwork.buttonBorderColor)
 end)
 
 local function GrabScrollBarElement(frame, elements)
@@ -725,6 +860,17 @@ Artwork:SecureHook(S, "Ace3_StyleTooltip", function(self)
     Artwork:SkinTooltip(self)
 end)
 
+Artwork:SecureHook(AB, "StyleButton", function(self, button, noBackdrop, useMasque, ignoreNormal)
+    if useMasque then
+        return
+    end
+    Artwork:SkinActionButton(button)
+end)
+
+Artwork:SecureHook(B, "UpdateSlot", function(self, frame, bagID, slotID)
+    Artwork:SkinBagButton(frame.Bags[bagID][slotID])
+end)
+
 -- AddOnSkins Hooks
 if AS and false then
     Artwork:SecureHook(AS, "SkinFrame", function(self, frame, template, override, kill)
@@ -748,9 +894,10 @@ if AS and false then
     end)
 end
 
-local DBIcon = LibStub("LibDBIcon-1.0", true)
-if DBIcon and DBIcon.tooltip and DBIcon.tooltip:IsObjectType("GameTooltip") then
-    DBIcon.tooltip:HookScript("OnShow", function(self)
+-- Lib Hooks
+local libDBIcon = LibStub("LibDBIcon-1.0", true)
+if libDBIcon and libDBIcon.tooltip and libDBIcon.tooltip:IsObjectType("GameTooltip") then
+    libDBIcon.tooltip:HookScript("OnShow", function(self)
         Artwork:SkinTooltip(self)
     end)
 end

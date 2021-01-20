@@ -56,6 +56,11 @@ P[addonName] = {
         buttonBorder = "BeautyCase",
         buttonBorderColor = {60 / 255, 60 / 255, 60 / 255},
         buttonBorderHighlightColor = {90 / 255, 90 / 255, 90 / 255},
+        actionButtonBorder = "BeautyCase",
+        actionButtonBorderColor = {60 / 255, 60 / 255, 60 / 255},
+        actionButtonBorderHighlightColor = {90 / 255, 90 / 255, 90 / 255},
+        bagButtonBorder = "BeautyCase",
+        bagButtonBorderColor = {60 / 255, 60 / 255, 60 / 255},
         tooltipBorder = "BeautyCase",
         tooltipBorderColor = {60 / 255, 60 / 255, 60 / 255}
     },
@@ -245,7 +250,7 @@ function Addon:InsertOptions()
                             Addon.Artwork:UpdateArtwork()
                         end
                     },
-                    lineBreak2 = {type = "header", name = L["Buttons"], order = 50},
+                    headerButtons = {type = "header", name = L["Buttons"], order = 50},
                     buttonBorder = {
                         order = 51,
                         type = "select",
@@ -291,9 +296,87 @@ function Addon:InsertOptions()
                             Addon.Artwork:UpdateArtwork()
                         end
                     },
-                    lineBreak3 = {type = "header", name = L["Tooltips"], order = 60},
-                    tooltipBorder = {
+                    headerActionButtons = {type = "header", name = L["Action Bars & Buttons"], order = 60},
+                    actionButtonBorder = {
                         order = 61,
+                        type = "select",
+                        name = L["Action Button Border Theme"],
+                        values = Addon.borders,
+                        get = function()
+                            for key, val in pairs(Addon.borders) do
+                                if E.db[addonName].artwork.actionButtonBorder == val then
+                                    return key
+                                end
+                            end
+                        end,
+                        set = function(_, key)
+                            E.db[addonName].artwork.actionButtonBorder = Addon.borders[key]
+                            Addon.Artwork:UpdateArtwork()
+                        end
+                    },
+                    actionButtonBorderColor = {
+                        order = 62,
+                        type = "color",
+                        name = L["Action Button Border Color"],
+                        get = function(info)
+                            local t = E.db[addonName].artwork.actionButtonBorderColor
+                            return t[1], t[2], t[3], t[4]
+                        end,
+                        set = function(info, r, g, b)
+                            local t = E.db[addonName].artwork.actionButtonBorderColor
+                            t[1], t[2], t[3], t[4] = r, g, b, a
+                            Addon.Artwork:UpdateArtwork()
+                        end
+                    },
+                    actionButtonBorderHighlightColor = {
+                        order = 63,
+                        type = "color",
+                        name = L["Action Button Border Highlight Color"],
+                        get = function(info)
+                            local t = E.db[addonName].artwork.actionButtonBorderHighlightColor
+                            return t[1], t[2], t[3], t[4]
+                        end,
+                        set = function(info, r, g, b)
+                            local t = E.db[addonName].artwork.actionButtonBorderHighlightColor
+                            t[1], t[2], t[3], t[4] = r, g, b, a
+                            Addon.Artwork:UpdateArtwork()
+                        end
+                    },
+                    headerBags = {type = "header", name = L["Bags & Item Buttons"], order = 70},
+                    bagButtonBorder = {
+                        order = 71,
+                        type = "select",
+                        name = L["Bag Slot Border Theme"],
+                        values = Addon.borders,
+                        get = function()
+                            for key, val in pairs(Addon.borders) do
+                                if E.db[addonName].artwork.bagButtonBorder == val then
+                                    return key
+                                end
+                            end
+                        end,
+                        set = function(_, key)
+                            E.db[addonName].artwork.bagButtonBorder = Addon.borders[key]
+                            Addon.Artwork:UpdateArtwork()
+                        end
+                    },
+                    bagButtonBorderColor = {
+                        order = 72,
+                        type = "color",
+                        name = L["Bag Slot Border Color"],
+                        get = function(info)
+                            local t = E.db[addonName].artwork.bagButtonBorderColor
+                            return t[1], t[2], t[3], t[4]
+                        end,
+                        set = function(info, r, g, b)
+                            local t = E.db[addonName].artwork.bagButtonBorderColor
+                            t[1], t[2], t[3], t[4] = r, g, b, a
+                            Addon.Artwork:UpdateArtwork()
+                        end
+                    },
+                    headerTooltips = {type = "header", name = L["Tooltips"], order = 100},
+                    tooltipBorder = {
+                        order = 101,
                         type = "select",
                         name = L["Tooltip Border Theme"],
                         values = Addon.borders,
@@ -310,7 +393,7 @@ function Addon:InsertOptions()
                         end
                     },
                     tooltipBorderColor = {
-                        order = 62,
+                        order = 102,
                         type = "color",
                         name = L["Tooltip Border Color"],
                         get = function(info)
