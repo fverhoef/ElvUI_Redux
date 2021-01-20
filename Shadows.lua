@@ -117,6 +117,9 @@ function Shadows:CreateShadows()
         end
     end
 
+    -- Color Picker
+    Shadows:CreateShadow(_G.ColorPickerFrame)
+
     -- DressUp
     Shadows:CreateShadow(_G.DressUpFrame.backdrop)
 
@@ -517,50 +520,30 @@ function Shadows:LoadTrainerFrame()
 end
 
 -- ElvUI Overrides
-local originalConfig_WindowOpened = E.Config_WindowOpened
-E.Config_WindowOpened = function(...)
-    originalConfig_WindowOpened(...)
-
+Shadows:SecureHook(E, "Config_WindowOpened", function(self)
     local optionsFrame = E:Config_GetWindow()
     if optionsFrame then
         Shadows:CreateShadow(optionsFrame)
     end
-end
+end)
 
-local originalStaticPopupSpecial_Show = E.StaticPopupSpecial_Show
-E.StaticPopupSpecial_Show = function(...)
-    originalStaticPopupSpecial_Show(...)
-
-    local _, frame = ...
+Shadows:SecureHook(E, "StaticPopupSpecial_Show", function(self, frame)
     Shadows:CreateShadow(frame)
-end
+end)
 
-local originalUpdateAura = A.UpdateAura
-A.UpdateAura = function(...)
-    originalUpdateAura(...)
-
-    local _, button = ...
+Shadows:SecureHook(A, "UpdateAura", function(self, button)
     Shadows:CreateShadow(button)
-end
-local originalUpdateStatusBar = A.UpdateStatusBar
-A.UpdateStatusBar = function(...)
-    originalUpdateStatusBar(...)
+end)
 
-    local _, button = ...
+Shadows:SecureHook(A, "UpdateStatusBar", function(self, button)
     Shadows:CreateShadow(button)
-end
-local originalUpdateTempEnchant = A.UpdateTempEnchant
-A.UpdateTempEnchant = function(...)
-    originalUpdateTempEnchant(...)
+end)
 
-    local _, button = ...
+Shadows:SecureHook(A, "UpdateTempEnchant", function(self, button)
     Shadows:CreateShadow(button)
-end
+end)
 
-local originalUpdatePlate = NP.UpdatePlate
-NP.UpdatePlate = function(...)
-    originalUpdatePlate(...)
-
+Shadows:SecureHook(NP, "UpdatePlate", function(...)
     local _, nameplate = ...
     if not nameplate.Health.shadow then
         Shadows:CreateShadow(nameplate.Health)
@@ -573,4 +556,11 @@ NP.UpdatePlate = function(...)
             Shadows:CreateShadow(button)
         end)
     end
+end)
+
+local DBIcon = LibStub("LibDBIcon-1.0", true)
+if DBIcon and DBIcon.tooltip and DBIcon.tooltip:IsObjectType("GameTooltip") then
+    DBIcon.tooltip:HookScript("OnShow", function(self)
+        Shadows:CreateShadow(self)
+    end)
 end

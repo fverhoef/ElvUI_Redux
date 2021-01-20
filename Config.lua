@@ -3,7 +3,7 @@ local Addon = addonTable[1]
 local E, L, V, P, G = unpack(ElvUI)
 
 Addon.minimapIconStyles = {Square = "Square", Round = "Round"}
-Addon.borders = {"None", "BeautyCase", "Clean", "Goldpaw", "Onyx", "Renaitre (Square)", "Retina"}
+Addon.borders = {"None", "BeautyCase", "Clean", "Goldpaw", "Onyx", "Renaitre (Square)", "Retina", "Shadowlands"}
 Addon.frameBackgrounds = {
     "None",
     "Alliance",
@@ -31,18 +31,13 @@ Addon.frameBorders = {
     "Oribos",
     "Venthyr"
 }
-Addon.thinFrameBorders = {
-    "None",
-    "Alliance",
-    "Horde",
-    "Neutral",
-    "Marine",
-    "Mechagon",
-    "Kyrian",
-    "Necrolord",
-    "NightFae",
-    "Venthyr"
-}
+
+table.insert(Addon.frameBorders, "")
+for _, border in ipairs(Addon.borders) do
+    if border ~= "None" then
+        table.insert(Addon.frameBorders, border)
+    end
+end
 
 if E.db[addonName] == nil then
     E.db[addonName] = {}
@@ -50,14 +45,19 @@ end
 P[addonName] = {
     artwork = {
         enabled = true,
-        frameBackground = "Marine",
-        frameBackgroundColor = {1, 1, 1, 1},
         frameBorder = "Metal",
+        frameBorderColor = {1, 1, 1},
+        frameBackground = "Necrolord",
+        frameBackgroundColor = {1, 1, 1, 1},
+        frameTabBorder = "Shadowlands",
+        frameTabBorderColor = {139 / 255, 129 / 255, 118 / 255},
+        thinFrameBorder = "BeautyCase",
+        thinFrameBorderColor = {60 / 255, 60 / 255, 60 / 255},
         buttonBorder = "BeautyCase",
-        buttonBorderColor = {20 / 255, 20 / 255, 20 / 255},
-        buttonBorderHighlightColor = {80 / 255, 80 / 255, 80 / 255},
+        buttonBorderColor = {60 / 255, 60 / 255, 60 / 255},
+        buttonBorderHighlightColor = {90 / 255, 90 / 255, 90 / 255},
         tooltipBorder = "BeautyCase",
-        tooltipBorderColor = {20 / 255, 20 / 255, 20 / 255},
+        tooltipBorderColor = {60 / 255, 60 / 255, 60 / 255}
     },
     automation = {
         enabled = true,
@@ -134,20 +134,82 @@ function Addon:InsertOptions()
                             Addon.Artwork:UpdateArtwork()
                         end
                     },
-                    border = {
+                    frameBorderColor = {
                         order = 22,
+                        type = "color",
+                        name = L["Frame Border Color"],
+                        hasAlpha = true,
+                        get = function(info)
+                            local t = E.db[addonName].artwork.frameBorderColor
+                            return t[1], t[2], t[3], t[4]
+                        end,
+                        set = function(info, r, g, b, a)
+                            local t = E.db[addonName].artwork.frameBorderColor
+                            t[1], t[2], t[3], t[4] = r, g, b, a
+                            Addon.Artwork:UpdateArtwork()
+                        end
+                    },
+                    frameTabBorder = {
+                        order = 23,
                         type = "select",
-                        name = L["Frame Border Theme (Thin)"],
-                        values = Addon.thinFrameBorders,
+                        name = L["Frame Tab Border Theme"],
+                        values = Addon.borders,
                         get = function()
-                            for key, val in pairs(Addon.thinFrameBorders) do
+                            for key, val in pairs(Addon.borders) do
+                                if E.db[addonName].artwork.frameTabBorder == val then
+                                    return key
+                                end
+                            end
+                        end,
+                        set = function(_, key)
+                            E.db[addonName].artwork.frameTabBorder = Addon.borders[key]
+                            Addon.Artwork:UpdateArtwork()
+                        end
+                    },
+                    frameTabBorderColor = {
+                        order = 24,
+                        type = "color",
+                        name = L["Frame Tab Border Color"],
+                        hasAlpha = true,
+                        get = function(info)
+                            local t = E.db[addonName].artwork.frameTabBorderColor
+                            return t[1], t[2], t[3], t[4]
+                        end,
+                        set = function(info, r, g, b, a)
+                            local t = E.db[addonName].artwork.frameTabBorderColor
+                            t[1], t[2], t[3], t[4] = r, g, b, a
+                            Addon.Artwork:UpdateArtwork()
+                        end
+                    },
+                    thinFrameBorder = {
+                        order = 25,
+                        type = "select",
+                        name = L["Thin Frame Border Theme"],
+                        values = Addon.borders,
+                        get = function()
+                            for key, val in pairs(Addon.borders) do
                                 if E.db[addonName].artwork.thinFrameBorder == val then
                                     return key
                                 end
                             end
                         end,
                         set = function(_, key)
-                            E.db[addonName].artwork.thinFrameBorder = Addon.thinFrameBorders[key]
+                            E.db[addonName].artwork.thinFrameBorder = Addon.borders[key]
+                            Addon.Artwork:UpdateArtwork()
+                        end
+                    },
+                    thinFrameBorderColor = {
+                        order = 26,
+                        type = "color",
+                        name = L["Thin Frame Border Color"],
+                        hasAlpha = true,
+                        get = function(info)
+                            local t = E.db[addonName].artwork.thinFrameBorderColor
+                            return t[1], t[2], t[3], t[4]
+                        end,
+                        set = function(info, r, g, b, a)
+                            local t = E.db[addonName].artwork.thinFrameBorderColor
+                            t[1], t[2], t[3], t[4] = r, g, b, a
                             Addon.Artwork:UpdateArtwork()
                         end
                     },
@@ -260,7 +322,7 @@ function Addon:InsertOptions()
                             t[1], t[2], t[3], t[4] = r, g, b, a
                             Addon.Artwork:UpdateArtwork()
                         end
-                    },
+                    }
                 }
             },
             automation = {

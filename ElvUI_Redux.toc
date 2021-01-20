@@ -4,6 +4,7 @@
 ## Title: |cff1784d1ElvUI|r |cff76FF03Redux|r
 ## Notes: Adds various bits of functionality to ElvUI.
 ## RequiredDeps: ElvUI
+## OptionalDeps: AddOnSkins
 ## DefaultState: Enabled
 ## X-ElvuiVersion: 1.36
 

@@ -88,135 +88,21 @@ Artwork.atlas = {
             bottom = {Addon.media.textures.borders.retinaTop, 32, 8, 0, 1, 1, 0},
             left = {Addon.media.textures.borders.retinaLeft, 8, 32, 0, 1, 0, 1},
             right = {Addon.media.textures.borders.retinaLeft, 8, 32, 1, 0, 0, 1}
-        }
-    },
-    thinFrameBorders = {
-        ["Alliance"] = {
-            scale = 0.5,
-            offset = {-8, 8},
-            verticalTiling = true,
-            horizontalTiling = true,
-            topLeft = {Addon.media.textures.thinFrameBorders.allianceTopLeft, 16, 16, 0, 1, 0, 1},
-            topRight = {Addon.media.textures.thinFrameBorders.allianceTopLeft, 16, 16, 1, 0, 0, 1},
-            bottomLeft = {Addon.media.textures.thinFrameBorders.allianceTopLeft, 16, 16, 0, 1, 1, 0},
-            bottomRight = {Addon.media.textures.thinFrameBorders.allianceTopLeft, 16, 16, 1, 0, 1, 0},
-            top = {Addon.media.textures.thinFrameBorders.allianceTop, 256, 16, 0, 1, 0, 1},
-            bottom = {Addon.media.textures.thinFrameBorders.allianceTop, 256, 16, 0, 1, 1, 0},
-            left = {Addon.media.textures.thinFrameBorders.allianceLeft, 16, 256, 0, 1, 0, 1},
-            right = {Addon.media.textures.thinFrameBorders.allianceLeft, 16, 256, 1, 0, 0, 1}
         },
-        ["Horde"] = {
+        ["Shadowlands"] = {
             scale = 0.5,
-            offset = {-8, 8},
+            offset = {-2, 2},
             verticalTiling = true,
             horizontalTiling = true,
-            topLeft = {Addon.media.textures.thinFrameBorders.hordeTopLeft, 16, 16, 0, 1, 0, 1},
-            topRight = {Addon.media.textures.thinFrameBorders.hordeTopLeft, 16, 16, 1, 0, 0, 1},
-            bottomLeft = {Addon.media.textures.thinFrameBorders.hordeTopLeft, 16, 16, 0, 1, 1, 0},
-            bottomRight = {Addon.media.textures.thinFrameBorders.hordeTopLeft, 16, 16, 1, 0, 1, 0},
-            top = {Addon.media.textures.thinFrameBorders.hordeTop, 256, 16, 0, 1, 0, 1},
-            bottom = {Addon.media.textures.thinFrameBorders.hordeTop, 256, 16, 0, 1, 1, 0},
-            left = {Addon.media.textures.thinFrameBorders.hordeLeft, 16, 256, 0, 1, 0, 1},
-            right = {Addon.media.textures.thinFrameBorders.hordeLeft, 16, 256, 1, 0, 0, 1}
+            topLeft = {Addon.media.textures.borders.shadowlandsTopLeft, 16, 16, 0, 1, 0, 1},
+            topRight = {Addon.media.textures.borders.shadowlandsTopLeft, 16, 16, 1, 0, 0, 1},
+            bottomLeft = {Addon.media.textures.borders.shadowlandsTopLeft, 16, 16, 0, 1, 1, 0},
+            bottomRight = {Addon.media.textures.borders.shadowlandsTopLeft, 16, 16, 1, 0, 1, 0},
+            top = {Addon.media.textures.borders.shadowlandsTop, 256, 16, 0, 1, 0, 1},
+            bottom = {Addon.media.textures.borders.shadowlandsTop, 256, 16, 0, 1, 1, 0},
+            left = {Addon.media.textures.borders.shadowlandsLeft, 16, 256, 0, 1, 0, 1},
+            right = {Addon.media.textures.borders.shadowlandsLeft, 16, 256, 1, 0, 0, 1}
         },
-        ["Kyrian"] = {
-            scale = 0.5,
-            offset = {-8, 8},
-            verticalTiling = true,
-            horizontalTiling = true,
-            topLeft = {Addon.media.textures.thinFrameBorders.kyrianTopLeft, 16, 16, 0, 1, 0, 1},
-            topRight = {Addon.media.textures.thinFrameBorders.kyrianTopLeft, 16, 16, 1, 0, 0, 1},
-            bottomLeft = {Addon.media.textures.thinFrameBorders.kyrianTopLeft, 16, 16, 0, 1, 1, 0},
-            bottomRight = {Addon.media.textures.thinFrameBorders.kyrianTopLeft, 16, 16, 1, 0, 1, 0},
-            top = {Addon.media.textures.thinFrameBorders.kyrianTop, 256, 16, 0, 1, 0, 1},
-            bottom = {Addon.media.textures.thinFrameBorders.kyrianTop, 256, 16, 0, 1, 1, 0},
-            left = {Addon.media.textures.thinFrameBorders.kyrianLeft, 16, 256, 0, 1, 0, 1},
-            right = {Addon.media.textures.thinFrameBorders.kyrianLeft, 16, 256, 1, 0, 0, 1}
-        },
-        ["Marine"] = {
-            scale = 0.5,
-            offset = {-8, 8},
-            verticalTiling = true,
-            horizontalTiling = true,
-            topLeft = {Addon.media.textures.thinFrameBorders.marineTopLeft, 16, 16, 0, 1, 0, 1},
-            topRight = {Addon.media.textures.thinFrameBorders.marineTopLeft, 16, 16, 1, 0, 0, 1},
-            bottomLeft = {Addon.media.textures.thinFrameBorders.marineTopLeft, 16, 16, 0, 1, 1, 0},
-            bottomRight = {Addon.media.textures.thinFrameBorders.marineTopLeft, 16, 16, 1, 0, 1, 0},
-            top = {Addon.media.textures.thinFrameBorders.marineTop, 256, 16, 0, 1, 0, 1},
-            bottom = {Addon.media.textures.thinFrameBorders.marineTop, 256, 16, 0, 1, 1, 0},
-            left = {Addon.media.textures.thinFrameBorders.marineLeft, 16, 256, 0, 1, 0, 1},
-            right = {Addon.media.textures.thinFrameBorders.marineLeft, 16, 256, 1, 0, 0, 1}
-        },
-        ["Mechagon"] = {
-            scale = 0.5,
-            offset = {-8, 8},
-            verticalTiling = true,
-            horizontalTiling = true,
-            topLeft = {Addon.media.textures.thinFrameBorders.mechagonTopLeft, 16, 16, 0, 1, 0, 1},
-            topRight = {Addon.media.textures.thinFrameBorders.mechagonTopLeft, 16, 16, 1, 0, 0, 1},
-            bottomLeft = {Addon.media.textures.thinFrameBorders.mechagonTopLeft, 16, 16, 0, 1, 1, 0},
-            bottomRight = {Addon.media.textures.thinFrameBorders.mechagonTopLeft, 16, 16, 1, 0, 1, 0},
-            top = {Addon.media.textures.thinFrameBorders.mechagonTop, 256, 16, 0, 1, 0, 1},
-            bottom = {Addon.media.textures.thinFrameBorders.mechagonTop, 256, 16, 0, 1, 1, 0},
-            left = {Addon.media.textures.thinFrameBorders.mechagonLeft, 16, 256, 0, 1, 0, 1},
-            right = {Addon.media.textures.thinFrameBorders.mechagonLeft, 16, 256, 1, 0, 0, 1}
-        },
-        ["Necrolord"] = {
-            scale = 0.5,
-            offset = {-8, 8},
-            verticalTiling = true,
-            horizontalTiling = true,
-            topLeft = {Addon.media.textures.thinFrameBorders.necrolordTopLeft, 16, 16, 0, 1, 0, 1},
-            topRight = {Addon.media.textures.thinFrameBorders.necrolordTopLeft, 16, 16, 1, 0, 0, 1},
-            bottomLeft = {Addon.media.textures.thinFrameBorders.necrolordTopLeft, 16, 16, 0, 1, 1, 0},
-            bottomRight = {Addon.media.textures.thinFrameBorders.necrolordTopLeft, 16, 16, 1, 0, 1, 0},
-            top = {Addon.media.textures.thinFrameBorders.necrolordTop, 256, 16, 0, 1, 0, 1},
-            bottom = {Addon.media.textures.thinFrameBorders.necrolordTop, 256, 16, 0, 1, 1, 0},
-            left = {Addon.media.textures.thinFrameBorders.necrolordLeft, 16, 256, 0, 1, 0, 1},
-            right = {Addon.media.textures.thinFrameBorders.necrolordLeft, 16, 256, 1, 0, 0, 1}
-        },
-        ["Neutral"] = {
-            scale = 0.5,
-            offset = {-8, 8},
-            verticalTiling = true,
-            horizontalTiling = true,
-            topLeft = {Addon.media.textures.thinFrameBorders.neutralTopLeft, 16, 16, 0, 1, 0, 1},
-            topRight = {Addon.media.textures.thinFrameBorders.neutralTopLeft, 16, 16, 1, 0, 0, 1},
-            bottomLeft = {Addon.media.textures.thinFrameBorders.neutralTopLeft, 16, 16, 0, 1, 1, 0},
-            bottomRight = {Addon.media.textures.thinFrameBorders.neutralTopLeft, 16, 16, 1, 0, 1, 0},
-            top = {Addon.media.textures.thinFrameBorders.neutralTop, 256, 16, 0, 1, 0, 1},
-            bottom = {Addon.media.textures.thinFrameBorders.neutralTop, 256, 16, 0, 1, 1, 0},
-            left = {Addon.media.textures.thinFrameBorders.neutralLeft, 16, 256, 0, 1, 0, 1},
-            right = {Addon.media.textures.thinFrameBorders.neutralLeft, 16, 256, 1, 0, 0, 1}
-        },
-        ["NightFae"] = {
-            scale = 0.5,
-            offset = {-8, 8},
-            verticalTiling = true,
-            horizontalTiling = true,
-            topLeft = {Addon.media.textures.thinFrameBorders.nightFaeTopLeft, 16, 16, 0, 1, 0, 1},
-            topRight = {Addon.media.textures.thinFrameBorders.nightFaeTopLeft, 16, 16, 1, 0, 0, 1},
-            bottomLeft = {Addon.media.textures.thinFrameBorders.nightFaeTopLeft, 16, 16, 0, 1, 1, 0},
-            bottomRight = {Addon.media.textures.thinFrameBorders.nightFaeTopLeft, 16, 16, 1, 0, 1, 0},
-            top = {Addon.media.textures.thinFrameBorders.nightFaeTop, 256, 16, 0, 1, 0, 1},
-            bottom = {Addon.media.textures.thinFrameBorders.nightFaeTop, 256, 16, 0, 1, 1, 0},
-            left = {Addon.media.textures.thinFrameBorders.nightFaeLeft, 16, 256, 0, 1, 0, 1},
-            right = {Addon.media.textures.thinFrameBorders.nightFaeLeft, 16, 256, 1, 0, 0, 1}
-        },
-        ["Venthyr"] = {
-            scale = 0.5,
-            offset = {-8, 8},
-            verticalTiling = true,
-            horizontalTiling = true,
-            topLeft = {Addon.media.textures.thinFrameBorders.venthyrTopLeft, 16, 16, 0, 1, 0, 1},
-            topRight = {Addon.media.textures.thinFrameBorders.venthyrTopLeft, 16, 16, 1, 0, 0, 1},
-            bottomLeft = {Addon.media.textures.thinFrameBorders.venthyrTopLeft, 16, 16, 0, 1, 1, 0},
-            bottomRight = {Addon.media.textures.thinFrameBorders.venthyrTopLeft, 16, 16, 1, 0, 1, 0},
-            top = {Addon.media.textures.thinFrameBorders.venthyrTop, 256, 16, 0, 1, 0, 1},
-            bottom = {Addon.media.textures.thinFrameBorders.venthyrTop, 256, 16, 0, 1, 1, 0},
-            left = {Addon.media.textures.thinFrameBorders.venthyrLeft, 16, 256, 0, 1, 0, 1},
-            right = {Addon.media.textures.thinFrameBorders.venthyrLeft, 16, 256, 1, 0, 0, 1}
-        }
     },
     frameBorders = {
         ["Alliance"] = {
@@ -388,11 +274,15 @@ Artwork.atlas = {
 }
 
 function Artwork:GetFrameBorderAtlas()
-    return Artwork.atlas.frameBorders[E.db[addonName].artwork.frameBorder]
+    return Artwork.atlas.frameBorders[E.db[addonName].artwork.frameBorder] or Artwork.atlas.borders[E.db[addonName].artwork.frameBorder]
+end
+
+function Artwork:GetFrameTabBorderAtlas()
+    return Artwork.atlas.borders[E.db[addonName].artwork.frameTabBorder]
 end
 
 function Artwork:GetThinFrameBorderAtlas()
-    return Artwork.atlas.thinFrameBorders[E.db[addonName].artwork.thinFrameBorder]
+    return Artwork.atlas.borders[E.db[addonName].artwork.thinFrameBorder]
 end
 
 function Artwork:GetCloseButtonBackgroundAtlas()
