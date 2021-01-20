@@ -60,6 +60,8 @@ P[addonName] = {
         actionButtonBorderColor = {60 / 255, 60 / 255, 60 / 255},
         bagButtonBorder = "BeautyCase",
         bagButtonBorderColor = {60 / 255, 60 / 255, 60 / 255},
+        itemButtonBorder = "BeautyCase",
+        itemButtonBorderColor = {60 / 255, 60 / 255, 60 / 255},
         tooltipBorder = "BeautyCase",
         tooltipBorderColor = {60 / 255, 60 / 255, 60 / 255}
     },
@@ -355,6 +357,37 @@ function Addon:InsertOptions()
                         end,
                         set = function(info, r, g, b)
                             local t = E.db[addonName].artwork.bagButtonBorderColor
+                            t[1], t[2], t[3], t[4] = r, g, b, a
+                            Addon.Artwork:UpdateArtwork()
+                        end
+                    },
+                    itemButtonBorder = {
+                        order = 73,
+                        type = "select",
+                        name = L["Item Button Border Theme"],
+                        values = Addon.borders,
+                        get = function()
+                            for key, val in pairs(Addon.borders) do
+                                if E.db[addonName].artwork.itemButtonBorder == val then
+                                    return key
+                                end
+                            end
+                        end,
+                        set = function(_, key)
+                            E.db[addonName].artwork.itemButtonBorder = Addon.borders[key]
+                            Addon.Artwork:UpdateArtwork()
+                        end
+                    },
+                    itemButtonBorderColor = {
+                        order = 74,
+                        type = "color",
+                        name = L["Item Button Border Color"],
+                        get = function(info)
+                            local t = E.db[addonName].artwork.itemButtonBorderColor
+                            return t[1], t[2], t[3], t[4]
+                        end,
+                        set = function(info, r, g, b)
+                            local t = E.db[addonName].artwork.itemButtonBorderColor
                             t[1], t[2], t[3], t[4] = r, g, b, a
                             Addon.Artwork:UpdateArtwork()
                         end

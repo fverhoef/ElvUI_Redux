@@ -10,7 +10,15 @@ local S = E:GetModule("Skins")
 local TT = E:GetModule("Tooltip")
 
 -- Registry
-Artwork.registry = {frames = {}, nestedFrames = {}, buttons = {}, actionButtons = {}, bagButtons = {}, tabs = {}}
+Artwork.registry = {
+    frames = {},
+    nestedFrames = {},
+    buttons = {},
+    actionButtons = {},
+    bagButtons = {},
+    itemButtons = {},
+    tabs = {}
+}
 
 function Artwork:IsFrameRegistered(frame)
     return Artwork.registry.frames[frame] or Artwork.registry.nestedFrames[frame] or false
@@ -41,6 +49,10 @@ function Artwork:IsBagButtonRegistered(button)
     return Artwork.registry.bagButtons[button] or false
 end
 
+function Artwork:IsItemButtonRegistered(button)
+    return Artwork.registry.itemButtons[button] or false
+end
+
 function Artwork:IsTabRegistered(tab)
     return Artwork.registry.tabs[tab] or false
 end
@@ -69,6 +81,13 @@ function Artwork:Initialize()
         Artwork:SkinFrame(_G["ElvUI_StaticPopup" .. i], true)
     end
 
+    -- skin any tab that isn't handled by overriding Skins.HandleTab
+    for i = 1, _G.MAX_SKILLLINE_TABS do
+        local tab = _G["SpellBookSkillLineTab" .. i]
+        Artwork:SkinTab(tab, "RIGHT")
+    end
+
+    -- skins bags
     B.BagFrame.Title = B.BagFrame:CreateFontString("OVERLAY")
     B.BagFrame.Title:FontTemplate()
     B.BagFrame.Title:Point("TOP", B.BagFrame, "TOP", 0, -5)
@@ -81,10 +100,21 @@ function Artwork:Initialize()
     B.BankFrame.Title:SetText(BANK)
     Artwork:SkinFrame(B.BankFrame)
 
-    -- skin any tab that isn't handled by overriding Skins.HandleTab
-    for i = 1, _G.MAX_SKILLLINE_TABS do
-        local tab = _G["SpellBookSkillLineTab" .. i]
-        Artwork:SkinTab(tab, "RIGHT")
+    Artwork:SkinFrame(B.SellFrame, true)
+
+    -- skin character equipment slot items
+    for _, slot in pairs({_G.PaperDollItemsFrame:GetChildren()}) do
+        if slot:IsObjectType("Button") then
+            Artwork:SkinItemButton(slot, true)
+        end
+    end
+
+    -- skin quest log items
+    local questLogItems = {["QuestLogItem"] = _G.MAX_NUM_ITEMS, ["QuestProgressItem"] = _G.MAX_REQUIRED_ITEMS}
+    for frame, count in pairs(questLogItems) do
+        for i = 1, count do
+            Artwork:SkinItemButton(_G[frame .. i], true)
+        end
     end
 end
 
@@ -111,6 +141,10 @@ function Artwork:UpdateArtwork()
 
     for button, _ in pairs(Artwork.registry.bagButtons) do
         Artwork:UpdateBagButton(button)
+    end
+
+    for button, _ in pairs(Artwork.registry.itemButtons) do
+        Artwork:UpdateItemButton(button)
     end
 end
 
@@ -692,6 +726,75 @@ function Artwork:UpdateBagButton(button)
     end
 end
 
+-- Item Buttons
+function Artwork:SkinItemButton(button, repositionIcon)
+    if not button or Artwork:IsItemButtonRegistered(button) then
+        return
+    end
+
+    local borderAtlas = Artwork:GetItemButtonBorderAtlas()
+
+    button.repositionIcon = repositionIcon
+    button.ArtworkBorder = Artwork:CreateBorder(button, borderAtlas)
+    Artwork:UpdateItemButton(button)
+    Artwork:UpdateBorderColor(button.ArtworkBorder, E.db[addonName].artwork.itemButtonBorderColor)
+
+    Artwork:SecureHook(button, "SetBackdropBorderColor", function(self, r, g, b, a)
+        local color = {r, g, b, a}
+        if r == 0 and g == 0 and b == 0 then
+            color = E.db[addonName].artwork.itemButtonBorderColor
+        end
+        Artwork:UpdateBorderColor(self.ArtworkBorder, color)
+    end)
+
+    Artwork.registry.itemButtons[button] = true
+end
+
+function Artwork:UpdateItemButton(button)
+    if not button then
+        return
+    end
+
+    local borderAtlas = Artwork:GetItemButtonBorderAtlas()
+
+    Artwork:UpdateBorder(button.ArtworkBorder, borderAtlas)
+
+    local name = button:GetName()
+    local icon = _G[name .. "Icon"] or (button.repositionIcon and _G[name .. "IconTexture"])
+
+    if not E.db[addonName].artwork.enabled or not borderAtlas then
+        Artwork:EnablePixelBorders(button)
+        button.ArtworkBorder:Hide()
+
+        if icon then
+            icon:SetInside()
+        end
+        if button.hover then
+            button.hover:SetInside()
+        end
+
+        if button.repositionIcon and button.Icon then
+            item.Icon:Size(E.PixelMode and 35 or 32)
+            item.Icon:Point("TOPLEFT", E.PixelMode and 2 or 4, -(E.PixelMode and 2 or 4))
+        end
+    else
+        Artwork:DisablePixelBorders(button)
+        button.ArtworkBorder:Show()
+
+        if icon then
+            icon:SetInside(nil, 4, 4)
+        end
+        if button.hover then
+            button.hover:SetInside(nil, 2, 2)
+        end
+
+        if button.repositionIcon and button.Icon then
+            button.Icon:Size(32)
+            button.Icon:Point("TOPLEFT", 4, -4)
+        end
+    end
+end
+
 -- Tooltips
 function Artwork:SkinTooltip(tip)
     if tip.ArtworkBorder then
@@ -762,6 +865,12 @@ function Artwork:DisablePixelBorders(frame)
 end
 
 -- ElvUI Hooks
+Artwork:SecureHook(E, "SetBackdropBorderColor", function(self, frame, r, g, b, a)
+    if Artwork:IsItemButtonRegistered(frame) then
+        Artwork:UpdateBorderColor(frame.ArtworkBorder, {r, g, b, a})
+    end
+end)
+
 Artwork:SecureHook(S, "HandleFrame", function(self, frame, setBackdrop, template, x1, y1, x2, y2)
     if Artwork:IsParentFrameRegistered(frame) then
         Artwork:SkinNestedFrame(frame)
@@ -827,6 +936,10 @@ Artwork:Hook(S, "HandleNextPrevButton", function(self, button, arrowDir, color, 
     button.artworkType = "NEXT_PREV"
 end)
 
+Artwork:SecureHook(S, "HandleItemButton", function(self, button, shrinkIcon)
+    Artwork:SkinItemButton(button)
+end)
+
 Artwork:SecureHook(E, "Config_WindowOpened", function(self)
     local optionsFrame = E:Config_GetWindow()
     if optionsFrame then
@@ -854,7 +967,13 @@ Artwork:SecureHook(AB, "StyleButton", function(self, button, noBackdrop, useMasq
 end)
 
 Artwork:SecureHook(B, "UpdateSlot", function(self, frame, bagID, slotID)
-    Artwork:SkinBagButton(frame.Bags[bagID][slotID])
+    if frame and frame.Bags[bagID] then
+        Artwork:SkinBagButton(frame.Bags[bagID][slotID])
+    end
+end)
+
+Artwork:SecureHook(B, "SkinBag", function(self, bag)
+    Artwork:SkinItemButton(bag)
 end)
 
 -- AddOnSkins Hooks

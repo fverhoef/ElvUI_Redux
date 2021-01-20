@@ -306,6 +306,10 @@ function Artwork:GetBagButtonBorderAtlas()
     return Artwork.atlas.borders[E.db[addonName].artwork.bagButtonBorder]
 end
 
+function Artwork:GetItemButtonBorderAtlas()
+    return Artwork.atlas.borders[E.db[addonName].artwork.itemButtonBorder]
+end
+
 function Artwork:GetTooltipBorderAtlas()
     return Artwork.atlas.borders[E.db[addonName].artwork.tooltipBorder]
 end
