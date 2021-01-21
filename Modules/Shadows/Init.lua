@@ -375,7 +375,6 @@ function Shadows:UpdateShadows()
         return
     end
 
-    -- Action Bars    
     for i = 1, 10 do
         local bar = AB.handledBars["bar" .. i]
         if bar then

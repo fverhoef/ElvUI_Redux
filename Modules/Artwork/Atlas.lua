@@ -310,6 +310,10 @@ function Artwork:GetItemButtonBorderAtlas()
     return Artwork.atlas.borders[E.db[addonName].artwork.itemButtonBorder]
 end
 
+function Artwork:GetMinimapBorderAtlas()
+    return Artwork.atlas.borders[E.db[addonName].artwork.minimap.border]
+end
+
 function Artwork:GetTooltipBorderAtlas()
     return Artwork.atlas.borders[E.db[addonName].artwork.tooltipBorder]
 end

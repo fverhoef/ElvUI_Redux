@@ -15,11 +15,11 @@ _G[addonName] = Addon
 function Addon:Initialize()
     EP:RegisterPlugin(addonName, Addon.InsertOptions)
 
+    Addon.Shadows:Initialize()
+    Addon.MinimapButtonFrame:Initialize()
     Addon.Artwork:Initialize()
     Addon.Automation:Initialize()
     Addon.InventoryDatabase:Initialize()
-    Addon.MinimapButtonFrame:Initialize()
-    Addon.Shadows:Initialize()
     Addon.Tooltips:Initialize()
 
     if Addon.isClassic then

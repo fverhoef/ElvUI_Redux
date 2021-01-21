@@ -68,6 +68,10 @@ P[addonName] = {
         tempEnchantBorderColor = {60 / 255, 60 / 255, 60 / 255},
         tooltipBorder = "BeautyCase",
         tooltipBorderColor = {60 / 255, 60 / 255, 60 / 255},
+        minimap = {
+            border = "BeautyCase",
+            borderColor = {60 / 255, 60 / 255, 60 / 255},
+        },
         unitFrames = {
             ["player"] = {
                 border = "None",
@@ -462,8 +466,47 @@ function Addon:InsertOptions()
                             }
                         }
                     },
-                    skins = {
+                    minimap = {
                         order = 40,
+                        type = "group",
+                        name = L["Minimap"],
+                        args = {
+                            border = {
+                                order = 1,
+                                type = "select",
+                                name = L["Minimap Border Theme"],
+                                values = Addon.borders,
+                                get = function()
+                                    for key, val in pairs(Addon.borders) do
+                                        if E.db[addonName].artwork.minimap.border == val then
+                                            return key
+                                        end
+                                    end
+                                end,
+                                set = function(_, key)
+                                    E.db[addonName].artwork.minimap.border = Addon.borders[key]
+                                    Addon.Artwork:UpdateArtwork()
+                                end
+                            },
+                            borderColor = {
+                                order = 2,
+                                type = "color",
+                                name = L["Minimap Border Color"],
+                                get = function(info)
+                                    local t = E.db[addonName].artwork.minimap.borderColor
+                                    local d = P[addonName].artwork.minimap.borderColor
+                                    return t[1], t[2], t[3], t[4], d[1], d[2], d[3], d[4] or 1
+                                end,
+                                set = function(info, r, g, b)
+                                    local t = E.db[addonName].artwork.minimap.borderColor
+                                    t[1], t[2], t[3], t[4] = r, g, b, a
+                                    Addon.Artwork:UpdateArtwork()
+                                end
+                            }
+                        }
+                    },
+                    skins = {
+                        order = 50,
                         type = "group",
                         name = L["Skins"],
                         args = {
@@ -649,7 +692,7 @@ function Addon:InsertOptions()
                         }
                     },
                     tooltips = {
-                        order = 50,
+                        order = 60,
                         type = "group",
                         name = L["Tooltips"],
                         args = {
@@ -688,7 +731,7 @@ function Addon:InsertOptions()
                         }
                     },
                     unitFrames = {
-                        order = 60,
+                        order = 70,
                         type = "group",
                         name = L["Unit Frames"],
                         args = {

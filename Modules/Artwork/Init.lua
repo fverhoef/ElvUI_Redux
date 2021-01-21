@@ -70,6 +70,9 @@ function Artwork:Initialize()
         end
     end
 
+    -- minimap
+    Artwork:SkinMinimap()
+
     -- skin unit frames
     Artwork:SkinUnitFrame("player")
     Artwork:SkinUnitFrame("pet")
@@ -139,6 +142,8 @@ function Artwork:UpdateArtwork()
     for groupHeader, _ in pairs(Artwork.registry.groupHeaders) do
         Artwork:UpdateUnitFrameGroupHeader(groupHeader)
     end
+
+    Artwork:UpdateMinimap()
 end
 
 function Artwork:ADDON_LOADED(addonName)
