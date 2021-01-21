@@ -2,17 +2,24 @@ local addonName, addonTable = ...
 local Addon = addonTable[1]
 local Artwork = Addon.Artwork
 
--- Registry
 Artwork.registry = {
     frames = {},
     nestedFrames = {},
+    tabs = {},
     buttons = {},
     actionButtons = {},
     bagButtons = {},
     itemButtons = {},
-    craftItemButtons = {},
-    tabs = {}
+    craftItemButtons = {}
 }
+
+function Artwork:RegisterFrame(frame)
+    Artwork.registry.frames[frame] = true
+end
+
+function Artwork:RegisterNestedFrame(frame)
+    Artwork.registry.nestedFrames[frame] = true
+end
 
 function Artwork:IsFrameRegistered(frame)
     return Artwork.registry.frames[frame] or Artwork.registry.nestedFrames[frame] or false
@@ -31,26 +38,50 @@ function Artwork:IsParentFrameRegistered(frame)
     return false
 end
 
-function Artwork:IsButtonRegistered(button)
-    return Artwork.registry.buttons[button] or false
-end
-
-function Artwork:IsActionButtonRegistered(button)
-    return Artwork.registry.actionButtons[button] or false
-end
-
-function Artwork:IsBagButtonRegistered(button)
-    return Artwork.registry.bagButtons[button] or false
-end
-
-function Artwork:IsItemButtonRegistered(button)
-    return Artwork.registry.itemButtons[button] or false
-end
-
-function Artwork:IsCraftItemButtonRegistered(button)
-    return Artwork.registry.craftItemButtons[button] or false
+function Artwork:RegisterTab(tab)
+    Artwork.registry.tabs[tab] = true
 end
 
 function Artwork:IsTabRegistered(tab)
-    return Artwork.registry.tabs[tab] or false
+    return Artwork.registry.tabs[tab] ~= nil
+end
+
+function Artwork:RegisterButton(button)
+    Artwork.registry.buttons[button] = true
+end
+
+function Artwork:IsButtonRegistered(button)
+    return Artwork.registry.buttons[button] ~= nil
+end
+
+function Artwork:RegisterActionButton(button)
+    Artwork.registry.actionButtons[button] = true
+end
+
+function Artwork:IsActionButtonRegistered(button)
+    return Artwork.registry.actionButtons[button] ~= nil
+end
+
+function Artwork:RegisterBagButton(button)
+    Artwork.registry.bagButtons[button] = true
+end
+
+function Artwork:IsBagButtonRegistered(button)
+    return Artwork.registry.bagButtons[button] ~= nil
+end
+
+function Artwork:RegisterItemButton(button)
+    Artwork.registry.itemButtons[button] = true
+end
+
+function Artwork:IsItemButtonRegistered(button)
+    return Artwork.registry.itemButtons[button] ~= nil
+end
+
+function Artwork:RegisterCraftItemButton(button)
+    Artwork.registry.craftItemButtons[button] = true
+end
+
+function Artwork:IsCraftItemButtonRegistered(button)
+    return Artwork.registry.craftItemButtons[button] ~= nil
 end

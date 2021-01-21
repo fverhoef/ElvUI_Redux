@@ -21,8 +21,7 @@ function Artwork:SkinFrame(frame, useThinBorder)
     Artwork:SkinCloseButton(Artwork:GetCloseButton(frame), closeButtonAtlas)
 
     Artwork:UpdateFrame(frame)
-
-    Artwork.registry.frames[frame] = true
+    Artwork:RegisterFrame(frame)
 end
 
 function Artwork:UpdateFrame(frame)
@@ -61,7 +60,7 @@ function Artwork:SkinNestedFrame(frame)
         return
     end
 
-    Artwork.registry.nestedFrames[frame] = true
+    Artwork:RegisterNestedFrame(frame)
 end
 
 function Artwork:UpdateNestedFrame(frame)

@@ -55,8 +55,7 @@ function Artwork:SkinTab(tab, orientation)
     tab.ArtworkBorder = border
 
     Artwork:UpdateTab(tab)
-
-    Artwork.registry.tabs[tab] = true
+    Artwork:RegisterTab(tab)
 end
 
 function Artwork:UpdateTab(tab)

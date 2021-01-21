@@ -79,12 +79,12 @@ function Artwork:UpdateArtwork()
         Artwork:UpdateNestedFrame(frame)
     end
 
-    for button, _ in pairs(Artwork.registry.buttons) do
-        Artwork:UpdateButton(button)
-    end
-
     for tab, _ in pairs(Artwork.registry.tabs) do
         Artwork:UpdateTab(tab)
+    end
+
+    for button, _ in pairs(Artwork.registry.buttons) do
+        Artwork:UpdateButton(button)
     end
 
     for button, _ in pairs(Artwork.registry.actionButtons) do
@@ -97,6 +97,10 @@ function Artwork:UpdateArtwork()
 
     for button, _ in pairs(Artwork.registry.itemButtons) do
         Artwork:UpdateItemButton(button)
+    end
+
+    for button, _ in pairs(Artwork.registry.craftItemButtons) do
+        Artwork:UpdateCraftItemButton(button)
     end
 end
 
