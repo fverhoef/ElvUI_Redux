@@ -25,8 +25,10 @@ function Shadows:CreateShadows()
     -- Unit Frames
     Shadows:CreateUnitFrameShadows("player")
     Shadows:CreateUnitFrameShadows("pet")
+    Shadows:CreateUnitFrameShadows("pettarget")
     Shadows:CreateUnitFrameShadows("target")
     Shadows:CreateUnitFrameShadows("targettarget")
+    Shadows:CreateUnitFrameShadows("targettargettarget")
     Shadows:CreateUnitFrameShadows("focus")
 
     -- Unit Frame Groups
@@ -36,11 +38,18 @@ function Shadows:CreateShadows()
     Shadows:CreateUnitGroupShadows("party")
     Shadows:CreateUnitGroupShadows("raid")
     Shadows:CreateUnitGroupShadows("raid40")
+    Shadows:CreateUnitGroupShadows("raidpet")
     Shadows:CreateUnitGroupShadows("tank")
 
-    -- Action Bars
+    -- Action Bars    
     for i = 1, 10 do
+        local bar = AB.handledBars["bar" .. i]
         Shadows:CreateShadow(AB.handledBars["bar" .. i])
+
+        for j = 1, _G.NUM_ACTIONBAR_BUTTONS do
+            local button = bar.buttons[j]
+            Shadows:CreateShadow(button)
+        end
     end
 
     -- Addon Manager
@@ -258,8 +267,19 @@ function Shadows:CreateShadows()
     -- Plugins
     local ccb = _G["ElvUI_ClassicClassBars"]
     if ccb then
-        Shadows:CreateShadow(ccb.MageBar)
-        Shadows:CreateShadow(ccb.ShamanBar)
+        if ccb.MageBar then
+            Shadows:CreateShadow(ccb.MageBar)
+            for i, button in ipairs(ccb.MageBar.buttons) do
+                Shadows:CreateShadow(button)
+            end
+        end
+
+        if ccb.ShamanBar then
+            Shadows:CreateShadow(ccb.ShamanBar)
+            for i, button in ipairs(ccb.ShamanBar.buttons) do
+                Shadows:CreateShadow(button)
+            end
+        end
     end
     local merathilis = _G["ElvUI_MerathilisUI"] or _G["ElvUI_MerathilisUI-Classic"]
     if merathilis then
@@ -355,6 +375,36 @@ function Shadows:UpdateShadows()
         return
     end
 
+    -- Action Bars    
+    for i = 1, 10 do
+        local bar = AB.handledBars["bar" .. i]
+        if bar then
+            bar.shadow.isHidden = E.db[addonName].shadows.shadowPerButton
+
+            for j = 1, _G.NUM_ACTIONBAR_BUTTONS do
+                local button = bar.buttons[j]
+                button.shadow.isHidden = not E.db[addonName].shadows.shadowPerButton
+            end
+        end
+    end
+
+    local ccb = _G["ElvUI_ClassicClassBars"]
+    if ccb then
+        if ccb.MageBar then
+            ccb.MageBar.shadow.isHidden = E.db[addonName].shadows.shadowPerButton
+            for i, button in ipairs(ccb.MageBar.buttons) do
+                button.shadow.isHidden = not E.db[addonName].shadows.shadowPerButton
+            end
+        end
+
+        if ccb.ShamanBar then
+            ccb.ShamanBar.shadow.isHidden = E.db[addonName].shadows.shadowPerButton
+            for i, button in ipairs(ccb.ShamanBar.buttons) do
+                button.shadow.isHidden = not E.db[addonName].shadows.shadowPerButton
+            end
+        end
+    end
+
     Shadows:CreateShadows()
     for shadow, _ in pairs(Shadows.registeredShadows) do
         Shadows:UpdateShadow(shadow)
@@ -371,7 +421,10 @@ function Shadows:UpdateShadow(shadow)
         shadow:SetFrameLevel(1)
         shadow:SetFrameStrata(frame:GetFrameStrata())
         shadow:SetOutside(frame, shadow.config.size or 3, shadow.config.size or 3)
-        shadow:SetBackdrop({edgeFile = LSM:Fetch("border", "ElvUI GlowBorder"), edgeSize = E:Scale(2 + (shadow.config.size or 3))})
+        shadow:SetBackdrop({
+            edgeFile = LSM:Fetch("border", "ElvUI GlowBorder"),
+            edgeSize = E:Scale(2 + (shadow.config.size or 3))
+        })
         shadow:SetBackdropColor(shadow.config.color[1], shadow.config.color[2], shadow.config.color[3], 0)
         shadow:SetBackdropBorderColor(unpack(shadow.config.color))
     end

@@ -24,14 +24,6 @@ function Artwork:UpdateButton(button)
 
     Artwork:UpdateBorder(button.ArtworkBorder, borderAtlas)
     Artwork:UpdateBorderColor(button.ArtworkBorder, E.db[addonName].artwork.buttonBorderColor)
-
-    if not E.db[addonName].artwork.enabled or not borderAtlas then
-        Artwork:EnablePixelBorders(button)
-        button.ArtworkBorder:Hide()
-    else
-        Artwork:DisablePixelBorders(button)
-        button.ArtworkBorder:Show()
-    end
 end
 
 -- Action Buttons
@@ -63,16 +55,12 @@ function Artwork:UpdateActionButton(button)
     end
 
     local borderAtlas = Artwork:GetActionButtonBorderAtlas()
-
     Artwork:UpdateBorder(button.ArtworkBorder, borderAtlas)
 
     local name = button:GetName()
     local icon = _G[name .. "Icon"]
 
     if not E.db[addonName].artwork.enabled or not borderAtlas then
-        Artwork:EnablePixelBorders(button)
-        button.ArtworkBorder:Hide()
-
         if icon then
             icon:SetInside()
         end
@@ -80,9 +68,6 @@ function Artwork:UpdateActionButton(button)
             button.hover:SetInside()
         end
     else
-        Artwork:DisablePixelBorders(button)
-        button.ArtworkBorder:Show()
-
         if icon then
             icon:SetInside(nil, 2, 2)
         end
@@ -121,14 +106,12 @@ function Artwork:UpdateBagButton(button)
     end
 
     local borderAtlas = Artwork:GetBagButtonBorderAtlas()
+    Artwork:UpdateBorder(button.ArtworkBorder, borderAtlas)
 
     local name = button:GetName()
     local icon = _G[name .. "Icon"]
 
     if not E.db[addonName].artwork.enabled or not borderAtlas then
-        Artwork:EnablePixelBorders(button)
-        button.ArtworkBorder:Hide()
-
         if icon then
             icon:SetInside()
         end
@@ -136,11 +119,6 @@ function Artwork:UpdateBagButton(button)
             button.hover:SetInside()
         end
     else
-        Artwork:DisablePixelBorders(button)
-        button.ArtworkBorder:Show()
-
-        Artwork:UpdateBorder(button.ArtworkBorder, borderAtlas)
-
         if icon then
             icon:SetInside(nil, 4, 4)
         end
@@ -180,14 +158,12 @@ function Artwork:UpdateItemButton(button)
     end
 
     local borderAtlas = Artwork:GetItemButtonBorderAtlas()
+    Artwork:UpdateBorder(button.ArtworkBorder, borderAtlas)
 
     local name = button:GetName()
     local icon = _G[name .. "Icon"] or (button.repositionIcon and _G[name .. "IconTexture"])
 
     if not E.db[addonName].artwork.enabled or not borderAtlas then
-        Artwork:EnablePixelBorders(button)
-        button.ArtworkBorder:Hide()
-
         if icon then
             icon:SetInside()
         end
@@ -200,11 +176,6 @@ function Artwork:UpdateItemButton(button)
             button.Icon:Point("TOPLEFT", E.PixelMode and 2 or 4, -(E.PixelMode and 2 or 4))
         end
     else
-        Artwork:DisablePixelBorders(button)
-        button.ArtworkBorder:Show()
-
-        Artwork:UpdateBorder(button.ArtworkBorder, borderAtlas)
-
         if icon then
             icon:SetInside(nil, 2, 2)
         end
@@ -250,22 +221,16 @@ function Artwork:UpdateCraftItemButton(button)
     end
 
     local borderAtlas = Artwork:GetItemButtonBorderAtlas()
+    Artwork:UpdateBorder(button.ArtworkBorder, borderAtlas)
+
     local icon = _G[button:GetName() .. "IconTexture"]
 
     if not E.db[addonName].artwork.enabled or not borderAtlas then
-        Artwork:EnablePixelBorders(icon or button)
-        button.ArtworkBorder:Hide()
-
         if icon then
             icon:SetDrawLayer("OVERLAY")
             icon:Point("TOPLEFT", 0, 0)
         end
     else
-        Artwork:DisablePixelBorders(icon or button)
-        button.ArtworkBorder:Show()
-
-        Artwork:UpdateBorder(button.ArtworkBorder, borderAtlas)
-
         if icon then
             icon:SetDrawLayer("BACKGROUND")
             icon:Point("TOPLEFT", 2, 2)

@@ -313,3 +313,47 @@ end
 function Artwork:GetTooltipBorderAtlas()
     return Artwork.atlas.borders[E.db[addonName].artwork.tooltipBorder]
 end
+
+function Artwork:GetAuraBorderAtlas()
+    return Artwork.atlas.borders[E.db[addonName].artwork.auraBorder]
+end
+
+function Artwork:GetTempEnchantBorderAtlas()
+    return Artwork.atlas.borders[E.db[addonName].artwork.tempEnchantBorder]
+end
+
+function Artwork:GetUnitFrameBorderAtlas(unit)
+    local value = E.db[addonName].artwork.unitFrames[unit]
+    if not value then
+        return
+    end
+
+    return Artwork.atlas.borders[value.border]
+end
+
+function Artwork:GetUnitFrameHealthBorderAtlas(unit)
+    local value = E.db[addonName].artwork.unitFrames[unit]
+    if not value then
+        return
+    end
+
+    return Artwork.atlas.borders[value.healthBorder]
+end
+
+function Artwork:GetUnitFramePowerBorderAtlas(unit)
+    local value = E.db[addonName].artwork.unitFrames[unit]
+    if not value then
+        return
+    end
+
+    return Artwork.atlas.borders[value.powerBorder]
+end
+
+function Artwork:GetUnitFrameCastBarBorderAtlas(unit)
+    local value = E.db[addonName].artwork.unitFrames[unit]
+    if not value then
+        return
+    end
+
+    return Artwork.atlas.borders[value.castBarBorder]
+end

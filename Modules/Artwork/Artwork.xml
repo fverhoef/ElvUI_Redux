@@ -4,6 +4,7 @@
     <Script file="Registry.lua"/>
     <Script file="Hooks.lua"/>
 
+    <Script file="Auras.lua"/>
     <Script file="Background.lua"/>
     <Script file="Borders.lua"/>
     <Script file="Buttons.lua"/>
@@ -11,4 +12,10 @@
     <Script file="FrameCloseButtons.lua"/>
     <Script file="FrameTabs.lua"/>
     <Script file="Tooltips.lua"/>
+
+    <!-- TODO -->
+    <Script file="DataPanels.lua"/>
+    <Script file="Minimap.lua"/>
+    <Script file="Nameplates.lua"/>
+    <Script file="UnitFrames.lua"/>
 </Ui>

@@ -36,12 +36,4 @@ function Artwork:UpdateTooltip(tip)
     end
 
     Artwork:UpdateBorderColor(tip.ArtworkBorder, color)
-
-    if not E.db[addonName].artwork.enabled or not borderAtlas then
-        Artwork:EnablePixelBorders(tip)
-        tip.ArtworkBorder:Hide()
-    else
-        Artwork:DisablePixelBorders(tip)
-        tip.ArtworkBorder:Show()
-    end
 end

@@ -3,6 +3,7 @@ local Addon = addonTable[1]
 local Artwork = Addon.Artwork
 local E, L, V, P, G = unpack(ElvUI)
 local AS = unpack(AddOnSkins)
+local A = E:GetModule("Auras")
 local AB = E:GetModule("ActionBars")
 local B = E:GetModule("Bags")
 local S = E:GetModule("Skins")
@@ -101,6 +102,14 @@ end)
 
 Artwork:SecureHook(S, "Ace3_StyleTooltip", function(self)
     Artwork:SkinTooltip(self)
+end)
+
+Artwork:SecureHook(A, "UpdateAura", function(self, button, index)
+    Artwork:SkinAura(button)
+end)
+
+Artwork:SecureHook(A, "UpdateTempEnchant", function(self, button, index)
+    Artwork:SkinTempEnchant(button)
 end)
 
 Artwork:SecureHook(AB, "StyleButton", function(self, button, noBackdrop, useMasque, ignoreNormal)

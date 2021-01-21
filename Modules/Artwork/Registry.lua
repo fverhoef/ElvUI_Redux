@@ -10,7 +10,11 @@ Artwork.registry = {
     actionButtons = {},
     bagButtons = {},
     itemButtons = {},
-    craftItemButtons = {}
+    craftItemButtons = {},
+    auras = {},
+    tempEnchants = {},
+    unitFrames = {},
+    groupHeaders = {}
 }
 
 function Artwork:RegisterFrame(frame)
@@ -84,4 +88,36 @@ end
 
 function Artwork:IsCraftItemButtonRegistered(button)
     return Artwork.registry.craftItemButtons[button] ~= nil
+end
+
+function Artwork:RegisterAura(button)
+    Artwork.registry.auras[button] = true
+end
+
+function Artwork:IsAuraRegistered(button)
+    return Artwork.registry.auras[button] ~= nil
+end
+
+function Artwork:RegisterTempEnchant(button)
+    Artwork.registry.tempEnchants[button] = true
+end
+
+function Artwork:IsTempEnchantRegistered(button)
+    return Artwork.registry.tempEnchants[button] ~= nil
+end
+
+function Artwork:RegisterUnitFrame(frame)
+    Artwork.registry.unitFrames[frame] = true
+end
+
+function Artwork:IsUnitFrameRegistered(frame)
+    return Artwork.registry.unitFrames[frame] ~= nil
+end
+
+function Artwork:RegisterGroupHeader(header)
+    Artwork.registry.groupHeaders[header] = true
+end
+
+function Artwork:IsGroupHeaderRegistered(header)
+    return Artwork.registry.groupHeaders[header] ~= nil
 end

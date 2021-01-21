@@ -13,10 +13,10 @@ function Shadows:RegisterShadow(shadow)
 end
 
 function Shadows:UnregisterShadow(shadow)
-    if not shadow or shadow.isRegistered then
+    if not shadow or not shadow.isRegistered then
         return
     end
-    Shadows.registeredShadows[shadow] = true
-    shadow.isRegistered = true
-    shadow.isHidden = false
+    Shadows.registeredShadows[shadow] = false
+    shadow.isRegistered = false
+    shadow.isHidden = true
 end

@@ -43,14 +43,6 @@ function Artwork:UpdateFrame(frame)
     Artwork:UpdateBackground(frame.ArtworkBackground, frameBackground)
     Artwork:UpdateBorder(frame.ArtworkBorder, borderAtlas)
 
-    if not E.db[addonName].artwork.enabled or not borderAtlas then
-        Artwork:EnablePixelBorders(frame)
-        frame.ArtworkBorder:Hide()
-    else
-        Artwork:DisablePixelBorders(frame)
-        frame.ArtworkBorder:Show()
-    end
-
     Artwork:UpdateBorderColor(frame.ArtworkBorder, borderColor)
     Artwork:UpdateCloseButton(Artwork:GetCloseButton(frame), closeButtonAtlas)
 end

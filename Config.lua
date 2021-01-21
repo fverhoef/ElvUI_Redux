@@ -62,8 +62,164 @@ P[addonName] = {
         bagButtonBorderColor = {60 / 255, 60 / 255, 60 / 255},
         itemButtonBorder = "BeautyCase",
         itemButtonBorderColor = {60 / 255, 60 / 255, 60 / 255},
+        auraBorder = "BeautyCase",
+        auraBorderColor = {60 / 255, 60 / 255, 60 / 255},
+        tempEnchantBorder = "BeautyCase",
+        tempEnchantBorderColor = {60 / 255, 60 / 255, 60 / 255},
         tooltipBorder = "BeautyCase",
-        tooltipBorderColor = {60 / 255, 60 / 255, 60 / 255}
+        tooltipBorderColor = {60 / 255, 60 / 255, 60 / 255},
+        unitFrames = {
+            ["player"] = {
+                border = "None",
+                borderColor = {60 / 255, 60 / 255, 60 / 255},
+                healthBorder = "BeautyCase",
+                healthBorderColor = {60 / 255, 60 / 255, 60 / 255},
+                powerBorder = "BeautyCase",
+                powerBorderColor = {60 / 255, 60 / 255, 60 / 255},
+                castBarBorder = "BeautyCase",
+                castBarBorderColor = {60 / 255, 60 / 255, 60 / 255}
+            },
+            ["pet"] = {
+                border = "BeautyCase",
+                borderColor = {60 / 255, 60 / 255, 60 / 255},
+                healthBorder = "None",
+                healthBorderColor = {60 / 255, 60 / 255, 60 / 255},
+                powerBorder = "None",
+                powerBorderColor = {60 / 255, 60 / 255, 60 / 255},
+                castBarBorder = "BeautyCase",
+                castBarBorderColor = {60 / 255, 60 / 255, 60 / 255}
+            },
+            ["pettarget"] = {
+                border = "None",
+                borderColor = {60 / 255, 60 / 255, 60 / 255},
+                healthBorder = "BeautyCase",
+                healthBorderColor = {60 / 255, 60 / 255, 60 / 255},
+                powerBorder = "None",
+                powerBorderColor = {60 / 255, 60 / 255, 60 / 255},
+                castBarBorder = "BeautyCase",
+                castBarBorderColor = {60 / 255, 60 / 255, 60 / 255}
+            },
+            ["target"] = {
+                border = "BeautyCase",
+                borderColor = {60 / 255, 60 / 255, 60 / 255},
+                healthBorder = "None",
+                healthBorderColor = {60 / 255, 60 / 255, 60 / 255},
+                powerBorder = "None",
+                powerBorderColor = {60 / 255, 60 / 255, 60 / 255},
+                castBarBorder = "BeautyCase",
+                castBarBorderColor = {60 / 255, 60 / 255, 60 / 255}
+            },
+            ["targettarget"] = {
+                border = "None",
+                borderColor = {60 / 255, 60 / 255, 60 / 255},
+                healthBorder = "BeautyCase",
+                healthBorderColor = {60 / 255, 60 / 255, 60 / 255},
+                powerBorder = "None",
+                powerBorderColor = {60 / 255, 60 / 255, 60 / 255},
+                castBarBorder = "BeautyCase",
+                castBarBorderColor = {60 / 255, 60 / 255, 60 / 255}
+            },
+            ["targettargettarget"] = {
+                border = "None",
+                borderColor = {60 / 255, 60 / 255, 60 / 255},
+                healthBorder = "BeautyCase",
+                healthBorderColor = {60 / 255, 60 / 255, 60 / 255},
+                powerBorder = "None",
+                powerBorderColor = {60 / 255, 60 / 255, 60 / 255},
+                castBarBorder = "BeautyCase",
+                castBarBorderColor = {60 / 255, 60 / 255, 60 / 255}
+            },
+            ["focus"] = {
+                border = "BeautyCase",
+                borderColor = {60 / 255, 60 / 255, 60 / 255},
+                healthBorder = "None",
+                healthBorderColor = {60 / 255, 60 / 255, 60 / 255},
+                powerBorder = "None",
+                powerBorderColor = {60 / 255, 60 / 255, 60 / 255},
+                castBarBorder = "BeautyCase",
+                castBarBorderColor = {60 / 255, 60 / 255, 60 / 255}
+            },
+            ["arena"] = {
+                border = "BeautyCase",
+                borderColor = {60 / 255, 60 / 255, 60 / 255},
+                healthBorder = "None",
+                healthBorderColor = {60 / 255, 60 / 255, 60 / 255},
+                powerBorder = "None",
+                powerBorderColor = {60 / 255, 60 / 255, 60 / 255},
+                castBarBorder = "BeautyCase",
+                castBarBorderColor = {60 / 255, 60 / 255, 60 / 255}
+            },
+            ["assist"] = {
+                border = "BeautyCase",
+                borderColor = {60 / 255, 60 / 255, 60 / 255},
+                healthBorder = "None",
+                healthBorderColor = {60 / 255, 60 / 255, 60 / 255},
+                powerBorder = "None",
+                powerBorderColor = {60 / 255, 60 / 255, 60 / 255},
+                castBarBorder = "BeautyCase",
+                castBarBorderColor = {60 / 255, 60 / 255, 60 / 255}
+            },
+            ["boss"] = {
+                border = "BeautyCase",
+                borderColor = {60 / 255, 60 / 255, 60 / 255},
+                healthBorder = "None",
+                healthBorderColor = {60 / 255, 60 / 255, 60 / 255},
+                powerBorder = "None",
+                powerBorderColor = {60 / 255, 60 / 255, 60 / 255},
+                castBarBorder = "BeautyCase",
+                castBarBorderColor = {60 / 255, 60 / 255, 60 / 255}
+            },
+            ["party"] = {
+                border = "BeautyCase",
+                borderColor = {60 / 255, 60 / 255, 60 / 255},
+                healthBorder = "None",
+                healthBorderColor = {60 / 255, 60 / 255, 60 / 255},
+                powerBorder = "None",
+                powerBorderColor = {60 / 255, 60 / 255, 60 / 255},
+                castBarBorder = "BeautyCase",
+                castBarBorderColor = {60 / 255, 60 / 255, 60 / 255}
+            },
+            ["raid"] = {
+                border = "BeautyCase",
+                borderColor = {60 / 255, 60 / 255, 60 / 255},
+                healthBorder = "None",
+                healthBorderColor = {60 / 255, 60 / 255, 60 / 255},
+                powerBorder = "None",
+                powerBorderColor = {60 / 255, 60 / 255, 60 / 255},
+                castBarBorder = "BeautyCase",
+                castBarBorderColor = {60 / 255, 60 / 255, 60 / 255}
+            },
+            ["raid40"] = {
+                border = "BeautyCase",
+                borderColor = {60 / 255, 60 / 255, 60 / 255},
+                healthBorder = "None",
+                healthBorderColor = {60 / 255, 60 / 255, 60 / 255},
+                powerBorder = "None",
+                powerBorderColor = {60 / 255, 60 / 255, 60 / 255},
+                castBarBorder = "BeautyCase",
+                castBarBorderColor = {60 / 255, 60 / 255, 60 / 255}
+            },
+            ["raidpet"] = {
+                border = "BeautyCase",
+                borderColor = {60 / 255, 60 / 255, 60 / 255},
+                healthBorder = "None",
+                healthBorderColor = {60 / 255, 60 / 255, 60 / 255},
+                powerBorder = "None",
+                powerBorderColor = {60 / 255, 60 / 255, 60 / 255},
+                castBarBorder = "BeautyCase",
+                castBarBorderColor = {60 / 255, 60 / 255, 60 / 255}
+            },
+            ["tank"] = {
+                border = "BeautyCase",
+                borderColor = {60 / 255, 60 / 255, 60 / 255},
+                healthBorder = "None",
+                healthBorderColor = {60 / 255, 60 / 255, 60 / 255},
+                powerBorder = "None",
+                powerBorderColor = {60 / 255, 60 / 255, 60 / 255},
+                castBarBorder = "BeautyCase",
+                castBarBorderColor = {60 / 255, 60 / 255, 60 / 255}
+            }
+        }
     },
     automation = {
         enabled = true,
@@ -86,7 +242,7 @@ P[addonName] = {
         buttonSpacing = 2,
         collapsed = true
     },
-    shadows = {enabled = true, color = {0, 0, 0, 0.5}, size = 3},
+    shadows = {enabled = true, color = {0, 0, 0, 0.5}, size = 3, shadowPerButton = true},
     tooltips = {
         enabled = true,
         showIcons = true,
@@ -122,307 +278,554 @@ function Addon:InsertOptions()
                             Addon.Artwork:UpdateArtwork()
                         end
                     },
-                    lineBreak1 = {type = "header", name = "Frames", order = 20},
-                    frameBorder = {
-                        order = 21,
-                        type = "select",
-                        name = L["Frame Border Theme"],
-                        values = Addon.frameBorders,
-                        get = function()
-                            for key, val in pairs(Addon.frameBorders) do
-                                if E.db[addonName].artwork.frameBorder == val then
-                                    return key
+                    lineBreak = {type = "header", name = "", order = 2},
+                    actionBars = {
+                        order = 10,
+                        type = "group",
+                        name = L["Action Bars & Buttons"],
+                        args = {
+                            actionButtonBorder = {
+                                order = 1,
+                                type = "select",
+                                name = L["Action Button Border Theme"],
+                                values = Addon.borders,
+                                get = function()
+                                    for key, val in pairs(Addon.borders) do
+                                        if E.db[addonName].artwork.actionButtonBorder == val then
+                                            return key
+                                        end
+                                    end
+                                end,
+                                set = function(_, key)
+                                    E.db[addonName].artwork.actionButtonBorder = Addon.borders[key]
+                                    Addon.Artwork:UpdateArtwork()
                                 end
-                            end
-                        end,
-                        set = function(_, key)
-                            E.db[addonName].artwork.frameBorder = Addon.frameBorders[key]
-                            Addon.Artwork:UpdateArtwork()
-                        end
-                    },
-                    frameBorderColor = {
-                        order = 22,
-                        type = "color",
-                        name = L["Frame Border Color"],
-                        hasAlpha = true,
-                        get = function(info)
-                            local t = E.db[addonName].artwork.frameBorderColor
-                            return t[1], t[2], t[3], t[4]
-                        end,
-                        set = function(info, r, g, b, a)
-                            local t = E.db[addonName].artwork.frameBorderColor
-                            t[1], t[2], t[3], t[4] = r, g, b, a
-                            Addon.Artwork:UpdateArtwork()
-                        end
-                    },
-                    frameTabBorder = {
-                        order = 23,
-                        type = "select",
-                        name = L["Frame Tab Border Theme"],
-                        values = Addon.borders,
-                        get = function()
-                            for key, val in pairs(Addon.borders) do
-                                if E.db[addonName].artwork.frameTabBorder == val then
-                                    return key
+                            },
+                            actionButtonBorderColor = {
+                                order = 2,
+                                type = "color",
+                                name = L["Action Button Border Color"],
+                                get = function(info)
+                                    local t = E.db[addonName].artwork.actionButtonBorderColor
+                                    local d = P[addonName].artwork.actionButtonBorderColor
+                                    return t[1], t[2], t[3], t[4], d[1], d[2], d[3], d[4] or 1
+                                end,
+                                set = function(info, r, g, b)
+                                    local t = E.db[addonName].artwork.actionButtonBorderColor
+                                    t[1], t[2], t[3], t[4] = r, g, b, a
+                                    Addon.Artwork:UpdateArtwork()
                                 end
-                            end
-                        end,
-                        set = function(_, key)
-                            E.db[addonName].artwork.frameTabBorder = Addon.borders[key]
-                            Addon.Artwork:UpdateArtwork()
-                        end
+                            }
+                        }
                     },
-                    frameTabBorderColor = {
-                        order = 24,
-                        type = "color",
-                        name = L["Frame Tab Border Color"],
-                        hasAlpha = true,
-                        get = function(info)
-                            local t = E.db[addonName].artwork.frameTabBorderColor
-                            return t[1], t[2], t[3], t[4]
-                        end,
-                        set = function(info, r, g, b, a)
-                            local t = E.db[addonName].artwork.frameTabBorderColor
-                            t[1], t[2], t[3], t[4] = r, g, b, a
-                            Addon.Artwork:UpdateArtwork()
-                        end
-                    },
-                    thinFrameBorder = {
-                        order = 25,
-                        type = "select",
-                        name = L["Thin Frame Border Theme"],
-                        values = Addon.borders,
-                        get = function()
-                            for key, val in pairs(Addon.borders) do
-                                if E.db[addonName].artwork.thinFrameBorder == val then
-                                    return key
+                    bags = {
+                        order = 20,
+                        type = "group",
+                        name = L["Bags & Item Buttons"],
+                        args = {
+                            bagButtonBorder = {
+                                order = 1,
+                                type = "select",
+                                name = L["Bag Slot Border Theme"],
+                                values = Addon.borders,
+                                get = function()
+                                    for key, val in pairs(Addon.borders) do
+                                        if E.db[addonName].artwork.bagButtonBorder == val then
+                                            return key
+                                        end
+                                    end
+                                end,
+                                set = function(_, key)
+                                    E.db[addonName].artwork.bagButtonBorder = Addon.borders[key]
+                                    Addon.Artwork:UpdateArtwork()
                                 end
-                            end
-                        end,
-                        set = function(_, key)
-                            E.db[addonName].artwork.thinFrameBorder = Addon.borders[key]
-                            Addon.Artwork:UpdateArtwork()
-                        end
+                            },
+                            bagButtonBorderColor = {
+                                order = 2,
+                                type = "color",
+                                name = L["Bag Slot Border Color"],
+                                get = function(info)
+                                    local t = E.db[addonName].artwork.bagButtonBorderColor
+                                    local d = P[addonName].artwork.bagButtonBorderColor
+                                    return t[1], t[2], t[3], t[4], d[1], d[2], d[3], d[4] or 1
+                                end,
+                                set = function(info, r, g, b)
+                                    local t = E.db[addonName].artwork.bagButtonBorderColor
+                                    t[1], t[2], t[3], t[4] = r, g, b, a
+                                    Addon.Artwork:UpdateArtwork()
+                                end
+                            },
+                            itemButtonBorder = {
+                                order = 3,
+                                type = "select",
+                                name = L["Item Button Border Theme"],
+                                values = Addon.borders,
+                                get = function()
+                                    for key, val in pairs(Addon.borders) do
+                                        if E.db[addonName].artwork.itemButtonBorder == val then
+                                            return key
+                                        end
+                                    end
+                                end,
+                                set = function(_, key)
+                                    E.db[addonName].artwork.itemButtonBorder = Addon.borders[key]
+                                    Addon.Artwork:UpdateArtwork()
+                                end
+                            },
+                            itemButtonBorderColor = {
+                                order = 4,
+                                type = "color",
+                                name = L["Item Button Border Color"],
+                                get = function(info)
+                                    local t = E.db[addonName].artwork.itemButtonBorderColor
+                                    local d = P[addonName].artwork.itemButtonBorderColor
+                                    return t[1], t[2], t[3], t[4], d[1], d[2], d[3], d[4] or 1
+                                end,
+                                set = function(info, r, g, b)
+                                    local t = E.db[addonName].artwork.itemButtonBorderColor
+                                    t[1], t[2], t[3], t[4] = r, g, b, a
+                                    Addon.Artwork:UpdateArtwork()
+                                end
+                            }
+                        }
                     },
-                    thinFrameBorderColor = {
-                        order = 26,
-                        type = "color",
-                        name = L["Thin Frame Border Color"],
-                        hasAlpha = true,
-                        get = function(info)
-                            local t = E.db[addonName].artwork.thinFrameBorderColor
-                            return t[1], t[2], t[3], t[4]
-                        end,
-                        set = function(info, r, g, b, a)
-                            local t = E.db[addonName].artwork.thinFrameBorderColor
-                            t[1], t[2], t[3], t[4] = r, g, b, a
-                            Addon.Artwork:UpdateArtwork()
-                        end
-                    },
-                    frameBackground = {
+                    buffsDebuffs = {
                         order = 30,
-                        type = "select",
-                        name = L["Frame Background"],
-                        values = Addon.frameBackgrounds,
-                        get = function()
-                            for key, val in pairs(Addon.frameBackgrounds) do
-                                if E.db[addonName].artwork.frameBackground == val then
-                                    return key
+                        type = "group",
+                        name = L["Buffs & Debuffs"],
+                        args = {
+                            auraBorder = {
+                                order = 1,
+                                type = "select",
+                                name = L["Aura Border Theme"],
+                                values = Addon.borders,
+                                get = function()
+                                    for key, val in pairs(Addon.borders) do
+                                        if E.db[addonName].artwork.auraBorder == val then
+                                            return key
+                                        end
+                                    end
+                                end,
+                                set = function(_, key)
+                                    E.db[addonName].artwork.auraBorder = Addon.borders[key]
+                                    Addon.Artwork:UpdateArtwork()
                                 end
-                            end
-                        end,
-                        set = function(_, key)
-                            E.db[addonName].artwork.frameBackground = Addon.frameBackgrounds[key]
-                            Addon.Artwork:UpdateArtwork()
-                        end
-                    },
-                    frameBackgroundColor = {
-                        order = 31,
-                        type = "color",
-                        name = L["Frame Background Color"],
-                        hasAlpha = true,
-                        get = function(info)
-                            local t = E.db[addonName].artwork.frameBackgroundColor
-                            return t[1], t[2], t[3], t[4]
-                        end,
-                        set = function(info, r, g, b, a)
-                            local t = E.db[addonName].artwork.frameBackgroundColor
-                            t[1], t[2], t[3], t[4] = r, g, b, a
-                            Addon.Artwork:UpdateArtwork()
-                        end
-                    },
-                    headerButtons = {type = "header", name = L["Buttons"], order = 50},
-                    buttonBorder = {
-                        order = 51,
-                        type = "select",
-                        name = L["Button Border Theme"],
-                        values = Addon.borders,
-                        get = function()
-                            for key, val in pairs(Addon.borders) do
-                                if E.db[addonName].artwork.buttonBorder == val then
-                                    return key
+                            },
+                            auraBorderColor = {
+                                order = 2,
+                                type = "color",
+                                name = L["Aura Border Color"],
+                                get = function(info)
+                                    local t = E.db[addonName].artwork.auraBorderColor
+                                    local d = P[addonName].artwork.auraBorderColor
+                                    return t[1], t[2], t[3], t[4], d[1], d[2], d[3], d[4] or 1
+                                end,
+                                set = function(info, r, g, b)
+                                    local t = E.db[addonName].artwork.auraBorderColor
+                                    t[1], t[2], t[3], t[4] = r, g, b, a
+                                    Addon.Artwork:UpdateArtwork()
                                 end
-                            end
-                        end,
-                        set = function(_, key)
-                            E.db[addonName].artwork.buttonBorder = Addon.borders[key]
-                            Addon.Artwork:UpdateArtwork()
-                        end
-                    },
-                    buttonBorderColor = {
-                        order = 52,
-                        type = "color",
-                        name = L["Button Border Color"],
-                        get = function(info)
-                            local t = E.db[addonName].artwork.buttonBorderColor
-                            return t[1], t[2], t[3], t[4]
-                        end,
-                        set = function(info, r, g, b)
-                            local t = E.db[addonName].artwork.buttonBorderColor
-                            t[1], t[2], t[3], t[4] = r, g, b, a
-                            Addon.Artwork:UpdateArtwork()
-                        end
-                    },
-                    buttonBorderHighlightColor = {
-                        order = 53,
-                        type = "color",
-                        name = L["Button Border Highlight Color"],
-                        get = function(info)
-                            local t = E.db[addonName].artwork.buttonBorderHighlightColor
-                            return t[1], t[2], t[3], t[4]
-                        end,
-                        set = function(info, r, g, b)
-                            local t = E.db[addonName].artwork.buttonBorderHighlightColor
-                            t[1], t[2], t[3], t[4] = r, g, b, a
-                            Addon.Artwork:UpdateArtwork()
-                        end
-                    },
-                    headerActionButtons = {type = "header", name = L["Action Bars & Buttons"], order = 60},
-                    actionButtonBorder = {
-                        order = 61,
-                        type = "select",
-                        name = L["Action Button Border Theme"],
-                        values = Addon.borders,
-                        get = function()
-                            for key, val in pairs(Addon.borders) do
-                                if E.db[addonName].artwork.actionButtonBorder == val then
-                                    return key
+                            },
+                            tempEnchantBorder = {
+                                order = 3,
+                                type = "select",
+                                name = L["Temp Enchant Border Theme"],
+                                values = Addon.borders,
+                                get = function()
+                                    for key, val in pairs(Addon.borders) do
+                                        if E.db[addonName].artwork.tempEnchantBorder == val then
+                                            return key
+                                        end
+                                    end
+                                end,
+                                set = function(_, key)
+                                    E.db[addonName].artwork.tempEnchantBorder = Addon.borders[key]
+                                    Addon.Artwork:UpdateArtwork()
                                 end
-                            end
-                        end,
-                        set = function(_, key)
-                            E.db[addonName].artwork.actionButtonBorder = Addon.borders[key]
-                            Addon.Artwork:UpdateArtwork()
-                        end
-                    },
-                    actionButtonBorderColor = {
-                        order = 62,
-                        type = "color",
-                        name = L["Action Button Border Color"],
-                        get = function(info)
-                            local t = E.db[addonName].artwork.actionButtonBorderColor
-                            return t[1], t[2], t[3], t[4]
-                        end,
-                        set = function(info, r, g, b)
-                            local t = E.db[addonName].artwork.actionButtonBorderColor
-                            t[1], t[2], t[3], t[4] = r, g, b, a
-                            Addon.Artwork:UpdateArtwork()
-                        end
-                    },
-                    headerBags = {type = "header", name = L["Bags & Item Buttons"], order = 70},
-                    bagButtonBorder = {
-                        order = 71,
-                        type = "select",
-                        name = L["Bag Slot Border Theme"],
-                        values = Addon.borders,
-                        get = function()
-                            for key, val in pairs(Addon.borders) do
-                                if E.db[addonName].artwork.bagButtonBorder == val then
-                                    return key
+                            },
+                            tempEnchantBorderColor = {
+                                order = 4,
+                                type = "color",
+                                name = L["Temp Enchant Border Color"],
+                                get = function(info)
+                                    local t = E.db[addonName].artwork.tempEnchantBorderColor
+                                    local d = P[addonName].artwork.tempEnchantBorderColor
+                                    return t[1], t[2], t[3], t[4], d[1], d[2], d[3], d[4] or 1
+                                end,
+                                set = function(info, r, g, b)
+                                    local t = E.db[addonName].artwork.tempEnchantBorderColor
+                                    t[1], t[2], t[3], t[4] = r, g, b, a
+                                    Addon.Artwork:UpdateArtwork()
                                 end
-                            end
-                        end,
-                        set = function(_, key)
-                            E.db[addonName].artwork.bagButtonBorder = Addon.borders[key]
-                            Addon.Artwork:UpdateArtwork()
-                        end
+                            }
+                        }
                     },
-                    bagButtonBorderColor = {
-                        order = 72,
-                        type = "color",
-                        name = L["Bag Slot Border Color"],
-                        get = function(info)
-                            local t = E.db[addonName].artwork.bagButtonBorderColor
-                            return t[1], t[2], t[3], t[4]
-                        end,
-                        set = function(info, r, g, b)
-                            local t = E.db[addonName].artwork.bagButtonBorderColor
-                            t[1], t[2], t[3], t[4] = r, g, b, a
-                            Addon.Artwork:UpdateArtwork()
-                        end
-                    },
-                    itemButtonBorder = {
-                        order = 73,
-                        type = "select",
-                        name = L["Item Button Border Theme"],
-                        values = Addon.borders,
-                        get = function()
-                            for key, val in pairs(Addon.borders) do
-                                if E.db[addonName].artwork.itemButtonBorder == val then
-                                    return key
+                    skins = {
+                        order = 40,
+                        type = "group",
+                        name = L["Skins"],
+                        args = {
+                            frameBorder = {
+                                order = 1,
+                                type = "select",
+                                name = L["Frame Border Theme"],
+                                values = Addon.frameBorders,
+                                get = function()
+                                    for key, val in pairs(Addon.frameBorders) do
+                                        if E.db[addonName].artwork.frameBorder == val then
+                                            return key
+                                        end
+                                    end
+                                end,
+                                set = function(_, key)
+                                    E.db[addonName].artwork.frameBorder = Addon.frameBorders[key]
+                                    Addon.Artwork:UpdateArtwork()
                                 end
-                            end
-                        end,
-                        set = function(_, key)
-                            E.db[addonName].artwork.itemButtonBorder = Addon.borders[key]
-                            Addon.Artwork:UpdateArtwork()
-                        end
-                    },
-                    itemButtonBorderColor = {
-                        order = 74,
-                        type = "color",
-                        name = L["Item Button Border Color"],
-                        get = function(info)
-                            local t = E.db[addonName].artwork.itemButtonBorderColor
-                            return t[1], t[2], t[3], t[4]
-                        end,
-                        set = function(info, r, g, b)
-                            local t = E.db[addonName].artwork.itemButtonBorderColor
-                            t[1], t[2], t[3], t[4] = r, g, b, a
-                            Addon.Artwork:UpdateArtwork()
-                        end
-                    },
-                    headerTooltips = {type = "header", name = L["Tooltips"], order = 100},
-                    tooltipBorder = {
-                        order = 101,
-                        type = "select",
-                        name = L["Tooltip Border Theme"],
-                        values = Addon.borders,
-                        get = function()
-                            for key, val in pairs(Addon.borders) do
-                                if E.db[addonName].artwork.tooltipBorder == val then
-                                    return key
+                            },
+                            frameBorderColor = {
+                                order = 2,
+                                type = "color",
+                                name = L["Frame Border Color"],
+                                hasAlpha = true,
+                                get = function(info)
+                                    local t = E.db[addonName].artwork.frameBorderColor
+                                    local d = P[addonName].artwork.frameBorderColor
+                                    return t[1], t[2], t[3], t[4], d[1], d[2], d[3], d[4] or 1
+                                end,
+                                set = function(info, r, g, b, a)
+                                    local t = E.db[addonName].artwork.frameBorderColor
+                                    t[1], t[2], t[3], t[4] = r, g, b, a
+                                    Addon.Artwork:UpdateArtwork()
                                 end
-                            end
-                        end,
-                        set = function(_, key)
-                            E.db[addonName].artwork.tooltipBorder = Addon.borders[key]
-                            Addon.Artwork:UpdateArtwork()
-                        end
+                            },
+                            frameTabBorder = {
+                                order = 3,
+                                type = "select",
+                                name = L["Frame Tab Border Theme"],
+                                values = Addon.borders,
+                                get = function()
+                                    for key, val in pairs(Addon.borders) do
+                                        if E.db[addonName].artwork.frameTabBorder == val then
+                                            return key
+                                        end
+                                    end
+                                end,
+                                set = function(_, key)
+                                    E.db[addonName].artwork.frameTabBorder = Addon.borders[key]
+                                    Addon.Artwork:UpdateArtwork()
+                                end
+                            },
+                            frameTabBorderColor = {
+                                order = 4,
+                                type = "color",
+                                name = L["Frame Tab Border Color"],
+                                hasAlpha = true,
+                                get = function(info)
+                                    local t = E.db[addonName].artwork.frameTabBorderColor
+                                    local d = P[addonName].artwork.frameTabBorderColor
+                                    return t[1], t[2], t[3], t[4], d[1], d[2], d[3], d[4] or 1
+                                end,
+                                set = function(info, r, g, b, a)
+                                    local t = E.db[addonName].artwork.frameTabBorderColor
+                                    t[1], t[2], t[3], t[4] = r, g, b, a
+                                    Addon.Artwork:UpdateArtwork()
+                                end
+                            },
+                            thinFrameBorder = {
+                                order = 5,
+                                type = "select",
+                                name = L["Thin Frame Border Theme"],
+                                values = Addon.borders,
+                                get = function()
+                                    for key, val in pairs(Addon.borders) do
+                                        if E.db[addonName].artwork.thinFrameBorder == val then
+                                            return key
+                                        end
+                                    end
+                                end,
+                                set = function(_, key)
+                                    E.db[addonName].artwork.thinFrameBorder = Addon.borders[key]
+                                    Addon.Artwork:UpdateArtwork()
+                                end
+                            },
+                            thinFrameBorderColor = {
+                                order = 6,
+                                type = "color",
+                                name = L["Thin Frame Border Color"],
+                                hasAlpha = true,
+                                get = function(info)
+                                    local t = E.db[addonName].artwork.thinFrameBorderColor
+                                    local d = P[addonName].artwork.thinFrameBorderColor
+                                    return t[1], t[2], t[3], t[4], d[1], d[2], d[3], d[4] or 1
+                                end,
+                                set = function(info, r, g, b, a)
+                                    local t = E.db[addonName].artwork.thinFrameBorderColor
+                                    t[1], t[2], t[3], t[4] = r, g, b, a
+                                    Addon.Artwork:UpdateArtwork()
+                                end
+                            },
+                            frameBackground = {
+                                order = 7,
+                                type = "select",
+                                name = L["Frame Background"],
+                                values = Addon.frameBackgrounds,
+                                get = function()
+                                    for key, val in pairs(Addon.frameBackgrounds) do
+                                        if E.db[addonName].artwork.frameBackground == val then
+                                            return key
+                                        end
+                                    end
+                                end,
+                                set = function(_, key)
+                                    E.db[addonName].artwork.frameBackground = Addon.frameBackgrounds[key]
+                                    Addon.Artwork:UpdateArtwork()
+                                end
+                            },
+                            frameBackgroundColor = {
+                                order = 8,
+                                type = "color",
+                                name = L["Frame Background Color"],
+                                hasAlpha = true,
+                                get = function(info)
+                                    local t = E.db[addonName].artwork.frameBackgroundColor
+                                    local d = P[addonName].artwork.frameBackgroundColor
+                                    return t[1], t[2], t[3], t[4], d[1], d[2], d[3], d[4] or 1
+                                end,
+                                set = function(info, r, g, b, a)
+                                    local t = E.db[addonName].artwork.frameBackgroundColor
+                                    t[1], t[2], t[3], t[4] = r, g, b, a
+                                    Addon.Artwork:UpdateArtwork()
+                                end
+                            },
+                            buttonBorder = {
+                                order = 20,
+                                type = "select",
+                                name = L["Button Border Theme"],
+                                values = Addon.borders,
+                                get = function()
+                                    for key, val in pairs(Addon.borders) do
+                                        if E.db[addonName].artwork.buttonBorder == val then
+                                            return key
+                                        end
+                                    end
+                                end,
+                                set = function(_, key)
+                                    E.db[addonName].artwork.buttonBorder = Addon.borders[key]
+                                    Addon.Artwork:UpdateArtwork()
+                                end
+                            },
+                            buttonBorderColor = {
+                                order = 21,
+                                type = "color",
+                                name = L["Button Border Color"],
+                                get = function(info)
+                                    local t = E.db[addonName].artwork.buttonBorderColor
+                                    local d = P[addonName].artwork.buttonBorderColor
+                                    return t[1], t[2], t[3], t[4], d[1], d[2], d[3], d[4] or 1
+                                end,
+                                set = function(info, r, g, b)
+                                    local t = E.db[addonName].artwork.buttonBorderColor
+                                    t[1], t[2], t[3], t[4] = r, g, b, a
+                                    Addon.Artwork:UpdateArtwork()
+                                end
+                            },
+                            buttonBorderHighlightColor = {
+                                order = 22,
+                                type = "color",
+                                name = L["Button Border Highlight Color"],
+                                get = function(info)
+                                    local t = E.db[addonName].artwork.buttonBorderHighlightColor
+                                    local d = P[addonName].artwork.buttonBorderHighlightColor
+                                    return t[1], t[2], t[3], t[4], d[1], d[2], d[3], d[4] or 1
+                                end,
+                                set = function(info, r, g, b)
+                                    local t = E.db[addonName].artwork.buttonBorderHighlightColor
+                                    t[1], t[2], t[3], t[4] = r, g, b, a
+                                    Addon.Artwork:UpdateArtwork()
+                                end
+                            }
+                        }
                     },
-                    tooltipBorderColor = {
-                        order = 102,
-                        type = "color",
-                        name = L["Tooltip Border Color"],
-                        get = function(info)
-                            local t = E.db[addonName].artwork.tooltipBorderColor
-                            return t[1], t[2], t[3], t[4]
-                        end,
-                        set = function(info, r, g, b)
-                            local t = E.db[addonName].artwork.tooltipBorderColor
-                            t[1], t[2], t[3], t[4] = r, g, b, a
-                            Addon.Artwork:UpdateArtwork()
-                        end
+                    tooltips = {
+                        order = 50,
+                        type = "group",
+                        name = L["Tooltips"],
+                        args = {
+                            tooltipBorder = {
+                                order = 1,
+                                type = "select",
+                                name = L["Tooltip Border Theme"],
+                                values = Addon.borders,
+                                get = function()
+                                    for key, val in pairs(Addon.borders) do
+                                        if E.db[addonName].artwork.tooltipBorder == val then
+                                            return key
+                                        end
+                                    end
+                                end,
+                                set = function(_, key)
+                                    E.db[addonName].artwork.tooltipBorder = Addon.borders[key]
+                                    Addon.Artwork:UpdateArtwork()
+                                end
+                            },
+                            tooltipBorderColor = {
+                                order = 2,
+                                type = "color",
+                                name = L["Tooltip Border Color"],
+                                get = function(info)
+                                    local t = E.db[addonName].artwork.tooltipBorderColor
+                                    local d = P[addonName].artwork.tooltipBorderColor
+                                    return t[1], t[2], t[3], t[4], d[1], d[2], d[3], d[4] or 1
+                                end,
+                                set = function(info, r, g, b)
+                                    local t = E.db[addonName].artwork.tooltipBorderColor
+                                    t[1], t[2], t[3], t[4] = r, g, b, a
+                                    Addon.Artwork:UpdateArtwork()
+                                end
+                            }
+                        }
+                    },
+                    unitFrames = {
+                        order = 60,
+                        type = "group",
+                        name = L["Unit Frames"],
+                        args = {
+                            player = {
+                                order = 1,
+                                type = "group",
+                                name = L["Player"],
+                                args = {
+                                    border = {
+                                        order = 1,
+                                        type = "select",
+                                        name = L["Border Theme"],
+                                        values = Addon.borders,
+                                        get = function()
+                                            for key, val in pairs(Addon.borders) do
+                                                if E.db[addonName].artwork.unitFrames.player.border == val then
+                                                    return key
+                                                end
+                                            end
+                                        end,
+                                        set = function(_, key)
+                                            E.db[addonName].artwork.unitFrames.player.border = Addon.borders[key]
+                                            Addon.Artwork:UpdateArtwork()
+                                        end
+                                    },
+                                    borderColor = {
+                                        order = 2,
+                                        type = "color",
+                                        name = L["Border Color"],
+                                        get = function(info)
+                                            local t = E.db[addonName].artwork.unitFrames.player.borderColor
+                                            local d = P[addonName].artwork.unitFrames.player.borderColor
+                                            return t[1], t[2], t[3], t[4], d[1], d[2], d[3], d[4] or 1
+                                        end,
+                                        set = function(info, r, g, b)
+                                            local t = E.db[addonName].artwork.unitFrames.player.borderColor
+                                            t[1], t[2], t[3], t[4] = r, g, b, a
+                                            Addon.Artwork:UpdateArtwork()
+                                        end
+                                    },
+                                    healthBorder = {
+                                        order = 3,
+                                        type = "select",
+                                        name = L["Health Border Theme"],
+                                        values = Addon.borders,
+                                        get = function()
+                                            for key, val in pairs(Addon.borders) do
+                                                if E.db[addonName].artwork.unitFrames.player.healthBorder == val then
+                                                    return key
+                                                end
+                                            end
+                                        end,
+                                        set = function(_, key)
+                                            E.db[addonName].artwork.unitFrames.player.healthBorder = Addon.borders[key]
+                                            Addon.Artwork:UpdateArtwork()
+                                        end
+                                    },
+                                    healthBorderColor = {
+                                        order = 4,
+                                        type = "color",
+                                        name = L["Health Border Color"],
+                                        get = function(info)
+                                            local t = E.db[addonName].artwork.unitFrames.player.healthBorderColor
+                                            local d = P[addonName].artwork.unitFrames.player.healthBorderColor
+                                            return t[1], t[2], t[3], t[4], d[1], d[2], d[3], d[4] or 1
+                                        end,
+                                        set = function(info, r, g, b)
+                                            local t = E.db[addonName].artwork.unitFrames.player.healthBorderColor
+                                            t[1], t[2], t[3], t[4] = r, g, b, a
+                                            Addon.Artwork:UpdateArtwork()
+                                        end
+                                    },
+                                    powerBorder = {
+                                        order = 5,
+                                        type = "select",
+                                        name = L["Power Border Theme"],
+                                        values = Addon.borders,
+                                        get = function()
+                                            for key, val in pairs(Addon.borders) do
+                                                if E.db[addonName].artwork.unitFrames.player.powerBorder == val then
+                                                    return key
+                                                end
+                                            end
+                                        end,
+                                        set = function(_, key)
+                                            E.db[addonName].artwork.unitFrames.player.powerBorder = Addon.borders[key]
+                                            Addon.Artwork:UpdateArtwork()
+                                        end
+                                    },
+                                    powerBorderColor = {
+                                        order = 6,
+                                        type = "color",
+                                        name = L["Power Border Color"],
+                                        get = function(info)
+                                            local t = E.db[addonName].artwork.unitFrames.player.powerBorderColor
+                                            local d = P[addonName].artwork.unitFrames.player.powerBorderColor
+                                            return t[1], t[2], t[3], t[4], d[1], d[2], d[3], d[4] or 1
+                                        end,
+                                        set = function(info, r, g, b)
+                                            local t = E.db[addonName].artwork.unitFrames.player.powerBorderColor
+                                            t[1], t[2], t[3], t[4] = r, g, b, a
+                                            Addon.Artwork:UpdateArtwork()
+                                        end
+                                    },
+                                    castBarBorder = {
+                                        order = 7,
+                                        type = "select",
+                                        name = L["Castbar Border Theme"],
+                                        values = Addon.borders,
+                                        get = function()
+                                            for key, val in pairs(Addon.borders) do
+                                                if E.db[addonName].artwork.unitFrames.player.castBarBorder == val then
+                                                    return key
+                                                end
+                                            end
+                                        end,
+                                        set = function(_, key)
+                                            E.db[addonName].artwork.unitFrames.player.castBarBorder = Addon.borders[key]
+                                            Addon.Artwork:UpdateArtwork()
+                                        end
+                                    },
+                                    castBarBorderColor = {
+                                        order = 8,
+                                        type = "color",
+                                        name = L["Castbar Border Color"],
+                                        get = function(info)
+                                            local t = E.db[addonName].artwork.unitFrames.player.castBarBorderColor
+                                            local d = P[addonName].artwork.unitFrames.player.castBarBorderColor
+                                            return t[1], t[2], t[3], t[4], d[1], d[2], d[3], d[4] or 1
+                                        end,
+                                        set = function(info, r, g, b)
+                                            local t = E.db[addonName].artwork.unitFrames.player.castBarBorderColor
+                                            t[1], t[2], t[3], t[4] = r, g, b, a
+                                            Addon.Artwork:UpdateArtwork()
+                                        end
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             },

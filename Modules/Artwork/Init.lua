@@ -4,6 +4,7 @@ local Artwork = Addon:NewModule(addonName .. "Artwork", "AceHook-3.0", "AceEvent
 Addon.Artwork = Artwork
 local AS = unpack(AddOnSkins)
 local E, L, V, P, G = unpack(ElvUI)
+local A = E:GetModule("Auras")
 local AB = E:GetModule("ActionBars")
 local B = E:GetModule("Bags")
 local S = E:GetModule("Skins")
@@ -68,6 +69,26 @@ function Artwork:Initialize()
             Artwork:SkinItemButton(_G[frame .. i], true)
         end
     end
+
+    -- skin unit frames
+    Artwork:SkinUnitFrame("player")
+    Artwork:SkinUnitFrame("pet")
+    Artwork:SkinUnitFrame("pettarget")
+    Artwork:SkinUnitFrame("target")
+    Artwork:SkinUnitFrame("targettarget")
+    Artwork:SkinUnitFrame("targettargettarget")
+    Artwork:SkinUnitFrame("focus")
+    Artwork:SkinUnitFrame("focustarget")
+
+    -- skin group frames
+    Artwork:SkinUnitFrameGroup("arena")
+    Artwork:SkinUnitFrameGroup("assist")
+    Artwork:SkinUnitFrameGroup("boss")
+    Artwork:SkinUnitFrameGroup("party")
+    Artwork:SkinUnitFrameGroup("raid")
+    Artwork:SkinUnitFrameGroup("raid40")
+    Artwork:SkinUnitFrameGroup("raidpet")
+    Artwork:SkinUnitFrameGroup("tank")
 end
 
 function Artwork:UpdateArtwork()
@@ -101,6 +122,22 @@ function Artwork:UpdateArtwork()
 
     for button, _ in pairs(Artwork.registry.craftItemButtons) do
         Artwork:UpdateCraftItemButton(button)
+    end
+
+    for aura, _ in pairs(Artwork.registry.auras) do
+        Artwork:UpdateAura(aura)
+    end
+
+    for tempEnchant, _ in pairs(Artwork.registry.tempEnchants) do
+        Artwork:UpdateTempEnchant(tempEnchant)
+    end
+
+    for unitFrame, _ in pairs(Artwork.registry.unitFrames) do
+        Artwork:UpdateUnitFrame(unitFrame)
+    end
+
+    for groupHeader, _ in pairs(Artwork.registry.groupHeaders) do
+        Artwork:UpdateUnitFrameGroupHeader(groupHeader)
     end
 end
 

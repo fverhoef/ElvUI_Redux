@@ -45,15 +45,18 @@ function Artwork:UpdateBorder(border, atlas)
         return
     end
 
+    local parent = border:GetParent()
+
     if not E.db[addonName].artwork.enabled or not atlas then
+        Artwork:EnablePixelBorders(parent)
         border:Hide()
     else
+        Artwork:DisablePixelBorders(parent)
         border:Show()
 
         if border.atlas ~= atlas then
             border.atlas = atlas
 
-            local parent = border:GetParent()
             local offsetX, offsetY = atlas.offset[1], atlas.offset[2]
             border:SetPoint("TOPLEFT", parent, "TOPLEFT", offsetX, offsetY)
             border:SetPoint("BOTTOMRIGHT", parent, "BOTTOMRIGHT", -offsetX, -offsetY)
@@ -157,6 +160,16 @@ function Artwork:EnablePixelBorders(frame)
     end
 end
 
+function Artwork:EnablePixelBorderPart(frame, part)
+    if frame.pixelBorders and frame.pixelBorders[part] then
+        frame.pixelBorders[part]:Show()
+    end
+
+    if frame.backdrop then
+        Artwork:EnablePixelBorderPart(frame.backdrop, part)
+    end
+end
+
 function Artwork:DisablePixelBorders(frame)
     E:TogglePixelBorders(frame, false)
     if frame.pixelBorders then
@@ -166,5 +179,94 @@ function Artwork:DisablePixelBorders(frame)
 
     if frame.backdrop then
         Artwork:DisablePixelBorders(frame.backdrop)
+    end
+end
+
+function Artwork:DisablePixelBorderPart(frame, part)
+    if frame.pixelBorders and frame.pixelBorders[part] then
+        frame.pixelBorders[part]:Hide()
+    end
+
+    if frame.backdrop then
+        Artwork:DisablePixelBorderPart(frame.backdrop, part)
+    end
+end
+
+function Artwork:CreateSeparator(frame, atlas, direction, layer)
+    layer = layer or "ARTWORK"
+
+    local parent = frame
+    local separator = CreateFrame("Frame", nil, parent)
+    separator.direction = direction
+
+    separator.Horizontal = separator:CreateTexture(nil, layer)
+    separator.Horizontal:SetPoint("TOPLEFT", separator, "TOPLEFT")
+    separator.Horizontal:SetPoint("TOPRIGHT", separator, "TOPRIGHT")
+    separator.Vertical = separator:CreateTexture(nil, layer)
+    separator.Vertical:SetPoint("TOPLEFT", separator, "TOPLEFT")
+    separator.Vertical:SetPoint("BOTTOMLEFT", separator, "BOTTOMLEFT")
+
+    Artwork:UpdateSeparator(separator, atlas)
+
+    return separator
+end
+
+function Artwork:UpdateSeparator(separator, atlas, scale, additionalOffsetX, additionalOffsetY)
+    if not separator then
+        return
+    end
+
+    if not E.db[addonName].artwork.enabled or not atlas then
+        separator:Hide()
+    else
+        separator:Show()
+
+        if separator.atlas ~= atlas then
+            separator.atlas = atlas
+
+            separator.Horizontal:SetSize(atlas.top[2], atlas.top[3])
+            separator.Horizontal:SetTexture(atlas.top[1], "MIRROR")
+            separator.Horizontal:SetTexCoord(atlas.top[4], atlas.top[5], atlas.top[6], atlas.top[7])
+            separator.Horizontal:SetHorizTile(atlas.horizontalTiling)
+
+            separator.Vertical:SetSize(atlas.left[2], atlas.left[3])
+            separator.Vertical:SetTexture(atlas.left[1], nil, "MIRROR")
+            separator.Vertical:SetTexCoord(atlas.left[4], atlas.left[5], atlas.left[6], atlas.left[7])
+            separator.Vertical:SetVertTile(atlas.verticalTiling)
+        end
+
+        local parent = separator:GetParent()
+        local offsetX, offsetY = atlas.offset[1], atlas.offset[2]
+
+        if separator.direction == "Horizontal" then
+            separator.Horizontal:Show()
+            separator.Vertical:Hide()
+            separator:SetSize(atlas.top[2], atlas.top[3])
+
+            separator:SetPoint("TOPLEFT", parent, "TOPLEFT", offsetX + (additionalOffsetX or 0), offsetY + (additionalOffsetY or 0))
+            separator:SetPoint("TOPRIGHT", parent, "TOPRIGHT", -offsetX - (additionalOffsetX or 0), offsetY + (additionalOffsetY or 0))
+        else
+            separator.Horizontal:Hide()
+            separator.Vertical:Show()
+            separator:SetSize(atlas.left[2], atlas.left[3])
+
+            separator:SetPoint("TOPLEFT", parent, "TOPLEFT", offsetX + (additionalOffsetX or 0), offsetY + (additionalOffsetY or 0))
+            separator:SetPoint("BOTTOMLEFT", parent, "BOTTOMLEFT", offsetX + (additionalOffsetX or 0), -offsetY - (additionalOffsetY or 0))
+        end
+
+        separator:SetScale(scale or atlas.scale)
+    end
+end
+
+function Artwork:UpdateSeparatorColor(separator, color)
+    if not separator then
+        return
+    end
+
+    local parts = {separator.Horizontal, separator.Vertical}
+    for _, part in ipairs(parts) do
+        if part then
+            part:SetVertexColor(unpack(color))
+        end
     end
 end
