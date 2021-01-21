@@ -171,7 +171,7 @@ function Artwork:LoadTradeSkillFrame()
             local button = _G["TradeSkillReagent" .. i]
             Artwork:SkinCraftItemButton(button)
         end
-        Artwork:SkinItemButton(_G.TradeSkillSkillIcon)
+        Artwork:SkinCraftItemButton(_G.TradeSkillSkillIcon)
     else
         Artwork:ScheduleTimer("LoadTradeSkillFrame", 0.01)
     end

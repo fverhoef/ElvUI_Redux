@@ -228,13 +228,12 @@ function Artwork:SkinCraftItemButton(button)
     local borderAtlas = Artwork:GetItemButtonBorderAtlas()
 
     local icon = _G[button:GetName() .. "IconTexture"]
-    icon:SetDrawLayer("BACKGROUND")
 
-    button.ArtworkBorder = Artwork:CreateBorder(icon, borderAtlas)
+    button.ArtworkBorder = Artwork:CreateBorder(icon or button, borderAtlas)
     Artwork:UpdateCraftItemButton(button)
     Artwork:UpdateBorderColor(button.ArtworkBorder, E.db[addonName].artwork.itemButtonBorderColor)
 
-    Artwork:SecureHook(icon.backdrop, "SetBackdropBorderColor", function(self, r, g, b, a)
+    Artwork:SecureHook((icon or button).backdrop, "SetBackdropBorderColor", function(self, r, g, b, a)
         local color = {r, g, b, a}
         if r == 0 and g == 0 and b == 0 then
             color = E.db[addonName].artwork.itemButtonBorderColor
@@ -254,7 +253,7 @@ function Artwork:UpdateCraftItemButton(button)
     local icon = _G[button:GetName() .. "IconTexture"]
 
     if not E.db[addonName].artwork.enabled or not borderAtlas then
-        Artwork:EnablePixelBorders(icon)
+        Artwork:EnablePixelBorders(icon or button)
         button.ArtworkBorder:Hide()
 
         if icon then
@@ -262,12 +261,13 @@ function Artwork:UpdateCraftItemButton(button)
             icon:Point("TOPLEFT", 0, 0)
         end
     else
-        Artwork:DisablePixelBorders(icon)
+        Artwork:DisablePixelBorders(icon or button)
         button.ArtworkBorder:Show()
 
         Artwork:UpdateBorder(button.ArtworkBorder, borderAtlas)
 
         if icon then
+            icon:SetDrawLayer("BACKGROUND")
             icon:Point("TOPLEFT", 2, 2)
         end
     end
