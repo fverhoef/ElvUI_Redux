@@ -357,3 +357,12 @@ function Artwork:GetUnitFrameCastBarBorderAtlas(unit)
 
     return Artwork.atlas.borders[value.castBarBorder]
 end
+
+function Artwork:GetUnitFrameClassBarBorderAtlas(unit)
+    local value = E.db[addonName].artwork.unitFrames[unit]
+    if not value then
+        return
+    end
+
+    return Artwork.atlas.borders[value.classBarBorder]
+end

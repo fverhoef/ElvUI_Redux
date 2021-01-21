@@ -77,7 +77,9 @@ P[addonName] = {
                 powerBorder = "BeautyCase",
                 powerBorderColor = {60 / 255, 60 / 255, 60 / 255},
                 castBarBorder = "BeautyCase",
-                castBarBorderColor = {60 / 255, 60 / 255, 60 / 255}
+                castBarBorderColor = {60 / 255, 60 / 255, 60 / 255},
+                classBarBorder = "BeautyCase",
+                classBarBorderColor = {60 / 255, 60 / 255, 60 / 255}
             },
             ["pet"] = {
                 border = "BeautyCase",
@@ -1101,7 +1103,19 @@ function Addon:InsertOptions()
                             E.db[addonName].shadows.size = value
                             Addon.Shadows:UpdateShadows()
                         end
-                    }
+                    },
+                    shadowPerButton = {
+                        order = 21,
+                        type = "toggle",
+                        name = L["Shadow Per Button"],
+                        get = function(info)
+                            return E.db[addonName].shadows.shadowPerButton
+                        end,
+                        set = function(info, value)
+                            E.db[addonName].shadows.shadowPerButton = value
+                            Addon.Shadows:UpdateShadows()
+                        end
+                    },
                 }
             },
             tooltips = {

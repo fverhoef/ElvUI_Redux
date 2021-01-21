@@ -34,34 +34,25 @@ function Artwork:SkinUnitFrame(unit, group)
 
     if unitFrame.Castbar then
         local castBarBorderAtlas = Artwork:GetUnitFrameCastBarBorderAtlas(unitFrame.artworkKey)
-        unitFrame.Castbar.ArtworkBorder = Artwork:CreateBorder(unitFrame.Castbar, castBarBorderAtlas)
+        unitFrame.Castbar.ArtworkBorder = Artwork:CreateBorder(unitFrame.Castbar.Holder, castBarBorderAtlas)
         unitFrame.Castbar.ArtworkBorder:SetFrameLevel(unitFrame.Castbar:GetFrameLevel() + 1)
-        -- Shadows:CreateShadow(unitFrame.Castbar.Holder)
+    end
+
+    local classBar = unitFrame.ClassBar and unitFrame[unitFrame.ClassBar]
+    if classBar then
+        local classBarBorderAtlas = Artwork:GetUnitFrameClassBarBorderAtlas(unitFrame.artworkKey)
+        classBar.ArtworkBorder = Artwork:CreateBorder(unitFrame.ClassBarHolder, classBarBorderAtlas)
+        classBar.ArtworkBorder:SetFrameLevel(classBar:GetFrameLevel() + 1)
     end
 
     unitFrame:HookScript("OnShow", function(self)
         Artwork:UpdateUnitFrame(self)
     end)
-
-    if unitFrame.USE_MINI_POWERBAR then
-        -- Shadows:CreateShadow(unitFrame.Health)
-    else
-        -- Shadows:CreateShadow(unitFrame)
-    end
-    if unitFrame.Castbar then
-        -- Shadows:CreateShadow(unitFrame.Castbar.Holder)
-    end
-    if unitFrame.Power and (unitFrame.POWERBAR_DETACHED or unitFrame.USE_MINI_POWERBAR) then
-        -- Shadows:CreateShadow(unitFrame.Power.Holder)
-    end
-    if unitFrame.ClassBar and unitFrame[unitFrame.ClassBar] and unitFrame[unitFrame.ClassBar]:IsShown() then
-        -- Shadows:CreateShadow(unitFrame.ClassBarHolder)
-    end
     Artwork:SecureHook(unitFrame.Buffs, "PostUpdateIcon", function(self, unit, button)
-        -- Shadows:CreateShadow(button)
+        Artwork:SkinAura(button)
     end)
     Artwork:SecureHook(unitFrame.Debuffs, "PostUpdateIcon", function(self, unit, button)
-        -- Shadows:CreateShadow(button)
+        Artwork:SkinAura(button)
     end)
 
     Artwork:UpdateUnitFrame(unitFrame)
@@ -82,7 +73,7 @@ function Artwork:UpdateUnitFrame(unitFrame)
     local healthBorderAtlas = Artwork:GetUnitFrameHealthBorderAtlas(unitFrame.artworkKey)
     local healthBorderColor = E.db[addonName].artwork.unitFrames[unitFrame.artworkKey].healthBorderColor
 
-    if unitFrame.Health then   
+    if unitFrame.Health then
         if borderAtlas then
             healthBorderAtlas = nil
         end
@@ -97,10 +88,10 @@ function Artwork:UpdateUnitFrame(unitFrame)
         end
     end
 
-    local powerBorderAtlas = Artwork:GetUnitFramePowerBorderAtlas(unitFrame.artworkKey)
-    local powerBorderColor = E.db[addonName].artwork.unitFrames[unitFrame.artworkKey].powerBorderColor
-
     if unitFrame.Power then
+        local powerBorderAtlas = Artwork:GetUnitFramePowerBorderAtlas(unitFrame.artworkKey)
+        local powerBorderColor = E.db[addonName].artwork.unitFrames[unitFrame.artworkKey].powerBorderColor
+
         Artwork:UpdateBorder(unitFrame.Power.ArtworkBorder, powerBorderAtlas)
         Artwork:UpdateBorderColor(unitFrame.Power.ArtworkBorder, powerBorderColor)
 
@@ -122,12 +113,31 @@ function Artwork:UpdateUnitFrame(unitFrame)
         end
     end
 
-    local castBarBorderAtlas = Artwork:GetUnitFrameCastBarBorderAtlas(unitFrame.artworkKey)
-    local castBarBorderColor = E.db[addonName].artwork.unitFrames[unitFrame.artworkKey].castBarBorderColor
-
     if unitFrame.Castbar then
+        local castBarBorderAtlas = Artwork:GetUnitFrameCastBarBorderAtlas(unitFrame.artworkKey)
+        local castBarBorderColor = E.db[addonName].artwork.unitFrames[unitFrame.artworkKey].castBarBorderColor
+
         Artwork:UpdateBorder(unitFrame.Castbar.ArtworkBorder, castBarBorderAtlas)
         Artwork:UpdateBorderColor(unitFrame.Castbar.ArtworkBorder, castBarBorderColor)
+    end
+
+    local classBar = unitFrame.ClassBar and unitFrame[unitFrame.ClassBar]
+    if classBar then
+        local classBarBorderAtlas = Artwork:GetUnitFrameClassBarBorderAtlas(unitFrame.artworkKey)
+        local classBarBorderColor = E.db[addonName].artwork.unitFrames[unitFrame.artworkKey].classBarBorderColor or {
+            1,
+            1,
+            1
+        }
+
+        Artwork:UpdateBorder(classBar.ArtworkBorder, classBarBorderAtlas)
+        Artwork:UpdateBorderColor(classBar.ArtworkBorder, classBarBorderColor)
+
+        if not classBar:IsShown() then
+            classBar.ArtworkBorder:Hide()
+        else
+            classBar.ArtworkBorder:Show()
+        end
     end
 end
 
