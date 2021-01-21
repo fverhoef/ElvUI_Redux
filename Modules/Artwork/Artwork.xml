@@ -1,0 +1,14 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+    <Script file="Init.lua"/>
+    <Script file="Atlas.lua"/>
+    <Script file="Registry.lua"/>
+    <Script file="Hooks.lua"/>
+
+    <Script file="Background.lua"/>
+    <Script file="Borders.lua"/>
+    <Script file="Buttons.lua"/>
+    <Script file="Frames.lua"/>
+    <Script file="FrameCloseButtons.lua"/>
+    <Script file="FrameTabs.lua"/>
+    <Script file="Tooltips.lua"/>
+</Ui>

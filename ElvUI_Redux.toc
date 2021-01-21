@@ -13,12 +13,4 @@ Media\Media.lua
 Config.lua
 Utilities.lua
 
-Artwork.lua
-ArtworkAtlas.lua
-Automation.lua
-InventoryDatabase.lua
-MinimapButtonFrame.lua
-Shadows.lua
-Tooltips.lua
-
-Installer.lua
+Modules\Modules.xml
