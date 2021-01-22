@@ -68,6 +68,8 @@ P[addonName] = {
         tempEnchantBorderColor = {60 / 255, 60 / 255, 60 / 255},
         tooltipBorder = "BeautyCase",
         tooltipBorderColor = {60 / 255, 60 / 255, 60 / 255},
+        dataPanelBorder = "BeautyCase",
+        dataPanelBorderColor = {60 / 255, 60 / 255, 60 / 255},
         minimap = {border = "BeautyCase", borderColor = {60 / 255, 60 / 255, 60 / 255}},
         unitFrames = {
             ["player"] = {
@@ -358,8 +360,29 @@ function Addon:InsertOptions()
                             }
                         }
                     },
-                    minimap = {
+                    dataPanels = {
                         order = 40,
+                        type = "group",
+                        name = L["Data Panels"],
+                        args = {
+                            header = Addon:CreateOptionHeader(L["Data Panels"], 0),
+                            border = {
+                                order = 1,
+                                type = "group",
+                                inline = true,
+                                name = L["Border"],
+                                args = {
+                                    border = Addon:CreateBorderThemeOption(L["Border Theme"], 1, {"artwork", "dataPanelBorder"}),
+                                    borderColor = Addon:CreateColorOption(L["Border Color"], 2, {
+                                        "artwork",
+                                        "dataPanelBorderColor"
+                                    })
+                                }
+                            }
+                        }
+                    },
+                    minimap = {
+                        order = 50,
                         type = "group",
                         name = L["Minimap"],
                         args = {
@@ -381,7 +404,7 @@ function Addon:InsertOptions()
                         }
                     },
                     skins = {
-                        order = 50,
+                        order = 60,
                         type = "group",
                         name = L["Skins"],
                         args = {
@@ -455,7 +478,7 @@ function Addon:InsertOptions()
                         }
                     },
                     tooltips = {
-                        order = 60,
+                        order = 70,
                         type = "group",
                         name = L["Tooltips"],
                         args = {
@@ -473,7 +496,7 @@ function Addon:InsertOptions()
                         }
                     },
                     unitFrames = {
-                        order = 70,
+                        order = 80,
                         type = "group",
                         name = L["Unit Frames"],
                         args = {

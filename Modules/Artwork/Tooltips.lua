@@ -10,9 +10,11 @@ function Artwork:SkinTooltip(tip)
     end
 
     local borderAtlas = Artwork:GetTooltipBorderAtlas()
-
     tip.ArtworkBorder = Artwork:CreateBorder(tip, borderAtlas)
+    
     Artwork:UpdateTooltip(tip)
+
+    -- TODO: resize border to encompass status/progress bar if visible
 end
 
 function Artwork:UpdateTooltip(tip)
@@ -21,7 +23,6 @@ function Artwork:UpdateTooltip(tip)
     end
 
     local borderAtlas = Artwork:GetTooltipBorderAtlas()
-
     Artwork:UpdateBorder(tip.ArtworkBorder, borderAtlas)
 
     local color = E.db[addonName].artwork.tooltipBorderColor

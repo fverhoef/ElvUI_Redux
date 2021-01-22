@@ -46,6 +46,10 @@ function Artwork:SkinUnitFrame(unit, group)
         classBar.ArtworkBorder:SetFrameLevel(classBar:GetFrameLevel() + 1)
     end
 
+    Artwork:ResizeFrameGlow(unitFrame.FrameGlow, 5)
+    Artwork:ResizeFrameGlow(unitFrame.MouseGlow, 5)
+    Artwork:ResizeFrameGlow(unitFrame.TargetGlow, 5)
+
     unitFrame:HookScript("OnShow", function(self)
         Artwork:UpdateUnitFrame(self)
     end)
@@ -141,11 +145,7 @@ function Artwork:UpdateUnitFrame(unitFrame)
     local classBar = unitFrame.ClassBar and unitFrame[unitFrame.ClassBar]
     if classBar then
         local classBarBorderAtlas = Artwork:GetUnitFrameClassBarBorderAtlas(unitFrame.artworkKey)
-        local classBarBorderColor = E.db[addonName].artwork.unitFrames[unitFrame.artworkKey].classBarBorderColor or {
-            1,
-            1,
-            1
-        }
+        local classBarBorderColor = E.db[addonName].artwork.unitFrames[unitFrame.artworkKey].classBarBorderColor or {1, 1, 1}
 
         Artwork:UpdateBorder(classBar.ArtworkBorder, classBarBorderAtlas)
         Artwork:UpdateBorderColor(classBar.ArtworkBorder, classBarBorderColor)
@@ -176,4 +176,13 @@ function Artwork:SkinUnitFrameGroup(group)
     end
 
     Artwork:RegisterGroupHeader(header)
+end
+
+function Artwork:ResizeFrameGlow(glow, size)
+    if glow then
+        glow:SetBackdrop({edgeFile = E.Libs.LSM:Fetch("border", "ElvUI GlowBorder"), edgeSize = E:Scale(size)})
+        if glow.powerGlow then
+            glow.powerGlow:SetBackdrop({edgeFile = E.Libs.LSM:Fetch("border", "ElvUI GlowBorder"), edgeSize = E:Scale(5)})
+        end
+    end
 end

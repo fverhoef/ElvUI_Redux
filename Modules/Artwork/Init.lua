@@ -140,6 +140,10 @@ function Artwork:UpdateArtwork()
         Artwork:UpdateUnitFrame(unitFrame)
     end
 
+    for panel, _ in pairs(Artwork.registry.dataPanels) do
+        Artwork:UpdateDataPanel(panel)
+    end
+
     Artwork:UpdateMinimap()
 end
 

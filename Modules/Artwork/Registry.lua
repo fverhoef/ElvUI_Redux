@@ -14,7 +14,8 @@ Artwork.registry = {
     auras = {},
     tempEnchants = {},
     unitFrames = {},
-    groupHeaders = {}
+    groupHeaders = {},
+    dataPanels = {}
 }
 
 function Artwork:RegisterFrame(frame)
@@ -120,4 +121,12 @@ end
 
 function Artwork:IsGroupHeaderRegistered(header)
     return Artwork.registry.groupHeaders[header] ~= nil
+end
+
+function Artwork:RegisterDataPanel(panel)
+    Artwork.registry.dataPanels[panel] = true
+end
+
+function Artwork:IsDataPanelRegistered(panel)
+    return Artwork.registry.dataPanels[panel] ~= nil
 end

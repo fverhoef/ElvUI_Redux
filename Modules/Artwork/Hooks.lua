@@ -6,6 +6,7 @@ local AS = unpack(AddOnSkins)
 local A = E:GetModule("Auras")
 local AB = E:GetModule("ActionBars")
 local B = E:GetModule("Bags")
+local DT = E:GetModule("DataTexts")
 local S = E:GetModule("Skins")
 local TT = E:GetModule("Tooltip")
 local UF = E:GetModule("UnitFrames")
@@ -128,6 +129,10 @@ end)
 
 Artwork:SecureHook(B, "SkinBag", function(self, bag)
     Artwork:SkinItemButton(bag)
+end)
+
+Artwork:SecureHook(DT, "RegisterPanel", function(self, panel, numPoints, anchor, xOff, yOff, vertical)
+    Artwork:SkinDataPanel(panel)
 end)
 
 -- AddOnSkins Hooks
