@@ -5,13 +5,14 @@ local E, L, V, P, G = unpack(ElvUI)
 local UF = E:GetModule("UnitFrames")
 
 function Artwork:SkinUnitFrame(unit, group)
-    local unitFrame = (type(unit) == "table" and unit) or UF[unit]
+    local unitFrame = type(unit) == "table" and unit or UF[unit]
     if not unitFrame or Artwork:IsUnitFrameRegistered(unitFrame) then
         return
     end
 
-    unit = unitFrame.unit or unit
-    unitFrame.artworkKey = group or unit
+    unitFrame.unit = unitFrame.unit or unit
+    unitFrame.group = unitFrame.group or group
+    unitFrame.artworkKey = unitFrame.group or unitFrame.unit
 
     local borderAtlas = Artwork:GetUnitFrameBorderAtlas(unitFrame.artworkKey)
     unitFrame.ArtworkBorder = Artwork:CreateBorder(unitFrame, borderAtlas)
@@ -48,12 +49,28 @@ function Artwork:SkinUnitFrame(unit, group)
     unitFrame:HookScript("OnShow", function(self)
         Artwork:UpdateUnitFrame(self)
     end)
-    Artwork:SecureHook(unitFrame.Buffs, "PostUpdateIcon", function(self, unit, button)
-        Artwork:SkinAura(button)
-    end)
-    Artwork:SecureHook(unitFrame.Debuffs, "PostUpdateIcon", function(self, unit, button)
-        Artwork:SkinAura(button)
-    end)
+    if unitFrame.Auras then
+        Artwork:SecureHook(unitFrame.Auras, "PostUpdateIcon", function(self, unit, button)
+            Artwork:SkinAura(button)
+        end)
+    end
+    if unitFrame.Buffs then
+        Artwork:SecureHook(unitFrame.Buffs, "PostUpdateIcon", function(self, unit, button)
+            Artwork:SkinAura(button)
+        end)
+    end
+    if unitFrame.Debuffs then
+        Artwork:SecureHook(unitFrame.Debuffs, "PostUpdateIcon", function(self, unit, button)
+            Artwork:SkinAura(button)
+        end)
+    end
+
+    local name = E:StringTitle(unitFrame.unit)
+    if UF["Update_" .. name .. "Frame"] then
+        Artwork:SecureHook(UF, "Update_" .. name .. "Frame", function(self, frame, db)
+            Artwork:UpdateUnitFrame(frame)
+        end)
+    end
 
     Artwork:UpdateUnitFrame(unitFrame)
     Artwork:RegisterUnitFrame(unitFrame)
@@ -141,40 +158,18 @@ function Artwork:UpdateUnitFrame(unitFrame)
     end
 end
 
-function Artwork:SkinUnitFrameGroup(groupName)
-    local header = UF[groupName]
+function Artwork:SkinUnitFrameGroup(group)
+    local header = UF[group]
     if not header or Artwork:IsGroupHeaderRegistered(header) then
         return
     end
 
-    if header.groups then
-        for i, group in next, header.groups do
-            for j, obj in next, group do
-                if type(obj) == "table" then
-                    if obj.unit then
-                        Artwork:SkinUnitFrame(obj, groupName)
-                    end
-                end
-            end
-        end
-    else
-        -- tank, assist
-        -- TODO: targets
-        for i, obj in next, header do
-            if type(obj) == "table" then
-                if obj.unit then
-                    Artwork:SkinUnitFrame(obj, groupName)
-                end
-            end
-        end
+    local name = E:StringTitle(group)
+    if UF["Update_" .. name .. "Frames"] then
+        Artwork:SecureHook(UF, "Update_" .. name .. "Frames", function(self, frame, db)
+            Artwork:SkinUnitFrame(frame, group)
+        end)
     end
 
-    Artwork:UpdateUnitFrameGroupHeader(header)
     Artwork:RegisterGroupHeader(header)
-end
-
-function Artwork:UpdateUnitFrameGroupHeader(header)
-    if not header then
-        return
-    end
 end

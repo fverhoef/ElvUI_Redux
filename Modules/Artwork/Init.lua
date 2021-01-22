@@ -9,6 +9,7 @@ local AB = E:GetModule("ActionBars")
 local B = E:GetModule("Bags")
 local S = E:GetModule("Skins")
 local TT = E:GetModule("Tooltip")
+local UF = E:GetModule("UnitFrames")
 
 -- Init/Update
 function Artwork:Initialize()
@@ -137,10 +138,6 @@ function Artwork:UpdateArtwork()
 
     for unitFrame, _ in pairs(Artwork.registry.unitFrames) do
         Artwork:UpdateUnitFrame(unitFrame)
-    end
-
-    for groupHeader, _ in pairs(Artwork.registry.groupHeaders) do
-        Artwork:UpdateUnitFrameGroupHeader(groupHeader)
     end
 
     Artwork:UpdateMinimap()

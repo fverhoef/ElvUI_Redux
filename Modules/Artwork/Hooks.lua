@@ -8,6 +8,7 @@ local AB = E:GetModule("ActionBars")
 local B = E:GetModule("Bags")
 local S = E:GetModule("Skins")
 local TT = E:GetModule("Tooltip")
+local UF = E:GetModule("UnitFrames")
 
 -- ElvUI Hooks
 Artwork:SecureHook(E, "SetBackdropBorderColor", function(self, frame, r, g, b, a)
@@ -127,6 +128,10 @@ end)
 
 Artwork:SecureHook(B, "SkinBag", function(self, bag)
     Artwork:SkinItemButton(bag)
+end)
+
+Artwork:SecureHook(UF, "CreateAndUpdateUFGroup", function(self, group, numGroup)
+    print("CreateAndUpdateUFGroup")
 end)
 
 -- AddOnSkins Hooks
