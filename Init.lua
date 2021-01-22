@@ -30,4 +30,9 @@ function Addon:Initialize()
     end
 end
 
+function Addon:Update()
+    Addon.Artwork:UpdateArtwork()
+    Addon.Shadows:UpdateShadows()
+end
+
 E:RegisterModule(Addon:GetName())

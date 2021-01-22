@@ -102,7 +102,7 @@ Artwork.atlas = {
             bottom = {Addon.media.textures.borders.shadowlandsTop, 256, 16, 0, 1, 1, 0},
             left = {Addon.media.textures.borders.shadowlandsLeft, 16, 256, 0, 1, 0, 1},
             right = {Addon.media.textures.borders.shadowlandsLeft, 16, 256, 1, 0, 0, 1}
-        },
+        }
     },
     frameBorders = {
         ["Alliance"] = {
