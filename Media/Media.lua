@@ -135,6 +135,9 @@ Addon.media = {
         arrowUp_ElvUI = "Interface\\Addons\\ElvUI\\Media\\Textures\\ArrowUp",
         minimapButtonBorder1 = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\MinimapButtonBorder1",
         minimapButtonBorder2 = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\MinimapButtonBorder2",
+        minimapMask1 = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\MinimapMask1",
+        minimapMask2 = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\MinimapMask2",
+        minimapMask3 = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\MinimapMask3",
         portraitAlphaMask = "Interface\\CharacterFrame\\TempPortraitAlphaMask"
     }
 }
