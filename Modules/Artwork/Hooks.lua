@@ -130,10 +130,6 @@ Artwork:SecureHook(B, "SkinBag", function(self, bag)
     Artwork:SkinItemButton(bag)
 end)
 
-Artwork:SecureHook(UF, "CreateAndUpdateUFGroup", function(self, group, numGroup)
-    print("CreateAndUpdateUFGroup")
-end)
-
 -- AddOnSkins Hooks
 if AS and false then
     Artwork:SecureHook(AS, "SkinFrame", function(self, frame, template, override, kill)

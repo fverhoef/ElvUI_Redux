@@ -66,7 +66,7 @@ function Artwork:SkinUnitFrame(unit, group)
     end
 
     local name = E:StringTitle(unitFrame.unit)
-    if UF["Update_" .. name .. "Frame"] then
+    if UF["Update_" .. name .. "Frame"] and not Artwork:IsHooked(UF, "Update_" .. name .. "Frame") then
         Artwork:SecureHook(UF, "Update_" .. name .. "Frame", function(self, frame, db)
             Artwork:UpdateUnitFrame(frame)
         end)
@@ -167,7 +167,11 @@ function Artwork:SkinUnitFrameGroup(group)
     local name = E:StringTitle(group)
     if UF["Update_" .. name .. "Frames"] then
         Artwork:SecureHook(UF, "Update_" .. name .. "Frames", function(self, frame, db)
-            Artwork:SkinUnitFrame(frame, group)
+            if Artwork:IsUnitFrameRegistered(frame) then
+                Artwork:UpdateUnitFrame(frame)
+            else
+                Artwork:SkinUnitFrame(frame, group)
+            end
         end)
     end
 
