@@ -3,10 +3,21 @@ local Addon = addonTable[1]
 local Shadows = Addon.Shadows
 local E, L, V, P, G = unpack(ElvUI)
 local A = E:GetModule("Auras")
+local AB = E:GetModule("ActionBars")
 local DB = E:GetModule("DataBars")
 local DT = E:GetModule("DataTexts")
 local NP = E:GetModule("NamePlates")
+local S = E:GetModule("Skins")
+local TT = E:GetModule("Tooltip")
 local UF = E:GetModule("UnitFrames")
+
+Shadows:SecureHook(S, "HandleFrame", function(self, frame, setBackdrop, template, x1, y1, x2, y2)
+    Shadows:CreateShadow(frame)
+end)
+
+Shadows:SecureHook(S, "HandleTab", function(self, tab, noBackdrop)
+    Shadows:CreateShadow(tab)
+end)
 
 Shadows:SecureHook(E, "Config_WindowOpened", function(self)
     local optionsFrame = E:Config_GetWindow()
@@ -23,11 +34,11 @@ Shadows:SecureHook(A, "UpdateAura", function(self, button)
     Shadows:CreateShadow(button)
 end)
 
-Shadows:SecureHook(A, "UpdateStatusBar", function(self, button)
+Shadows:SecureHook(A, "UpdateTempEnchant", function(self, button)
     Shadows:CreateShadow(button)
 end)
 
-Shadows:SecureHook(A, "UpdateTempEnchant", function(self, button)
+Shadows:SecureHook(AB, "StyleButton", function(self, button, noBackdrop, useMasque, ignoreNormal)
     Shadows:CreateShadow(button)
 end)
 
@@ -60,6 +71,14 @@ Shadows:SecureHook(NP, "StylePlate", function(self, nameplate)
             end)
         end
     end
+end)
+
+Shadows:SecureHook(TT, "SetStyle", function(self, tip)
+    Shadows:CreateShadow(tip)
+end)
+
+Shadows:SecureHook(S, "Ace3_StyleTooltip", function(self)
+    Shadows:CreateShadow(self)
 end)
 
 Shadows:SecureHook(UF, "Configure_Castbar", function(self, frame)

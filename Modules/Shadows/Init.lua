@@ -16,12 +16,89 @@ local UF = E:GetModule("UnitFrames")
 
 function Shadows:Initialize()
     Shadows:CreateShadows()
-    Shadows:ScheduleTimer("UpdateShadows", 1)
     Shadows:RegisterEvent("ADDON_LOADED", Shadows.ADDON_LOADED)
     Shadows:RegisterEvent("GROUP_ROSTER_UPDATE", Shadows.GROUP_ROSTER_UPDATE)
 end
 
 function Shadows:CreateShadows()
+    -- skin any frame that isn't handled by overriding Skins.HandleFrame
+    Shadows:CreateShadow(_G.GameMenuFrame)
+    Shadows:CreateShadow(_G.InterfaceOptionsFrame)
+    Shadows:CreateShadow(_G.VideoOptionsFrame)
+    Shadows:CreateShadow(_G.ScriptErrorsFrame)
+    Shadows:CreateShadow(_G.StackSplitFrame)
+    Shadows:CreateShadow(_G.ElvLootFrame)
+    Shadows:CreateShadow(_G.LootFrame)
+    Shadows:CreateShadow(_G.LootHistoryFrame)
+    Shadows:CreateShadow(_G.MasterLooterFrame)
+    Shadows:CreateShadow(_G.ReadyCheckFrame)
+    Shadows:CreateShadow(_G.WorldMapFrame)
+    Shadows:CreateShadow(_G.ColorPickerFrame)
+    Shadows:CreateShadow(_G.CopyChatFrame)
+    Shadows:CreateShadow(_G.GuildMemberDetailFrame)
+
+    -- skin chat panels
+    Shadows:CreateShadow(_G.LeftChatPanel.backdrop)
+    Shadows:CreateShadow(_G.LeftChatToggleButton)
+    Shadows:CreateShadow(_G.RightChatPanel.backdrop)
+    Shadows:CreateShadow(_G.RightChatToggleButton)
+
+    -- action bars
+    for i = 1, 10 do
+        Shadows:CreateShadow(AB.handledBars["bar" .. i])
+    end
+
+    -- skin popups
+    for i = 1, 4 do
+        Shadows:CreateShadow(_G["StaticPopup" .. i])
+    end
+    for i = 1, 4 do
+        Shadows:CreateShadow(_G["ElvUI_StaticPopup" .. i])
+    end
+
+    -- skin any tab that isn't handled by Skins.HandleTab
+    for i = 1, _G.MAX_SKILLLINE_TABS do
+        Shadows:CreateShadow(_G["SpellBookSkillLineTab" .. i])
+    end
+
+    -- skins bags
+    Shadows:CreateShadow(B.BagFrame)
+    Shadows:CreateShadow(B.BankFrame)
+    Shadows:CreateShadow(B.SellFrame)
+
+    -- skin character equipment slot items
+    for _, slot in pairs({_G.PaperDollItemsFrame:GetChildren()}) do
+        if slot:IsObjectType("Button") then
+            Shadows:CreateShadow(slot)
+        end
+    end
+
+    -- Minimap
+    Shadows:CreateShadow(_G.MMHolder)
+
+    -- Mirror Timers
+    for i = 1, 3 do
+        Shadows:CreateShadow(_G["MirrorTimer" .. i .. "StatusBar"])
+    end
+    
+    -- Raid Utility Panel
+    Shadows:CreateShadow(_G.RaidUtilityPanel)
+    Shadows:CreateShadow(_G.RaidUtility_ShowButton)
+    Shadows:CreateShadow(_G.RaidUtility_CloseButton)
+    Shadows:CreateShadow(_G.RaidControlButton)
+    
+    -- Help
+    if Addon.isClassic then
+        Shadows:CreateShadow(_G.HelpFrameHeader.backdrop)
+    end
+
+    -- ElvUI panels
+    Shadows:CreateShadow(LO.BottomPanel)
+    Shadows:CreateShadow(LO.TopPanel)
+
+    -- vehicle Leave
+    Shadows:CreateShadow(_G.MainMenuBarVehicleLeaveButton)
+
     -- Unit Frames
     Shadows:CreateUnitFrameShadows("player")
     Shadows:CreateUnitFrameShadows("pet")
@@ -41,246 +118,20 @@ function Shadows:CreateShadows()
     Shadows:CreateUnitGroupShadows("raidpet")
     Shadows:CreateUnitGroupShadows("tank")
 
-    -- Action Bars    
-    for i = 1, 10 do
-        local bar = AB.handledBars["bar" .. i]
-        Shadows:CreateShadow(AB.handledBars["bar" .. i])
-
-        for j = 1, _G.NUM_ACTIONBAR_BUTTONS do
-            local button = bar.buttons[j]
-            Shadows:CreateShadow(button)
-        end
-    end
-
-    -- Addon Manager
-    Shadows:CreateShadow(_G.AddonList)
-
-    -- Bags
-    Shadows:CreateShadow(B.BagFrame)
-    Shadows:CreateShadow(B.BankFrame)
-
-    -- BG Score
-    if Addon.isClassic then
-        Shadows:CreateShadow(_G.WorldStateScoreFrame.backdrop)
-    end
-
-    -- Chat
-    Shadows:CreateShadow(_G.LeftChatPanel.backdrop)
-    Shadows:CreateShadow(_G.LeftChatDataPanel)
-    Shadows:CreateShadow(_G.LeftChatToggleButton)
-    Shadows:CreateShadow(_G.RightChatPanel.backdrop)
-    Shadows:CreateShadow(_G.RightChatDataPanel)
-    Shadows:CreateShadow(_G.RightChatToggleButton)
-
-    -- Data Bars
-    Shadows:CreateShadow(DB.expBar)
-    Shadows:CreateShadow(DB.petExpBar)
-    Shadows:CreateShadow(DB.repBar)
-
-    -- Channels
-    Shadows:CreateShadow(_G.ChannelFrame)
-
-    -- Chat Config
-    Shadows:CreateShadow(_G.ChatConfigFrame)
-
-    -- Character Frame
-    Shadows:CreateShadow(_G.CharacterFrame.backdrop)
-    if CharacterModelFrame.Background then
-        Shadows:CreateShadow(_G.CharacterModelFrame)
-    end
-    Shadows:CreateShadow(_G.ReputationDetailFrame)
-    for i = 1, #CHARACTERFRAME_SUBFRAMES do
-        local tab = _G["CharacterFrameTab" .. i]
-        if tab and false then
-            Shadows:CreateShadow(tab.backdrop)
-            -- tab.backdrop:SetFrameLevel(_G.CharacterFrame:GetFrameLevel() - 1)
-        end
-    end
-    local slots = {
-        "HeadSlot",
-        "NeckSlot",
-        "ShoulderSlot",
-        "BackSlot",
-        "ChestSlot",
-        "ShirtSlot",
-        "TabardSlot",
-        "WristSlot",
-        "HandsSlot",
-        "WaistSlot",
-        "LegsSlot",
-        "FeetSlot",
-        "Finger0Slot",
-        "Finger1Slot",
-        "Trinket0Slot",
-        "Trinket1Slot",
-        "MainHandSlot",
-        "SecondaryHandSlot",
-        "RangedSlot"
-    }
-    for i, slot in next, slots do
-        local button = _G["Character" .. slot]
-        if button then
-            Shadows:CreateShadow(button)
-        end
-    end
-
-    -- Color Picker
-    Shadows:CreateShadow(_G.ColorPickerFrame)
-
-    -- DressUp
-    Shadows:CreateShadow(_G.DressUpFrame.backdrop)
-
-    -- Friends Frame
-    Shadows:CreateShadow(_G.FriendsFrame.backdrop)
-    Shadows:CreateShadow(_G.AddFriendFrame)
-    if Addon.isClassic then
-        Shadows:CreateShadow(_G.GuildInfoFrame.backdrop)
-        Shadows:CreateShadow(_G.GuildMemberDetailFrame)
-        Shadows:CreateShadow(_G.GuildControlPopupFrame.backdrop)
-    end
-    Shadows:CreateShadow(_G.RaidInfoFrame)
-    for i = 1, #_G.FRIENDSFRAME_SUBFRAMES do
-        local tab = _G["FriendsFrameTab" .. i]
-        if tab and false then
-            Shadows:CreateShadow(tab.backdrop)
-            -- tab.backdrop:SetFrameLevel(_G.FriendsFrame:GetFrameLevel() - 1)
-        end
-    end
-
-    -- Game Menu
-    Shadows:CreateShadow(_G.GameMenuFrame)
-
-    -- Gossip
-    Shadows:CreateShadow(_G.GossipFrame.backdrop)
-
-    -- Guild Registrar
-    Shadows:CreateShadow(_G.GuildRegistrarFrame.backdrop)
-
-    -- Help
-    Shadows:CreateShadow(_G.HelpFrame)
-    if Addon.isClassic then
-        Shadows:CreateShadow(_G.HelpFrameHeader.backdrop)
-    end
-
-    -- Interface Options
-    Shadows:CreateShadow(_G.InterfaceOptionsFrame)
-
-    -- Loot History
-    Shadows:CreateShadow(_G.LootFrame)
-    Shadows:CreateShadow(_G.LootHistoryFrame)
-    Shadows:CreateShadow(_G.MasterLooterFrame)
-
-    -- Mail Frame
-    Shadows:CreateShadow(_G.MailFrame.backdrop)
-    Shadows:CreateShadow(_G.OpenMailFrame.backdrop)
-
-    -- Merchant Frame
-    Shadows:CreateShadow(_G.MerchantFrame.backdrop)
-
-    -- Minimap
-    Shadows:CreateShadow(_G.MMHolder)
-
-    -- Mirror Timers
-    for i = 1, 3 do
-        Shadows:CreateShadow(_G["MirrorTimer" .. i .. "StatusBar"])
-    end
-
-    -- Panels
-    Shadows:CreateShadow(LO.BottomPanel)
-    Shadows:CreateShadow(LO.TopPanel)
-
-    -- Pet Stable Frame
-    Shadows:CreateShadow(_G.PetStableFrame.backdrop)
-
-    -- Petition Frame
-    Shadows:CreateShadow(_G.PetitionFrame.backdrop)
-
-    -- Popups    
-    for i = 1, 4 do
-        local popup = _G["StaticPopup" .. i]
-        Shadows:CreateShadow(popup)
-    end
-    for i = 1, 4 do
-        local popup = _G["ElvUI_StaticPopup" .. i]
-        Shadows:CreateShadow(popup)
-    end
-    Shadows:CreateShadow(_G.StackSplitFrame)
-
-    -- Quest Frame
-    Shadows:CreateShadow(_G.QuestFrame.backdrop)
-    if Addon.isClassic then
-        Shadows:CreateShadow(_G.QuestLogFrame.backdrop)
-    end
-
-    -- Raid Utility Panel
-    Shadows:CreateShadow(_G.RaidUtilityPanel)
-    Shadows:CreateShadow(_G.RaidUtility_ShowButton)
-    Shadows:CreateShadow(_G.RaidUtility_CloseButton)
-    Shadows:CreateShadow(_G.RaidControlButton)
-
-    -- Ready Check
-    Shadows:CreateShadow(_G.ReadyCheckFrame)
-
-    -- Script Errors
-    Shadows:CreateShadow(_G.ScriptErrorsFrame)
-
-    -- Spellbook Frame
-    Shadows:CreateShadow(_G.SpellBookFrame.backdrop)
-    for i = 1, _G.MAX_SKILLLINE_TABS do
-        local tab = _G["SpellBookSkillLineTab" .. i]
-        Shadows:CreateShadow(tab)
-        -- tab:SetFrameLevel(_G.SpellBookFrame:GetFrameLevel() - 1)
-    end
-
-    -- Tabard
-    Shadows:CreateShadow(_G.TabardFrame.backdrop)
-
-    -- Taxi
-    Shadows:CreateShadow(_G.TaxiFrame.backdrop)
-
-    -- Tooltips	
-    Shadows:CreateShadow(_G.GameTooltip)
-    Shadows:CreateShadow(_G.GameTooltipStatusBar)
-    Shadows:CreateShadow(_G.ItemRefTooltip)
-    Shadows:CreateShadow(_G.ItemRefShoppingTooltip1)
-    Shadows:CreateShadow(_G.ItemRefShoppingTooltip2)
-    Shadows:CreateShadow(_G.AutoCompleteBox)
-    Shadows:CreateShadow(_G.FriendsTooltip)
-    Shadows:CreateShadow(_G.ShoppingTooltip1)
-    Shadows:CreateShadow(_G.ShoppingTooltip2)
-    Shadows:CreateShadow(_G.EmbeddedItemTooltip)
-    Shadows:CreateShadow(DT.tooltip)
-    -- TODO: Options dialog tooltips
-
-    -- Trade
-    Shadows:CreateShadow(_G.TradeFrame.backdrop)
-
-    -- Tutorial
-    Shadows:CreateShadow(_G.TutorialFrame)
-
-    -- Vehicle Leave
-    Shadows:CreateShadow(_G.MainMenuBarVehicleLeaveButton)
-
-    -- Video Options (System)
-    Shadows:CreateShadow(_G.VideoOptionsFrame)
-
-    -- World Map
-    Shadows:CreateShadow(_G.WorldMapFrame)
-
-    -- Plugins
+    -- plugins
     local ccb = _G["ElvUI_ClassicClassBars"]
     if ccb then
         if ccb.MageBar then
             Shadows:CreateShadow(ccb.MageBar)
             for i, button in ipairs(ccb.MageBar.buttons) do
-                Shadows:CreateShadow(button)
+                Shadows:CreateShadow(button.CurrentAction or button)
             end
         end
 
         if ccb.ShamanBar then
             Shadows:CreateShadow(ccb.ShamanBar)
             for i, button in ipairs(ccb.ShamanBar.buttons) do
-                Shadows:CreateShadow(button)
+                Shadows:CreateShadow(button.CurrentAction or button)
             end
         end
     end
@@ -371,11 +222,11 @@ function Shadows:CreateUnitGroupShadows(group)
 end
 
 function Shadows:CreateShadow(frame, config, isHidden)
-    if frame and (not frame.shadow) then
-        frame:CreateShadow()
+    if frame and (not frame.shadow) then        
         if (not config) then
             config = E.db[addonName].shadows
         end
+        frame.shadow = (frame.backdrop or frame):CreateShadow(nil, true)
         frame.shadow.config = config
         frame.shadow.isHidden = frame.shadow.isHidden or ishidden
         Shadows:RegisterShadow(frame.shadow)
@@ -406,19 +257,18 @@ function Shadows:UpdateShadows()
         if ccb.MageBar then
             ccb.MageBar.shadow.isHidden = E.db[addonName].shadows.shadowPerButton
             for i, button in ipairs(ccb.MageBar.buttons) do
-                button.shadow.isHidden = not E.db[addonName].shadows.shadowPerButton
+                (button.CurrentAction or button).shadow.isHidden = not E.db[addonName].shadows.shadowPerButton
             end
         end
 
         if ccb.ShamanBar then
             ccb.ShamanBar.shadow.isHidden = E.db[addonName].shadows.shadowPerButton
             for i, button in ipairs(ccb.ShamanBar.buttons) do
-                button.shadow.isHidden = not E.db[addonName].shadows.shadowPerButton
+                (button.CurrentAction or button).shadow.isHidden = not E.db[addonName].shadows.shadowPerButton
             end
         end
     end
 
-    Shadows:CreateShadows()
     for shadow, _ in pairs(Shadows.registeredShadows) do
         Shadows:UpdateShadow(shadow)
     end

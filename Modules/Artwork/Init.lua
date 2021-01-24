@@ -21,6 +21,7 @@ function Artwork:Initialize()
     Artwork:SkinFrame(_G.VideoOptionsFrame)
     Artwork:SkinFrame(_G.ScriptErrorsFrame)
     Artwork:SkinFrame(_G.StackSplitFrame, true)
+    Artwork:SkinFrame(_G.ElvLootFrame, true)
     Artwork:SkinFrame(_G.LootFrame, true)
     Artwork:SkinFrame(_G.LootHistoryFrame, true)
     Artwork:SkinFrame(_G.MasterLooterFrame, true)
@@ -44,7 +45,7 @@ function Artwork:Initialize()
         Artwork:SkinFrame(_G["ElvUI_StaticPopup" .. i], true)
     end
 
-    -- skin any tab that isn't handled by overriding Skins.HandleTab
+    -- skin any tab that isn't handled by Skins.HandleTab
     for i = 1, _G.MAX_SKILLLINE_TABS do
         local tab = _G["SpellBookSkillLineTab" .. i]
         Artwork:SkinTab(tab, "RIGHT")

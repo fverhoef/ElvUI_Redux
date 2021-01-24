@@ -52,11 +52,7 @@ MinimapButtonFrame.ButtonFunctions = {
     "SetFrameStrata",
     "SetFrameLevel"
 }
-MinimapButtonFrame.DoNotCrop = {
-    ZygorGuidesViewerMapIcon = true,
-    ItemRackMinimapFrame = true,
-    Narci_MinimapButton = true
-}
+MinimapButtonFrame.DoNotCrop = {ZygorGuidesViewerMapIcon = true, ItemRackMinimapFrame = true, Narci_MinimapButton = true}
 MinimapButtonFrame.RemoveTextureID = {[136430] = true, [136467] = true, [136468] = true, [130924] = true}
 MinimapButtonFrame.RemoveTextureFile = {
     ["interface/minimap/minimap-trackingborder"] = true,
@@ -407,7 +403,9 @@ function MinimapButtonFrame:UpdateFramePosition()
 
     local offset = 2
     if MinimapPanel:IsShown() then
-        Minimap.ButtonFrame.shadow.isHidden = true
+        if Minimap.ButtonFrame.shadow then
+            Minimap.ButtonFrame.shadow.isHidden = true
+        end
         Minimap.ButtonFrame:SetSize(18, MinimapPanel:GetHeight() - 2)
         Minimap.ButtonFrame:SetPoint("LEFT", MinimapPanel, "RIGHT", 0, 0)
         Minimap.ButtonFrame.Toggle:SetPoint("TOPRIGHT", Minimap.ButtonFrame, "TOPRIGHT", 0, -2)
@@ -416,7 +414,9 @@ function MinimapButtonFrame:UpdateFramePosition()
         MinimapPanel:Point("TOPLEFT", Minimap, "BOTTOMLEFT", (E.PixelMode and -1 or -2) + offset, 0)
         MinimapPanel:Point("BOTTOMRIGHT", Minimap, "BOTTOMRIGHT", (E.PixelMode and 1 or 2) - 19, -22)
     else
-        Minimap.ButtonFrame.shadow.isHidden = false
+        if Minimap.ButtonFrame.shadow then
+            Minimap.ButtonFrame.shadow.isHidden = false
+        end
         Minimap.ButtonFrame:SetSize(Minimap:GetWidth(), MinimapPanel:GetHeight() - 2)
         Minimap.ButtonFrame:SetPoint("TOP", Minimap, "BOTTOM", 0, -35)
         Minimap.ButtonFrame.Toggle:SetPoint("TOPRIGHT", Minimap.ButtonFrame, "TOPRIGHT", -5, 0)

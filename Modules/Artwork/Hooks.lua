@@ -13,9 +13,8 @@ local S = E:GetModule("Skins")
 local TT = E:GetModule("Tooltip")
 local UF = E:GetModule("UnitFrames")
 
--- ElvUI Hooks
 Artwork:SecureHook(E, "SetBackdropBorderColor", function(self, frame, r, g, b, a)
-    if Artwork:IsItemButtonRegistered(frame) then
+    if Artwork:IsItemButtonRegistered(frame) or Artwork:IsAuraRegistered(frame) then
         Artwork:UpdateBorderColor(frame.ArtworkBorder, {r, g, b, a})
     end
 end)

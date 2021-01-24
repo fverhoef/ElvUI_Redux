@@ -12,6 +12,8 @@ function Artwork:CreateBorder(frame, atlas, layer)
 
     local parent = frame.backdrop or frame
     local border = CreateFrame("Frame", nil, parent)
+    border.parent = parent
+    border.frame = frame
 
     border.TopLeft = border:CreateTexture(nil, layer)
     border.TopRight = border:CreateTexture(nil, layer)
@@ -49,21 +51,19 @@ function Artwork:UpdateBorder(border, atlas)
         return
     end
 
-    local parent = border:GetParent()
-
     if not E.db[addonName].artwork.enabled or not atlas then
-        Artwork:EnablePixelBorders(parent)
+        Artwork:EnablePixelBorders(border.parent)
         border:Hide()
     else
-        Artwork:DisablePixelBorders(parent)
+        Artwork:DisablePixelBorders(border.parent)
         border:Show()
 
         if border.atlas ~= atlas then
             border.atlas = atlas
 
             local offsetX, offsetY = atlas.offset[1], atlas.offset[2]
-            border:SetPoint("TOPLEFT", parent, "TOPLEFT", offsetX, offsetY)
-            border:SetPoint("BOTTOMRIGHT", parent, "BOTTOMRIGHT", -offsetX, -offsetY)
+            border:SetPoint("TOPLEFT", border.parent, "TOPLEFT", offsetX, offsetY)
+            border:SetPoint("BOTTOMRIGHT", border.parent, "BOTTOMRIGHT", -offsetX, -offsetY)
 
             border.TopLeft:SetSize(atlas.topLeft[2], atlas.topLeft[3])
             border.TopLeft:SetTexture(atlas.topLeft[1])
