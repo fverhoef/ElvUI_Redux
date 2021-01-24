@@ -35,3 +35,12 @@ end
 function Addon:GetItemIdFromLink(itemLink)
     return Addon:ParseItemLink(itemLink).itemId
 end
+
+function Addon:OffsetFrame(frame, offsetX, offsetY)
+    if frame then
+        if not frame.originalPoint then
+            frame.originalPoint = {frame:GetPoint()}
+        end
+        frame:SetPoint(frame.originalPoint[1], frame.originalPoint[2], frame.originalPoint[3], frame.originalPoint[4] + offsetX, frame.originalPoint[5] + offsetY)
+    end
+end

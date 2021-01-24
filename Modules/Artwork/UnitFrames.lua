@@ -36,7 +36,10 @@ function Artwork:SkinUnitFrame(unit, group)
     if unitFrame.Castbar then
         local castBarBorderAtlas = Artwork:GetUnitFrameCastBarBorderAtlas(unitFrame.artworkKey)
         unitFrame.Castbar.ArtworkBorder = Artwork:CreateBorder(unitFrame.Castbar.Holder, castBarBorderAtlas)
-        unitFrame.Castbar.ArtworkBorder:SetFrameLevel(unitFrame.Castbar:GetFrameLevel() + 1)
+        unitFrame.Castbar.ArtworkBorder:SetFrameLevel(unitFrame.Castbar:GetFrameLevel() + 5)
+
+        unitFrame.Castbar.ButtonIcon.ArtworkBorder = Artwork:CreateBorder(unitFrame.Castbar.ButtonIcon.bg, castBarBorderAtlas)
+        unitFrame.Castbar.ButtonIcon.ArtworkBorder:SetFrameLevel(unitFrame.Castbar:GetFrameLevel() + 5)
     end
 
     local classBar = unitFrame.ClassBar and unitFrame[unitFrame.ClassBar]
@@ -136,6 +139,15 @@ function Artwork:UpdateUnitFrame(unitFrame)
 
         Artwork:UpdateBorder(unitFrame.Castbar.ArtworkBorder, castBarBorderAtlas)
         Artwork:UpdateBorderColor(unitFrame.Castbar.ArtworkBorder, castBarBorderColor)
+
+        Artwork:UpdateBorder(unitFrame.Castbar.ButtonIcon.ArtworkBorder, castBarBorderAtlas)
+        Artwork:UpdateBorderColor(unitFrame.Castbar.ButtonIcon.ArtworkBorder, castBarBorderColor)
+
+        if unitFrame.db.castbar.iconAttached then
+            unitFrame.Castbar.ButtonIcon.ArtworkBorder:Hide()
+        else
+            unitFrame.Castbar.ButtonIcon.ArtworkBorder:Show()
+        end
     end
 
     local classBar = unitFrame.ClassBar and unitFrame[unitFrame.ClassBar]

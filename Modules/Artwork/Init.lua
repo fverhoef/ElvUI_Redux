@@ -28,11 +28,15 @@ function Artwork:Initialize()
     Artwork:SkinFrame(_G.WorldMapFrame)
     Artwork:SkinFrame(_G.ColorPickerFrame, true)
     Artwork:SkinFrame(_G.CopyChatFrame, true)
+    Artwork:SkinFrame(_G.GuildMemberDetailFrame, true)
+
+    -- skin chat panels
     Artwork:SkinChatPanel(_G.LeftChatPanel, true)
     Artwork:SkinButton(_G.LeftChatToggleButton)
     Artwork:SkinChatPanel(_G.RightChatPanel, true)
     Artwork:SkinButton(_G.RightChatToggleButton)
 
+    -- skin popups
     for i = 1, 4 do
         Artwork:SkinFrame(_G["StaticPopup" .. i], true)
     end
@@ -47,17 +51,17 @@ function Artwork:Initialize()
     end
 
     -- skins bags
+    Artwork:SkinFrame(B.BagFrame)
     B.BagFrame.Title = B.BagFrame:CreateFontString("OVERLAY")
     B.BagFrame.Title:FontTemplate()
     B.BagFrame.Title:Point("TOP", B.BagFrame, "TOP", 0, -5)
     B.BagFrame.Title:SetText(INVENTORY_TOOLTIP)
-    Artwork:SkinFrame(B.BagFrame)
 
+    Artwork:SkinFrame(B.BankFrame)
     B.BankFrame.Title = B.BankFrame:CreateFontString("OVERLAY")
     B.BankFrame.Title:FontTemplate()
     B.BankFrame.Title:Point("TOP", B.BankFrame, "TOP", 0, -5)
     B.BankFrame.Title:SetText(BANK)
-    Artwork:SkinFrame(B.BankFrame)
 
     Artwork:SkinFrame(B.SellFrame, true)
 
@@ -76,6 +80,7 @@ function Artwork:Initialize()
         end
     end
 
+    -- vehicle leave button
     Artwork:SkinActionButton(_G.MainMenuBarVehicleLeaveButton, "OVERLAY")
 
     -- minimap

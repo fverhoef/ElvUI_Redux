@@ -57,6 +57,10 @@ function Artwork:SkinTab(tab, orientation)
     -- AuctionFrame tabs have their SetPoint method nulled after skinning, so store the original function
     tab.__SetPoint = tab.SetPoint
 
+    if tab.SetPoint == E.noop then
+        print("SetPoint has been nulled.")
+    end
+
     Artwork:UpdateTab(tab)
     Artwork:RegisterTab(tab)
 end

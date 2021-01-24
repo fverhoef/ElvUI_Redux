@@ -5,6 +5,7 @@ local E, L, V, P, G = unpack(ElvUI)
 local A = E:GetModule("Auras")
 local DT = E:GetModule("DataTexts")
 local NP = E:GetModule("NamePlates")
+local UF = E:GetModule("UnitFrames")
 
 Shadows:SecureHook(E, "Config_WindowOpened", function(self)
     local optionsFrame = E:Config_GetWindow()
@@ -38,12 +39,31 @@ Shadows:SecureHook(NP, "StylePlate", function(self, nameplate)
         Shadows:CreateShadow(nameplate.Health)
         Shadows:CreateShadow(nameplate.Power)
         Shadows:CreateShadow(nameplate.Castbar)
-        hooksecurefunc(nameplate.Buffs, "PostUpdateIcon", function(self, unit, button)
-            Shadows:CreateShadow(button)
-        end)
-        hooksecurefunc(nameplate.Debuffs, "PostUpdateIcon", function(self, unit, button)
-            Shadows:CreateShadow(button)
-        end)
+        if nameplate.Auras and not Shadows:IsHooked(nameplate.Auras, "PostUpdateIcon") then
+            Shadows:SecureHook(nameplate.Auras, "PostUpdateIcon", function(self, unit, button)
+                Shadows:CreateShadow(button)
+            end)
+        end
+        if nameplate.Buffs and not Shadows:IsHooked(nameplate.Buffs, "PostUpdateIcon") then
+            Shadows:SecureHook(nameplate.Buffs, "PostUpdateIcon", function(self, unit, button)
+                Shadows:CreateShadow(button)
+            end)
+        end
+        if nameplate.Debuffs and not Shadows:IsHooked(nameplate.Debuffs, "PostUpdateIcon") then
+            Shadows:SecureHook(nameplate.Debuffs, "PostUpdateIcon", function(self, unit, button)
+                Shadows:CreateShadow(button)
+            end)
+        end
+    end
+end)
+
+Shadows:SecureHook(UF, "Configure_Castbar", function(self, frame)
+    if not frame.shadow then
+        return
+    end
+    if frame.Castbar.ButtonIcon and frame.Castbar.ButtonIcon.bg and frame.Castbar.ButtonIcon.bg.shadow then
+        frame.Castbar.ButtonIcon.bg.shadow.isHidden = frame.db.castbar.iconAttached
+        Shadows:UpdateShadow(frame.Castbar.ButtonIcon.bg.shadow)
     end
 end)
 

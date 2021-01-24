@@ -301,6 +301,7 @@ function Shadows:CreateUnitFrameShadows(frame)
         end
         if unitFrame.Castbar then
             Shadows:CreateShadow(unitFrame.Castbar.Holder)
+            Shadows:CreateShadow(unitFrame.Castbar.ButtonIcon.bg, nil, unitFrame.db.castbar.iconAttached)
         end
         if unitFrame.Power and (unitFrame.POWERBAR_DETACHED or unitFrame.USE_MINI_POWERBAR) then
             Shadows:CreateShadow(unitFrame.Power.Holder)
@@ -308,12 +309,21 @@ function Shadows:CreateUnitFrameShadows(frame)
         if unitFrame.ClassBar and unitFrame[unitFrame.ClassBar] and unitFrame[unitFrame.ClassBar]:IsShown() then
             Shadows:CreateShadow(unitFrame.ClassBarHolder)
         end
-        hooksecurefunc(unitFrame.Buffs, "PostUpdateIcon", function(self, unit, button)
-            Shadows:CreateShadow(button)
-        end)
-        hooksecurefunc(unitFrame.Debuffs, "PostUpdateIcon", function(self, unit, button)
-            Shadows:CreateShadow(button)
-        end)
+        if unitFrame.Auras and not Shadows:IsHooked(unitFrame.Auras, "PostUpdateIcon") then
+            Shadows:SecureHook(unitFrame.Auras, "PostUpdateIcon", function(self, unit, button)
+                Shadows:CreateShadow(button)
+            end)
+        end
+        if unitFrame.Buffs and not Shadows:IsHooked(unitFrame.Buffs, "PostUpdateIcon") then
+            Shadows:SecureHook(unitFrame.Buffs, "PostUpdateIcon", function(self, unit, button)
+                Shadows:CreateShadow(button)
+            end)
+        end
+        if unitFrame.Debuffs and not Shadows:IsHooked(unitFrame.Debuffs, "PostUpdateIcon") then
+            Shadows:SecureHook(unitFrame.Debuffs, "PostUpdateIcon", function(self, unit, button)
+                Shadows:CreateShadow(button)
+            end)
+        end
     end
 end
 
@@ -360,13 +370,14 @@ function Shadows:CreateUnitGroupShadows(group)
     end
 end
 
-function Shadows:CreateShadow(frame, config)
+function Shadows:CreateShadow(frame, config, isHidden)
     if frame and (not frame.shadow) then
         frame:CreateShadow()
         if (not config) then
             config = E.db[addonName].shadows
         end
         frame.shadow.config = config
+        frame.shadow.isHidden = ishidden
         Shadows:RegisterShadow(frame.shadow)
         Shadows:UpdateShadow(frame.shadow)
     end
@@ -423,10 +434,7 @@ function Shadows:UpdateShadow(shadow)
         shadow:SetFrameLevel(1)
         shadow:SetFrameStrata(frame:GetFrameStrata())
         shadow:SetOutside(frame, shadow.config.size or 3, shadow.config.size or 3)
-        shadow:SetBackdrop({
-            edgeFile = LSM:Fetch("border", "ElvUI GlowBorder"),
-            edgeSize = E:Scale(2 + (shadow.config.size or 3))
-        })
+        shadow:SetBackdrop({edgeFile = LSM:Fetch("border", "ElvUI GlowBorder"), edgeSize = E:Scale(2 + (shadow.config.size or 3))})
         shadow:SetBackdropColor(shadow.config.color[1], shadow.config.color[2], shadow.config.color[3], 0)
         shadow:SetBackdropBorderColor(unpack(shadow.config.color))
     end
