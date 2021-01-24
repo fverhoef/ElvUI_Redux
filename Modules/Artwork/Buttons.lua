@@ -27,14 +27,14 @@ function Artwork:UpdateButton(button)
 end
 
 -- Action Buttons
-function Artwork:SkinActionButton(button)
+function Artwork:SkinActionButton(button, layer)
     if not button or Artwork:IsActionButtonRegistered(button) then
         return
     end
 
     local borderAtlas = Artwork:GetActionButtonBorderAtlas()
 
-    button.ArtworkBorder = Artwork:CreateBorder(button, borderAtlas)
+    button.ArtworkBorder = Artwork:CreateBorder(button, borderAtlas, layer)
     Artwork:UpdateActionButton(button)
     Artwork:UpdateBorderColor(button.ArtworkBorder, E.db[addonName].artwork.actionButtonBorderColor)
 

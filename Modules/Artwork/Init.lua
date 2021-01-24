@@ -71,6 +71,8 @@ function Artwork:Initialize()
         end
     end
 
+    Artwork:SkinActionButton(_G.MainMenuBarVehicleLeaveButton, "OVERLAY")
+
     -- minimap
     Artwork:SkinMinimap()
 
@@ -142,6 +144,10 @@ function Artwork:UpdateArtwork()
 
     for panel, _ in pairs(Artwork.registry.dataPanels) do
         Artwork:UpdateDataPanel(panel)
+    end
+
+    for nameplate, _ in pairs(Artwork.registry.namePlates) do
+        Artwork:UpdateNamePlate(nameplate)
     end
 
     Artwork:UpdateMinimap()

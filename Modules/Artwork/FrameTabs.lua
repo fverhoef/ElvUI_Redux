@@ -54,6 +54,9 @@ function Artwork:SkinTab(tab, orientation)
 
     tab.ArtworkBorder = border
 
+    -- AuctionFrame tabs have their SetPoint method nulled after skinning, so store the original function
+    tab.__SetPoint = tab.SetPoint
+
     Artwork:UpdateTab(tab)
     Artwork:RegisterTab(tab)
 end
@@ -73,7 +76,7 @@ function Artwork:UpdateTab(tab)
 
         if tab.originalPoint then
             tab:ClearAllPoints()
-            tab:SetPoint(unpack(tab.originalPoint))
+            tab:__SetPoint(unpack(tab.originalPoint))
         end
     else
         Artwork:DisablePixelBorders(tab)
@@ -84,13 +87,13 @@ function Artwork:UpdateTab(tab)
 
             tab:ClearAllPoints()
             if frameBorderAtlas and tab.orientation == "DOWN" then
-                tab:SetPoint(tab.originalPoint[1], tab.originalPoint[2], tab.originalPoint[3], tab.originalPoint[4],
-                             tab.originalPoint[5] - frameBorderAtlas.scale * frameBorderAtlas.offset[2] + 3)
+                tab:__SetPoint(tab.originalPoint[1], tab.originalPoint[2], tab.originalPoint[3], tab.originalPoint[4],
+                               tab.originalPoint[5] - frameBorderAtlas.scale * frameBorderAtlas.offset[2] + 3)
             elseif frameBorderAtlas and tab.orientation == "RIGHT" then
-                tab:SetPoint(tab.originalPoint[1], tab.originalPoint[2], tab.originalPoint[3], tab.originalPoint[4] - frameBorderAtlas.scale * frameBorderAtlas.offset[1] - 3,
-                             tab.originalPoint[5])
+                tab:__SetPoint(tab.originalPoint[1], tab.originalPoint[2], tab.originalPoint[3], tab.originalPoint[4] - frameBorderAtlas.scale * frameBorderAtlas.offset[1] - 3,
+                               tab.originalPoint[5])
             else
-                tab:SetPoint(unpack(tab.originalPoint))
+                tab:__SetPoint(unpack(tab.originalPoint))
             end
         end
 

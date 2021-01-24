@@ -318,6 +318,18 @@ function Artwork:GetMinimapBorderAtlas()
     return Artwork.atlas.borders[E.db[addonName].artwork.minimap.border]
 end
 
+function Artwork:GetNamePlateHealthBorderAtlas()
+    return Artwork.atlas.borders[E.db[addonName].artwork.namePlates.healthBorder]
+end
+
+function Artwork:GetNamePlatePowerBorderAtlas()
+    return Artwork.atlas.borders[E.db[addonName].artwork.namePlates.powerBorder]
+end
+
+function Artwork:GetNamePlateCastBarBorderAtlas()
+    return Artwork.atlas.borders[E.db[addonName].artwork.namePlates.castBarBorder]
+end
+
 function Artwork:GetTooltipBorderAtlas()
     return Artwork.atlas.borders[E.db[addonName].artwork.tooltipBorder]
 end

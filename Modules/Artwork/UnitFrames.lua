@@ -46,10 +46,6 @@ function Artwork:SkinUnitFrame(unit, group)
         classBar.ArtworkBorder:SetFrameLevel(classBar:GetFrameLevel() + 1)
     end
 
-    Artwork:ResizeFrameGlow(unitFrame.FrameGlow, 5)
-    Artwork:ResizeFrameGlow(unitFrame.MouseGlow, 5)
-    Artwork:ResizeFrameGlow(unitFrame.TargetGlow, 5)
-
     unitFrame:HookScript("OnShow", function(self)
         Artwork:UpdateUnitFrame(self)
     end)
@@ -154,6 +150,22 @@ function Artwork:UpdateUnitFrame(unitFrame)
             classBar.ArtworkBorder:Hide()
         else
             classBar.ArtworkBorder:Show()
+        end
+    end
+
+    if not E.db[addonName].artwork.enabled or not (borderAtlas or healthBorderAtlas) then
+        if unitFrame.glowResized then
+            Artwork:ResizeFrameGlow(unitFrame.FrameGlow, 3)
+            Artwork:ResizeFrameGlow(unitFrame.MouseGlow, 3)
+            Artwork:ResizeFrameGlow(unitFrame.TargetGlow, 3)
+            unitFrame.glowResized = false
+        end
+    else
+        if not unitFrame.glowResized then
+            Artwork:ResizeFrameGlow(unitFrame.FrameGlow, 5)
+            Artwork:ResizeFrameGlow(unitFrame.MouseGlow, 5)
+            Artwork:ResizeFrameGlow(unitFrame.TargetGlow, 5)
+            unitFrame.glowResized = true
         end
     end
 end

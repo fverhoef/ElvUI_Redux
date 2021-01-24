@@ -15,7 +15,8 @@ Artwork.registry = {
     tempEnchants = {},
     unitFrames = {},
     groupHeaders = {},
-    dataPanels = {}
+    dataPanels = {},
+    namePlates = {}
 }
 
 function Artwork:RegisterFrame(frame)
@@ -129,4 +130,12 @@ end
 
 function Artwork:IsDataPanelRegistered(panel)
     return Artwork.registry.dataPanels[panel] ~= nil
+end
+
+function Artwork:RegisterNamePlate(nameplate)
+    Artwork.registry.namePlates[nameplate] = true
+end
+
+function Artwork:IsNamePlateRegistered(nameplate)
+    return Artwork.registry.namePlates[nameplate] ~= nil
 end

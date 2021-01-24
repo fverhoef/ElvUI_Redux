@@ -7,6 +7,7 @@ local A = E:GetModule("Auras")
 local AB = E:GetModule("ActionBars")
 local B = E:GetModule("Bags")
 local DT = E:GetModule("DataTexts")
+local NP = E:GetModule("NamePlates")
 local S = E:GetModule("Skins")
 local TT = E:GetModule("Tooltip")
 local UF = E:GetModule("UnitFrames")
@@ -133,6 +134,10 @@ end)
 
 Artwork:SecureHook(DT, "RegisterPanel", function(self, panel, numPoints, anchor, xOff, yOff, vertical)
     Artwork:SkinDataPanel(panel)
+end)
+
+Artwork:SecureHook(NP, "StylePlate", function(self, nameplate)
+    Artwork:SkinNamePlate(nameplate)
 end)
 
 -- AddOnSkins Hooks

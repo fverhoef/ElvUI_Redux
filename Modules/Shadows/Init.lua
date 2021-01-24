@@ -258,6 +258,9 @@ function Shadows:CreateShadows()
     -- Tutorial
     Shadows:CreateShadow(_G.TutorialFrame)
 
+    -- Vehicle Leave
+    Shadows:CreateShadow(_G.MainMenuBarVehicleLeaveButton)
+
     -- Video Options (System)
     Shadows:CreateShadow(_G.VideoOptionsFrame)
 
