@@ -27,6 +27,11 @@ function Artwork:Initialize()
     Artwork:SkinFrame(_G.ReadyCheckFrame, true)
     Artwork:SkinFrame(_G.WorldMapFrame)
     Artwork:SkinFrame(_G.ColorPickerFrame, true)
+    Artwork:SkinFrame(_G.CopyChatFrame, true)
+    Artwork:SkinChatPanel(_G.LeftChatPanel, true)
+    Artwork:SkinButton(_G.LeftChatToggleButton)
+    Artwork:SkinChatPanel(_G.RightChatPanel, true)
+    Artwork:SkinButton(_G.RightChatToggleButton)
 
     for i = 1, 4 do
         Artwork:SkinFrame(_G["StaticPopup" .. i], true)
@@ -140,6 +145,10 @@ function Artwork:UpdateArtwork()
 
     for unitFrame, _ in pairs(Artwork.registry.unitFrames) do
         Artwork:UpdateUnitFrame(unitFrame)
+    end
+
+    for panel, _ in pairs(Artwork.registry.chatPanels) do
+        Artwork:UpdateChatPanel(panel)
     end
 
     for panel, _ in pairs(Artwork.registry.dataPanels) do

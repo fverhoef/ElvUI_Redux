@@ -15,6 +15,7 @@ Artwork.registry = {
     tempEnchants = {},
     unitFrames = {},
     groupHeaders = {},
+    chatPanels = {},
     dataPanels = {},
     namePlates = {}
 }
@@ -122,6 +123,14 @@ end
 
 function Artwork:IsGroupHeaderRegistered(header)
     return Artwork.registry.groupHeaders[header] ~= nil
+end
+
+function Artwork:RegisterChatPanel(panel)
+    Artwork.registry.chatPanels[panel] = true
+end
+
+function Artwork:IsChatPanelRegistered(panel)
+    return Artwork.registry.chatPanels[panel] ~= nil
 end
 
 function Artwork:RegisterDataPanel(panel)

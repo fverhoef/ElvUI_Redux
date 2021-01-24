@@ -16,7 +16,23 @@ function Artwork:SkinNamePlate(nameplate)
 
     local castBarBorderAtlas = Artwork:GetNamePlateCastBarBorderAtlas()
     nameplate.Castbar.ArtworkBorder = Artwork:CreateBorder(nameplate.Castbar, castBarBorderAtlas)
-    
+
+    if nameplate.Auras then
+        Artwork:SecureHook(nameplate.Auras, "PostUpdateIcon", function(self, unit, button)
+            Artwork:SkinAura(button)
+        end)
+    end
+    if nameplate.Buffs then
+        Artwork:SecureHook(nameplate.Buffs, "PostUpdateIcon", function(self, unit, button)
+            Artwork:SkinAura(button)
+        end)
+    end
+    if nameplate.Debuffs then
+        Artwork:SecureHook(nameplate.Debuffs, "PostUpdateIcon", function(self, unit, button)
+            Artwork:SkinAura(button)
+        end)
+    end
+
     Artwork:UpdateNamePlate(nameplate)
     Artwork:RegisterNamePlate(nameplate)
 end

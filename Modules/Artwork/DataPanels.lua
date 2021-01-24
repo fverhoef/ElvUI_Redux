@@ -24,3 +24,21 @@ function Artwork:UpdateDataPanel(panel)
     Artwork:UpdateBorder(panel.ArtworkBorder, borderAtlas)
     Artwork:UpdateBorderColor(panel.ArtworkBorder, E.db[addonName].artwork.dataPanelBorderColor)
 end
+
+function Artwork:SkinChatPanel(panel)
+    if not panel or Artwork:IsChatPanelRegistered(panel) then
+        return
+    end
+
+    local borderAtlas = Artwork:GetDataPanelBorderAtlas()
+    panel.ArtworkBorder = Artwork:CreateBorder(panel, borderAtlas)
+    
+    Artwork:UpdateDataPanel(panel)
+    Artwork:UpdateChatPanel(panel)
+end
+
+function Artwork:UpdateChatPanel(panel)
+    if not panel then
+        return
+    end
+end

@@ -3,6 +3,7 @@ local Addon = addonTable[1]
 local Shadows = Addon.Shadows
 local E, L, V, P, G = unpack(ElvUI)
 local A = E:GetModule("Auras")
+local DT = E:GetModule("DataTexts")
 local NP = E:GetModule("NamePlates")
 
 Shadows:SecureHook(E, "Config_WindowOpened", function(self)
@@ -28,8 +29,11 @@ Shadows:SecureHook(A, "UpdateTempEnchant", function(self, button)
     Shadows:CreateShadow(button)
 end)
 
-Shadows:SecureHook(NP, "UpdatePlate", function(...)
-    local _, nameplate = ...
+Shadows:SecureHook(DT, "RegisterPanel", function(self, panel, numPoints, anchor, xOff, yOff, vertical)
+    Shadows:CreateShadow(panel)
+end)
+
+Shadows:SecureHook(NP, "StylePlate", function(self, nameplate)
     if not nameplate.Health.shadow then
         Shadows:CreateShadow(nameplate.Health)
         Shadows:CreateShadow(nameplate.Power)
