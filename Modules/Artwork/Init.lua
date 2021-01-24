@@ -108,6 +108,10 @@ function Artwork:UpdateArtwork()
         Artwork:UpdateNestedFrame(frame)
     end
 
+    for button, _ in pairs(Artwork.registry.closeButtons) do
+        Artwork:UpdateCloseButton(button)
+    end
+
     for tab, _ in pairs(Artwork.registry.tabs) do
         Artwork:UpdateTab(tab)
     end
@@ -166,15 +170,15 @@ end
 -- Custom layouts
 function Artwork:ApplyCustomLayout()
     -- add titles to frames that don't have them
-    B.BagFrame.Title = B.BagFrame:CreateFontString("OVERLAY")
-    B.BagFrame.Title:FontTemplate()
-    B.BagFrame.Title:Point("TOP", B.BagFrame, "TOP", 0, -5)
-    B.BagFrame.Title:SetText(INVENTORY_TOOLTIP)
+    B.BagFrame.title = B.BagFrame:CreateFontString("OVERLAY")
+    B.BagFrame.title:FontTemplate()
+    B.BagFrame.title:Point("TOP", B.BagFrame, "TOP", 0, -5)
+    B.BagFrame.title:SetText(INVENTORY_TOOLTIP)
 
-    B.BankFrame.Title = B.BankFrame:CreateFontString("OVERLAY")
-    B.BankFrame.Title:FontTemplate()
-    B.BankFrame.Title:Point("TOP", B.BankFrame, "TOP", 0, -5)
-    B.BankFrame.Title:SetText(BANK)
+    B.BankFrame.title = B.BankFrame:CreateFontString("OVERLAY")
+    B.BankFrame.title:FontTemplate()
+    B.BankFrame.title:Point("TOP", B.BankFrame, "TOP", 0, -5)
+    B.BankFrame.title:SetText(BANK)
 
     -- add icons to guild member details frames    
     _G.GuildMemberDetailFrame.icon = _G.GuildMemberDetailFrame:CreateTexture("$parentIcon", "ARTWORK")

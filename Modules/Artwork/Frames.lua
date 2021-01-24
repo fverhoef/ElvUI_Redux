@@ -13,12 +13,10 @@ function Artwork:SkinFrame(frame, useThinBorder)
     local frameBackground = Artwork:GetFrameBackground()
     local thinBorderAtlas = Artwork:GetThinFrameBorderAtlas()
     local frameBorderAtlas = Artwork:GetFrameBorderAtlas()
-    local closeButtonAtlas = Artwork:GetCloseButtonBackgroundAtlas()
     local borderAtlas = frame.useThinBorder and thinBorderAtlas or frameBorderAtlas
 
     frame.ArtworkBackground = Artwork:CreateBackground(frame, frameBackground)
     frame.ArtworkBorder = Artwork:CreateBorder(frame, borderAtlas)
-    Artwork:SkinCloseButton(Artwork:GetCloseButton(frame), closeButtonAtlas)
 
     Artwork:UpdateFrame(frame)
     Artwork:RegisterFrame(frame)
@@ -32,7 +30,6 @@ function Artwork:UpdateFrame(frame)
     local frameBackground = Artwork:GetFrameBackground()
     local thinBorderAtlas = Artwork:GetThinFrameBorderAtlas()
     local frameBorderAtlas = Artwork:GetFrameBorderAtlas()
-    local closeButtonAtlas = Artwork:GetCloseButtonBackgroundAtlas()
     local borderAtlas = frame.useThinBorder and thinBorderAtlas or frameBorderAtlas
     local borderColor = frame.useThinBorder and E.db[addonName].artwork.thinFrameBorderColor or E.db[addonName].artwork.frameBorderColor or {
         1,
@@ -42,9 +39,7 @@ function Artwork:UpdateFrame(frame)
 
     Artwork:UpdateBackground(frame.ArtworkBackground, frameBackground)
     Artwork:UpdateBorder(frame.ArtworkBorder, borderAtlas)
-
     Artwork:UpdateBorderColor(frame.ArtworkBorder, borderColor)
-    Artwork:UpdateCloseButton(Artwork:GetCloseButton(frame), closeButtonAtlas)
 end
 
 function Artwork:SkinNestedFrame(frame)

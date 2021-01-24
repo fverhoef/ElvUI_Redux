@@ -5,6 +5,7 @@ local Artwork = Addon.Artwork
 Artwork.registry = {
     frames = {},
     nestedFrames = {},
+    closeButtons = {},
     tabs = {},
     buttons = {},
     actionButtons = {},
@@ -44,6 +45,14 @@ function Artwork:IsParentFrameRegistered(frame)
     end
 
     return false
+end
+
+function Artwork:RegisterCloseButton(button)
+    Artwork.registry.closeButtons[button] = true
+end
+
+function Artwork:IsCloseButtonRegistered(button)
+    return Artwork.registry.closeButtons[button] ~= nil
 end
 
 function Artwork:RegisterTab(tab)

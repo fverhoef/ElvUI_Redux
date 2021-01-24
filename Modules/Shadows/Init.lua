@@ -377,7 +377,7 @@ function Shadows:CreateShadow(frame, config, isHidden)
             config = E.db[addonName].shadows
         end
         frame.shadow.config = config
-        frame.shadow.isHidden = ishidden
+        frame.shadow.isHidden = frame.shadow.isHidden or ishidden
         Shadows:RegisterShadow(frame.shadow)
         Shadows:UpdateShadow(frame.shadow)
     end

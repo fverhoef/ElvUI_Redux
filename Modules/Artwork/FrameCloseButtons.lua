@@ -7,31 +7,28 @@ function Artwork:GetCloseButton(frame)
     return frame.closeButton or frame.CloseButton or _G[(frame:GetName() or "?") .. "CloseButton"]
 end
 
-function Artwork:SkinCloseButton(button, backgroundAtlas)
-    if button and not button.Background then
-        if not backgroundAtlas then
-            backgroundAtlas = Artwork:GetCloseButtonBackgroundAtlas()
-        end
-
-        button.Background = button:CreateTexture(nil, "ARTWORK")
-        button.Background:SetAllPoints(button)
-        Artwork:UpdateCloseButton(button, backgroundAtlas)
+function Artwork:SkinCloseButton(button)
+    if not button or Artwork:IsCloseButtonRegistered(button) then
+        return
     end
+
+    button.Background = button:CreateTexture(nil, "ARTWORK")
+    button.Background:SetAllPoints(button)
+    Artwork:UpdateCloseButton(button)
 end
 
-function Artwork:UpdateCloseButton(button, backgroundAtlas)
-    local background = button and button.Background
-    if background then
-        if not E.db[addonName].artwork.enabled or not backgroundAtlas then
-            background:Hide()
-        else
-            background:Show()
+function Artwork:UpdateCloseButton(button)
+    local closeButtonAtlas = Artwork:GetCloseButtonBackgroundAtlas()
 
-            local texture = backgroundAtlas and backgroundAtlas[1]
-            background:SetTexture(texture)
-            if texture then
-                background:SetTexCoord(backgroundAtlas[4], backgroundAtlas[5], backgroundAtlas[6], backgroundAtlas[7])
-            end
+    if not E.db[addonName].artwork.enabled or not closeButtonAtlas then
+        button.Background:Hide()
+    else
+        button.Background:Show()
+
+        if button.Background.atlas ~= closeButtonAtlas then
+            button.Background.atlas = closeButtonAtlas
+            button.Background:SetTexture(closeButtonAtlas[1])
+            button.Background:SetTexCoord(closeButtonAtlas[4], closeButtonAtlas[5], closeButtonAtlas[6], closeButtonAtlas[7])
         end
     end
 end

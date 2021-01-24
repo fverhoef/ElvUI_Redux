@@ -52,17 +52,17 @@ function Artwork:SkinUnitFrame(unit, group)
     unitFrame:HookScript("OnShow", function(self)
         Artwork:UpdateUnitFrame(self)
     end)
-    if unitFrame.Auras then
+    if unitFrame.Auras and not Artwork:IsHooked(unitFrame.Auras, "PostUpdateIcon") then
         Artwork:SecureHook(unitFrame.Auras, "PostUpdateIcon", function(self, unit, button)
             Artwork:SkinAura(button)
         end)
     end
-    if unitFrame.Buffs then
+    if unitFrame.Buffs and not Artwork:IsHooked(unitFrame.Buffs, "PostUpdateIcon") then
         Artwork:SecureHook(unitFrame.Buffs, "PostUpdateIcon", function(self, unit, button)
             Artwork:SkinAura(button)
         end)
     end
-    if unitFrame.Debuffs then
+    if unitFrame.Debuffs and not Artwork:IsHooked(unitFrame.Debuffs, "PostUpdateIcon") then
         Artwork:SecureHook(unitFrame.Debuffs, "PostUpdateIcon", function(self, unit, button)
             Artwork:SkinAura(button)
         end)
