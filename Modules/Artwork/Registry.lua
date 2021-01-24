@@ -16,6 +16,7 @@ Artwork.registry = {
     unitFrames = {},
     groupHeaders = {},
     chatPanels = {},
+    dataBars = {},
     dataPanels = {},
     namePlates = {}
 }
@@ -131,6 +132,14 @@ end
 
 function Artwork:IsChatPanelRegistered(panel)
     return Artwork.registry.chatPanels[panel] ~= nil
+end
+
+function Artwork:RegisterDataBar(bar)
+    Artwork.registry.dataBars[bar] = true
+end
+
+function Artwork:IsDataBarRegistered(bar)
+    return Artwork.registry.dataBars[bar] ~= nil
 end
 
 function Artwork:RegisterDataPanel(panel)

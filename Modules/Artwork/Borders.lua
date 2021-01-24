@@ -4,6 +4,10 @@ local Artwork = Addon.Artwork
 local E, L, V, P, G = unpack(ElvUI)
 
 function Artwork:CreateBorder(frame, atlas, layer)
+    if not frame then
+        return
+    end
+
     layer = layer or "ARTWORK"
 
     local parent = frame.backdrop or frame
@@ -189,6 +193,18 @@ function Artwork:DisablePixelBorderPart(frame, part)
 
     if frame.backdrop then
         Artwork:DisablePixelBorderPart(frame.backdrop, part)
+    end
+end
+
+function Artwork:ShowBackdrop(frame)
+    if frame.pixelBorders then
+        frame.pixelBorders.CENTER:Show()
+    end
+end
+
+function Artwork:HideBackdrop(frame)
+    if frame.pixelBorders then
+        frame.pixelBorders.CENTER:Hide()
     end
 end
 

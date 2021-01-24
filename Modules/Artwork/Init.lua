@@ -52,17 +52,7 @@ function Artwork:Initialize()
 
     -- skins bags
     Artwork:SkinFrame(B.BagFrame)
-    B.BagFrame.Title = B.BagFrame:CreateFontString("OVERLAY")
-    B.BagFrame.Title:FontTemplate()
-    B.BagFrame.Title:Point("TOP", B.BagFrame, "TOP", 0, -5)
-    B.BagFrame.Title:SetText(INVENTORY_TOOLTIP)
-
     Artwork:SkinFrame(B.BankFrame)
-    B.BankFrame.Title = B.BankFrame:CreateFontString("OVERLAY")
-    B.BankFrame.Title:FontTemplate()
-    B.BankFrame.Title:Point("TOP", B.BankFrame, "TOP", 0, -5)
-    B.BankFrame.Title:SetText(BANK)
-
     Artwork:SkinFrame(B.SellFrame, true)
 
     -- skin character equipment slot items
@@ -105,6 +95,8 @@ function Artwork:Initialize()
     Artwork:SkinUnitFrameGroup("raid40")
     Artwork:SkinUnitFrameGroup("raidpet")
     Artwork:SkinUnitFrameGroup("tank")
+
+    Artwork:ApplyCustomLayout()
 end
 
 function Artwork:UpdateArtwork()
@@ -156,6 +148,10 @@ function Artwork:UpdateArtwork()
         Artwork:UpdateChatPanel(panel)
     end
 
+    for bar, _ in pairs(Artwork.registry.dataBars) do
+        Artwork:UpdateDataBar(bar)
+    end
+
     for panel, _ in pairs(Artwork.registry.dataPanels) do
         Artwork:UpdateDataPanel(panel)
     end
@@ -167,6 +163,46 @@ function Artwork:UpdateArtwork()
     Artwork:UpdateMinimap()
 end
 
+-- Custom layouts
+function Artwork:ApplyCustomLayout()
+    -- add titles to frames that don't have them
+    B.BagFrame.Title = B.BagFrame:CreateFontString("OVERLAY")
+    B.BagFrame.Title:FontTemplate()
+    B.BagFrame.Title:Point("TOP", B.BagFrame, "TOP", 0, -5)
+    B.BagFrame.Title:SetText(INVENTORY_TOOLTIP)
+
+    B.BankFrame.Title = B.BankFrame:CreateFontString("OVERLAY")
+    B.BankFrame.Title:FontTemplate()
+    B.BankFrame.Title:Point("TOP", B.BankFrame, "TOP", 0, -5)
+    B.BankFrame.Title:SetText(BANK)
+
+    -- add icons to guild member details frames    
+    _G.GuildMemberDetailFrame.icon = _G.GuildMemberDetailFrame:CreateTexture("$parentIcon", "ARTWORK")
+    _G.GuildMemberDetailFrame.icon:SetPoint("TOPLEFT", _G.GuildMemberDetailName, "TOPLEFT", -30, 0)
+    _G.GuildMemberDetailFrame.icon:SetSize(25, 25)
+    _G.GuildMemberDetailFrame.icon:SetTexture([[Interface\WorldStateFrame\Icons-Classes]])
+    Addon:OffsetFrame(_G.GuildMemberDetailName, 30, 0)
+    Addon:OffsetFrame(_G.GuildMemberDetailZoneLabel, -30, 0)
+    
+    Artwork:SecureHook("GuildStatus_Update", function()
+        local selection = GetGuildRosterSelection()
+        if selection then
+            local fullName, rank, rankIndex, level, class, zone, note, officernote, online = GetGuildRosterInfo(selection)
+            local classFileName = E:UnlocalizedClassName(class)
+            local classTextColor = _G.CUSTOM_CLASS_COLORS and _G.CUSTOM_CLASS_COLORS[classFileName] or _G.RAID_CLASS_COLORS[classFileName]
+            if classTextColor then
+                local levelTextColor = GetQuestDifficultyColor(level)
+                _G.GuildMemberDetailName:SetTextColor(classTextColor.r, classTextColor.g, classTextColor.b)
+                _G.GuildMemberDetailLevel:SetTextColor(levelTextColor.r, levelTextColor.g, levelTextColor.b)
+                if _G.GuildMemberDetailFrame.icon then
+                    _G.GuildMemberDetailFrame.icon:SetTexCoord(unpack(_G.CLASS_ICON_TCOORDS[classFileName]))
+                end
+            end
+        end
+    end)
+end
+
+-- Blizzard Addons
 function Artwork:ADDON_LOADED(addonName)
     if addonName == "Blizzard_AuctionUI" then
         Artwork:ScheduleTimer("LoadAuctionFrame", 0.01)

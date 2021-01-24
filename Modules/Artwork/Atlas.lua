@@ -310,6 +310,10 @@ function Artwork:GetItemButtonBorderAtlas()
     return Artwork.atlas.borders[E.db[addonName].artwork.itemButtonBorder]
 end
 
+function Artwork:GetDataBarBorderAtlas()
+    return Artwork.atlas.borders[E.db[addonName].artwork.dataBarBorder]
+end
+
 function Artwork:GetDataPanelBorderAtlas()
     return Artwork.atlas.borders[E.db[addonName].artwork.dataPanelBorder]
 end

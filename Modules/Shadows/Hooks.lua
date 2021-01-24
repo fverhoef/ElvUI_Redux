@@ -3,6 +3,7 @@ local Addon = addonTable[1]
 local Shadows = Addon.Shadows
 local E, L, V, P, G = unpack(ElvUI)
 local A = E:GetModule("Auras")
+local DB = E:GetModule("DataBars")
 local DT = E:GetModule("DataTexts")
 local NP = E:GetModule("NamePlates")
 local UF = E:GetModule("UnitFrames")
@@ -28,6 +29,10 @@ end)
 
 Shadows:SecureHook(A, "UpdateTempEnchant", function(self, button)
     Shadows:CreateShadow(button)
+end)
+
+Shadows:SecureHook(DB, "CreateBar", function(self, name, key, updateFunc, onEnter, onClick, points)
+    Shadows:CreateShadow(_G[name .. "Holder"])
 end)
 
 Shadows:SecureHook(DT, "RegisterPanel", function(self, panel, numPoints, anchor, xOff, yOff, vertical)

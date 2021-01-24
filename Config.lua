@@ -68,6 +68,8 @@ P[addonName] = {
         tempEnchantBorderColor = {60 / 255, 60 / 255, 60 / 255},
         tooltipBorder = "BeautyCase",
         tooltipBorderColor = {60 / 255, 60 / 255, 60 / 255},
+        dataBarBorder = "BeautyCase",
+        dataBarBorderColor = {60 / 255, 60 / 255, 60 / 255},
         dataPanelBorder = "BeautyCase",
         dataPanelBorderColor = {60 / 255, 60 / 255, 60 / 255},
         namePlates = {
@@ -370,17 +372,30 @@ function Addon:InsertOptions()
                             }
                         }
                     },
-                    dataPanels = {
+                    dataBarsAndPanels = {
                         order = 40,
                         type = "group",
-                        name = L["Data Panels"],
+                        name = L["Data Bars & Panels"],
                         args = {
-                            header = Addon:CreateOptionHeader(L["Data Panels"], 0),
-                            border = {
+                            header = Addon:CreateOptionHeader(L["Data Bars & Panels"], 0),
+                            dataBars = {
                                 order = 1,
                                 type = "group",
                                 inline = true,
-                                name = L["Border"],
+                                name = L["Data Bars"],
+                                args = {
+                                    border = Addon:CreateBorderThemeOption(L["Border Theme"], 1, {"artwork", "dataBarBorder"}),
+                                    borderColor = Addon:CreateColorOption(L["Border Color"], 2, {
+                                        "artwork",
+                                        "dataBarBorderColor"
+                                    })
+                                }
+                            },
+                            dataPanels = {
+                                order = 2,
+                                type = "group",
+                                inline = true,
+                                name = L["Data Panels"],
                                 args = {
                                     border = Addon:CreateBorderThemeOption(L["Border Theme"], 1, {"artwork", "dataPanelBorder"}),
                                     borderColor = Addon:CreateColorOption(L["Border Color"], 2, {
