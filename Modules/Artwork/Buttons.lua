@@ -23,7 +23,7 @@ function Artwork:UpdateButton(button)
     local borderAtlas = Artwork:GetButtonBorderAtlas()
 
     Artwork:UpdateBorder(button.ArtworkBorder, borderAtlas)
-    Artwork:UpdateBorderColor(button.ArtworkBorder, E.db[addonName].artwork.buttonBorderColor)
+    Artwork:UpdateBorderColor(button.ArtworkBorder, E.db[addonName].artwork.skins.buttonBorderColor)
 end
 
 -- Action Buttons
@@ -36,12 +36,12 @@ function Artwork:SkinActionButton(button, layer)
 
     button.ArtworkBorder = Artwork:CreateBorder(button, borderAtlas, layer)
     Artwork:UpdateActionButton(button)
-    Artwork:UpdateBorderColor(button.ArtworkBorder, E.db[addonName].artwork.actionButtonBorderColor)
+    Artwork:UpdateBorderColor(button.ArtworkBorder, E.db[addonName].artwork.actionBars.actionButtonBorderColor)
 
     Artwork:SecureHook(button, "SetBackdropBorderColor", function(self, r, g, b, a)
         local color = {r, g, b, a}
         if r == 0 and g == 0 and b == 0 then
-            color = E.db[addonName].artwork.actionButtonBorderColor
+            color = E.db[addonName].artwork.actionBars.actionButtonBorderColor
         end
         Artwork:UpdateBorderColor(self.ArtworkBorder, color)
     end)
@@ -57,12 +57,15 @@ function Artwork:UpdateActionButton(button)
     local borderAtlas = Artwork:GetActionButtonBorderAtlas()
     Artwork:UpdateBorder(button.ArtworkBorder, borderAtlas)
 
-    local name = button:GetName()
-    local icon = _G[name .. "Icon"]
+    local buttonName = button:GetName()
+    local icon = _G[buttonName .. "Icon"]
+    local name = _G[buttonName .. "Name"]
 
     if not E.db[addonName].artwork.enabled or not borderAtlas then
         if icon then
             icon:SetInside()
+        end
+        if name then
         end
         if button.hover then
             button.hover:SetInside()
@@ -70,6 +73,8 @@ function Artwork:UpdateActionButton(button)
     else
         if icon then
             icon:SetInside(nil, 2, 2)
+        end
+        if name then
         end
         if button.hover then
             button.hover:SetInside(nil, 2, 2)
@@ -87,12 +92,12 @@ function Artwork:SkinBagButton(button)
 
     button.ArtworkBorder = Artwork:CreateBorder(button, borderAtlas)
     Artwork:UpdateBagButton(button)
-    Artwork:UpdateBorderColor(button.ArtworkBorder, E.db[addonName].artwork.bagButtonBorderColor)
+    Artwork:UpdateBorderColor(button.ArtworkBorder, E.db[addonName].artwork.bagsAndItems.bagButtonBorderColor)
 
     Artwork:SecureHook(button, "SetBackdropBorderColor", function(self, r, g, b, a)
         local color = {r, g, b, a}
         if r == 0 and g == 0 and b == 0 then
-            color = E.db[addonName].artwork.bagButtonBorderColor
+            color = E.db[addonName].artwork.bagsAndItems.bagButtonBorderColor
         end
         Artwork:UpdateBorderColor(self.ArtworkBorder, color)
     end)
@@ -139,12 +144,12 @@ function Artwork:SkinItemButton(button, repositionIcon)
     button.repositionIcon = repositionIcon
     button.ArtworkBorder = Artwork:CreateBorder(button, borderAtlas)
     Artwork:UpdateItemButton(button)
-    Artwork:UpdateBorderColor(button.ArtworkBorder, E.db[addonName].artwork.itemButtonBorderColor)
+    Artwork:UpdateBorderColor(button.ArtworkBorder, E.db[addonName].artwork.bagsAndItems.itemButtonBorderColor)
 
     Artwork:SecureHook(button, "SetBackdropBorderColor", function(self, r, g, b, a)
         local color = {r, g, b, a}
         if r == 0 and g == 0 and b == 0 then
-            color = E.db[addonName].artwork.itemButtonBorderColor
+            color = E.db[addonName].artwork.bagsAndItems.itemButtonBorderColor
         end
         Artwork:UpdateBorderColor(self.ArtworkBorder, color)
     end)
@@ -202,12 +207,13 @@ function Artwork:SkinCraftItemButton(button)
 
     button.ArtworkBorder = Artwork:CreateBorder(icon or button, borderAtlas)
     Artwork:UpdateCraftItemButton(button)
-    Artwork:UpdateBorderColor(button.ArtworkBorder, E.db[addonName].artwork.itemButtonBorderColor)
+    Artwork:UpdateBorderColor(button.ArtworkBorder, E.db[addonName].artwork.bagsAndItems.itemButtonBorderColor)
+    button.ArtworkBorder:SetFrameLevel(button:GetFrameLevel() + 1)
 
     Artwork:SecureHook((icon or button).backdrop, "SetBackdropBorderColor", function(self, r, g, b, a)
         local color = {r, g, b, a}
         if r == 0 and g == 0 and b == 0 then
-            color = E.db[addonName].artwork.itemButtonBorderColor
+            color = E.db[addonName].artwork.bagsAndItems.itemButtonBorderColor
         end
         Artwork:UpdateBorderColor(button.ArtworkBorder, color)
     end)

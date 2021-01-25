@@ -123,6 +123,9 @@ Addon.media = {
             venthyrHorizontal = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Borders\\FrameBorder_Venthyr_Horizontal",
             venthyrVertical = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Borders\\FrameBorder_Venthyr_Vertical"
         },
+        frameTitles = {
+            allianceMiddle = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Borders\\FrameBorder_Alliance_TitleMiddle",
+        },
         buttons = {
             redButton = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Buttons\\128RedButton",
             goldRedButton = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Buttons\\128GoldRedButton",

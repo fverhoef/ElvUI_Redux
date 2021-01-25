@@ -72,7 +72,7 @@ function Artwork:UpdateTab(tab)
 
     local atlas = Artwork:GetFrameTabBorderAtlas()
 
-    Artwork:UpdateBorderColor(tab.ArtworkBorder, E.db[addonName].artwork.frameTabBorderColor or {1, 1, 1})
+    Artwork:UpdateBorderColor(tab.ArtworkBorder, E.db[addonName].artwork.skins.frameTabBorderColor or {1, 1, 1})
 
     if not E.db[addonName].artwork.enabled or not atlas then
         Artwork:EnablePixelBorders(tab)
@@ -87,17 +87,20 @@ function Artwork:UpdateTab(tab)
         tab.ArtworkBorder:Show()
 
         if tab.originalPoint[2] == tab:GetParent() then
-            local frameBorderAtlas = Artwork:GetFrameBorderAtlas()
+            local parentFrame = Artwork:GetRegisteredParentFrame(tab)
+            if parentFrame then
+                local frameBorderAtlas = Artwork:GetFrameBorderAtlas(parentFrame)
 
-            tab:ClearAllPoints()
-            if frameBorderAtlas and tab.orientation == "DOWN" then
-                tab:__SetPoint(tab.originalPoint[1], tab.originalPoint[2], tab.originalPoint[3], tab.originalPoint[4],
-                               tab.originalPoint[5] - frameBorderAtlas.scale * frameBorderAtlas.offset[2] + 3)
-            elseif frameBorderAtlas and tab.orientation == "RIGHT" then
-                tab:__SetPoint(tab.originalPoint[1], tab.originalPoint[2], tab.originalPoint[3], tab.originalPoint[4] - frameBorderAtlas.scale * frameBorderAtlas.offset[1] - 3,
-                               tab.originalPoint[5])
-            else
-                tab:__SetPoint(unpack(tab.originalPoint))
+                tab:ClearAllPoints()
+                if frameBorderAtlas and tab.orientation == "DOWN" then
+                    tab:__SetPoint(tab.originalPoint[1], tab.originalPoint[2], tab.originalPoint[3], tab.originalPoint[4],
+                                   tab.originalPoint[5] - frameBorderAtlas.scale * frameBorderAtlas.offset[2] + 3)
+                elseif frameBorderAtlas and tab.orientation == "RIGHT" then
+                    tab:__SetPoint(tab.originalPoint[1], tab.originalPoint[2], tab.originalPoint[3], tab.originalPoint[4] - frameBorderAtlas.scale * frameBorderAtlas.offset[1] - 3,
+                                   tab.originalPoint[5])
+                else
+                    tab:__SetPoint(unpack(tab.originalPoint))
+                end
             end
         end
 
@@ -148,7 +151,7 @@ function Artwork:UpdateTab(tab)
             border.Right:SetVertTile(atlas.verticalTiling)
         end
 
-        border:SetScale(atlas.scale)
+        tab.ArtworkBorder:SetScale(atlas.scale)
 
         tab:SetFrameLevel(math.max(0, parent:GetFrameLevel() - 10))
         if tab.backdrop then

@@ -4,6 +4,7 @@ local Shadows = Addon.Shadows
 local E, L, V, P, G = unpack(ElvUI)
 local A = E:GetModule("Auras")
 local AB = E:GetModule("ActionBars")
+local AFK = E:GetModule('AFK')
 local DB = E:GetModule("DataBars")
 local DT = E:GetModule("DataTexts")
 local NP = E:GetModule("NamePlates")

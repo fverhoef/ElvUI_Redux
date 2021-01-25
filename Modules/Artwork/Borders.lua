@@ -37,6 +37,7 @@ function Artwork:CreateBorder(frame, atlas, layer)
     border.Right:SetPoint("TOPRIGHT", border.TopRight, "BOTTOMRIGHT")
     border.Right:SetPoint("BOTTOMRIGHT", border.BottomRight, "TOPRIGHT")
 
+    border:SetFrameLevel(parent:GetFrameLevel() + 1)
     border:SetScript("OnShow", function(self)
         Artwork:UpdateBorderScale(self, atlas)
     end)

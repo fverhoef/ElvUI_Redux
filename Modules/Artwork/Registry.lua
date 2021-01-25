@@ -34,17 +34,19 @@ function Artwork:IsFrameRegistered(frame)
     return Artwork.registry.frames[frame] or Artwork.registry.nestedFrames[frame] or false
 end
 
-function Artwork:IsParentFrameRegistered(frame)
-    local parent = frame:GetParent()
+function Artwork:GetRegisteredParentFrame(obj)
+    local parent = obj:GetParent()
     while parent do
         if Artwork.registry.frames[parent] then
-            return true
+            return parent
         end
 
         parent = parent:GetParent()
     end
+end
 
-    return false
+function Artwork:IsParentFrameRegistered(frame)
+    return Artwork:GetRegisteredParentFrame(frame) ~= nil
 end
 
 function Artwork:RegisterCloseButton(button)

@@ -5,9 +5,6 @@ Addon.Automation = Automation
 local E, L, V, P, G = unpack(ElvUI)
 
 local fastLootDelay = 0
-local stopVendoring = true
-local vendorList = {}
-local totalVendorPrice = 0
 
 function Automation:Initialize()
     Automation:RegisterEvents()
@@ -43,22 +40,6 @@ function Automation:RegisterEvents()
                 end
             end
         end
-    end)
-
-    -- Vendor Grays
-    Automation:RegisterEvent("MERCHANT_SHOW", function()
-        if E.db[addonName].automation.enabled and E.db[addonName].automation.repair then
-            Automation:Repair()
-        end
-        if E.db[addonName].automation.enabled and E.db[addonName].automation.vendorGrays then
-            stopVendoring = false
-            totalVendorPrice = 0
-            wipe(vendorList)
-            Automation:VendorGrays()
-        end
-    end)
-    Automation:RegisterEvent("MERCHANT_CLOSED", function()
-        stopVendoring = true
     end)
 
     Automation:RegisterEvent("RESURRECT_REQUEST", function(unit)
@@ -98,59 +79,6 @@ function Automation:RegisterEvents()
             RespondMailLockSendItem(arg1, true)
         end
     end)
-end
-
-function Automation:Repair()
-    if IsShiftKeyDown() then
-        return
-    end
-    if CanMerchantRepair() then
-        local repairCost, canRepair = GetRepairAllCost()
-        if canRepair then
-            if GetMoney() >= repairCost and repairCost > 0 then
-                RepairAllItems()
-                Addon:Print("Repaired for " .. GetCoinText(repairCost) .. ".") -- TODO: Localization
-            end
-        end
-    end
-end
-
-function Automation:VendorGrays()
-    if IsShiftKeyDown() then
-        return
-    end
-    if stopVendoring then
-        Automation:ReportVendorResult()
-        return
-    end
-    for bag = 0, 4 do
-        for slot = 0, GetContainerNumSlots(bag) do
-            if stopVendoring then
-                Automation:ReportVendorResult()
-                return
-            end
-            local link = GetContainerItemLink(bag, slot)
-            if link then
-                local _, _, rarity, _, _, _, _, _, _, _, itemPrice = GetItemInfo(link)
-                if rarity == 0 and not vendorList["b" .. bag .. "s" .. slot] then
-                    totalVendorPrice = totalVendorPrice + itemPrice
-                    vendorList["b" .. bag .. "s" .. slot] = true
-                    UseContainerItem(bag, slot)
-                    C_Timer.After(0.2, Automation.VendorGrays)
-                    return
-                end
-            end
-        end
-    end
-
-    -- if we reached this point we didn't sell anything (this iteration) - so report
-    Automation:ReportVendorResult()
-end
-
-function Automation:ReportVendorResult()
-    if totalVendorPrice > 0 then
-        Addon:Print("Sold trash for " .. GetCoinText(totalVendorPrice) .. ".") -- TODO: Localization
-    end
 end
 
 function Automation:AcceptSummon()

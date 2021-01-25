@@ -45,33 +45,25 @@ end
 P[addonName] = {
     artwork = {
         enabled = true,
-        frameBorder = "Metal",
-        frameBorderColor = {1, 1, 1},
-        frameBackground = "Necrolord",
-        frameBackgroundColor = {1, 1, 1, 1},
-        frameTabBorder = "Shadowlands",
-        frameTabBorderColor = {139 / 255, 129 / 255, 118 / 255},
-        thinFrameBorder = "BeautyCase",
-        thinFrameBorderColor = {60 / 255, 60 / 255, 60 / 255},
-        buttonBorder = "BeautyCase",
-        buttonBorderColor = {60 / 255, 60 / 255, 60 / 255},
-        buttonBorderHighlightColor = {90 / 255, 90 / 255, 90 / 255},
-        actionButtonBorder = "BeautyCase",
-        actionButtonBorderColor = {60 / 255, 60 / 255, 60 / 255},
-        bagButtonBorder = "BeautyCase",
-        bagButtonBorderColor = {60 / 255, 60 / 255, 60 / 255},
-        itemButtonBorder = "BeautyCase",
-        itemButtonBorderColor = {60 / 255, 60 / 255, 60 / 255},
-        auraBorder = "BeautyCase",
-        auraBorderColor = {60 / 255, 60 / 255, 60 / 255},
-        tempEnchantBorder = "BeautyCase",
-        tempEnchantBorderColor = {60 / 255, 60 / 255, 60 / 255},
-        tooltipBorder = "BeautyCase",
-        tooltipBorderColor = {60 / 255, 60 / 255, 60 / 255},
-        dataBarBorder = "BeautyCase",
-        dataBarBorderColor = {60 / 255, 60 / 255, 60 / 255},
-        dataPanelBorder = "BeautyCase",
-        dataPanelBorderColor = {60 / 255, 60 / 255, 60 / 255},
+        actionBars = {actionButtonBorder = "BeautyCase", actionButtonBorderColor = {60 / 255, 60 / 255, 60 / 255}},
+        auras = {
+            auraBorder = "BeautyCase",
+            auraBorderColor = {60 / 255, 60 / 255, 60 / 255},
+            tempEnchantBorder = "BeautyCase",
+            tempEnchantBorderColor = {60 / 255, 60 / 255, 60 / 255}
+        },
+        bagsAndItems = {
+            bagButtonBorder = "BeautyCase",
+            bagButtonBorderColor = {60 / 255, 60 / 255, 60 / 255},
+            itemButtonBorder = "BeautyCase",
+            itemButtonBorderColor = {60 / 255, 60 / 255, 60 / 255}
+        },
+        dataBarsAndPanels = {
+            dataBarBorder = "BeautyCase",
+            dataBarBorderColor = {60 / 255, 60 / 255, 60 / 255},
+            dataPanelBorder = "BeautyCase",
+            dataPanelBorderColor = {60 / 255, 60 / 255, 60 / 255}
+        },
         namePlates = {
             border = "None",
             borderColor = {60 / 255, 60 / 255, 60 / 255},
@@ -83,6 +75,21 @@ P[addonName] = {
             castBarBorderColor = {60 / 255, 60 / 255, 60 / 255}
         },
         minimap = {border = "BeautyCase", borderColor = {60 / 255, 60 / 255, 60 / 255}},
+        skins = {
+            frameBorder = "Metal",
+            frameBorderColor = {1, 1, 1},
+            frameBackground = "Necrolord",
+            frameBackgroundColor = {1, 1, 1, 1},
+            frameTabBorder = "Shadowlands",
+            frameTabBorderColor = {139 / 255, 129 / 255, 118 / 255},
+            thinFrameBorder = "BeautyCase",
+            thinFrameBorderColor = {60 / 255, 60 / 255, 60 / 255},
+            useThinFrameEverywhere = false,
+            buttonBorder = "BeautyCase",
+            buttonBorderColor = {60 / 255, 60 / 255, 60 / 255},
+            buttonBorderHighlightColor = {90 / 255, 90 / 255, 90 / 255}
+        },
+        tooltips = {tooltipBorder = "BeautyCase", tooltipBorderColor = {60 / 255, 60 / 255, 60 / 255}},
         unitFrames = {
             ["player"] = {
                 border = "None",
@@ -242,8 +249,6 @@ P[addonName] = {
         enabled = true,
         fastLoot = true,
         standDismount = true,
-        vendorGrays = true,
-        repair = true,
         acceptSummon = false,
         acceptResurrection = true,
         disableLootRollConfirmation = true,
@@ -284,7 +289,7 @@ function Addon:InsertOptions()
                 name = L["Artwork"],
                 args = {
                     desc = Addon:CreateOptionDescription(L["The Artwork module adds borders, backgrounds, and other art to most ElvUI elements."], 0),
-                    enabled = Addon:CreateToggleOption(L["Enabled"], 1, {"artwork", "enabled"}),
+                    enabled = Addon:CreateToggleOption(L["Enabled"], nil, 1, {"artwork", "enabled"}),
                     lineBreak = {type = "header", name = "", order = 2},
                     actionBars = {
                         order = 10,
@@ -298,9 +303,14 @@ function Addon:InsertOptions()
                                 inline = true,
                                 name = L["Action Buttons"],
                                 args = {
-                                    border = Addon:CreateBorderThemeOption(L["Border Theme"], 1, {"artwork", "actionButtonBorder"}),
+                                    border = Addon:CreateBorderThemeOption(L["Border Theme"], 1, {
+                                        "artwork",
+                                        "actionBars",
+                                        "actionButtonBorder"
+                                    }),
                                     borderColor = Addon:CreateColorOption(L["Border Color"], 2, {
                                         "artwork",
+                                        "actionBars",
                                         "actionButtonBorderColor"
                                     })
                                 }
@@ -319,9 +329,14 @@ function Addon:InsertOptions()
                                 inline = true,
                                 name = L["Bag Slots"],
                                 args = {
-                                    border = Addon:CreateBorderThemeOption(L["Border Theme"], 1, {"artwork", "bagButtonBorder"}),
+                                    border = Addon:CreateBorderThemeOption(L["Border Theme"], 1, {
+                                        "artwork",
+                                        "bagsAndItems",
+                                        "bagButtonBorder"
+                                    }),
                                     borderColor = Addon:CreateColorOption(L["Border Color"], 2, {
                                         "artwork",
+                                        "bagsAndItems",
                                         "bagButtonBorderColor"
                                     })
                                 }
@@ -332,9 +347,14 @@ function Addon:InsertOptions()
                                 inline = true,
                                 name = L["Item Buttons"],
                                 args = {
-                                    border = Addon:CreateBorderThemeOption(L["Border Theme"], 1, {"artwork", "itemButtonBorder"}),
+                                    border = Addon:CreateBorderThemeOption(L["Border Theme"], 1, {
+                                        "artwork",
+                                        "bagsAndItems",
+                                        "itemButtonBorder"
+                                    }),
                                     borderColor = Addon:CreateColorOption(L["Border Color"], 2, {
                                         "artwork",
+                                        "bagsAndItems",
                                         "itemButtonBorderColor"
                                     })
                                 }
@@ -353,8 +373,16 @@ function Addon:InsertOptions()
                                 inline = true,
                                 name = L["Auras"],
                                 args = {
-                                    border = Addon:CreateBorderThemeOption(L["Border Theme"], 1, {"artwork", "auraBorder"}),
-                                    borderColor = Addon:CreateColorOption(L["Border Color"], 2, {"artwork", "auraBorderColor"})
+                                    border = Addon:CreateBorderThemeOption(L["Border Theme"], 1, {
+                                        "artwork",
+                                        "auras",
+                                        "auraBorder"
+                                    }),
+                                    borderColor = Addon:CreateColorOption(L["Border Color"], 2, {
+                                        "artwork",
+                                        "auras",
+                                        "auraBorderColor"
+                                    })
                                 }
                             },
                             tempEnchants = {
@@ -363,9 +391,14 @@ function Addon:InsertOptions()
                                 inline = true,
                                 name = L["Temp Enchants"],
                                 args = {
-                                    border = Addon:CreateBorderThemeOption(L["Border Theme"], 1, {"artwork", "tempEnchantBorder"}),
+                                    border = Addon:CreateBorderThemeOption(L["Border Theme"], 1, {
+                                        "artwork",
+                                        "auras",
+                                        "tempEnchantBorder"
+                                    }),
                                     borderColor = Addon:CreateColorOption(L["Border Color"], 2, {
                                         "artwork",
+                                        "auras",
                                         "tempEnchantBorderColor"
                                     })
                                 }
@@ -384,9 +417,14 @@ function Addon:InsertOptions()
                                 inline = true,
                                 name = L["Data Bars"],
                                 args = {
-                                    border = Addon:CreateBorderThemeOption(L["Border Theme"], 1, {"artwork", "dataBarBorder"}),
+                                    border = Addon:CreateBorderThemeOption(L["Border Theme"], 1, {
+                                        "artwork",
+                                        "dataBarsAndPanels",
+                                        "dataBarBorder"
+                                    }),
                                     borderColor = Addon:CreateColorOption(L["Border Color"], 2, {
                                         "artwork",
+                                        "dataBarsAndPanels",
                                         "dataBarBorderColor"
                                     })
                                 }
@@ -397,9 +435,14 @@ function Addon:InsertOptions()
                                 inline = true,
                                 name = L["Data Panels"],
                                 args = {
-                                    border = Addon:CreateBorderThemeOption(L["Border Theme"], 1, {"artwork", "dataPanelBorder"}),
+                                    border = Addon:CreateBorderThemeOption(L["Border Theme"], 1, {
+                                        "artwork",
+                                        "dataBarsAndPanels",
+                                        "dataPanelBorder"
+                                    }),
                                     borderColor = Addon:CreateColorOption(L["Border Color"], 2, {
                                         "artwork",
+                                        "dataBarsAndPanels",
                                         "dataPanelBorderColor"
                                     })
                                 }
@@ -521,8 +564,16 @@ function Addon:InsertOptions()
                                 name = L["Frame Borders"],
                                 args = {
                                     desc = Addon:CreateOptionDescription(L["This controls the borders for larger UI frames (character screen etc)."], 0),
-                                    border = Addon:CreateFrameBorderThemeOption(L["Border Theme"], 1, {"artwork", "frameBorder"}),
-                                    borderColor = Addon:CreateColorOption(L["Border Color"], 2, {"artwork", "frameBorderColor"})
+                                    border = Addon:CreateFrameBorderThemeOption(L["Border Theme"], 1, {
+                                        "artwork",
+                                        "skins",
+                                        "frameBorder"
+                                    }),
+                                    borderColor = Addon:CreateColorOption(L["Border Color"], 2, {
+                                        "artwork",
+                                        "skins",
+                                        "frameBorderColor"
+                                    })
                                 }
                             },
                             thinFrameBorder = {
@@ -532,10 +583,20 @@ function Addon:InsertOptions()
                                 name = L["Thin Frame Borders"],
                                 args = {
                                     desc = Addon:CreateOptionDescription(L["This controls the borders for smaller UI frames (popups etc)."], 0),
-                                    border = Addon:CreateBorderThemeOption(L["Border Theme"], 1, {"artwork", "thinFrameBorder"}),
+                                    border = Addon:CreateBorderThemeOption(L["Border Theme"], 1, {
+                                        "artwork",
+                                        "skins",
+                                        "thinFrameBorder"
+                                    }),
                                     borderColor = Addon:CreateColorOption(L["Border Color"], 2, {
                                         "artwork",
+                                        "skins",
                                         "thinFrameBorderColor"
+                                    }),
+                                    useThinFrameEverywhere = Addon:CreateToggleOption(L["Use Thin Frame Everywhere"], L["When checked, use the Thin Frame Border for all frames, ignoring the normal Frame Border."], 3, {
+                                        "artwork",
+                                        "skins",
+                                        "useThinFrameEverywhere"
                                     })
                                 }
                             },
@@ -546,8 +607,16 @@ function Addon:InsertOptions()
                                 name = L["Frame Tabs"],
                                 args = {
                                     desc = Addon:CreateOptionDescription(L["This controls the borders for the tabs on e.g. the character screen."], 0),
-                                    border = Addon:CreateBorderThemeOption(L["Border Theme"], 1, {"artwork", "frameTabBorder"}),
-                                    borderColor = Addon:CreateColorOption(L["Border Color"], 2, {"artwork", "frameTabBorderColor"})
+                                    border = Addon:CreateBorderThemeOption(L["Border Theme"], 1, {
+                                        "artwork",
+                                        "skins",
+                                        "frameTabBorder"
+                                    }),
+                                    borderColor = Addon:CreateColorOption(L["Border Color"], 2, {
+                                        "artwork",
+                                        "skins",
+                                        "frameTabBorderColor"
+                                    })
                                 }
                             },
                             frameBackgrounds = {
@@ -558,10 +627,12 @@ function Addon:InsertOptions()
                                 args = {
                                     border = Addon:CreateFrameBackgroundOption(L["Background Theme"], 1, {
                                         "artwork",
+                                        "skins",
                                         "frameBackground"
                                     }),
                                     borderColor = Addon:CreateColorOption(L["Background Color"], 2, {
                                         "artwork",
+                                        "skins",
                                         "frameBackgroundColor"
                                     })
                                 }
@@ -572,10 +643,19 @@ function Addon:InsertOptions()
                                 inline = true,
                                 name = L["Frame Buttons"],
                                 args = {
-                                    border = Addon:CreateBorderThemeOption(L["Border Theme"], 1, {"artwork", "buttonBorder"}),
-                                    borderColor = Addon:CreateColorOption(L["Border Color"], 2, {"artwork", "buttonBorderColor"}),
+                                    border = Addon:CreateBorderThemeOption(L["Border Theme"], 1, {
+                                        "artwork",
+                                        "skins",
+                                        "buttonBorder"
+                                    }),
+                                    borderColor = Addon:CreateColorOption(L["Border Color"], 2, {
+                                        "artwork",
+                                        "skins",
+                                        "buttonBorderColor"
+                                    }),
                                     borderColor = Addon:CreateColorOption(L["Border Highlight Color"], 2, {
                                         "artwork",
+                                        "skins",
                                         "buttonBorderHighlightColor"
                                     })
                                 }
@@ -594,8 +674,8 @@ function Addon:InsertOptions()
                                 inline = true,
                                 name = L["Border"],
                                 args = {
-                                    border = Addon:CreateBorderThemeOption(L["Border Theme"], 1, {"artwork", "tooltipBorder"}),
-                                    borderColor = Addon:CreateColorOption(L["Border Color"], 2, {"artwork", "tooltipBorderColor"})
+                                    border = Addon:CreateBorderThemeOption(L["Border Theme"], 1, {"artwork", "tooltips", "tooltipBorder"}),
+                                    borderColor = Addon:CreateColorOption(L["Border Color"], 2, {"artwork", "tooltips", "tooltipBorderColor"})
                                 }
                             }
                         }
@@ -620,7 +700,7 @@ function Addon:InsertOptions()
                 type = "group",
                 name = L["Automation"],
                 args = {
-                    enabled = Addon:CreateToggleOption(L["Enabled"], 1, {"automation", "enabled"}),
+                    enabled = Addon:CreateToggleOption(L["Enabled"], nil, 1, {"automation", "enabled"}),
                     lineBreak = {type = "header", name = "", order = 2},
                     fastLoot = {
                         type = "toggle",
@@ -644,30 +724,6 @@ function Addon:InsertOptions()
                         end,
                         set = function(_, val)
                             E.db[addonName].automation.standDismount = val
-                        end
-                    },
-                    vendorGrays = {
-                        type = "toggle",
-                        name = L["Vendor Trash"],
-                        order = 12,
-                        width = "full",
-                        get = function()
-                            return E.db[addonName].automation.vendorGrays
-                        end,
-                        set = function(_, val)
-                            E.db[addonName].automation.vendorGrays = val
-                        end
-                    },
-                    repair = {
-                        type = "toggle",
-                        name = L["Auto Repair"],
-                        order = 13,
-                        width = "full",
-                        get = function()
-                            return E.db[addonName].automation.repair
-                        end,
-                        set = function(_, val)
-                            E.db[addonName].automation.repair = val
                         end
                     },
                     acceptSummon = {
@@ -835,7 +891,7 @@ function Addon:InsertOptions()
                 type = "group",
                 name = L["Shadows"],
                 args = {
-                    enabled = Addon:CreateToggleOption(L["Enabled"], 1, {"shadows", "enabled"}),
+                    enabled = Addon:CreateToggleOption(L["Enabled"], nil, 1, {"shadows", "enabled"}),
                     lineBreak = {type = "header", name = "", order = 2},
                     color = Addon:CreateColorOption(L["Shadow Color"], 10, {"shadows", "color"}),
                     size = {
@@ -872,7 +928,7 @@ function Addon:InsertOptions()
                 type = "group",
                 name = L["Tooltips"],
                 args = {
-                    enabled = Addon:CreateToggleOption(L["Enabled"], 1, {"tooltips", "enabled"}),
+                    enabled = Addon:CreateToggleOption(L["Enabled"], nil, 1, {"tooltips", "enabled"}),
                     lineBreak = {type = "header", name = "", order = 2},
                     showIcons = {
                         type = "toggle",
@@ -999,10 +1055,11 @@ function Addon:CreateOptionHeader(caption, order)
     return {type = "header", order = order, name = caption}
 end
 
-function Addon:CreateToggleOption(caption, order, setting)
+function Addon:CreateToggleOption(caption, desc, order, setting)
     return {
         order = order,
         type = "toggle",
+        desc = desc,
         name = caption,
         get = function(info)
             return Addon:GetOptionValue(setting)

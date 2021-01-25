@@ -6,6 +6,7 @@ local E, L, V, P, G = unpack(ElvUI)
 local LSM = LibStub("LibSharedMedia-3.0")
 local A = E:GetModule("Auras")
 local AB = E:GetModule("ActionBars")
+local AFK = E:GetModule('AFK')
 local B = E:GetModule("Bags")
 local DB = E:GetModule("DataBars")
 local DT = E:GetModule("DataTexts")
@@ -16,7 +17,6 @@ local UF = E:GetModule("UnitFrames")
 
 function Shadows:Initialize()
     Shadows:CreateShadows()
-    Shadows:RegisterEvent("ADDON_LOADED", Shadows.ADDON_LOADED)
     Shadows:RegisterEvent("GROUP_ROSTER_UPDATE", Shadows.GROUP_ROSTER_UPDATE)
 end
 
@@ -281,8 +281,7 @@ function Shadows:UpdateShadow(shadow)
         shadow:Show()
 
         local frame = shadow:GetParent()
-        shadow:SetFrameLevel(1)
-        shadow:SetFrameStrata(frame:GetFrameStrata())
+        shadow:SetFrameLevel(0)
         shadow:SetOutside(frame, shadow.config.size or 3, shadow.config.size or 3)
         shadow:SetBackdrop({edgeFile = LSM:Fetch("border", "ElvUI GlowBorder"), edgeSize = E:Scale(2 + (shadow.config.size or 3))})
         shadow:SetBackdropColor(shadow.config.color[1], shadow.config.color[2], shadow.config.color[3], 0)
@@ -292,123 +291,4 @@ end
 
 function Shadows:GROUP_ROSTER_UPDATE()
     Shadows:UpdateShadows()
-end
-
-function Shadows:ADDON_LOADED(addonName)
-    if addonName == "Blizzard_AuctionUI" then
-        Shadows:ScheduleTimer("LoadAuctionFrame", 0.01)
-    elseif addonName == "Blizzard_BindingUI" then
-        Shadows:ScheduleTimer("LoadBindingsFrame", 0.01)
-    elseif addonName == "Blizzard_Communities" then
-        Shadows:ScheduleTimer("LoadCommunitiesFrame", 0.01)
-    elseif addonName == "Blizzard_CraftUI" then
-        Shadows:ScheduleTimer("LoadCraftFrame", 0.01)
-    elseif addonName == "Blizzard_GMChatUI" then
-        Shadows:ScheduleTimer("LoadGMChatFrame", 0.01)
-    elseif addonName == "Blizzard_InspectUI" then
-        Shadows:ScheduleTimer("LoadInspectFrame", 0.01)
-    elseif addonName == "Blizzard_MacroUI" then
-        Shadows:ScheduleTimer("LoadMacroFrame", 0.01)
-    elseif addonName == "Blizzard_RaidUI" then
-        Shadows:ScheduleTimer("LoadRaidFrame", 0.01)
-    elseif addonName == "Blizzard_TalentUI" then
-        Shadows:ScheduleTimer("LoadTalentFrame", 0.01)
-    elseif addonName == "Blizzard_TradeSkillUI" then
-        Shadows:ScheduleTimer("LoadTradeSkillFrame", 0.01)
-    elseif addonName == "Blizzard_TrainerUI" then
-        Shadows:ScheduleTimer("LoadTrainerFrame", 0.01)
-    end
-end
-
-function Shadows:LoadAuctionFrame()
-    if _G.AuctionFrame then
-        Shadows:CreateShadow(_G.AuctionFrame.backdrop)
-    else
-        Shadows:ScheduleTimer("LoadAuctionFrame", 0.01)
-    end
-end
-
-function Shadows:LoadBindingsFrame()
-    if _G.KeyBindingFrame then
-        Shadows:CreateShadow(_G.KeyBindingFrame.backdrop)
-    else
-        Shadows:ScheduleTimer("LoadBindingsFrame", 0.01)
-    end
-end
-
-function Shadows:LoadCommunitiesFrame()
-    if _G.CommunitiesFrame then
-        Shadows:CreateShadow(_G.CommunitiesFrame.backdrop)
-    else
-        Shadows:ScheduleTimer("LoadCommunitiesFrame", 0.01)
-    end
-end
-
-function Shadows:LoadCraftFrame()
-    if _G.CraftFrame then
-        Shadows:CreateShadow(_G.CraftFrame.backdrop)
-    else
-        Shadows:ScheduleTimer("LoadCraftFrame", 0.01)
-    end
-end
-
-function Shadows:LoadGMChatFrame()
-    if _G.GMChatFrame then
-        Shadows:CreateShadow(_G.GMChatFrame)
-    else
-        Shadows:ScheduleTimer("LoadGMChatFrame", 0.01)
-    end
-end
-
-function Shadows:LoadInspectFrame()
-    if _G.InspectFrame then
-        Shadows:CreateShadow(_G.InspectFrame.backdrop)
-    else
-        Shadows:ScheduleTimer("LoadInspectFrame", 0.01)
-    end
-end
-
-function Shadows:LoadMacroFrame()
-    if _G.MacroFrame then
-        Shadows:CreateShadow(_G.MacroFrame.backdrop)
-        Shadows:CreateShadow(_G.MacroPopupFrame)
-    else
-        Shadows:ScheduleTimer("LoadMacroFrame", 0.01)
-    end
-end
-
-function Shadows:LoadRaidFrame()
-    if _G["RaidPullout1"] then
-        local rp
-        for i = 1, _G.NUM_RAID_PULLOUT_FRAMES do
-            rp = _G["RaidPullout" .. i]
-            Shadows:CreateShadow(rp.backdrop)
-        end
-    else
-        Shadows:ScheduleTimer("LoadRaidFrame", 0.01)
-    end
-end
-
-function Shadows:LoadTalentFrame()
-    if _G.TalentFrame then
-        Shadows:CreateShadow(_G.TalentFrame.backdrop)
-    else
-        Shadows:ScheduleTimer("LoadTalentFrame", 0.01)
-    end
-end
-
-function Shadows:LoadTradeSkillFrame()
-    if _G.TradeSkillFrame then
-        Shadows:CreateShadow(_G.TradeSkillFrame.backdrop)
-    else
-        Shadows:ScheduleTimer("LoadTradeSkillFrame", 0.01)
-    end
-end
-
-function Shadows:LoadTrainerFrame()
-    if _G.ClassTrainerFrame then
-        Shadows:CreateShadow(_G.ClassTrainerFrame.backdrop)
-    else
-        Shadows:ScheduleTimer("LoadTrainerFrame", 0.01)
-    end
 end

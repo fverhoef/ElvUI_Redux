@@ -44,11 +44,11 @@ Artwork:SecureHook(S, "HandleTab", function(self, tab, noBackdrop)
 end)
 
 Artwork:SecureHook(S, "SetModifiedBackdrop", function(button)
-    Artwork:UpdateBorderColor(button.ArtworkBorder, E.db[addonName].artwork.buttonBorderHighlightColor)
+    Artwork:UpdateBorderColor(button.ArtworkBorder, E.db[addonName].artwork.skins.buttonBorderHighlightColor)
 end)
 
 Artwork:SecureHook(S, "SetOriginalBackdrop", function(button)
-    Artwork:UpdateBorderColor(button.ArtworkBorder, E.db[addonName].artwork.buttonBorderColor)
+    Artwork:UpdateBorderColor(button.ArtworkBorder, E.db[addonName].artwork.skins.buttonBorderColor)
 end)
 
 local function GrabScrollBarElement(frame, elements)

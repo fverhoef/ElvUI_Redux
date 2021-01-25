@@ -10,13 +10,11 @@ function Artwork:SkinFrame(frame, useThinBorder)
 
     frame.useThinBorder = useThinBorder
 
-    local frameBackground = Artwork:GetFrameBackground()
-    local thinBorderAtlas = Artwork:GetThinFrameBorderAtlas()
-    local frameBorderAtlas = Artwork:GetFrameBorderAtlas()
-    local borderAtlas = frame.useThinBorder and thinBorderAtlas or frameBorderAtlas
+    local borderAtlas = Artwork:GetFrameBorderAtlas(frame)
+    local backgroundAtlas = Artwork:GetFrameBackgroundAtlas()
 
-    frame.ArtworkBackground = Artwork:CreateBackground(frame, frameBackground)
     frame.ArtworkBorder = Artwork:CreateBorder(frame, borderAtlas)
+    frame.ArtworkBackground = Artwork:CreateBackground(frame, backgroundAtlas)
 
     Artwork:UpdateFrame(frame)
     Artwork:RegisterFrame(frame)
@@ -27,19 +25,13 @@ function Artwork:UpdateFrame(frame)
         return
     end
 
-    local frameBackground = Artwork:GetFrameBackground()
-    local thinBorderAtlas = Artwork:GetThinFrameBorderAtlas()
-    local frameBorderAtlas = Artwork:GetFrameBorderAtlas()
-    local borderAtlas = frame.useThinBorder and thinBorderAtlas or frameBorderAtlas
-    local borderColor = frame.useThinBorder and E.db[addonName].artwork.thinFrameBorderColor or E.db[addonName].artwork.frameBorderColor or {
-        1,
-        1,
-        1
-    }
+    local borderAtlas = Artwork:GetFrameBorderAtlas(frame)
+    local borderColor = Artwork:GetFrameBorderColor(frame)
+    local backgroundAtlas = Artwork:GetFrameBackgroundAtlas()
 
-    Artwork:UpdateBackground(frame.ArtworkBackground, frameBackground)
     Artwork:UpdateBorder(frame.ArtworkBorder, borderAtlas)
     Artwork:UpdateBorderColor(frame.ArtworkBorder, borderColor)
+    Artwork:UpdateBackground(frame.ArtworkBackground, backgroundAtlas)
 end
 
 function Artwork:SkinNestedFrame(frame)
@@ -54,4 +46,19 @@ function Artwork:UpdateNestedFrame(frame)
     if not frame then
         return
     end
+end
+
+function Artwork:GetFrameBorderAtlas(frame)
+    local borderAtlas = (frame.useThinBorder or E.db[addonName].artwork.skins.useThinFrameEverywhere) and Artwork:GetThinFrameBorderAtlas()
+    if not borderAtlas then
+        local frameAtlas = Artwork:GetFrameAtlas()
+        borderAtlas = frameAtlas and frameAtlas.border
+    end
+
+    return borderAtlas
+end
+
+function Artwork:GetFrameBorderColor(frame)
+    return (frame.useThinBorder or E.db[addonName].artwork.skins.useThinFrameEverywhere) and E.db[addonName].artwork.skins.thinFrameBorderColor or
+               E.db[addonName].artwork.skins.frameBorderColor or {1, 1, 1}
 end

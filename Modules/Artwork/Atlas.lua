@@ -104,218 +104,242 @@ Artwork.atlas = {
             right = {Addon.media.textures.borders.shadowlandsLeft, 16, 256, 1, 0, 0, 1}
         }
     },
-    frameBorders = {
+    frames = {
         ["Alliance"] = {
-            scale = 0.5,
-            offset = {-24, 24},
-            verticalTiling = true,
-            horizontalTiling = true,
-            topLeft = {Addon.media.textures.frameBorders.allianceTopLeft, 166, 166, 0, 166 / 256, 0, 166 / 256},
-            topRight = {Addon.media.textures.frameBorders.allianceTopLeft, 166, 166, 166 / 256, 0, 0, 166 / 256},
-            bottomLeft = {Addon.media.textures.frameBorders.allianceTopLeft, 166, 166, 0, 166 / 256, 166 / 256, 0},
-            bottomRight = {Addon.media.textures.frameBorders.allianceTopLeft, 166, 166, 166 / 256, 0, 166 / 256, 0},
-            top = {Addon.media.textures.frameBorders.allianceHorizontal, 256, 32, 0, 1, 0 / 64, 32 / 64},
-            bottom = {Addon.media.textures.frameBorders.allianceHorizontal, 256, 32, 0, 1, 32 / 64, 64 / 64},
-            left = {Addon.media.textures.frameBorders.allianceVertical, 32, 256, 0 / 64, 32 / 64, 0, 1},
-            right = {Addon.media.textures.frameBorders.allianceVertical, 32, 256, 32 / 64, 64 / 64, 0, 1},
-            closeButtonBackground = {Addon.media.textures.closeButtons.alliance, 32, 32, 0, 1, 0, 1}
+            border = {
+                scale = 0.5,
+                offset = {-24, 24},
+                verticalTiling = true,
+                horizontalTiling = true,
+                topLeft = {Addon.media.textures.frameBorders.allianceTopLeft, 166, 166, 0, 166 / 256, 0, 166 / 256},
+                topRight = {Addon.media.textures.frameBorders.allianceTopLeft, 166, 166, 166 / 256, 0, 0, 166 / 256},
+                bottomLeft = {Addon.media.textures.frameBorders.allianceTopLeft, 166, 166, 0, 166 / 256, 166 / 256, 0},
+                bottomRight = {Addon.media.textures.frameBorders.allianceTopLeft, 166, 166, 166 / 256, 0, 166 / 256, 0},
+                top = {Addon.media.textures.frameBorders.allianceHorizontal, 256, 32, 0, 1, 0, 32 / 64},
+                bottom = {Addon.media.textures.frameBorders.allianceHorizontal, 256, 32, 0, 1, 32 / 64, 1},
+                left = {Addon.media.textures.frameBorders.allianceVertical, 32, 256, 0, 32 / 64, 0, 1},
+                right = {Addon.media.textures.frameBorders.allianceVertical, 32, 256, 32 / 64, 1, 0, 1}
+            },
+            closeButtonBackground = {Addon.media.textures.closeButtons.alliance, 32, 32, 0, 1, 0, 1},
+            titleLeft = {Addon.media.textures.frameTitles.allianceLeft, 202, 85, 0, 202 / 256, 0, 85 / 128},
+            titleMiddle = {Addon.media.textures.frameTitles.allianceMiddle, 202, 85, 0, 1, 0, 85 / 128}
         },
         ["Horde"] = {
-            scale = 0.5,
-            offset = {-24, 24},
-            verticalTiling = true,
-            horizontalTiling = true,
-            topLeft = {Addon.media.textures.frameBorders.hordeTopLeft, 166, 166, 0, 166 / 256, 0, 166 / 256},
-            topRight = {Addon.media.textures.frameBorders.hordeTopLeft, 166, 166, 166 / 256, 0, 0, 166 / 256},
-            bottomLeft = {Addon.media.textures.frameBorders.hordeTopLeft, 166, 166, 0, 166 / 256, 166 / 256, 0},
-            bottomRight = {Addon.media.textures.frameBorders.hordeTopLeft, 166, 166, 166 / 256, 0, 166 / 256, 0},
-            top = {Addon.media.textures.frameBorders.hordeHorizontal, 256, 32, 0, 1, 0 / 64, 32 / 64},
-            bottom = {Addon.media.textures.frameBorders.hordeHorizontal, 256, 32, 0, 1, 32 / 64, 64 / 64},
-            left = {Addon.media.textures.frameBorders.hordeVertical, 32, 256, 0 / 64, 32 / 64, 0, 1},
-            right = {Addon.media.textures.frameBorders.hordeVertical, 32, 256, 32 / 64, 64 / 64, 0, 1},
+            border = {
+                scale = 0.5,
+                offset = {-24, 24},
+                verticalTiling = true,
+                horizontalTiling = true,
+                topLeft = {Addon.media.textures.frameBorders.hordeTopLeft, 166, 166, 0, 166 / 256, 0, 166 / 256},
+                topRight = {Addon.media.textures.frameBorders.hordeTopLeft, 166, 166, 166 / 256, 0, 0, 166 / 256},
+                bottomLeft = {Addon.media.textures.frameBorders.hordeTopLeft, 166, 166, 0, 166 / 256, 166 / 256, 0},
+                bottomRight = {Addon.media.textures.frameBorders.hordeTopLeft, 166, 166, 166 / 256, 0, 166 / 256, 0},
+                top = {Addon.media.textures.frameBorders.hordeHorizontal, 256, 32, 0, 1, 0, 32 / 64},
+                bottom = {Addon.media.textures.frameBorders.hordeHorizontal, 256, 32, 0, 1, 32 / 64, 1},
+                left = {Addon.media.textures.frameBorders.hordeVertical, 32, 256, 0, 32 / 64, 0, 1},
+                right = {Addon.media.textures.frameBorders.hordeVertical, 32, 256, 32 / 64, 1, 0, 1}
+            },
             closeButtonBackground = {Addon.media.textures.closeButtons.horde, 32, 32, 0, 1, 0, 1}
         },
         ["Metal"] = {
-            scale = 0.5,
-            offset = {-24, 24},
-            verticalTiling = true,
-            horizontalTiling = true,
-            topLeft = {Addon.media.textures.frameBorders.metalTopLeft, 166, 166, 0, 166 / 256, 0, 166 / 256},
-            topRight = {Addon.media.textures.frameBorders.metalTopLeft, 166, 166, 166 / 256, 0, 0, 166 / 256},
-            bottomLeft = {Addon.media.textures.frameBorders.metalTopLeft, 166, 166, 0, 166 / 256, 166 / 256, 0},
-            bottomRight = {Addon.media.textures.frameBorders.metalTopLeft, 166, 166, 166 / 256, 0, 166 / 256, 0},
-            top = {Addon.media.textures.frameBorders.metalHorizontal, 256, 32, 0, 1, 0 / 64, 32 / 64},
-            bottom = {Addon.media.textures.frameBorders.metalHorizontal, 256, 32, 0, 1, 32 / 64, 64 / 64},
-            left = {Addon.media.textures.frameBorders.metalVertical, 32, 256, 0 / 64, 32 / 64, 0, 1},
-            right = {Addon.media.textures.frameBorders.metalVertical, 32, 256, 32 / 64, 64 / 64, 0, 1},
+            border = {
+                scale = 0.5,
+                offset = {-24, 24},
+                verticalTiling = true,
+                horizontalTiling = true,
+                topLeft = {Addon.media.textures.frameBorders.metalTopLeft, 166, 166, 0, 166 / 256, 0, 166 / 256},
+                topRight = {Addon.media.textures.frameBorders.metalTopLeft, 166, 166, 166 / 256, 0, 0, 166 / 256},
+                bottomLeft = {Addon.media.textures.frameBorders.metalTopLeft, 166, 166, 0, 166 / 256, 166 / 256, 0},
+                bottomRight = {Addon.media.textures.frameBorders.metalTopLeft, 166, 166, 166 / 256, 0, 166 / 256, 0},
+                top = {Addon.media.textures.frameBorders.metalHorizontal, 256, 32, 0, 1, 0, 32 / 64},
+                bottom = {Addon.media.textures.frameBorders.metalHorizontal, 256, 32, 0, 1, 32 / 64, 1},
+                left = {Addon.media.textures.frameBorders.metalVertical, 32, 256, 0, 32 / 64, 0, 1},
+                right = {Addon.media.textures.frameBorders.metalVertical, 32, 256, 32 / 64, 1, 0, 1}
+            },
             closeButtonBackground = {Addon.media.textures.closeButtons.metal, 32, 32, 0, 1, 0, 1}
         },
         ["Kyrian"] = {
-            scale = 0.5,
-            offset = {-24, 24},
-            verticalTiling = true,
-            horizontalTiling = true,
-            topLeft = {Addon.media.textures.frameBorders.kyrianTopLeft, 166, 166, 0, 166 / 256, 0, 166 / 256},
-            topRight = {Addon.media.textures.frameBorders.kyrianTopLeft, 166, 166, 166 / 256, 0, 0, 166 / 256},
-            bottomLeft = {Addon.media.textures.frameBorders.kyrianBottomLeft, 166, 166, 0, 166 / 256, 0, 166 / 256},
-            bottomRight = {Addon.media.textures.frameBorders.kyrianBottomLeft, 166, 166, 166 / 256, 0, 0, 166 / 256},
-            top = {Addon.media.textures.frameBorders.kyrianHorizontal, 256, 32, 0, 1, 0 / 64, 32 / 64},
-            bottom = {Addon.media.textures.frameBorders.kyrianHorizontal, 256, 32, 0, 1, 32 / 64, 64 / 64},
-            left = {Addon.media.textures.frameBorders.kyrianVertical, 32, 256, 0 / 64, 32 / 64, 0, 1},
-            right = {Addon.media.textures.frameBorders.kyrianVertical, 32, 256, 32 / 64, 64 / 64, 0, 1},
+            border = {
+                scale = 0.5,
+                offset = {-24, 24},
+                verticalTiling = true,
+                horizontalTiling = true,
+                topLeft = {Addon.media.textures.frameBorders.kyrianTopLeft, 166, 166, 0, 166 / 256, 0, 166 / 256},
+                topRight = {Addon.media.textures.frameBorders.kyrianTopLeft, 166, 166, 166 / 256, 0, 0, 166 / 256},
+                bottomLeft = {Addon.media.textures.frameBorders.kyrianBottomLeft, 166, 166, 0, 166 / 256, 0, 166 / 256},
+                bottomRight = {Addon.media.textures.frameBorders.kyrianBottomLeft, 166, 166, 166 / 256, 0, 0, 166 / 256},
+                top = {Addon.media.textures.frameBorders.kyrianHorizontal, 256, 32, 0, 1, 0, 32 / 64},
+                bottom = {Addon.media.textures.frameBorders.kyrianHorizontal, 256, 32, 0, 1, 32 / 64, 1},
+                left = {Addon.media.textures.frameBorders.kyrianVertical, 32, 256, 0, 32 / 64, 0, 1},
+                right = {Addon.media.textures.frameBorders.kyrianVertical, 32, 256, 32 / 64, 1, 0, 1}
+            },
             closeButtonBackground = {Addon.media.textures.closeButtons.kyrian, 32, 32, 0, 1, 0, 1}
         },
         ["Marine"] = {
-            scale = 0.5,
-            offset = {-24, 24},
-            verticalTiling = true,
-            horizontalTiling = true,
-            topLeft = {Addon.media.textures.frameBorders.marineTopLeft, 166, 166, 0, 166 / 256, 0, 166 / 256},
-            topRight = {Addon.media.textures.frameBorders.marineTopRight, 166, 166, 0, 166 / 256, 0, 166 / 256},
-            bottomLeft = {Addon.media.textures.frameBorders.marineBottomLeft, 166, 166, 0, 166 / 256, 0, 166 / 256},
-            bottomRight = {Addon.media.textures.frameBorders.marineBottomRight, 166, 166, 0, 166 / 256, 0, 166 / 256},
-            top = {Addon.media.textures.frameBorders.marineHorizontal, 256, 32, 0, 1, 0 / 64, 32 / 64},
-            bottom = {Addon.media.textures.frameBorders.marineHorizontal, 256, 32, 0, 1, 32 / 64, 64 / 64},
-            left = {Addon.media.textures.frameBorders.marineVertical, 32, 256, 0 / 64, 32 / 64, 0, 1},
-            right = {Addon.media.textures.frameBorders.marineVertical, 32, 256, 32 / 64, 64 / 64, 0, 1},
+            border = {
+                scale = 0.5,
+                offset = {-24, 24},
+                verticalTiling = true,
+                horizontalTiling = true,
+                topLeft = {Addon.media.textures.frameBorders.marineTopLeft, 166, 166, 0, 166 / 256, 0, 166 / 256},
+                topRight = {Addon.media.textures.frameBorders.marineTopRight, 166, 166, 0, 166 / 256, 0, 166 / 256},
+                bottomLeft = {Addon.media.textures.frameBorders.marineBottomLeft, 166, 166, 0, 166 / 256, 0, 166 / 256},
+                bottomRight = {Addon.media.textures.frameBorders.marineBottomRight, 166, 166, 0, 166 / 256, 0, 166 / 256},
+                top = {Addon.media.textures.frameBorders.marineHorizontal, 256, 32, 0, 1, 0, 32 / 64},
+                bottom = {Addon.media.textures.frameBorders.marineHorizontal, 256, 32, 0, 1, 32 / 64, 1},
+                left = {Addon.media.textures.frameBorders.marineVertical, 32, 256, 0, 32 / 64, 0, 1},
+                right = {Addon.media.textures.frameBorders.marineVertical, 32, 256, 32 / 64, 1, 0, 1}
+            },
             closeButtonBackground = {Addon.media.textures.closeButtons.marine, 32, 32, 0, 1, 0, 1}
         },
         ["Mechagon"] = {
-            scale = 0.5,
-            offset = {-24, 24},
-            verticalTiling = true,
-            horizontalTiling = true,
-            topLeft = {Addon.media.textures.frameBorders.mechagonTopLeft, 166, 166, 0, 166 / 256, 0, 166 / 256},
-            topRight = {Addon.media.textures.frameBorders.mechagonTopLeft, 166, 166, 166 / 256, 0, 0, 166 / 256},
-            bottomLeft = {Addon.media.textures.frameBorders.mechagonTopLeft, 166, 166, 0, 166 / 256, 166 / 255, 0},
-            bottomRight = {Addon.media.textures.frameBorders.mechagonTopLeft, 166, 166, 166 / 256, 0, 166 / 256, 0},
-            top = {Addon.media.textures.frameBorders.mechagonHorizontal, 256, 32, 0, 1, 0 / 64, 32 / 64},
-            bottom = {Addon.media.textures.frameBorders.mechagonHorizontal, 256, 32, 0, 1, 32 / 64, 64 / 64},
-            left = {Addon.media.textures.frameBorders.mechagonVertical, 32, 256, 0 / 64, 32 / 64, 0, 1},
-            right = {Addon.media.textures.frameBorders.mechagonVertical, 32, 256, 32 / 64, 64 / 64, 0, 1},
+            border = {
+                scale = 0.5,
+                offset = {-24, 24},
+                verticalTiling = true,
+                horizontalTiling = true,
+                topLeft = {Addon.media.textures.frameBorders.mechagonTopLeft, 166, 166, 0, 166 / 256, 0, 166 / 256},
+                topRight = {Addon.media.textures.frameBorders.mechagonTopLeft, 166, 166, 166 / 256, 0, 0, 166 / 256},
+                bottomLeft = {Addon.media.textures.frameBorders.mechagonTopLeft, 166, 166, 0, 166 / 256, 166 / 255, 0},
+                bottomRight = {Addon.media.textures.frameBorders.mechagonTopLeft, 166, 166, 166 / 256, 0, 166 / 256, 0},
+                top = {Addon.media.textures.frameBorders.mechagonHorizontal, 256, 32, 0, 1, 0, 32 / 64},
+                bottom = {Addon.media.textures.frameBorders.mechagonHorizontal, 256, 32, 0, 1, 32 / 64, 1},
+                left = {Addon.media.textures.frameBorders.mechagonVertical, 32, 256, 0, 32 / 64, 0, 1},
+                right = {Addon.media.textures.frameBorders.mechagonVertical, 32, 256, 32 / 64, 1, 0, 1}
+            },
             closeButtonBackground = {Addon.media.textures.closeButtons.mechagon, 32, 32, 0, 1, 0, 1}
         },
         ["Necrolord"] = {
-            scale = 0.5,
-            offset = {-24, 24},
-            verticalTiling = true,
-            horizontalTiling = true,
-            topLeft = {Addon.media.textures.frameBorders.necrolordTopLeft, 166, 166, 0, 166 / 256, 0, 166 / 256},
-            topRight = {Addon.media.textures.frameBorders.necrolordTopLeft, 166, 166, 166 / 256, 0, 0, 166 / 256},
-            bottomLeft = {Addon.media.textures.frameBorders.necrolordBottomLeft, 166, 166, 0, 166 / 256, 0, 166 / 256},
-            bottomRight = {Addon.media.textures.frameBorders.necrolordBottomLeft, 166, 166, 166 / 256, 0, 0, 166 / 256},
-            top = {Addon.media.textures.frameBorders.necrolordHorizontal, 256, 32, 0, 1, 0 / 64, 32 / 64},
-            bottom = {Addon.media.textures.frameBorders.necrolordHorizontal, 256, 32, 0, 1, 32 / 64, 64 / 64},
-            left = {Addon.media.textures.frameBorders.necrolordVertical, 32, 256, 0 / 64, 32 / 64, 0, 1},
-            right = {Addon.media.textures.frameBorders.necrolordVertical, 32, 256, 32 / 64, 64 / 64, 0, 1},
+            border = {
+                scale = 0.5,
+                offset = {-24, 24},
+                verticalTiling = true,
+                horizontalTiling = true,
+                topLeft = {Addon.media.textures.frameBorders.necrolordTopLeft, 166, 166, 0, 166 / 256, 0, 166 / 256},
+                topRight = {Addon.media.textures.frameBorders.necrolordTopLeft, 166, 166, 166 / 256, 0, 0, 166 / 256},
+                bottomLeft = {Addon.media.textures.frameBorders.necrolordBottomLeft, 166, 166, 0, 166 / 256, 0, 166 / 256},
+                bottomRight = {Addon.media.textures.frameBorders.necrolordBottomLeft, 166, 166, 166 / 256, 0, 0, 166 / 256},
+                top = {Addon.media.textures.frameBorders.necrolordHorizontal, 256, 32, 0, 1, 0, 32 / 64},
+                bottom = {Addon.media.textures.frameBorders.necrolordHorizontal, 256, 32, 0, 1, 32 / 64, 1},
+                left = {Addon.media.textures.frameBorders.necrolordVertical, 32, 256, 0, 32 / 64, 0, 1},
+                right = {Addon.media.textures.frameBorders.necrolordVertical, 32, 256, 32 / 64, 1, 0, 1}
+            },
             closeButtonBackground = {Addon.media.textures.closeButtons.necrolord, 32, 32, 0, 1, 0, 1}
         },
         ["Neutral"] = {
-            scale = 0.5,
-            offset = {-24, 24},
-            verticalTiling = true,
-            horizontalTiling = true,
-            topLeft = {Addon.media.textures.frameBorders.neutralTopLeft, 166, 166, 0, 166 / 256, 0, 166 / 256},
-            topRight = {Addon.media.textures.frameBorders.neutralTopLeft, 166, 166, 166 / 256, 0, 0, 166 / 256},
-            bottomLeft = {Addon.media.textures.frameBorders.neutralTopLeft, 166, 166, 0, 166 / 256, 166 / 255, 0},
-            bottomRight = {Addon.media.textures.frameBorders.neutralTopLeft, 166, 166, 166 / 256, 0, 166 / 256, 0},
-            top = {Addon.media.textures.frameBorders.neutralHorizontal, 256, 32, 0, 1, 0 / 64, 32 / 64},
-            bottom = {Addon.media.textures.frameBorders.neutralHorizontal, 256, 32, 0, 1, 32 / 64, 64 / 64},
-            left = {Addon.media.textures.frameBorders.neutralVertical, 32, 256, 0 / 64, 32 / 64, 0, 1},
-            right = {Addon.media.textures.frameBorders.neutralVertical, 32, 256, 32 / 64, 64 / 64, 0, 1},
+            border = {
+                scale = 0.5,
+                offset = {-24, 24},
+                verticalTiling = true,
+                horizontalTiling = true,
+                topLeft = {Addon.media.textures.frameBorders.neutralTopLeft, 166, 166, 0, 166 / 256, 0, 166 / 256},
+                topRight = {Addon.media.textures.frameBorders.neutralTopLeft, 166, 166, 166 / 256, 0, 0, 166 / 256},
+                bottomLeft = {Addon.media.textures.frameBorders.neutralTopLeft, 166, 166, 0, 166 / 256, 166 / 255, 0},
+                bottomRight = {Addon.media.textures.frameBorders.neutralTopLeft, 166, 166, 166 / 256, 0, 166 / 256, 0},
+                top = {Addon.media.textures.frameBorders.neutralHorizontal, 256, 32, 0, 1, 0, 32 / 64},
+                bottom = {Addon.media.textures.frameBorders.neutralHorizontal, 256, 32, 0, 1, 32 / 64, 1},
+                left = {Addon.media.textures.frameBorders.neutralVertical, 32, 256, 0, 32 / 64, 0, 1},
+                right = {Addon.media.textures.frameBorders.neutralVertical, 32, 256, 32 / 64, 1, 0, 1}
+            },
             closeButtonBackground = {Addon.media.textures.closeButtons.neutral, 32, 32, 0, 1, 0, 1}
         },
         ["NightFae"] = {
-            scale = 0.5,
-            offset = {-24, 24},
-            verticalTiling = true,
-            horizontalTiling = true,
-            topLeft = {Addon.media.textures.frameBorders.nightFaeTopLeft, 166, 166, 0, 166 / 256, 0, 166 / 256},
-            topRight = {Addon.media.textures.frameBorders.nightFaeTopLeft, 166, 166, 166 / 256, 0, 0, 166 / 256},
-            bottomLeft = {Addon.media.textures.frameBorders.nightFaeBottomLeft, 166, 166, 0, 166 / 256, 0, 166 / 256},
-            bottomRight = {Addon.media.textures.frameBorders.nightFaeBottomLeft, 166, 166, 166 / 256, 0, 0, 166 / 256},
-            top = {Addon.media.textures.frameBorders.nightFaeHorizontal, 256, 32, 0, 1, 0 / 64, 32 / 64},
-            bottom = {Addon.media.textures.frameBorders.nightFaeHorizontal, 256, 32, 0, 1, 32 / 64, 64 / 64},
-            left = {Addon.media.textures.frameBorders.nightFaeVertical, 32, 256, 0 / 64, 32 / 64, 0, 1},
-            right = {Addon.media.textures.frameBorders.nightFaeVertical, 32, 256, 32 / 64, 64 / 64, 0, 1},
+            border = {
+                scale = 0.5,
+                offset = {-24, 24},
+                verticalTiling = true,
+                horizontalTiling = true,
+                topLeft = {Addon.media.textures.frameBorders.nightFaeTopLeft, 166, 166, 0, 166 / 256, 0, 166 / 256},
+                topRight = {Addon.media.textures.frameBorders.nightFaeTopLeft, 166, 166, 166 / 256, 0, 0, 166 / 256},
+                bottomLeft = {Addon.media.textures.frameBorders.nightFaeBottomLeft, 166, 166, 0, 166 / 256, 0, 166 / 256},
+                bottomRight = {Addon.media.textures.frameBorders.nightFaeBottomLeft, 166, 166, 166 / 256, 0, 0, 166 / 256},
+                top = {Addon.media.textures.frameBorders.nightFaeHorizontal, 256, 32, 0, 1, 0, 32 / 64},
+                bottom = {Addon.media.textures.frameBorders.nightFaeHorizontal, 256, 32, 0, 1, 32 / 64, 1},
+                left = {Addon.media.textures.frameBorders.nightFaeVertical, 32, 256, 0, 32 / 64, 0, 1},
+                right = {Addon.media.textures.frameBorders.nightFaeVertical, 32, 256, 32 / 64, 1, 0, 1}
+            },
             closeButtonBackground = {Addon.media.textures.closeButtons.nightFae, 32, 32, 0, 1, 0, 1}
         },
         ["Oribos"] = {
-            scale = 0.5,
-            offset = {-24, 24},
-            verticalTiling = true,
-            horizontalTiling = true,
-            topLeft = {Addon.media.textures.frameBorders.oribosTopLeft, 166, 166, 0, 166 / 256, 0, 166 / 256},
-            topRight = {Addon.media.textures.frameBorders.oribosTopRight, 166, 166, 0, 166 / 256, 0, 166 / 256},
-            bottomLeft = {Addon.media.textures.frameBorders.oribosBottomLeft, 166, 166, 0, 166 / 256, 0, 166 / 256},
-            bottomRight = {Addon.media.textures.frameBorders.oribosBottomRight, 166, 166, 0, 166 / 256, 0, 166 / 256},
-            top = {Addon.media.textures.frameBorders.oribosHorizontal, 256, 32, 0, 1, 0 / 64, 32 / 64},
-            bottom = {Addon.media.textures.frameBorders.oribosHorizontal, 256, 32, 0, 1, 32 / 64, 64 / 64},
-            left = {Addon.media.textures.frameBorders.oribosVertical, 32, 256, 0 / 64, 32 / 64, 0, 1},
-            right = {Addon.media.textures.frameBorders.oribosVertical, 32, 256, 32 / 64, 64 / 64, 0, 1},
+            border = {
+                scale = 0.5,
+                offset = {-24, 24},
+                verticalTiling = true,
+                horizontalTiling = true,
+                topLeft = {Addon.media.textures.frameBorders.oribosTopLeft, 166, 166, 0, 166 / 256, 0, 166 / 256},
+                topRight = {Addon.media.textures.frameBorders.oribosTopRight, 166, 166, 0, 166 / 256, 0, 166 / 256},
+                bottomLeft = {Addon.media.textures.frameBorders.oribosBottomLeft, 166, 166, 0, 166 / 256, 0, 166 / 256},
+                bottomRight = {Addon.media.textures.frameBorders.oribosBottomRight, 166, 166, 0, 166 / 256, 0, 166 / 256},
+                top = {Addon.media.textures.frameBorders.oribosHorizontal, 256, 32, 0, 1, 0, 32 / 64},
+                bottom = {Addon.media.textures.frameBorders.oribosHorizontal, 256, 32, 0, 1, 32 / 64, 1},
+                left = {Addon.media.textures.frameBorders.oribosVertical, 32, 256, 0, 32 / 64, 0, 1},
+                right = {Addon.media.textures.frameBorders.oribosVertical, 32, 256, 32 / 64, 1, 0, 1}
+            },
             closeButtonBackground = {Addon.media.textures.closeButtons.oribos, 32, 32, 0, 1, 0, 1}
         },
         ["Venthyr"] = {
-            scale = 0.5,
-            offset = {-24, 24},
-            verticalTiling = true,
-            horizontalTiling = true,
-            topLeft = {Addon.media.textures.frameBorders.venthyrTopLeft, 166, 166, 0, 166 / 256, 0, 166 / 256},
-            topRight = {Addon.media.textures.frameBorders.venthyrTopRight, 166, 166, 0, 166 / 256, 0, 166 / 256},
-            bottomLeft = {Addon.media.textures.frameBorders.venthyrBottomLeft, 166, 166, 0, 166 / 256, 0, 166 / 256},
-            bottomRight = {Addon.media.textures.frameBorders.venthyrBottomRight, 166, 166, 0, 166 / 256, 0, 166 / 256},
-            top = {Addon.media.textures.frameBorders.venthyrHorizontal, 256, 32, 0, 1, 0 / 64, 32 / 64},
-            bottom = {Addon.media.textures.frameBorders.venthyrHorizontal, 256, 32, 0, 1, 32 / 64, 64 / 64},
-            left = {Addon.media.textures.frameBorders.venthyrVertical, 32, 256, 0 / 64, 32 / 64, 0, 1},
-            right = {Addon.media.textures.frameBorders.venthyrVertical, 32, 256, 32 / 64, 64 / 64, 0, 1},
+            border = {
+                scale = 0.5,
+                offset = {-24, 24},
+                verticalTiling = true,
+                horizontalTiling = true,
+                topLeft = {Addon.media.textures.frameBorders.venthyrTopLeft, 166, 166, 0, 166 / 256, 0, 166 / 256},
+                topRight = {Addon.media.textures.frameBorders.venthyrTopRight, 166, 166, 0, 166 / 256, 0, 166 / 256},
+                bottomLeft = {Addon.media.textures.frameBorders.venthyrBottomLeft, 166, 166, 0, 166 / 256, 0, 166 / 256},
+                bottomRight = {Addon.media.textures.frameBorders.venthyrBottomRight, 166, 166, 0, 166 / 256, 0, 166 / 256},
+                top = {Addon.media.textures.frameBorders.venthyrHorizontal, 256, 32, 0, 1, 0, 32 / 64},
+                bottom = {Addon.media.textures.frameBorders.venthyrHorizontal, 256, 32, 0, 1, 32 / 64, 1},
+                left = {Addon.media.textures.frameBorders.venthyrVertical, 32, 256, 0, 32 / 64, 0, 1},
+                right = {Addon.media.textures.frameBorders.venthyrVertical, 32, 256, 32 / 64, 1, 0, 1}
+            },
             closeButtonBackground = {Addon.media.textures.closeButtons.venthyr, 32, 32, 0, 1, 0, 1}
         }
     }
 }
 
-function Artwork:GetFrameBorderAtlas()
-    return Artwork.atlas.frameBorders[E.db[addonName].artwork.frameBorder] or Artwork.atlas.borders[E.db[addonName].artwork.frameBorder]
+function Artwork:GetFrameAtlas()
+    return Artwork.atlas.frames[E.db[addonName].artwork.skins.frameBorder]
 end
 
 function Artwork:GetFrameTabBorderAtlas()
-    return Artwork.atlas.borders[E.db[addonName].artwork.frameTabBorder]
+    return Artwork.atlas.borders[E.db[addonName].artwork.skins.frameTabBorder]
 end
 
 function Artwork:GetThinFrameBorderAtlas()
-    return Artwork.atlas.borders[E.db[addonName].artwork.thinFrameBorder]
+    return Artwork.atlas.borders[E.db[addonName].artwork.skins.thinFrameBorder]
 end
 
 function Artwork:GetCloseButtonBackgroundAtlas()
-    local frameBorderAtlas = Artwork:GetFrameBorderAtlas()
-    return frameBorderAtlas and frameBorderAtlas.closeButtonBackground
+    local frameAtlas = Artwork:GetFrameAtlas()
+    return frameAtlas and frameAtlas.closeButtonBackground
 end
 
-function Artwork:GetFrameBackground()
-    return Artwork.atlas.backgrounds[E.db[addonName].artwork.frameBackground]
+function Artwork:GetFrameBackgroundAtlas()
+    return Artwork.atlas.backgrounds[E.db[addonName].artwork.skins.frameBackground]
 end
 
 function Artwork:GetButtonBorderAtlas()
-    return Artwork.atlas.borders[E.db[addonName].artwork.buttonBorder]
+    return Artwork.atlas.borders[E.db[addonName].artwork.skins.buttonBorder]
 end
 
 function Artwork:GetActionButtonBorderAtlas()
-    return Artwork.atlas.borders[E.db[addonName].artwork.actionButtonBorder]
+    return Artwork.atlas.borders[E.db[addonName].artwork.actionBars.actionButtonBorder]
 end
 
 function Artwork:GetBagButtonBorderAtlas()
-    return Artwork.atlas.borders[E.db[addonName].artwork.bagButtonBorder]
+    return Artwork.atlas.borders[E.db[addonName].artwork.bagsAndItems.bagButtonBorder]
 end
 
 function Artwork:GetItemButtonBorderAtlas()
-    return Artwork.atlas.borders[E.db[addonName].artwork.itemButtonBorder]
+    return Artwork.atlas.borders[E.db[addonName].artwork.bagsAndItems.itemButtonBorder]
 end
 
 function Artwork:GetDataBarBorderAtlas()
-    return Artwork.atlas.borders[E.db[addonName].artwork.dataBarBorder]
+    return Artwork.atlas.borders[E.db[addonName].artwork.dataBarsAndPanels.dataBarBorder]
 end
 
 function Artwork:GetDataPanelBorderAtlas()
-    return Artwork.atlas.borders[E.db[addonName].artwork.dataPanelBorder]
+    return Artwork.atlas.borders[E.db[addonName].artwork.dataBarsAndPanels.dataPanelBorder]
 end
 
 function Artwork:GetMinimapBorderAtlas()
@@ -335,15 +359,15 @@ function Artwork:GetNamePlateCastBarBorderAtlas()
 end
 
 function Artwork:GetTooltipBorderAtlas()
-    return Artwork.atlas.borders[E.db[addonName].artwork.tooltipBorder]
+    return Artwork.atlas.borders[E.db[addonName].artwork.tooltips.tooltipBorder]
 end
 
 function Artwork:GetAuraBorderAtlas()
-    return Artwork.atlas.borders[E.db[addonName].artwork.auraBorder]
+    return Artwork.atlas.borders[E.db[addonName].artwork.auras.auraBorder]
 end
 
 function Artwork:GetTempEnchantBorderAtlas()
-    return Artwork.atlas.borders[E.db[addonName].artwork.tempEnchantBorder]
+    return Artwork.atlas.borders[E.db[addonName].artwork.auras.tempEnchantBorder]
 end
 
 function Artwork:GetUnitFrameBorderAtlas(unit)

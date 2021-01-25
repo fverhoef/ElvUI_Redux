@@ -33,7 +33,7 @@ function Artwork:UpdateBackground(background, texture)
         background:Show()
         background.Texture:SetTexture(texture, "MIRROR", "MIRROR")
 
-        local color = E.db[addonName].artwork.frameBackgroundColor or {0, 0, 0, 1}
+        local color = E.db[addonName].artwork.skins.frameBackgroundColor or {0, 0, 0, 1}
         background.Texture:SetVertexColor(unpack(color))
     end
 end

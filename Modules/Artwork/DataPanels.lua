@@ -22,7 +22,7 @@ function Artwork:UpdateDataPanel(panel)
 
     local borderAtlas = Artwork:GetDataPanelBorderAtlas()
     Artwork:UpdateBorder(panel.ArtworkBorder, borderAtlas)
-    Artwork:UpdateBorderColor(panel.ArtworkBorder, E.db[addonName].artwork.dataPanelBorderColor)
+    Artwork:UpdateBorderColor(panel.ArtworkBorder, E.db[addonName].artwork.dataBarsAndPanels.dataPanelBorderColor)
 end
 
 function Artwork:SkinChatPanel(panel)
@@ -62,7 +62,7 @@ function Artwork:UpdateDataBar(bar)
 
     local borderAtlas = Artwork:GetDataBarBorderAtlas()
     Artwork:UpdateBorder(bar.ArtworkBorder, borderAtlas)
-    Artwork:UpdateBorderColor(bar.ArtworkBorder, E.db[addonName].artwork.dataBarBorderColor)
+    Artwork:UpdateBorderColor(bar.ArtworkBorder, E.db[addonName].artwork.dataBarsAndPanels.dataBarBorderColor)
 
     if bar.holder then
         if not E.db[addonName].artwork.enabled or not borderAtlas then

@@ -29,6 +29,7 @@ function Artwork:Initialize()
     Artwork:SkinFrame(_G.WorldMapFrame)
     Artwork:SkinFrame(_G.ColorPickerFrame, true)
     Artwork:SkinFrame(_G.CopyChatFrame, true)
+    Artwork:SkinFrame(_G.GuildInfoFrame, true)
     Artwork:SkinFrame(_G.GuildMemberDetailFrame, true)
 
     -- skin chat panels
@@ -188,7 +189,7 @@ function Artwork:ApplyCustomLayout()
     _G.GuildMemberDetailFrame.icon:SetTexture([[Interface\WorldStateFrame\Icons-Classes]])
     Addon:OffsetFrame(_G.GuildMemberDetailName, 30, 0)
     Addon:OffsetFrame(_G.GuildMemberDetailZoneLabel, -30, 0)
-    
+
     Artwork:SecureHook("GuildStatus_Update", function()
         local selection = GetGuildRosterSelection()
         if selection then
@@ -210,76 +211,73 @@ end
 -- Blizzard Addons
 function Artwork:ADDON_LOADED(addonName)
     if addonName == "Blizzard_AuctionUI" then
-        Artwork:ScheduleTimer("LoadAuctionFrame", 0.01)
-    elseif addonName == "Blizzard_BindingUI" then
-        Artwork:ScheduleTimer("LoadBindingsFrame", 0.01)
-    elseif addonName == "Blizzard_Communities" then
-        Artwork:ScheduleTimer("LoadCommunitiesFrame", 0.01)
+        Artwork:ScheduleTimer("SkinAuctionFrame", 0.01)
     elseif addonName == "Blizzard_CraftUI" then
         Artwork:ScheduleTimer("SkinCraftFrame", 0.01)
-    elseif addonName == "Blizzard_GMChatUI" then
-        Artwork:ScheduleTimer("LoadGMChatFrame", 0.01)
-    elseif addonName == "Blizzard_InspectUI" then
-        Artwork:ScheduleTimer("LoadInspectFrame", 0.01)
     elseif addonName == "Blizzard_MacroUI" then
-        Artwork:ScheduleTimer("LoadMacroFrame", 0.01)
-    elseif addonName == "Blizzard_RaidUI" then
-        Artwork:ScheduleTimer("LoadRaidFrame", 0.01)
+        Artwork:ScheduleTimer("SkinMacroFrame", 0.01)
     elseif addonName == "Blizzard_TalentUI" then
-        Artwork:ScheduleTimer("LoadTalentFrame", 0.01)
+        Artwork:ScheduleTimer("SkinTalentFrame", 0.01)
     elseif addonName == "Blizzard_TradeSkillUI" then
-        Artwork:ScheduleTimer("LoadTradeSkillFrame", 0.01)
+        Artwork:ScheduleTimer("SkinTradeSkillFrame", 0.01)
     elseif addonName == "Blizzard_TrainerUI" then
-        Artwork:ScheduleTimer("LoadTrainerFrame", 0.01)
+        Artwork:ScheduleTimer("SkinTrainerFrame", 0.01)
     end
 end
 
-function Artwork:LoadAuctionFrame()
+function Artwork:SkinAuctionFrame()
 end
 
-function Artwork:LoadBindingsFrame()
-end
-
-function Artwork:LoadCommunitiesFrame()
-end
-
-function Artwork:LoadCraftFrame()
+function Artwork:SkinCraftFrame()
     if _G.CraftFrame then
         for i = 1, _G.MAX_CRAFT_REAGENTS do
             local button = _G["CraftReagent" .. i]
             Artwork:SkinCraftItemButton(button)
         end
     else
-        Artwork:ScheduleTimer("LoadCraftFrame", 0.01)
+        Artwork:ScheduleTimer("SkinCraftFrame", 0.01)
     end
 end
 
-function Artwork:LoadGMChatFrame()
+function Artwork:SkinMacroFrame()
+    if _G.MacroFrame then
+        for i = 1, _G.MAX_ACCOUNT_MACROS do
+            Artwork:SkinActionButton(_G["MacroButton" .. i])
+        end
+
+        Artwork:SkinActionButton(_G.MacroFrameSelectedMacroButton)
+    else
+        Artwork:ScheduleTimer("SkinMacroFrame", 0.01)
+    end
 end
 
-function Artwork:LoadInspectFrame()
+function Artwork:SkinTalentFrame()
 end
 
-function Artwork:LoadMacroFrame()
-end
-
-function Artwork:LoadRaidFrame()
-end
-
-function Artwork:LoadTalentFrame()
-end
-
-function Artwork:LoadTradeSkillFrame()
+function Artwork:SkinTradeSkillFrame()
     if _G.TradeSkillFrame then
         for i = 1, _G.MAX_TRADE_SKILL_REAGENTS do
             local button = _G["TradeSkillReagent" .. i]
             Artwork:SkinCraftItemButton(button)
         end
         Artwork:SkinCraftItemButton(_G.TradeSkillSkillIcon)
+
+        local id = _G.TradeSkillFrame.selectedSkill
+        local skillType = select(2, GetTradeSkillInfo(id))
+        if skillType ~= "header" then
+            local skillLink = GetTradeSkillItemLink(id)
+            if skillLink then
+                local quality = select(3, GetItemInfo(skillLink))
+                if quality and quality > 1 then
+                    local r, g, b = GetItemQualityColor(quality)
+                    _G.TradeSkillSkillIcon.backdrop:SetBackdropBorderColor(r, g, b)
+                end
+            end
+        end
     else
         Artwork:ScheduleTimer("LoadTradeSkillFrame", 0.01)
     end
 end
 
-function Artwork:LoadTrainerFrame()
+function Artwork:SkinTrainerFrame()
 end

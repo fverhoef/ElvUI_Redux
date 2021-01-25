@@ -56,7 +56,7 @@ function Artwork:UpdateAura(button)
 end
 
 function Artwork:GetAuraBorderColor(button)
-    local color = E.db[addonName].artwork.auraBorderColor
+    local color = E.db[addonName].artwork.auras.auraBorderColor
     local debuffType = "none"
     if button.debuffType ~= "none" then
         color = button.filter == "HARMFUL" and _G.DebuffTypeColor[debuffType] or color
@@ -74,12 +74,12 @@ function Artwork:SkinTempEnchant(button)
 
     button.ArtworkBorder = Artwork:CreateBorder(button, borderAtlas)
     Artwork:UpdateTempEnchant(button)
-    Artwork:UpdateBorderColor(button.ArtworkBorder, E.db[addonName].artwork.tempEnchantBorderColor)
+    Artwork:UpdateBorderColor(button.ArtworkBorder, E.db[addonName].artwork.auras.tempEnchantBorderColor)
 
     Artwork:SecureHook(button, "SetBackdropBorderColor", function(self, r, g, b, a)
         local color = {r, g, b, a}
         if r == 0 and g == 0 and b == 0 then
-            color = E.db[addonName].artwork.tempEnchantBorderColor
+            color = E.db[addonName].artwork.auras.tempEnchantBorderColor
         end
         Artwork:UpdateBorderColor(self.ArtworkBorder, color)
     end)
