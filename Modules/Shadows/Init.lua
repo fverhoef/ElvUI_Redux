@@ -6,7 +6,7 @@ local E, L, V, P, G = unpack(ElvUI)
 local LSM = LibStub("LibSharedMedia-3.0")
 local A = E:GetModule("Auras")
 local AB = E:GetModule("ActionBars")
-local AFK = E:GetModule('AFK')
+local AFK = E:GetModule("AFK")
 local B = E:GetModule("Bags")
 local DB = E:GetModule("DataBars")
 local DT = E:GetModule("DataTexts")
@@ -80,13 +80,13 @@ function Shadows:CreateShadows()
     for i = 1, 3 do
         Shadows:CreateShadow(_G["MirrorTimer" .. i .. "StatusBar"])
     end
-    
+
     -- Raid Utility Panel
     Shadows:CreateShadow(_G.RaidUtilityPanel)
     Shadows:CreateShadow(_G.RaidUtility_ShowButton)
     Shadows:CreateShadow(_G.RaidUtility_CloseButton)
     Shadows:CreateShadow(_G.RaidControlButton)
-    
+
     -- Help
     if Addon.isClassic then
         Shadows:CreateShadow(_G.HelpFrameHeader.backdrop)
@@ -95,6 +95,7 @@ function Shadows:CreateShadows()
     -- ElvUI panels
     Shadows:CreateShadow(LO.BottomPanel)
     Shadows:CreateShadow(LO.TopPanel)
+    Shadows:CreateShadow(AFK.AFKMode.bottom)
 
     -- vehicle Leave
     Shadows:CreateShadow(_G.MainMenuBarVehicleLeaveButton)
@@ -222,7 +223,7 @@ function Shadows:CreateUnitGroupShadows(group)
 end
 
 function Shadows:CreateShadow(frame, config, isHidden)
-    if frame and (not frame.shadow) then        
+    if frame and (not frame.shadow) then
         if (not config) then
             config = E.db[addonName].shadows
         end

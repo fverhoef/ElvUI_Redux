@@ -8,6 +8,7 @@ local AB = E:GetModule("ActionBars")
 local B = E:GetModule("Bags")
 local DB = E:GetModule("DataBars")
 local DT = E:GetModule("DataTexts")
+local M = E:GetModule("Misc")
 local NP = E:GetModule("NamePlates")
 local S = E:GetModule("Skins")
 local TT = E:GetModule("Tooltip")
@@ -138,6 +139,13 @@ end)
 
 Artwork:SecureHook(DT, "RegisterPanel", function(self, panel, numPoints, anchor, xOff, yOff, vertical)
     Artwork:SkinDataPanel(panel)
+end)
+
+Artwork:SecureHook(M, "START_LOOT_ROLL", function(self, _, rollID, time)
+    for _, bar in ipairs(M.RollBars) do
+        Artwork:SkinFrame(bar, true)
+        Artwork:SkinActionButton(bar.button)
+    end
 end)
 
 Artwork:SecureHook(NP, "StylePlate", function(self, nameplate)

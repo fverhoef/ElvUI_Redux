@@ -4,9 +4,10 @@ local Shadows = Addon.Shadows
 local E, L, V, P, G = unpack(ElvUI)
 local A = E:GetModule("Auras")
 local AB = E:GetModule("ActionBars")
-local AFK = E:GetModule('AFK')
+local AFK = E:GetModule("AFK")
 local DB = E:GetModule("DataBars")
 local DT = E:GetModule("DataTexts")
+local M = E:GetModule("Misc")
 local NP = E:GetModule("NamePlates")
 local S = E:GetModule("Skins")
 local TT = E:GetModule("Tooltip")
@@ -49,6 +50,13 @@ end)
 
 Shadows:SecureHook(DT, "RegisterPanel", function(self, panel, numPoints, anchor, xOff, yOff, vertical)
     Shadows:CreateShadow(panel)
+end)
+
+Shadows:SecureHook(M, "START_LOOT_ROLL", function(self, _, rollID, time)
+    for _, bar in ipairs(M.RollBars) do
+        Shadows:CreateShadow(bar)
+        Shadows:CreateShadow(bar.button)
+    end
 end)
 
 Shadows:SecureHook(NP, "StylePlate", function(self, nameplate)
