@@ -170,6 +170,10 @@ function Artwork:UpdateUnitFrame(unitFrame)
             Artwork:ResizeFrameGlow(unitFrame.FrameGlow, 3)
             Artwork:ResizeFrameGlow(unitFrame.MouseGlow, 3)
             Artwork:ResizeFrameGlow(unitFrame.TargetGlow, 3)
+            if unitFrame.ThreatIndicator then
+                Artwork:ResizeFrameGlow(unitFrame.ThreatIndicator.MainGlow, 3)
+                Artwork:ResizeFrameGlow(unitFrame.ThreatIndicator.PowerGlow, 3)
+            end
             unitFrame.glowResized = false
         end
     else
@@ -177,6 +181,10 @@ function Artwork:UpdateUnitFrame(unitFrame)
             Artwork:ResizeFrameGlow(unitFrame.FrameGlow, 5)
             Artwork:ResizeFrameGlow(unitFrame.MouseGlow, 5)
             Artwork:ResizeFrameGlow(unitFrame.TargetGlow, 5)
+            if unitFrame.ThreatIndicator then
+                Artwork:ResizeFrameGlow(unitFrame.ThreatIndicator.MainGlow, 5)
+                Artwork:ResizeFrameGlow(unitFrame.ThreatIndicator.PowerGlow, 5)
+            end
             unitFrame.glowResized = true
         end
     end
