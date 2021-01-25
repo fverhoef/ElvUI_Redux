@@ -24,9 +24,10 @@ function Addon:Initialize()
 
     if Addon.isClassic then
         E.oUF.colors.class["SHAMAN"] = {0.0, 0.44, 0.87}
-        _G.RAID_CLASS_COLORS["SHAMAN"]["r"] = 0.0
-        _G.RAID_CLASS_COLORS["SHAMAN"]["g"] = 0.44
-        _G.RAID_CLASS_COLORS["SHAMAN"]["b"] = 0.87
+        _G.RAID_CLASS_COLORS["SHAMAN"] = {r = 0.0, g = 0.44, b = 0.87}
+        if _G.CUSTOM_CLASS_COLORS then
+            _G.CUSTOM_CLASS_COLORS["SHAMAN"] = {r = 0.0, g = 0.44, b = 0.87}
+        end
     end
 end
 

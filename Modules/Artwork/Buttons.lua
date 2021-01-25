@@ -66,8 +66,8 @@ function Artwork:UpdateActionButton(button)
     Artwork:UpdateBorder(button.ArtworkBorder, borderAtlas)
 
     local buttonName = button:GetName()
-    local icon = _G[buttonName .. "Icon"]
-    local name = _G[buttonName .. "Name"]
+    local icon = buttonName and _G[buttonName .. "Icon"]
+    local name = buttonName and _G[buttonName .. "Name"]
 
     if not E.db[addonName].artwork.enabled or not borderAtlas then
         if icon then

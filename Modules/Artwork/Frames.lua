@@ -3,18 +3,21 @@ local Addon = addonTable[1]
 local Artwork = Addon.Artwork
 local E, L, V, P, G = unpack(ElvUI)
 
-function Artwork:SkinFrame(frame, useThinBorder)
+function Artwork:SkinFrame(frame, useThinBorder, noBackground)
     if not frame or Artwork:IsFrameRegistered(frame) then
         return
     end
 
     frame.useThinBorder = useThinBorder
+    frame.noBackground = noBackground
 
     local borderAtlas = Artwork:GetFrameBorderAtlas(frame)
-    local backgroundAtlas = Artwork:GetFrameBackgroundAtlas()
 
     frame.ArtworkBorder = Artwork:CreateBorder(frame, borderAtlas)
-    frame.ArtworkBackground = Artwork:CreateBackground(frame, backgroundAtlas)
+    if not frame.noBackground then
+        local backgroundAtlas = Artwork:GetFrameBackgroundAtlas()
+        frame.ArtworkBackground = Artwork:CreateBackground(frame, backgroundAtlas)
+    end
 
     Artwork:UpdateFrame(frame)
     Artwork:RegisterFrame(frame)
@@ -27,11 +30,14 @@ function Artwork:UpdateFrame(frame)
 
     local borderAtlas = Artwork:GetFrameBorderAtlas(frame)
     local borderColor = Artwork:GetFrameBorderColor(frame)
-    local backgroundAtlas = Artwork:GetFrameBackgroundAtlas()
 
     Artwork:UpdateBorder(frame.ArtworkBorder, borderAtlas)
     Artwork:UpdateBorderColor(frame.ArtworkBorder, borderColor)
-    Artwork:UpdateBackground(frame.ArtworkBackground, backgroundAtlas)
+
+    if not frame.noBackground then
+        local backgroundAtlas = Artwork:GetFrameBackgroundAtlas()
+        Artwork:UpdateBackground(frame.ArtworkBackground, backgroundAtlas)
+    end
 end
 
 function Artwork:SkinNestedFrame(frame)

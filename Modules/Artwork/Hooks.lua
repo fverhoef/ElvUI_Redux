@@ -164,20 +164,20 @@ Artwork:SecureHook(nil, "ToggleDropDownMenu", function(level)
     local backdrop = _G[listFrameName .. "Backdrop"]
     local menuBackdrop = _G[listFrameName .. "MenuBackdrop"]
 
-    Artwork:SkinFrame(listFrame, true)
+    Artwork:SkinFrame(listFrame, true, true)
     if listFrame then
         if backdrop then
             if listFrame.ArtworkBorder:IsShown() then
-                backdrop:Hide()
+                backdrop:SetInside(nil, 2, 2)
             else
-                backdrop:Show()
+                backdrop:SetInside()
             end
         end
         if menuBackdrop then
             if listFrame.ArtworkBorder:IsShown() then
-                menuBackdrop:Hide()
+                menuBackdrop:SetInside(nil, 2, 2)
             else
-                menuBackdrop:Show()
+                menuBackdrop:SetInside()
             end
         end
     end
