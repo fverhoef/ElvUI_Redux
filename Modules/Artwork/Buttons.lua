@@ -13,6 +13,14 @@ function Artwork:SkinButton(button)
     button.ArtworkBorder = Artwork:CreateBorder(button, borderAtlas)
     Artwork:UpdateButton(button)
     Artwork:RegisterButton(button)
+
+    Artwork:SecureHook(button, "SetBackdropBorderColor", function(self, r, g, b, a)
+        local color = {r, g, b, a}
+        if r == 0 and g == 0 and b == 0 then
+            color = E.db[addonName].artwork.skins.buttonBorderColor
+        end
+        Artwork:UpdateBorderColor(self.ArtworkBorder, color)
+    end)
 end
 
 function Artwork:UpdateButton(button)

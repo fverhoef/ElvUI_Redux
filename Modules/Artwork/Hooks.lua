@@ -46,7 +46,8 @@ Artwork:SecureHook(S, "HandleTab", function(self, tab, noBackdrop)
 end)
 
 Artwork:SecureHook(S, "SetModifiedBackdrop", function(button)
-    Artwork:UpdateBorderColor(button.ArtworkBorder, E.db[addonName].artwork.skins.buttonBorderHighlightColor)
+    local color = E.db[addonName].artwork.skins.useDefaultButtonHighlight and E.media.rgbvaluecolor or E.db[addonName].artwork.skins.buttonBorderHighlightColor
+    Artwork:UpdateBorderColor(button.ArtworkBorder, color)
 end)
 
 Artwork:SecureHook(S, "SetOriginalBackdrop", function(button)

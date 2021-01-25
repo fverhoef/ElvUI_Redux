@@ -34,6 +34,13 @@ function Artwork:Initialize()
 
     -- skin raid utility panel
     Artwork:SkinFrame(_G.RaidUtilityPanel, true)
+    Artwork:SkinButton(_G.DisbandRaidButton)
+    Artwork:SkinButton(_G.ReadyCheckButton)
+    Artwork:SkinButton(_G.MainTankButton)
+    Artwork:SkinButton(_G.MainAssistButton)
+    Artwork:SkinButton(_G.RaidControlButton)
+    Artwork:SkinButton(_G.RaidUtility_ShowButton)
+    Artwork:SkinButton(_G.RaidUtility_CloseButton)
 
     -- skin chat panels
     Artwork:SkinChatPanel(_G.LeftChatPanel, true)

@@ -87,7 +87,8 @@ P[addonName] = {
             useThinFrameEverywhere = false,
             buttonBorder = "BeautyCase",
             buttonBorderColor = {60 / 255, 60 / 255, 60 / 255},
-            buttonBorderHighlightColor = {90 / 255, 90 / 255, 90 / 255}
+            buttonBorderHighlightColor = {90 / 255, 90 / 255, 90 / 255},
+            useDefaultButtonHighlight = true
         },
         tooltips = {tooltipBorder = "BeautyCase", tooltipBorderColor = {60 / 255, 60 / 255, 60 / 255}},
         unitFrames = {
@@ -289,7 +290,7 @@ function Addon:InsertOptions()
                 name = L["Artwork"],
                 args = {
                     desc = Addon:CreateOptionDescription(L["The Artwork module adds borders, backgrounds, and other art to most ElvUI elements."], 0),
-                    enabled = Addon:CreateToggleOption(L["Enabled"], nil, 1, {"artwork", "enabled"}),
+                    enabled = Addon:CreateToggleOption(L["Enabled"], nil, 1, nil, {"artwork", "enabled"}),
                     lineBreak = {type = "header", name = "", order = 2},
                     actionBars = {
                         order = 10,
@@ -593,7 +594,7 @@ function Addon:InsertOptions()
                                         "skins",
                                         "thinFrameBorderColor"
                                     }),
-                                    useThinFrameEverywhere = Addon:CreateToggleOption(L["Use Thin Frame Everywhere"], L["When checked, use the Thin Frame Border for all frames, ignoring the normal Frame Border."], 3, {
+                                    useThinFrameEverywhere = Addon:CreateToggleOption(L["Use Thin Frame Everywhere"], L["When checked, use the Thin Frame Border for all frames, ignoring the normal Frame Border."], 3, "full", {
                                         "artwork",
                                         "skins",
                                         "useThinFrameEverywhere"
@@ -657,6 +658,11 @@ function Addon:InsertOptions()
                                         "artwork",
                                         "skins",
                                         "buttonBorderHighlightColor"
+                                    }),
+                                    useDefaultButtonHighlight = Addon:CreateToggleOption(L["Use Default Highlight"], L["When checked, use the ElvUI Highlight color all buttons, ignoring the normal Highlight color above."], 4, "full", {
+                                        "artwork",
+                                        "skins",
+                                        "useDefaultButtonHighlight"
                                     })
                                 }
                             }
@@ -700,7 +706,7 @@ function Addon:InsertOptions()
                 type = "group",
                 name = L["Automation"],
                 args = {
-                    enabled = Addon:CreateToggleOption(L["Enabled"], nil, 1, {"automation", "enabled"}),
+                    enabled = Addon:CreateToggleOption(L["Enabled"], nil, 1, nil, {"automation", "enabled"}),
                     lineBreak = {type = "header", name = "", order = 2},
                     fastLoot = {
                         type = "toggle",
@@ -891,7 +897,7 @@ function Addon:InsertOptions()
                 type = "group",
                 name = L["Shadows"],
                 args = {
-                    enabled = Addon:CreateToggleOption(L["Enabled"], nil, 1, {"shadows", "enabled"}),
+                    enabled = Addon:CreateToggleOption(L["Enabled"], nil, 1, nil, {"shadows", "enabled"}),
                     lineBreak = {type = "header", name = "", order = 2},
                     color = Addon:CreateColorOption(L["Shadow Color"], 10, {"shadows", "color"}),
                     size = {
@@ -928,7 +934,7 @@ function Addon:InsertOptions()
                 type = "group",
                 name = L["Tooltips"],
                 args = {
-                    enabled = Addon:CreateToggleOption(L["Enabled"], nil, 1, {"tooltips", "enabled"}),
+                    enabled = Addon:CreateToggleOption(L["Enabled"], nil, 1, nil, {"tooltips", "enabled"}),
                     lineBreak = {type = "header", name = "", order = 2},
                     showIcons = {
                         type = "toggle",
@@ -1055,12 +1061,13 @@ function Addon:CreateOptionHeader(caption, order)
     return {type = "header", order = order, name = caption}
 end
 
-function Addon:CreateToggleOption(caption, desc, order, setting)
+function Addon:CreateToggleOption(caption, desc, order, width, setting)
     return {
-        order = order,
         type = "toggle",
-        desc = desc,
         name = caption,
+        desc = desc,
+        order = order,
+        width = width,
         get = function(info)
             return Addon:GetOptionValue(setting)
         end,
