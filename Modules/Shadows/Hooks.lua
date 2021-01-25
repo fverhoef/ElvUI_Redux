@@ -100,6 +100,10 @@ Shadows:SecureHook(UF, "Configure_Castbar", function(self, frame)
     end
 end)
 
+Shadows:SecureHook(nil, "ToggleDropDownMenu", function(level)
+    Shadows:CreateShadow(_G["DropDownList" .. (level or 1)])
+end)
+
 local DBIcon = LibStub("LibDBIcon-1.0", true)
 if DBIcon and DBIcon.tooltip and DBIcon.tooltip:IsObjectType("GameTooltip") then
     DBIcon.tooltip:HookScript("OnShow", function(self)

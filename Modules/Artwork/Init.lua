@@ -32,6 +32,9 @@ function Artwork:Initialize()
     Artwork:SkinFrame(_G.GuildInfoFrame, true)
     Artwork:SkinFrame(_G.GuildMemberDetailFrame, true)
 
+    -- skin raid utility panel
+    Artwork:SkinFrame(_G.RaidUtilityPanel, true)
+
     -- skin chat panels
     Artwork:SkinChatPanel(_G.LeftChatPanel, true)
     Artwork:SkinButton(_G.LeftChatToggleButton)

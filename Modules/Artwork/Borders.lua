@@ -166,6 +166,10 @@ function Artwork:EnablePixelBorders(frame)
 end
 
 function Artwork:EnablePixelBorderPart(frame, part)
+    if not frame then
+        return
+    end
+    
     if frame.pixelBorders and frame.pixelBorders[part] then
         frame.pixelBorders[part]:Show()
     end
@@ -176,6 +180,10 @@ function Artwork:EnablePixelBorderPart(frame, part)
 end
 
 function Artwork:DisablePixelBorders(frame)
+    if not frame then
+        return
+    end
+
     E:TogglePixelBorders(frame, false)
     if frame.pixelBorders then
         frame.pixelBorders.CENTER:SetPoint("TOPLEFT", frame, "TOPLEFT", 2, -2)

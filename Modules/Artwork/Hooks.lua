@@ -10,6 +10,7 @@ local DB = E:GetModule("DataBars")
 local DT = E:GetModule("DataTexts")
 local M = E:GetModule("Misc")
 local NP = E:GetModule("NamePlates")
+local RU = E:GetModule("RaidUtility")
 local S = E:GetModule("Skins")
 local TT = E:GetModule("Tooltip")
 local UF = E:GetModule("UnitFrames")
@@ -150,6 +151,35 @@ end)
 
 Artwork:SecureHook(NP, "StylePlate", function(self, nameplate)
     Artwork:SkinNamePlate(nameplate)
+end)
+
+Artwork:SecureHook(RU, "CreateUtilButton", function(self, name, parent, template, width, height, point, relativeto, point2, xOfs, yOfs, text, texture)
+    Artwork:SkinButton(_G[name])
+end)
+
+Artwork:SecureHook(nil, "ToggleDropDownMenu", function(level)
+    local listFrame = _G["DropDownList" .. (level or 1)]
+    local listFrameName = listFrame:GetName()
+    local backdrop = _G[listFrameName .. "Backdrop"]
+    local menuBackdrop = _G[listFrameName .. "MenuBackdrop"]
+
+    Artwork:SkinFrame(listFrame, true)
+    if listFrame then
+        if backdrop then
+            if listFrame.ArtworkBorder:IsShown() then
+                backdrop:Hide()
+            else
+                backdrop:Show()
+            end
+        end
+        if menuBackdrop then
+            if listFrame.ArtworkBorder:IsShown() then
+                menuBackdrop:Hide()
+            else
+                menuBackdrop:Show()
+            end
+        end
+    end
 end)
 
 -- AddOnSkins Hooks

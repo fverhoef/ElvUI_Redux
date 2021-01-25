@@ -11,7 +11,7 @@ function Artwork:CreateBackground(frame, texture)
     local parent = frame.backdrop or frame
     local background = CreateFrame("Frame", nil, parent)
     background:SetFrameLevel(math.max(0, parent:GetFrameLevel() - 1))
-    background:SetAllPoints(parent)
+    background:SetInside(nil, 2, 2)
     background.Texture = background:CreateTexture(nil, "BACKGROUND")
     background.Texture:SetHorizTile(true)
     background.Texture:SetVertTile(true)
