@@ -9,13 +9,13 @@ function Artwork:SkinNamePlate(nameplate)
     end
 
     local healthBorderAtlas = Artwork:GetNamePlateHealthBorderAtlas()
-    nameplate.Health.ArtworkBorder = Artwork:CreateBorder(nameplate.Health, borderAtlas)
+    nameplate.Health.ArtworkBorder = Artwork:CreateBorder(nameplate.Health, borderAtlas, "ARTWORK")
 
     local powerBorderAtlas = Artwork:GetNamePlatePowerBorderAtlas()
-    nameplate.Power.ArtworkBorder = Artwork:CreateBorder(nameplate.Power, powerBorderAtlas)
+    nameplate.Power.ArtworkBorder = Artwork:CreateBorder(nameplate.Power, powerBorderAtlas, "ARTWORK")
 
     local castBarBorderAtlas = Artwork:GetNamePlateCastBarBorderAtlas()
-    nameplate.Castbar.ArtworkBorder = Artwork:CreateBorder(nameplate.Castbar, castBarBorderAtlas)
+    nameplate.Castbar.ArtworkBorder = Artwork:CreateBorder(nameplate.Castbar, castBarBorderAtlas, "ARTWORK")
 
     if nameplate.Auras then
         Artwork:SecureHook(nameplate.Auras, "PostUpdateIcon", function(self, unit, button)

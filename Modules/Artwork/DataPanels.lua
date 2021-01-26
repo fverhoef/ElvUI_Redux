@@ -49,7 +49,7 @@ function Artwork:SkinDataBar(bar)
     end
 
     local borderAtlas = Artwork:GetDataBarBorderAtlas()
-    bar.ArtworkBorder = Artwork:CreateBorder(bar.holder, borderAtlas)
+    bar.ArtworkBorder = Artwork:CreateBorder(bar.holder, borderAtlas, "ARTWORK")
 
     Artwork:UpdateDataBar(bar)
     Artwork:RegisterDataBar(bar)

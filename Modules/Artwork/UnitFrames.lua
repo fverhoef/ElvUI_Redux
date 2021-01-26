@@ -26,7 +26,7 @@ function Artwork:SkinUnitFrame(unit, group)
 
     if unitFrame.Power then
         local powerBorderAtlas = Artwork:GetUnitFramePowerBorderAtlas(unitFrame.artworkKey)
-        unitFrame.Power.ArtworkBorder = Artwork:CreateBorder(unitFrame.Power, powerBorderAtlas)
+        unitFrame.Power.ArtworkBorder = Artwork:CreateBorder(unitFrame.Power, powerBorderAtlas, "ARTWORK")
         unitFrame.Power.ArtworkBorder:SetFrameLevel(unitFrame.Power:GetFrameLevel() + 1)
         unitFrame.Power.ArtworkSeparator = Artwork:CreateSeparator(unitFrame.Power, powerBorderAtlas or borderAtlas, "Horizontal")
         unitFrame.Power.ArtworkSeparator:SetFrameLevel(unitFrame.Power:GetFrameLevel() + 1)
@@ -45,7 +45,7 @@ function Artwork:SkinUnitFrame(unit, group)
     local classBar = unitFrame.ClassBar and unitFrame[unitFrame.ClassBar]
     if classBar then
         local classBarBorderAtlas = Artwork:GetUnitFrameClassBarBorderAtlas(unitFrame.artworkKey)
-        classBar.ArtworkBorder = Artwork:CreateBorder(unitFrame.ClassBarHolder, classBarBorderAtlas)
+        classBar.ArtworkBorder = Artwork:CreateBorder(unitFrame.ClassBarHolder, classBarBorderAtlas, "ARTWORK")
         classBar.ArtworkBorder:SetFrameLevel(classBar:GetFrameLevel() + 1)
     end
 

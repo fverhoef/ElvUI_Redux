@@ -15,6 +15,8 @@ function Artwork:SkinCloseButton(button)
     button.Background = button:CreateTexture(nil, "ARTWORK")
     button.Background:SetAllPoints(button)
     Artwork:UpdateCloseButton(button)
+
+    Artwork:RegisterCloseButton(button)
 end
 
 function Artwork:UpdateCloseButton(button)

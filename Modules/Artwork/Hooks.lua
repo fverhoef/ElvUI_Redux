@@ -81,6 +81,10 @@ Artwork:Hook(S, "HandleScrollBar", function(self, frame, thumbTrimY, thumbTrimX)
     if thumb then
         thumb.artworkType = "SCROLL_THUMB"
     end
+
+    -- TODO: skin scrollbar background
+    --Artwork:SkinFrame(frame, true, true, true)
+    --Artwork:SkinButton(thumb)
 end)
 
 Artwork:Hook(S, "HandleNextPrevButton", function(self, button, arrowDir, color, noBackdrop, stripTexts)

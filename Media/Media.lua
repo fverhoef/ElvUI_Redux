@@ -125,6 +125,7 @@ Addon.media = {
         },
         frameTitles = {
             allianceMiddle = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Borders\\FrameBorder_Alliance_TitleMiddle",
+            hordeMiddle = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Borders\\FrameBorder_Horde_TitleMiddle",
         },
         buttons = {
             redButton = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Buttons\\128RedButton",

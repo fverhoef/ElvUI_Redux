@@ -8,21 +8,21 @@ function Artwork:CreateBorder(frame, atlas, layer)
         return
     end
 
-    layer = layer or "ARTWORK"
+    layer = layer or "BORDER"
 
     local parent = frame.backdrop or frame
     local border = CreateFrame("Frame", nil, parent)
     border.parent = parent
     border.frame = frame
 
-    border.TopLeft = border:CreateTexture(nil, layer)
-    border.TopRight = border:CreateTexture(nil, layer)
-    border.BottomLeft = border:CreateTexture(nil, layer)
-    border.BottomRight = border:CreateTexture(nil, layer)
-    border.Top = border:CreateTexture(nil, layer)
-    border.Bottom = border:CreateTexture(nil, layer)
-    border.Left = border:CreateTexture(nil, layer)
-    border.Right = border:CreateTexture(nil, layer)
+    border.TopLeft = border:CreateTexture(nil, layer, nil, 2)
+    border.TopRight = border:CreateTexture(nil, layer, nil, 2)
+    border.BottomLeft = border:CreateTexture(nil, layer, nil, 2)
+    border.BottomRight = border:CreateTexture(nil, layer, nil, 2)
+    border.Top = border:CreateTexture(nil, layer, nil, 2)
+    border.Bottom = border:CreateTexture(nil, layer, nil, 2)
+    border.Left = border:CreateTexture(nil, layer, nil, 2)
+    border.Right = border:CreateTexture(nil, layer, nil, 2)
 
     border.TopLeft:SetPoint("TOPLEFT", border, "TOPLEFT")
     border.TopRight:SetPoint("TOPRIGHT", border, "TOPRIGHT")

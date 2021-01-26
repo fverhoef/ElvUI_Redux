@@ -31,6 +31,7 @@ function Artwork:Initialize()
     Artwork:SkinFrame(_G.CopyChatFrame, true)
     Artwork:SkinFrame(_G.GuildInfoFrame, true)
     Artwork:SkinFrame(_G.GuildMemberDetailFrame, true)
+    Artwork:SkinFrame(_G.ReputationDetailFrame, true)
 
     -- skin raid utility panel
     Artwork:SkinFrame(_G.RaidUtilityPanel, true)

@@ -13,7 +13,7 @@ function Artwork:SkinTooltip(tip)
     tip.ArtworkBorder = Artwork:CreateBorder(tip, borderAtlas)
     
     if tip.StatusBar then
-        tip.StatusBar.ArtworkBorder = Artwork:CreateBorder(tip.StatusBar, borderAtlas)
+        tip.StatusBar.ArtworkBorder = Artwork:CreateBorder(tip.StatusBar, borderAtlas, "ARTWORK")
     end
 
     Artwork:UpdateTooltip(tip)
