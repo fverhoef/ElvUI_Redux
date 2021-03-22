@@ -4,15 +4,15 @@ local Artwork = Addon.Artwork
 local E, L, V, P, G = unpack(ElvUI)
 
 function Artwork:SkinButton(button)
-    if not button or Artwork:IsButtonRegistered(button) then
+    if not button or Addon:IsButtonRegistered(button) then
         return
     end
 
-    local borderAtlas = Artwork:GetButtonBorderAtlas()
+    local borderAtlas = Addon:GetButtonBorderAtlas()
 
     button.ArtworkBorder = Artwork:CreateBorder(button, borderAtlas)
     Artwork:UpdateButton(button)
-    Artwork:RegisterButton(button)
+    Addon:RegisterButton(button)
 
     Artwork:SecureHook(button, "SetBackdropBorderColor", function(self, r, g, b, a)
         local color = {r, g, b, a}
@@ -28,7 +28,7 @@ function Artwork:UpdateButton(button)
         return
     end
 
-    local borderAtlas = Artwork:GetButtonBorderAtlas()
+    local borderAtlas = Addon:GetButtonBorderAtlas()
 
     Artwork:UpdateBorder(button.ArtworkBorder, borderAtlas)
     Artwork:UpdateBorderColor(button.ArtworkBorder, E.db[addonName].artwork.skins.buttonBorderColor)
@@ -36,11 +36,11 @@ end
 
 -- Action Buttons
 function Artwork:SkinActionButton(button, layer)
-    if not button or Artwork:IsActionButtonRegistered(button) then
+    if not button or Addon:IsActionButtonRegistered(button) then
         return
     end
 
-    local borderAtlas = Artwork:GetActionButtonBorderAtlas()
+    local borderAtlas = Addon:GetActionButtonBorderAtlas()
 
     button.ArtworkBorder = Artwork:CreateBorder(button, borderAtlas, layer)
     Artwork:UpdateActionButton(button)
@@ -54,7 +54,7 @@ function Artwork:SkinActionButton(button, layer)
         Artwork:UpdateBorderColor(self.ArtworkBorder, color)
     end)
 
-    Artwork:RegisterActionButton(button)
+    Addon:RegisterActionButton(button)
 end
 
 function Artwork:UpdateActionButton(button)
@@ -62,7 +62,7 @@ function Artwork:UpdateActionButton(button)
         return
     end
 
-    local borderAtlas = Artwork:GetActionButtonBorderAtlas()
+    local borderAtlas = Addon:GetActionButtonBorderAtlas()
     Artwork:UpdateBorder(button.ArtworkBorder, borderAtlas)
 
     local buttonName = button:GetName()
@@ -92,11 +92,11 @@ end
 
 -- Bag Buttons
 function Artwork:SkinBagButton(button)
-    if not button or Artwork:IsBagButtonRegistered(button) then
+    if not button or Addon:IsBagButtonRegistered(button) then
         return
     end
 
-    local borderAtlas = Artwork:GetBagButtonBorderAtlas()
+    local borderAtlas = Addon:GetBagButtonBorderAtlas()
 
     button.ArtworkBorder = Artwork:CreateBorder(button, borderAtlas)
     Artwork:UpdateBagButton(button)
@@ -110,7 +110,7 @@ function Artwork:SkinBagButton(button)
         Artwork:UpdateBorderColor(self.ArtworkBorder, color)
     end)
 
-    Artwork:RegisterBagButton(button)
+    Addon:RegisterBagButton(button)
 end
 
 function Artwork:UpdateBagButton(button)
@@ -118,7 +118,7 @@ function Artwork:UpdateBagButton(button)
         return
     end
 
-    local borderAtlas = Artwork:GetBagButtonBorderAtlas()
+    local borderAtlas = Addon:GetBagButtonBorderAtlas()
     Artwork:UpdateBorder(button.ArtworkBorder, borderAtlas)
 
     local name = button:GetName()
@@ -143,11 +143,11 @@ end
 
 -- Item Buttons
 function Artwork:SkinItemButton(button, repositionIcon)
-    if not button or Artwork:IsItemButtonRegistered(button) then
+    if not button or Addon:IsItemButtonRegistered(button) then
         return
     end
 
-    local borderAtlas = Artwork:GetItemButtonBorderAtlas()
+    local borderAtlas = Addon:GetItemButtonBorderAtlas()
 
     button.repositionIcon = repositionIcon
     button.ArtworkBorder = Artwork:CreateBorder(button, borderAtlas)
@@ -162,7 +162,7 @@ function Artwork:SkinItemButton(button, repositionIcon)
         Artwork:UpdateBorderColor(self.ArtworkBorder, color)
     end)
 
-    Artwork:RegisterItemButton(button)
+    Addon:RegisterItemButton(button)
 end
 
 function Artwork:UpdateItemButton(button)
@@ -170,7 +170,7 @@ function Artwork:UpdateItemButton(button)
         return
     end
 
-    local borderAtlas = Artwork:GetItemButtonBorderAtlas()
+    local borderAtlas = Addon:GetItemButtonBorderAtlas()
     Artwork:UpdateBorder(button.ArtworkBorder, borderAtlas)
 
     local name = button:GetName()
@@ -205,11 +205,11 @@ end
 
 -- Trade/Craft Items
 function Artwork:SkinCraftItemButton(button)
-    if not button or Artwork:IsCraftItemButtonRegistered(button) then
+    if not button or Addon:IsCraftItemButtonRegistered(button) then
         return
     end
 
-    local borderAtlas = Artwork:GetItemButtonBorderAtlas()
+    local borderAtlas = Addon:GetItemButtonBorderAtlas()
 
     local icon = _G[button:GetName() .. "IconTexture"]
 
@@ -226,7 +226,7 @@ function Artwork:SkinCraftItemButton(button)
         Artwork:UpdateBorderColor(button.ArtworkBorder, color)
     end)
 
-    Artwork:RegisterCraftItemButton(button)
+    Addon:RegisterCraftItemButton(button)
 end
 
 function Artwork:UpdateCraftItemButton(button)
@@ -234,7 +234,7 @@ function Artwork:UpdateCraftItemButton(button)
         return
     end
 
-    local borderAtlas = Artwork:GetItemButtonBorderAtlas()
+    local borderAtlas = Addon:GetItemButtonBorderAtlas()
     Artwork:UpdateBorder(button.ArtworkBorder, borderAtlas)
 
     local icon = _G[button:GetName() .. "IconTexture"]

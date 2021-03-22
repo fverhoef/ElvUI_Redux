@@ -4,11 +4,11 @@ local Artwork = Addon.Artwork
 local E, L, V, P, G = unpack(ElvUI)
 
 function Artwork:SkinAura(button)
-    if not button or Artwork:IsAuraRegistered(button) then
+    if not button or Addon:IsAuraRegistered(button) then
         return
     end
 
-    local borderAtlas = Artwork:GetAuraBorderAtlas()
+    local borderAtlas = Addon:GetAuraBorderAtlas()
 
     button.ArtworkBorder = Artwork:CreateBorder(button, borderAtlas)
     Artwork:UpdateAura(button)
@@ -22,7 +22,7 @@ function Artwork:SkinAura(button)
         Artwork:UpdateBorderColor(self.ArtworkBorder, color)
     end)
 
-    Artwork:RegisterAura(button)
+    Addon:RegisterAura(button)
 end
 
 function Artwork:UpdateAura(button)
@@ -30,7 +30,7 @@ function Artwork:UpdateAura(button)
         return
     end
 
-    local borderAtlas = Artwork:GetAuraBorderAtlas()
+    local borderAtlas = Addon:GetAuraBorderAtlas()
     Artwork:UpdateBorder(button.ArtworkBorder, borderAtlas)
 
     local name = button:GetName()
@@ -65,11 +65,11 @@ function Artwork:GetAuraBorderColor(button)
 end
 
 function Artwork:SkinTempEnchant(button)
-    if not button or Artwork:IsTempEnchantRegistered(button) then
+    if not button or Addon:IsTempEnchantRegistered(button) then
         return
     end
 
-    local borderAtlas = Artwork:GetTempEnchantBorderAtlas()
+    local borderAtlas = Addon:GetTempEnchantBorderAtlas()
 
     button.ArtworkBorder = Artwork:CreateBorder(button, borderAtlas)
     Artwork:UpdateTempEnchant(button)
@@ -83,7 +83,7 @@ function Artwork:SkinTempEnchant(button)
         Artwork:UpdateBorderColor(self.ArtworkBorder, color)
     end)
 
-    Artwork:RegisterTempEnchant(button)
+    Addon:RegisterTempEnchant(button)
 end
 
 function Artwork:UpdateTempEnchant(button)
@@ -91,7 +91,7 @@ function Artwork:UpdateTempEnchant(button)
         return
     end
 
-    local borderAtlas = Artwork:GetTempEnchantBorderAtlas()
+    local borderAtlas = Addon:GetTempEnchantBorderAtlas()
     Artwork:UpdateBorder(button.ArtworkBorder, borderAtlas)
 
     local name = button:GetName()

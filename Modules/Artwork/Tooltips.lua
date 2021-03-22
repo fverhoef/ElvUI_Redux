@@ -9,7 +9,7 @@ function Artwork:SkinTooltip(tip)
         return
     end
 
-    local borderAtlas = Artwork:GetTooltipBorderAtlas()
+    local borderAtlas = Addon:GetTooltipBorderAtlas()
     tip.ArtworkBorder = Artwork:CreateBorder(tip, borderAtlas)
     
     if tip.StatusBar then
@@ -26,7 +26,7 @@ function Artwork:UpdateTooltip(tip)
         return
     end
 
-    local borderAtlas = Artwork:GetTooltipBorderAtlas()
+    local borderAtlas = Addon:GetTooltipBorderAtlas()
     Artwork:UpdateBorder(tip.ArtworkBorder, borderAtlas)
 
     local color = E.db[addonName].artwork.tooltips.tooltipBorderColor

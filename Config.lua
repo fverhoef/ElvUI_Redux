@@ -3,7 +3,7 @@ local Addon = addonTable[1]
 local E, L, V, P, G = unpack(ElvUI)
 
 Addon.minimapIconStyles = {Square = "Square", Round = "Round"}
-Addon.borders = {"None", "BeautyCase", "Clean", "Goldpaw", "Onyx", "Renaitre (Square)", "Retina", "Shadowlands"}
+Addon.borders = {"None", "BeautyCase", "Cainyx", "Caith", "Diablo", "Entropy", "Goldpaw", "Onyx", "Retina", "Shadowlands"}
 Addon.frameBackgrounds = {
     "None",
     "Alliance",
@@ -32,217 +32,207 @@ Addon.frameBorders = {
     "Venthyr"
 }
 
-table.insert(Addon.frameBorders, "")
-for _, border in ipairs(Addon.borders) do
-    if border ~= "None" then
-        table.insert(Addon.frameBorders, border)
-    end
-end
-
-if E.db[addonName] == nil then
-    E.db[addonName] = {}
-end
 P[addonName] = {
     artwork = {
         enabled = true,
-        actionBars = {actionButtonBorder = "BeautyCase", actionButtonBorderColor = {60 / 255, 60 / 255, 60 / 255}},
+        actionBars = {actionButtonBorder = "BeautyCase", actionButtonBorderColor = {89 / 255, 89 / 255, 89 / 255, 1}},
         auras = {
             auraBorder = "BeautyCase",
-            auraBorderColor = {60 / 255, 60 / 255, 60 / 255},
+            auraBorderColor = {89 / 255, 89 / 255, 89 / 255, 1},
             tempEnchantBorder = "BeautyCase",
-            tempEnchantBorderColor = {60 / 255, 60 / 255, 60 / 255}
+            tempEnchantBorderColor = {89 / 255, 89 / 255, 89 / 255, 1}
         },
         bagsAndItems = {
             bagButtonBorder = "BeautyCase",
-            bagButtonBorderColor = {60 / 255, 60 / 255, 60 / 255},
+            bagButtonBorderColor = {89 / 255, 89 / 255, 89 / 255, 1},
             itemButtonBorder = "BeautyCase",
-            itemButtonBorderColor = {60 / 255, 60 / 255, 60 / 255}
+            itemButtonBorderColor = {89 / 255, 89 / 255, 89 / 255, 1}
         },
         dataBarsAndPanels = {
             dataBarBorder = "BeautyCase",
-            dataBarBorderColor = {60 / 255, 60 / 255, 60 / 255},
+            dataBarBorderColor = {89 / 255, 89 / 255, 89 / 255, 1},
             dataPanelBorder = "BeautyCase",
-            dataPanelBorderColor = {60 / 255, 60 / 255, 60 / 255}
+            dataPanelBorderColor = {89 / 255, 89 / 255, 89 / 255, 1}
         },
         namePlates = {
             border = "None",
-            borderColor = {60 / 255, 60 / 255, 60 / 255},
+            borderColor = {89 / 255, 89 / 255, 89 / 255, 1},
             healthBorder = "BeautyCase",
-            healthBorderColor = {60 / 255, 60 / 255, 60 / 255},
+            healthBorderColor = {89 / 255, 89 / 255, 89 / 255, 1},
             powerBorder = "BeautyCase",
-            powerBorderColor = {60 / 255, 60 / 255, 60 / 255},
+            powerBorderColor = {89 / 255, 89 / 255, 89 / 255, 1},
             castBarBorder = "BeautyCase",
-            castBarBorderColor = {60 / 255, 60 / 255, 60 / 255}
+            castBarBorderColor = {89 / 255, 89 / 255, 89 / 255, 1}
         },
-        minimap = {border = "BeautyCase", borderColor = {60 / 255, 60 / 255, 60 / 255}},
+        minimap = {border = "BeautyCase", borderColor = {89 / 255, 89 / 255, 89 / 255, 1}},
         skins = {
-            frameBorder = "Metal",
+            frameBorder = "None",
             frameBorderColor = {1, 1, 1},
-            frameBackground = "Necrolord",
+            frameBackground = "None",
             frameBackgroundColor = {1, 1, 1, 1},
-            frameTabBorder = "Shadowlands",
-            frameTabBorderColor = {139 / 255, 129 / 255, 118 / 255},
+            frameTabBorder = "BeautyCase",
+            frameTabBorderColor = {89 / 255, 89 / 255, 89 / 255, 1}, -- {139 / 255, 129 / 255, 118 / 255},
             thinFrameBorder = "BeautyCase",
-            thinFrameBorderColor = {60 / 255, 60 / 255, 60 / 255},
-            useThinFrameEverywhere = false,
+            thinFrameBorderColor = {89 / 255, 89 / 255, 89 / 255, 1},
+            useThinFrameEverywhere = true,
             buttonBorder = "BeautyCase",
-            buttonBorderColor = {60 / 255, 60 / 255, 60 / 255},
+            buttonBorderColor = {89 / 255, 89 / 255, 89 / 255, 1},
             buttonBorderHighlightColor = {90 / 255, 90 / 255, 90 / 255},
             useDefaultButtonHighlight = true
         },
-        tooltips = {tooltipBorder = "BeautyCase", tooltipBorderColor = {60 / 255, 60 / 255, 60 / 255}},
+        tooltips = {tooltipBorder = "BeautyCase", tooltipBorderColor = {89 / 255, 89 / 255, 89 / 255, 1}},
         unitFrames = {
             ["player"] = {
                 border = "None",
-                borderColor = {60 / 255, 60 / 255, 60 / 255},
+                borderColor = {89 / 255, 89 / 255, 89 / 255, 1},
                 healthBorder = "BeautyCase",
-                healthBorderColor = {60 / 255, 60 / 255, 60 / 255},
+                healthBorderColor = {89 / 255, 89 / 255, 89 / 255, 1},
                 powerBorder = "BeautyCase",
-                powerBorderColor = {60 / 255, 60 / 255, 60 / 255},
+                powerBorderColor = {89 / 255, 89 / 255, 89 / 255, 1},
                 castBarBorder = "BeautyCase",
-                castBarBorderColor = {60 / 255, 60 / 255, 60 / 255},
+                castBarBorderColor = {89 / 255, 89 / 255, 89 / 255, 1},
                 classBarBorder = "BeautyCase",
-                classBarBorderColor = {60 / 255, 60 / 255, 60 / 255}
+                classBarBorderColor = {89 / 255, 89 / 255, 89 / 255, 1}
             },
             ["pet"] = {
                 border = "BeautyCase",
-                borderColor = {60 / 255, 60 / 255, 60 / 255},
+                borderColor = {89 / 255, 89 / 255, 89 / 255, 1},
                 healthBorder = "None",
-                healthBorderColor = {60 / 255, 60 / 255, 60 / 255},
+                healthBorderColor = {89 / 255, 89 / 255, 89 / 255, 1},
                 powerBorder = "None",
-                powerBorderColor = {60 / 255, 60 / 255, 60 / 255},
+                powerBorderColor = {89 / 255, 89 / 255, 89 / 255, 1},
                 castBarBorder = "BeautyCase",
-                castBarBorderColor = {60 / 255, 60 / 255, 60 / 255}
+                castBarBorderColor = {89 / 255, 89 / 255, 89 / 255, 1}
             },
             ["pettarget"] = {
                 border = "None",
-                borderColor = {60 / 255, 60 / 255, 60 / 255},
+                borderColor = {89 / 255, 89 / 255, 89 / 255, 1},
                 healthBorder = "BeautyCase",
-                healthBorderColor = {60 / 255, 60 / 255, 60 / 255},
+                healthBorderColor = {89 / 255, 89 / 255, 89 / 255, 1},
                 powerBorder = "None",
-                powerBorderColor = {60 / 255, 60 / 255, 60 / 255},
+                powerBorderColor = {89 / 255, 89 / 255, 89 / 255, 1},
                 castBarBorder = "BeautyCase",
-                castBarBorderColor = {60 / 255, 60 / 255, 60 / 255}
+                castBarBorderColor = {89 / 255, 89 / 255, 89 / 255, 1}
             },
             ["target"] = {
                 border = "BeautyCase",
-                borderColor = {60 / 255, 60 / 255, 60 / 255},
+                borderColor = {89 / 255, 89 / 255, 89 / 255, 1},
                 healthBorder = "None",
-                healthBorderColor = {60 / 255, 60 / 255, 60 / 255},
+                healthBorderColor = {89 / 255, 89 / 255, 89 / 255, 1},
                 powerBorder = "None",
-                powerBorderColor = {60 / 255, 60 / 255, 60 / 255},
+                powerBorderColor = {89 / 255, 89 / 255, 89 / 255, 1},
                 castBarBorder = "BeautyCase",
-                castBarBorderColor = {60 / 255, 60 / 255, 60 / 255}
+                castBarBorderColor = {89 / 255, 89 / 255, 89 / 255, 1}
             },
             ["targettarget"] = {
                 border = "None",
-                borderColor = {60 / 255, 60 / 255, 60 / 255},
+                borderColor = {89 / 255, 89 / 255, 89 / 255, 1},
                 healthBorder = "BeautyCase",
-                healthBorderColor = {60 / 255, 60 / 255, 60 / 255},
+                healthBorderColor = {89 / 255, 89 / 255, 89 / 255, 1},
                 powerBorder = "None",
-                powerBorderColor = {60 / 255, 60 / 255, 60 / 255},
+                powerBorderColor = {89 / 255, 89 / 255, 89 / 255, 1},
                 castBarBorder = "BeautyCase",
-                castBarBorderColor = {60 / 255, 60 / 255, 60 / 255}
+                castBarBorderColor = {89 / 255, 89 / 255, 89 / 255, 1}
             },
             ["targettargettarget"] = {
                 border = "None",
-                borderColor = {60 / 255, 60 / 255, 60 / 255},
+                borderColor = {89 / 255, 89 / 255, 89 / 255, 1},
                 healthBorder = "BeautyCase",
-                healthBorderColor = {60 / 255, 60 / 255, 60 / 255},
+                healthBorderColor = {89 / 255, 89 / 255, 89 / 255, 1},
                 powerBorder = "None",
-                powerBorderColor = {60 / 255, 60 / 255, 60 / 255},
+                powerBorderColor = {89 / 255, 89 / 255, 89 / 255, 1},
                 castBarBorder = "BeautyCase",
-                castBarBorderColor = {60 / 255, 60 / 255, 60 / 255}
+                castBarBorderColor = {89 / 255, 89 / 255, 89 / 255, 1}
             },
             ["focus"] = {
                 border = "BeautyCase",
-                borderColor = {60 / 255, 60 / 255, 60 / 255},
+                borderColor = {89 / 255, 89 / 255, 89 / 255, 1},
                 healthBorder = "None",
-                healthBorderColor = {60 / 255, 60 / 255, 60 / 255},
+                healthBorderColor = {89 / 255, 89 / 255, 89 / 255, 1},
                 powerBorder = "None",
-                powerBorderColor = {60 / 255, 60 / 255, 60 / 255},
+                powerBorderColor = {89 / 255, 89 / 255, 89 / 255, 1},
                 castBarBorder = "BeautyCase",
-                castBarBorderColor = {60 / 255, 60 / 255, 60 / 255}
+                castBarBorderColor = {89 / 255, 89 / 255, 89 / 255, 1}
             },
             ["arena"] = {
                 border = "BeautyCase",
-                borderColor = {60 / 255, 60 / 255, 60 / 255},
+                borderColor = {89 / 255, 89 / 255, 89 / 255, 1},
                 healthBorder = "None",
-                healthBorderColor = {60 / 255, 60 / 255, 60 / 255},
+                healthBorderColor = {89 / 255, 89 / 255, 89 / 255, 1},
                 powerBorder = "None",
-                powerBorderColor = {60 / 255, 60 / 255, 60 / 255},
+                powerBorderColor = {89 / 255, 89 / 255, 89 / 255, 1},
                 castBarBorder = "BeautyCase",
-                castBarBorderColor = {60 / 255, 60 / 255, 60 / 255}
+                castBarBorderColor = {89 / 255, 89 / 255, 89 / 255, 1}
             },
             ["assist"] = {
                 border = "BeautyCase",
-                borderColor = {60 / 255, 60 / 255, 60 / 255},
+                borderColor = {89 / 255, 89 / 255, 89 / 255, 1},
                 healthBorder = "None",
-                healthBorderColor = {60 / 255, 60 / 255, 60 / 255},
+                healthBorderColor = {89 / 255, 89 / 255, 89 / 255, 1},
                 powerBorder = "None",
-                powerBorderColor = {60 / 255, 60 / 255, 60 / 255},
+                powerBorderColor = {89 / 255, 89 / 255, 89 / 255, 1},
                 castBarBorder = "BeautyCase",
-                castBarBorderColor = {60 / 255, 60 / 255, 60 / 255}
+                castBarBorderColor = {89 / 255, 89 / 255, 89 / 255, 1}
             },
             ["boss"] = {
                 border = "BeautyCase",
-                borderColor = {60 / 255, 60 / 255, 60 / 255},
+                borderColor = {89 / 255, 89 / 255, 89 / 255, 1},
                 healthBorder = "None",
-                healthBorderColor = {60 / 255, 60 / 255, 60 / 255},
+                healthBorderColor = {89 / 255, 89 / 255, 89 / 255, 1},
                 powerBorder = "None",
-                powerBorderColor = {60 / 255, 60 / 255, 60 / 255},
+                powerBorderColor = {89 / 255, 89 / 255, 89 / 255, 1},
                 castBarBorder = "BeautyCase",
-                castBarBorderColor = {60 / 255, 60 / 255, 60 / 255}
+                castBarBorderColor = {89 / 255, 89 / 255, 89 / 255, 1}
             },
             ["party"] = {
                 border = "BeautyCase",
-                borderColor = {60 / 255, 60 / 255, 60 / 255},
+                borderColor = {89 / 255, 89 / 255, 89 / 255, 1},
                 healthBorder = "None",
-                healthBorderColor = {60 / 255, 60 / 255, 60 / 255},
+                healthBorderColor = {89 / 255, 89 / 255, 89 / 255, 1},
                 powerBorder = "None",
-                powerBorderColor = {60 / 255, 60 / 255, 60 / 255},
+                powerBorderColor = {89 / 255, 89 / 255, 89 / 255, 1},
                 castBarBorder = "BeautyCase",
-                castBarBorderColor = {60 / 255, 60 / 255, 60 / 255}
+                castBarBorderColor = {89 / 255, 89 / 255, 89 / 255, 1}
             },
             ["raid"] = {
                 border = "BeautyCase",
-                borderColor = {60 / 255, 60 / 255, 60 / 255},
+                borderColor = {89 / 255, 89 / 255, 89 / 255, 1},
                 healthBorder = "None",
-                healthBorderColor = {60 / 255, 60 / 255, 60 / 255},
+                healthBorderColor = {89 / 255, 89 / 255, 89 / 255, 1},
                 powerBorder = "None",
-                powerBorderColor = {60 / 255, 60 / 255, 60 / 255},
+                powerBorderColor = {89 / 255, 89 / 255, 89 / 255, 1},
                 castBarBorder = "BeautyCase",
-                castBarBorderColor = {60 / 255, 60 / 255, 60 / 255}
+                castBarBorderColor = {89 / 255, 89 / 255, 89 / 255, 1}
             },
             ["raid40"] = {
                 border = "BeautyCase",
-                borderColor = {60 / 255, 60 / 255, 60 / 255},
+                borderColor = {89 / 255, 89 / 255, 89 / 255, 1},
                 healthBorder = "None",
-                healthBorderColor = {60 / 255, 60 / 255, 60 / 255},
+                healthBorderColor = {89 / 255, 89 / 255, 89 / 255, 1},
                 powerBorder = "None",
-                powerBorderColor = {60 / 255, 60 / 255, 60 / 255},
+                powerBorderColor = {89 / 255, 89 / 255, 89 / 255, 1},
                 castBarBorder = "BeautyCase",
-                castBarBorderColor = {60 / 255, 60 / 255, 60 / 255}
+                castBarBorderColor = {89 / 255, 89 / 255, 89 / 255, 1}
             },
             ["raidpet"] = {
                 border = "BeautyCase",
-                borderColor = {60 / 255, 60 / 255, 60 / 255},
+                borderColor = {89 / 255, 89 / 255, 89 / 255, 1},
                 healthBorder = "None",
-                healthBorderColor = {60 / 255, 60 / 255, 60 / 255},
+                healthBorderColor = {89 / 255, 89 / 255, 89 / 255, 1},
                 powerBorder = "None",
-                powerBorderColor = {60 / 255, 60 / 255, 60 / 255},
+                powerBorderColor = {89 / 255, 89 / 255, 89 / 255, 1},
                 castBarBorder = "BeautyCase",
-                castBarBorderColor = {60 / 255, 60 / 255, 60 / 255}
+                castBarBorderColor = {89 / 255, 89 / 255, 89 / 255, 1}
             },
             ["tank"] = {
                 border = "BeautyCase",
-                borderColor = {60 / 255, 60 / 255, 60 / 255},
+                borderColor = {89 / 255, 89 / 255, 89 / 255, 1},
                 healthBorder = "None",
-                healthBorderColor = {60 / 255, 60 / 255, 60 / 255},
+                healthBorderColor = {89 / 255, 89 / 255, 89 / 255, 1},
                 powerBorder = "None",
-                powerBorderColor = {60 / 255, 60 / 255, 60 / 255},
+                powerBorderColor = {89 / 255, 89 / 255, 89 / 255, 1},
                 castBarBorder = "BeautyCase",
-                castBarBorderColor = {60 / 255, 60 / 255, 60 / 255}
+                castBarBorderColor = {89 / 255, 89 / 255, 89 / 255, 1}
             }
         }
     },
@@ -255,7 +245,9 @@ P[addonName] = {
         disableLootRollConfirmation = true,
         disableLootBindConfirmation = false,
         disableVendorRefundWarning = true,
-        disableMailRefundWarning = true
+        disableMailRefundWarning = true,
+        autoInvite = true,
+        autoInvitePassword = "safari"
     },
     minimapButtonFrame = {
         enabled = true,
@@ -275,6 +267,10 @@ P[addonName] = {
         colors = {itemLevel = {220 / 255, 195 / 255, 30 / 255}}
     }
 }
+
+if E.db[addonName] == nil then
+    E.db[addonName] = P[addonName]
+end
 
 function Addon:InsertOptions()
     E.Options.args[addonName] = {
@@ -802,6 +798,31 @@ function Addon:InsertOptions()
                         end,
                         set = function(_, val)
                             E.db[addonName].automation.disableMailRefundWarning = val
+                        end
+                    },
+                    autoInvite = {
+                        type = "toggle",
+                        name = L["Auto Invite"],
+                        order = 21,
+                        width = "full",
+                        get = function()
+                            return E.db[addonName].automation.autoInvite
+                        end,
+                        set = function(_, val)
+                            E.db[addonName].automation.autoInvite = val
+                        end
+                    },
+                    autoInvitePassword = {
+                        type = "input",
+                        name = L["Auto Invite Password"],
+                        order = 22,
+                        width = "full",
+                        disabled = function() return not E.db[addonName].automation.autoInvite end,
+                        get = function()
+                            return E.db[addonName].automation.autoInvitePassword
+                        end,
+                        set = function(_, val)
+                            E.db[addonName].automation.autoInvitePassword = val
                         end
                     }
                 }

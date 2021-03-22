@@ -8,7 +8,7 @@ function Artwork:GetCloseButton(frame)
 end
 
 function Artwork:SkinCloseButton(button)
-    if not button or Artwork:IsCloseButtonRegistered(button) then
+    if not button or Addon:IsCloseButtonRegistered(button) then
         return
     end
 
@@ -16,11 +16,11 @@ function Artwork:SkinCloseButton(button)
     button.Background:SetAllPoints(button)
     Artwork:UpdateCloseButton(button)
 
-    Artwork:RegisterCloseButton(button)
+    Addon:RegisterCloseButton(button)
 end
 
 function Artwork:UpdateCloseButton(button)
-    local closeButtonAtlas = Artwork:GetCloseButtonBackgroundAtlas()
+    local closeButtonAtlas = Addon:GetCloseButtonBackgroundAtlas()
 
     if not E.db[addonName].artwork.enabled or not closeButtonAtlas then
         button.Background:Hide()

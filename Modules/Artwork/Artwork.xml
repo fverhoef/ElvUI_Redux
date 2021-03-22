@@ -1,8 +1,5 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
     <Script file="Init.lua"/>
-    <Script file="Atlas.lua"/>
-    <Script file="Registry.lua"/>
-    <Script file="Hooks.lua"/>
 
     <Script file="Auras.lua"/>
     <Script file="Background.lua"/>

@@ -4,17 +4,17 @@ local Artwork = Addon.Artwork
 local E, L, V, P, G = unpack(ElvUI)
 
 function Artwork:SkinNamePlate(nameplate)
-    if not nameplate or Artwork:IsNamePlateRegistered(nameplate) then
+    if not nameplate or Addon:IsNamePlateRegistered(nameplate) then
         return
     end
 
-    local healthBorderAtlas = Artwork:GetNamePlateHealthBorderAtlas()
+    local healthBorderAtlas = Addon:GetNamePlateHealthBorderAtlas()
     nameplate.Health.ArtworkBorder = Artwork:CreateBorder(nameplate.Health, borderAtlas, "ARTWORK")
 
-    local powerBorderAtlas = Artwork:GetNamePlatePowerBorderAtlas()
+    local powerBorderAtlas = Addon:GetNamePlatePowerBorderAtlas()
     nameplate.Power.ArtworkBorder = Artwork:CreateBorder(nameplate.Power, powerBorderAtlas, "ARTWORK")
 
-    local castBarBorderAtlas = Artwork:GetNamePlateCastBarBorderAtlas()
+    local castBarBorderAtlas = Addon:GetNamePlateCastBarBorderAtlas()
     nameplate.Castbar.ArtworkBorder = Artwork:CreateBorder(nameplate.Castbar, castBarBorderAtlas, "ARTWORK")
 
     if nameplate.Auras then
@@ -34,19 +34,19 @@ function Artwork:SkinNamePlate(nameplate)
     end
 
     Artwork:UpdateNamePlate(nameplate)
-    Artwork:RegisterNamePlate(nameplate)
+    Addon:RegisterNamePlate(nameplate)
 end
 
 function Artwork:UpdateNamePlate(nameplate)
-    local healthBorderAtlas = Artwork:GetNamePlateHealthBorderAtlas()
+    local healthBorderAtlas = Addon:GetNamePlateHealthBorderAtlas()
     Artwork:UpdateBorder(nameplate.Health.ArtworkBorder, healthBorderAtlas)
     Artwork:UpdateBorderColor(nameplate.Health.ArtworkBorder, E.db[addonName].artwork.namePlates.healthBorderColor)
 
-    local powerBorderAtlas = Artwork:GetNamePlatePowerBorderAtlas()
+    local powerBorderAtlas = Addon:GetNamePlatePowerBorderAtlas()
     Artwork:UpdateBorder(nameplate.Power.ArtworkBorder, powerBorderAtlas)
     Artwork:UpdateBorderColor(nameplate.Power.ArtworkBorder, E.db[addonName].artwork.namePlates.powerBorderColor)
 
-    local castBarBorderAtlas = Artwork:GetNamePlateCastBarBorderAtlas()
+    local castBarBorderAtlas = Addon:GetNamePlateCastBarBorderAtlas()
     Artwork:UpdateBorder(nameplate.Castbar.ArtworkBorder, castBarBorderAtlas)
     Artwork:UpdateBorderColor(nameplate.Castbar.ArtworkBorder, E.db[addonName].artwork.namePlates.castBarBorderColor)
 end

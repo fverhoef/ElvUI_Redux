@@ -5,7 +5,7 @@ local E, L, V, P, G = unpack(ElvUI)
 
 -- Frame Tabs
 function Artwork:SkinTab(tab, orientation)
-    if not tab or Artwork:IsTabRegistered(tab) then
+    if not tab or Addon:IsTabRegistered(tab) then
         return
     end
 
@@ -62,7 +62,7 @@ function Artwork:SkinTab(tab, orientation)
     end
 
     Artwork:UpdateTab(tab)
-    Artwork:RegisterTab(tab)
+    Addon:RegisterTab(tab)
 end
 
 function Artwork:UpdateTab(tab)
@@ -70,39 +70,16 @@ function Artwork:UpdateTab(tab)
         return
     end
 
-    local atlas = Artwork:GetFrameTabBorderAtlas()
+    local atlas = Addon:GetFrameTabBorderAtlas()
 
     Artwork:UpdateBorderColor(tab.ArtworkBorder, E.db[addonName].artwork.skins.frameTabBorderColor or {1, 1, 1})
 
     if not E.db[addonName].artwork.enabled or not atlas then
-        Artwork:EnablePixelBorders(tab)
+        tab:EnablePixelBorders()
         tab.ArtworkBorder:Hide()
-
-        if tab.originalPoint then
-            tab:ClearAllPoints()
-            tab:__SetPoint(unpack(tab.originalPoint))
-        end
     else
-        Artwork:DisablePixelBorders(tab)
+        tab:DisablePixelBorders()
         tab.ArtworkBorder:Show()
-
-        if tab.originalPoint[2] == tab:GetParent() then
-            local parentFrame = Artwork:GetRegisteredParentFrame(tab)
-            if parentFrame then
-                local frameBorderAtlas = Artwork:GetFrameBorderAtlas(parentFrame)
-
-                tab:ClearAllPoints()
-                if frameBorderAtlas and tab.orientation == "DOWN" then
-                    tab:__SetPoint(tab.originalPoint[1], tab.originalPoint[2], tab.originalPoint[3], tab.originalPoint[4],
-                                   tab.originalPoint[5] - frameBorderAtlas.scale * frameBorderAtlas.offset[2] + 3)
-                elseif frameBorderAtlas and tab.orientation == "RIGHT" then
-                    tab:__SetPoint(tab.originalPoint[1], tab.originalPoint[2], tab.originalPoint[3], tab.originalPoint[4] - frameBorderAtlas.scale * frameBorderAtlas.offset[1] - 3,
-                                   tab.originalPoint[5])
-                else
-                    tab:__SetPoint(unpack(tab.originalPoint))
-                end
-            end
-        end
 
         local parent = tab.backdrop or tab
         local border = tab.ArtworkBorder
@@ -111,7 +88,7 @@ function Artwork:UpdateTab(tab)
             tab.atlas = atlas
 
             local offsetX, offsetY = atlas.offset[1], atlas.offset[2]
-            border:SetPoint("TOPLEFT", parent, "TOPLEFT", offsetX + (tab.orientation == "RIGHT" and 4 or 0), offsetY - (tab.orientation == "DOWN" and 6 or -4))
+            border:SetPoint("TOPLEFT", parent, "TOPLEFT", offsetX + (tab.orientation == "RIGHT" and 4 or 0), offsetY - (tab.orientation == "DOWN" and 2 or -4))
             border:SetPoint("BOTTOMRIGHT", parent, "BOTTOMRIGHT", -offsetX + (tab.orientation == "RIGHT" and 4 or 0), -offsetY - (tab.orientation == "DOWN" and 2 or 4))
 
             border.TopLeft:SetSize(atlas.topLeft[2], atlas.topLeft[3])

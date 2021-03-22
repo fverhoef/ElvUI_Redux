@@ -6,7 +6,7 @@ local UF = E:GetModule("UnitFrames")
 
 function Artwork:SkinUnitFrame(unit, group)
     local unitFrame = type(unit) == "table" and unit or UF[unit]
-    if not unitFrame or Artwork:IsUnitFrameRegistered(unitFrame) then
+    if not unitFrame or Addon:IsUnitFrameRegistered(unitFrame) then
         return
     end
 
@@ -14,27 +14,24 @@ function Artwork:SkinUnitFrame(unit, group)
     unitFrame.group = unitFrame.group or group
     unitFrame.artworkKey = unitFrame.group or unitFrame.unit
 
-    local borderAtlas = Artwork:GetUnitFrameBorderAtlas(unitFrame.artworkKey)
+    local borderAtlas = Addon:GetUnitFrameBorderAtlas(unitFrame.artworkKey)
     unitFrame.ArtworkBorder = Artwork:CreateBorder(unitFrame, borderAtlas)
     unitFrame.ArtworkBorder:SetFrameLevel(math.max(unitFrame.Health:GetFrameLevel(), unitFrame.Power and unitFrame.Power:GetFrameLevel() or 0) + 1)
 
     if unitFrame.Health then
-        local healthBorderAtlas = Artwork:GetUnitFrameHealthBorderAtlas(unitFrame.artworkKey)
+        local healthBorderAtlas = Addon:GetUnitFrameHealthBorderAtlas(unitFrame.artworkKey)
         unitFrame.Health.ArtworkBorder = Artwork:CreateBorder(unitFrame.Health, healthBorderAtlas)
         unitFrame.Health.ArtworkBorder:SetFrameLevel(unitFrame.Health:GetFrameLevel() + 1)
     end
 
     if unitFrame.Power then
-        local powerBorderAtlas = Artwork:GetUnitFramePowerBorderAtlas(unitFrame.artworkKey)
+        local powerBorderAtlas = Addon:GetUnitFramePowerBorderAtlas(unitFrame.artworkKey)
         unitFrame.Power.ArtworkBorder = Artwork:CreateBorder(unitFrame.Power, powerBorderAtlas, "ARTWORK")
         unitFrame.Power.ArtworkBorder:SetFrameLevel(unitFrame.Power:GetFrameLevel() + 1)
-        unitFrame.Power.ArtworkSeparator = Artwork:CreateSeparator(unitFrame.Power, powerBorderAtlas or borderAtlas, "Horizontal")
-        unitFrame.Power.ArtworkSeparator:SetFrameLevel(unitFrame.Power:GetFrameLevel() + 1)
-        unitFrame.Power.ArtworkSeparator:Hide()
     end
 
     if unitFrame.Castbar then
-        local castBarBorderAtlas = Artwork:GetUnitFrameCastBarBorderAtlas(unitFrame.artworkKey)
+        local castBarBorderAtlas = Addon:GetUnitFrameCastBarBorderAtlas(unitFrame.artworkKey)
         unitFrame.Castbar.ArtworkBorder = Artwork:CreateBorder(unitFrame.Castbar.Holder, castBarBorderAtlas)
         unitFrame.Castbar.ArtworkBorder:SetFrameLevel(unitFrame.Castbar:GetFrameLevel() + 5)
 
@@ -44,7 +41,7 @@ function Artwork:SkinUnitFrame(unit, group)
 
     local classBar = unitFrame.ClassBar and unitFrame[unitFrame.ClassBar]
     if classBar then
-        local classBarBorderAtlas = Artwork:GetUnitFrameClassBarBorderAtlas(unitFrame.artworkKey)
+        local classBarBorderAtlas = Addon:GetUnitFrameClassBarBorderAtlas(unitFrame.artworkKey)
         classBar.ArtworkBorder = Artwork:CreateBorder(unitFrame.ClassBarHolder, classBarBorderAtlas, "ARTWORK")
         classBar.ArtworkBorder:SetFrameLevel(classBar:GetFrameLevel() + 1)
     end
@@ -76,7 +73,7 @@ function Artwork:SkinUnitFrame(unit, group)
     end
 
     Artwork:UpdateUnitFrame(unitFrame)
-    Artwork:RegisterUnitFrame(unitFrame)
+    Addon:RegisterUnitFrame(unitFrame)
 end
 
 function Artwork:UpdateUnitFrame(unitFrame)
@@ -84,13 +81,13 @@ function Artwork:UpdateUnitFrame(unitFrame)
         return
     end
 
-    local borderAtlas = Artwork:GetUnitFrameBorderAtlas(unitFrame.artworkKey)
+    local borderAtlas = Addon:GetUnitFrameBorderAtlas(unitFrame.artworkKey)
     local borderColor = E.db[addonName].artwork.unitFrames[unitFrame.artworkKey].borderColor
 
     Artwork:UpdateBorder(unitFrame.ArtworkBorder, borderAtlas)
     Artwork:UpdateBorderColor(unitFrame.ArtworkBorder, borderColor)
 
-    local healthBorderAtlas = Artwork:GetUnitFrameHealthBorderAtlas(unitFrame.artworkKey)
+    local healthBorderAtlas = Addon:GetUnitFrameHealthBorderAtlas(unitFrame.artworkKey)
     local healthBorderColor = E.db[addonName].artwork.unitFrames[unitFrame.artworkKey].healthBorderColor
 
     if unitFrame.Health then
@@ -102,39 +99,34 @@ function Artwork:UpdateUnitFrame(unitFrame)
         Artwork:UpdateBorderColor(unitFrame.Health.ArtworkBorder, healthBorderColor)
 
         if not E.db[addonName].artwork.enabled or not (borderAtlas or healthBorderAtlas) then
-            Artwork:EnablePixelBorders(unitFrame.Health)
+            unitFrame.Health:EnablePixelBorders()
         else
-            Artwork:DisablePixelBorders(unitFrame.Health)
+            unitFrame.Health:DisablePixelBorders()
         end
+
+        --E:SetBackdropBorderTexture(unitFrame.Health, Addon.media.textures.borders.beautycase)
+        --E:SetBackdropBorderSize(unitFrame.Health, 4)
     end
 
     if unitFrame.Power then
-        local powerBorderAtlas = Artwork:GetUnitFramePowerBorderAtlas(unitFrame.artworkKey)
+        local powerBorderAtlas = Addon:GetUnitFramePowerBorderAtlas(unitFrame.artworkKey)
         local powerBorderColor = E.db[addonName].artwork.unitFrames[unitFrame.artworkKey].powerBorderColor
 
         Artwork:UpdateBorder(unitFrame.Power.ArtworkBorder, powerBorderAtlas)
         Artwork:UpdateBorderColor(unitFrame.Power.ArtworkBorder, powerBorderColor)
 
-        if not E.db[addonName].artwork.enabled or not (borderAtlas or powerBorderAtlas) then
-            Artwork:EnablePixelBorders(unitFrame.Power)
-            unitFrame.Power.ArtworkSeparator:Hide()
+        if not E.db[addonName].artwork.enabled or not (borderAtlas or powerBorderAtlas) or (not unitFrame.POWERBAR_DETACHED and not unitFrame.USE_MINI_POWERBAR) then
+            unitFrame.Power:EnablePixelBorders()
         else
-            if powerBorderAtlas or borderAtlas then
-                Artwork:DisablePixelBorders(unitFrame.Power)
-                if not unitFrame.POWERBAR_DETACHED and not unitFrame.USE_MINI_POWERBAR then
-                    Artwork:UpdateSeparator(unitFrame.Power.ArtworkSeparator, powerBorderAtlas or healthBorderAtlas or borderAtlas, 0.25, 0, 6)
-                    Artwork:UpdateSeparatorColor(unitFrame.Power.ArtworkSeparator, powerBorderColor or (healthBorderAtlas and healthBorderColor) or borderColor)
-                    unitFrame.Power.ArtworkSeparator:Show()
-                end
-            else
-                Artwork:EnablePixelBorders(unitFrame.Power)
-                unitFrame.Power.ArtworkSeparator:Hide()
-            end
+            unitFrame.Power:DisablePixelBorders()
         end
+
+        --E:SetBackdropBorderTexture(unitFrame.Power, Addon.media.textures.borders.beautycase)
+        --E:SetBackdropBorderSize(unitFrame.Power, 4)
     end
 
     if unitFrame.Castbar then
-        local castBarBorderAtlas = Artwork:GetUnitFrameCastBarBorderAtlas(unitFrame.artworkKey)
+        local castBarBorderAtlas = Addon:GetUnitFrameCastBarBorderAtlas(unitFrame.artworkKey)
         local castBarBorderColor = E.db[addonName].artwork.unitFrames[unitFrame.artworkKey].castBarBorderColor
 
         Artwork:UpdateBorder(unitFrame.Castbar.ArtworkBorder, castBarBorderAtlas)
@@ -152,7 +144,7 @@ function Artwork:UpdateUnitFrame(unitFrame)
 
     local classBar = unitFrame.ClassBar and unitFrame[unitFrame.ClassBar]
     if classBar then
-        local classBarBorderAtlas = Artwork:GetUnitFrameClassBarBorderAtlas(unitFrame.artworkKey)
+        local classBarBorderAtlas = Addon:GetUnitFrameClassBarBorderAtlas(unitFrame.artworkKey)
         local classBarBorderColor = E.db[addonName].artwork.unitFrames[unitFrame.artworkKey].classBarBorderColor or {1, 1, 1}
 
         Artwork:UpdateBorder(classBar.ArtworkBorder, classBarBorderAtlas)
@@ -192,14 +184,14 @@ end
 
 function Artwork:SkinUnitFrameGroup(group)
     local header = UF[group]
-    if not header or Artwork:IsGroupHeaderRegistered(header) then
+    if not header or Addon:IsGroupHeaderRegistered(header) then
         return
     end
 
     local name = E:StringTitle(group)
     if UF["Update_" .. name .. "Frames"] then
         Artwork:SecureHook(UF, "Update_" .. name .. "Frames", function(self, frame, db)
-            if Artwork:IsUnitFrameRegistered(frame) then
+            if Addon:IsUnitFrameRegistered(frame) then
                 Artwork:UpdateUnitFrame(frame)
             else
                 Artwork:SkinUnitFrame(frame, group)
@@ -207,7 +199,7 @@ function Artwork:SkinUnitFrameGroup(group)
         end)
     end
 
-    Artwork:RegisterGroupHeader(header)
+    Addon:RegisterGroupHeader(header)
 end
 
 function Artwork:ResizeFrameGlow(glow, size)

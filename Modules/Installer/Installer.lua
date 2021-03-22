@@ -72,50 +72,113 @@ function Installer:SetupActionBars()
     E.db["actionbar"]["font"] = DEFAULT_FONT
     E.db["actionbar"]["fontOutline"] = "OUTLINE"
 
+    E.db["actionbar"]["bar1"]["enabled"] = true
     E.db["actionbar"]["bar1"]["buttons"] = 12
     E.db["actionbar"]["bar1"]["buttonsPerRow"] = 6
     E.db["actionbar"]["bar1"]["buttonsize"] = 38
     E.db["actionbar"]["bar1"]["point"] = "TOPLEFT"
     E.db["actionbar"]["bar1"]["backdrop"] = false
+    E.db["actionbar"]["bar1"]["countFont"] = DEFAULT_FONT
+    E.db["actionbar"]["bar1"]["countFontOutline"] = "OUTLINE"
+    E.db["actionbar"]["bar1"]["hotkeyFont"] = DEFAULT_FONT
+    E.db["actionbar"]["bar1"]["hotkeyFontOutline"] = "OUTLINE"
 
     E.db["actionbar"]["bar2"]["enabled"] = false
+    E.db["actionbar"]["bar2"]["countFont"] = DEFAULT_FONT
+    E.db["actionbar"]["bar2"]["countFontOutline"] = "OUTLINE"
+    E.db["actionbar"]["bar2"]["hotkeyFont"] = DEFAULT_FONT
+    E.db["actionbar"]["bar2"]["hotkeyFontOutline"] = "OUTLINE"
 
+    E.db["actionbar"]["bar3"]["enabled"] = true
     E.db["actionbar"]["bar3"]["buttons"] = 12
     E.db["actionbar"]["bar3"]["buttonsPerRow"] = 1
     E.db["actionbar"]["bar3"]["mouseover"] = true
     E.db["actionbar"]["bar3"]["point"] = "TOPLEFT"
     E.db["actionbar"]["bar3"]["backdrop"] = false
+    E.db["actionbar"]["bar3"]["countFont"] = DEFAULT_FONT
+    E.db["actionbar"]["bar3"]["countFontOutline"] = "OUTLINE"
+    E.db["actionbar"]["bar3"]["hotkeyFont"] = DEFAULT_FONT
+    E.db["actionbar"]["bar3"]["hotkeyFontOutline"] = "OUTLINE"
 
+    E.db["actionbar"]["bar4"]["enabled"] = true
     E.db["actionbar"]["bar4"]["buttons"] = 12
     E.db["actionbar"]["bar4"]["buttonsPerRow"] = 1
     E.db["actionbar"]["bar4"]["mouseover"] = true
     E.db["actionbar"]["bar4"]["point"] = "TOPLEFT"
     E.db["actionbar"]["bar4"]["backdrop"] = false
+    E.db["actionbar"]["bar4"]["countFont"] = DEFAULT_FONT
+    E.db["actionbar"]["bar4"]["countFontOutline"] = "OUTLINE"
+    E.db["actionbar"]["bar4"]["hotkeyFont"] = DEFAULT_FONT
+    E.db["actionbar"]["bar4"]["hotkeyFontOutline"] = "OUTLINE"
 
+    E.db["actionbar"]["bar5"]["enabled"] = true
     E.db["actionbar"]["bar5"]["buttons"] = 12
     E.db["actionbar"]["bar5"]["buttonsPerRow"] = 12
     E.db["actionbar"]["bar5"]["mouseover"] = false
     E.db["actionbar"]["bar5"]["point"] = "TOPLEFT"
     E.db["actionbar"]["bar5"]["backdrop"] = false
+    E.db["actionbar"]["bar5"]["countFont"] = DEFAULT_FONT
+    E.db["actionbar"]["bar5"]["countFontOutline"] = "OUTLINE"
+    E.db["actionbar"]["bar5"]["hotkeyFont"] = DEFAULT_FONT
+    E.db["actionbar"]["bar5"]["hotkeyFontOutline"] = "OUTLINE"
 
+    E.db["actionbar"]["bar6"]["enabled"] = true
     E.db["actionbar"]["bar6"]["buttons"] = 12
     E.db["actionbar"]["bar6"]["buttonsPerRow"] = 12
     E.db["actionbar"]["bar6"]["mouseover"] = false
     E.db["actionbar"]["bar6"]["point"] = "TOPLEFT"
     E.db["actionbar"]["bar6"]["backdrop"] = false
+    E.db["actionbar"]["bar6"]["countFont"] = DEFAULT_FONT
+    E.db["actionbar"]["bar6"]["countFontOutline"] = "OUTLINE"
+    E.db["actionbar"]["bar6"]["hotkeyFont"] = DEFAULT_FONT
+    E.db["actionbar"]["bar6"]["hotkeyFontOutline"] = "OUTLINE"
+
+    E.db["actionbar"]["bar7"]["enabled"] = false
+    E.db["actionbar"]["bar7"]["countFont"] = DEFAULT_FONT
+    E.db["actionbar"]["bar7"]["countFontOutline"] = "OUTLINE"
+    E.db["actionbar"]["bar7"]["hotkeyFont"] = DEFAULT_FONT
+    E.db["actionbar"]["bar7"]["hotkeyFontOutline"] = "OUTLINE"
+
+    E.db["actionbar"]["bar8"]["enabled"] = false
+    E.db["actionbar"]["bar8"]["countFont"] = DEFAULT_FONT
+    E.db["actionbar"]["bar8"]["countFontOutline"] = "OUTLINE"
+    E.db["actionbar"]["bar8"]["hotkeyFont"] = DEFAULT_FONT
+    E.db["actionbar"]["bar8"]["hotkeyFontOutline"] = "OUTLINE"
+
+    E.db["actionbar"]["bar9"]["enabled"] = false
+    E.db["actionbar"]["bar9"]["countFont"] = DEFAULT_FONT
+    E.db["actionbar"]["bar9"]["countFontOutline"] = "OUTLINE"
+    E.db["actionbar"]["bar9"]["hotkeyFont"] = DEFAULT_FONT
+    E.db["actionbar"]["bar9"]["hotkeyFontOutline"] = "OUTLINE"
 
     E.db["actionbar"]["barPet"]["buttonsPerRow"] = 10
     E.db["actionbar"]["barPet"]["point"] = "TOPLEFT"
     E.db["actionbar"]["barPet"]["backdrop"] = false
+    E.db["actionbar"]["barPet"]["countFont"] = DEFAULT_FONT
+    E.db["actionbar"]["barPet"]["countFontOutline"] = "OUTLINE"
+    E.db["actionbar"]["barPet"]["hotkeyFont"] = DEFAULT_FONT
+    E.db["actionbar"]["barPet"]["hotkeyFontOutline"] = "OUTLINE"
 end
 
 function Installer:SetupAuras()
     E.db["auras"]["font"] = DEFAULT_FONT
     E.db["auras"]["fontOutline"] = "OUTLINE"
-    E.db["auras"]["debuffs"]["countFontSize"] = 12
-    E.db["auras"]["debuffs"]["durationFontSize"] = 12
+
+    E.db["auras"]["buffs"]["countFont"] = DEFAULT_FONT
+    E.db["auras"]["buffs"]["countFontOutline"] = "OUTLINE"
     E.db["auras"]["buffs"]["countFontSize"] = 12
+    E.db["auras"]["buffs"]["timeFont"] = DEFAULT_FONT
+    E.db["auras"]["buffs"]["timeFontOutline"] = "OUTLINE"
+    E.db["auras"]["buffs"]["timeFontSize"] = 12
     E.db["auras"]["buffs"]["durationFontSize"] = 12
+
+    E.db["auras"]["debuffs"]["countFont"] = DEFAULT_FONT
+    E.db["auras"]["debuffs"]["countFontOutline"] = "OUTLINE"
+    E.db["auras"]["debuffs"]["countFontSize"] = 12
+    E.db["auras"]["debuffs"]["timeFont"] = DEFAULT_FONT
+    E.db["auras"]["debuffs"]["timeFontOutline"] = "OUTLINE"
+    E.db["auras"]["debuffs"]["timeFontSize"] = 12
+    E.db["auras"]["debuffs"]["durationFontSize"] = 12
 end
 
 function Installer:SetupBags()
@@ -222,8 +285,19 @@ function Installer:SetupUnitFrames()
         },
         ["CustomHealth"] = {
             ["attachTextTo"] = "Health",
+            ["xOffset"] = -5,
+            ["text_format"] = "[health:current:shortvalue]",
+            ["yOffset"] = 0,
+            ["font"] = DEFAULT_FONT,
+            ["justifyH"] = "RIGHT",
+            ["fontOutline"] = "OUTLINE",
+            ["enable"] = true,
+            ["size"] = 14
+        },
+        ["CustomHealthPercent"] = {
+            ["attachTextTo"] = "Health",
             ["xOffset"] = 0,
-            ["text_format"] = "[health:current-percent]",
+            ["text_format"] = "[health:percent]",
             ["yOffset"] = 22,
             ["font"] = DEFAULT_FONT,
             ["justifyH"] = "RIGHT",
@@ -248,7 +322,7 @@ function Installer:SetupUnitFrames()
         ["CustomName"] = {
             ["attachTextTo"] = "Frame",
             ["xOffset"] = -2,
-            ["text_format"] = "[namecolor][name:medium] [difficultycolor][level][shortclassification]",
+            ["text_format"] = "[namecolor][name:long] [difficultycolor][level][shortclassification]",
             ["yOffset"] = 20,
             ["font"] = DEFAULT_FONT,
             ["justifyH"] = "RIGHT",
@@ -269,8 +343,19 @@ function Installer:SetupUnitFrames()
         },
         ["CustomHealth"] = {
             ["attachTextTo"] = "Health",
+            ["xOffset"] = 5,
+            ["text_format"] = "[health:current:shortvalue]",
+            ["yOffset"] = 0,
+            ["font"] = DEFAULT_FONT,
+            ["justifyH"] = "LEFT",
+            ["fontOutline"] = "OUTLINE",
+            ["enable"] = true,
+            ["size"] = 14
+        },
+        ["CustomHealthPercent"] = {
+            ["attachTextTo"] = "Health",
             ["xOffset"] = 2,
-            ["text_format"] = "[health:current-percent]",
+            ["text_format"] = "[health:percent]",
             ["yOffset"] = 16,
             ["font"] = DEFAULT_FONT,
             ["justifyH"] = "LEFT",
@@ -368,7 +453,7 @@ function Installer:SetupMovers()
     E.db["movers"]["ClassBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,346"
     E.db["movers"]["ElvUF_TargetMover"] = "BOTTOM,ElvUIParent,BOTTOM,290,284"
     E.db["movers"]["ElvUF_TargetCastbarMover"] = "BOTTOM,ElvUIParent,BOTTOM,290,264"
-    E.db["movers"]["ElvUF_TargetTargetMover"] = "BOTTOM,ElvUIParent,BOTTOM,235,241"
+    E.db["movers"]["ElvUF_TargetTargetMover"] = "BOTTOM,ElvUIParent,BOTTOM,235,233"
     E.db["movers"]["ElvUF_PetMover"] = "BOTTOM,ElvUIParent,BOTTOM,-345,247"
     E.db["movers"]["ElvUF_PetCastbarMover"] = "BOTTOM,ElvUIParent,BOTTOM,-345,227"
     E.db["movers"]["ElvUF_PartyMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,460,363"

@@ -74,7 +74,7 @@ function Shadows:CreateShadows()
     end
 
     -- Minimap
-    Shadows:CreateShadow(_G.MMHolder)
+    Shadows:CreateShadow(_G.Minimap)
 
     -- Mirror Timers
     for i = 1, 3 do
@@ -230,7 +230,7 @@ function Shadows:CreateShadow(frame, config, isHidden)
         frame.shadow = (frame.backdrop or frame):CreateShadow(nil, true)
         frame.shadow.config = config
         frame.shadow.isHidden = frame.shadow.isHidden or ishidden
-        Shadows:RegisterShadow(frame.shadow)
+        Addon:RegisterShadow(frame.shadow)
         Shadows:UpdateShadow(frame.shadow)
     end
 end
@@ -270,7 +270,7 @@ function Shadows:UpdateShadows()
         end
     end
 
-    for shadow, _ in pairs(Shadows.registeredShadows) do
+    for shadow, _ in pairs(Addon.registry.shadows) do
         Shadows:UpdateShadow(shadow)
     end
 end

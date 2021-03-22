@@ -1,9 +1,8 @@
 local addonName, addonTable = ...
 local Addon = addonTable[1]
-local Artwork = Addon.Artwork
 local E, L, V, P, G = unpack(ElvUI)
 
-Artwork.atlas = {
+Addon.atlas = {
     backgrounds = {
         ["Alliance"] = Addon.media.textures.backgrounds.alliance,
         ["Horde"] = Addon.media.textures.backgrounds.horde,
@@ -18,90 +17,114 @@ Artwork.atlas = {
     },
     borders = {
         ["BeautyCase"] = {
-            scale = 0.5,
+            scale = 1,
             offset = {0, 0},
-            topLeft = {Addon.media.textures.borders.beautyCaseTopLeft, 8, 8, 0, 1, 0, 1},
-            topRight = {Addon.media.textures.borders.beautyCaseTopLeft, 8, 8, 1, 0, 0, 1},
-            bottomLeft = {Addon.media.textures.borders.beautyCaseBottomLeft, 8, 8, 0, 1, 0, 1},
-            bottomRight = {Addon.media.textures.borders.beautyCaseBottomLeft, 8, 8, 1, 0, 0, 1},
-            top = {Addon.media.textures.borders.beautyCaseTop, 32, 8, 0, 1, 0, 1},
-            bottom = {Addon.media.textures.borders.beautyCaseBottom, 32, 8, 0, 1, 0, 1},
-            left = {Addon.media.textures.borders.beautyCaseLeft, 8, 32, 0, 1, 0, 1},
-            right = {Addon.media.textures.borders.beautyCaseLeft, 8, 32, 1, 0, 0, 1}
+            topLeft = {Addon.media.textures.borders.beautycase, 4, 4, 0, 8 / 64, 0, 8 / 64},
+            topRight = {Addon.media.textures.borders.beautycase, 4, 4, 56 / 64, 1, 0, 8 / 64},
+            bottomLeft = {Addon.media.textures.borders.beautycase, 4, 4, 0, 8 / 64, 56 / 64, 1},
+            bottomRight = {Addon.media.textures.borders.beautycase, 4, 4, 56 / 64, 1, 56 / 64, 1},
+            top = {Addon.media.textures.borders.beautycase, 32, 4, 8 / 64, 56 / 64, 0, 8 / 64},
+            bottom = {Addon.media.textures.borders.beautycase, 32, 4, 8 / 64, 56 / 64, 56 / 64, 1},
+            left = {Addon.media.textures.borders.beautycase, 4, 32, 0, 8 / 64, 8 / 64, 56 / 64},
+            right = {Addon.media.textures.borders.beautycase, 4, 32, 56 / 64, 1, 8 / 64, 56 / 64}
         },
-        ["Clean"] = {
-            scale = 0.5,
+        ["Cainyx"] = {
+            scale = 1,
             offset = {0, 0},
-            topLeft = {Addon.media.textures.borders.cleanTopLeft, 8, 8, 0, 1, 0, 1},
-            topRight = {Addon.media.textures.borders.cleanTopRight, 8, 8, 0, 1, 0, 1},
-            bottomLeft = {Addon.media.textures.borders.cleanBottomLeft, 8, 8, 0, 1, 0, 1},
-            bottomRight = {Addon.media.textures.borders.cleanBottomRight, 8, 8, 0, 1, 0, 1},
-            top = {Addon.media.textures.borders.cleanTop, 32, 8, 0, 1, 0, 1},
-            bottom = {Addon.media.textures.borders.cleanBottom, 32, 8, 0, 1, 0, 1},
-            left = {Addon.media.textures.borders.cleanLeft, 8, 32, 0, 1, 0, 1},
-            right = {Addon.media.textures.borders.cleanRight, 8, 32, 0, 1, 0, 1}
+            topLeft = {Addon.media.textures.borders.cainyx, 4, 4, 0, 8 / 64, 0, 8 / 64},
+            topRight = {Addon.media.textures.borders.cainyx, 4, 4, 56 / 64, 1, 0, 8 / 64},
+            bottomLeft = {Addon.media.textures.borders.cainyx, 4, 4, 0, 8 / 64, 56 / 64, 1},
+            bottomRight = {Addon.media.textures.borders.cainyx, 4, 4, 56 / 64, 1, 56 / 64, 1},
+            top = {Addon.media.textures.borders.cainyx, 32, 4, 8 / 64, 56 / 64, 0, 8 / 64},
+            bottom = {Addon.media.textures.borders.cainyx, 32, 4, 8 / 64, 56 / 64, 56 / 64, 1},
+            left = {Addon.media.textures.borders.cainyx, 4, 32, 0, 8 / 64, 8 / 64, 56 / 64},
+            right = {Addon.media.textures.borders.cainyx, 4, 32, 56 / 64, 1, 8 / 64, 56 / 64}
+        },
+        ["Caith"] = {
+            scale = 1,
+            offset = {0, 0},
+            topLeft = {Addon.media.textures.borders.caith, 4, 4, 0, 8 / 64, 0, 8 / 64},
+            topRight = {Addon.media.textures.borders.caith, 4, 4, 56 / 64, 1, 0, 8 / 64},
+            bottomLeft = {Addon.media.textures.borders.caith, 4, 4, 0, 8 / 64, 56 / 64, 1},
+            bottomRight = {Addon.media.textures.borders.caith, 4, 4, 56 / 64, 1, 56 / 64, 1},
+            top = {Addon.media.textures.borders.caith, 32, 4, 8 / 64, 56 / 64, 0, 8 / 64},
+            bottom = {Addon.media.textures.borders.caith, 32, 4, 8 / 64, 56 / 64, 56 / 64, 1},
+            left = {Addon.media.textures.borders.caith, 4, 32, 0, 8 / 64, 8 / 64, 56 / 64},
+            right = {Addon.media.textures.borders.caith, 4, 32, 56 / 64, 1, 8 / 64, 56 / 64}
+        },
+        ["Diablo"] = {
+            scale = 1,
+            offset = {0, 0},
+            topLeft = {Addon.media.textures.borders.diablo, 4, 4, 0, 8 / 64, 0, 8 / 64},
+            topRight = {Addon.media.textures.borders.diablo, 4, 4, 56 / 64, 1, 0, 8 / 64},
+            bottomLeft = {Addon.media.textures.borders.diablo, 4, 4, 0, 8 / 64, 56 / 64, 1},
+            bottomRight = {Addon.media.textures.borders.diablo, 4, 4, 56 / 64, 1, 56 / 64, 1},
+            top = {Addon.media.textures.borders.diablo, 32, 4, 8 / 64, 56 / 64, 0, 8 / 64},
+            bottom = {Addon.media.textures.borders.diablo, 32, 4, 8 / 64, 56 / 64, 56 / 64, 1},
+            left = {Addon.media.textures.borders.diablo, 4, 32, 0, 8 / 64, 8 / 64, 56 / 64},
+            right = {Addon.media.textures.borders.diablo, 4, 32, 56 / 64, 1, 8 / 64, 56 / 64}
+        },
+        ["Entropy"] = {
+            scale = 1,
+            offset = {0, 0},
+            topLeft = {Addon.media.textures.borders.entropy, 4, 4, 0, 8 / 64, 0, 8 / 64},
+            topRight = {Addon.media.textures.borders.entropy, 4, 4, 56 / 64, 1, 0, 8 / 64},
+            bottomLeft = {Addon.media.textures.borders.entropy, 4, 4, 0, 8 / 64, 56 / 64, 1},
+            bottomRight = {Addon.media.textures.borders.entropy, 4, 4, 56 / 64, 1, 56 / 64, 1},
+            top = {Addon.media.textures.borders.entropy, 32, 4, 8 / 64, 56 / 64, 0, 8 / 64},
+            bottom = {Addon.media.textures.borders.entropy, 32, 4, 8 / 64, 56 / 64, 56 / 64, 1},
+            left = {Addon.media.textures.borders.entropy, 4, 32, 0, 8 / 64, 8 / 64, 56 / 64},
+            right = {Addon.media.textures.borders.entropy, 4, 32, 56 / 64, 1, 8 / 64, 56 / 64}
         },
         ["Goldpaw"] = {
-            scale = 0.5,
+            scale = 1,
             offset = {0, 0},
-            topLeft = {Addon.media.textures.borders.goldpawTopLeft, 8, 8, 0, 1, 0, 1},
-            topRight = {Addon.media.textures.borders.goldpawTopLeft, 8, 8, 1, 0, 0, 1},
-            bottomLeft = {Addon.media.textures.borders.goldpawBottomLeft, 8, 8, 0, 1, 0, 1},
-            bottomRight = {Addon.media.textures.borders.goldpawBottomLeft, 8, 8, 1, 0, 0, 1},
-            top = {Addon.media.textures.borders.goldpawTop, 32, 8, 0, 1, 0, 1},
-            bottom = {Addon.media.textures.borders.goldpawBottom, 32, 8, 0, 1, 0, 1},
-            left = {Addon.media.textures.borders.goldpawLeft, 8, 32, 0, 1, 0, 1},
-            right = {Addon.media.textures.borders.goldpawLeft, 8, 32, 1, 0, 0, 1}
+            topLeft = {Addon.media.textures.borders.goldpaw, 4, 4, 0, 8 / 64, 0, 8 / 64},
+            topRight = {Addon.media.textures.borders.goldpaw, 4, 4, 56 / 64, 1, 0, 8 / 64},
+            bottomLeft = {Addon.media.textures.borders.goldpaw, 4, 4, 0, 8 / 64, 56 / 64, 1},
+            bottomRight = {Addon.media.textures.borders.goldpaw, 4, 4, 56 / 64, 1, 56 / 64, 1},
+            top = {Addon.media.textures.borders.goldpaw, 32, 4, 8 / 64, 56 / 64, 0, 8 / 64},
+            bottom = {Addon.media.textures.borders.goldpaw, 32, 4, 8 / 64, 56 / 64, 56 / 64, 1},
+            left = {Addon.media.textures.borders.goldpaw, 4, 32, 0, 8 / 64, 8 / 64, 56 / 64},
+            right = {Addon.media.textures.borders.goldpaw, 4, 32, 56 / 64, 1, 8 / 64, 56 / 64}
         },
         ["Onyx"] = {
-            scale = 0.5,
+            scale = 1,
             offset = {0, 0},
-            topLeft = {Addon.media.textures.borders.onyxTopLeft, 8, 8, 0, 1, 0, 1},
-            topRight = {Addon.media.textures.borders.onyxTopLeft, 8, 8, 1, 0, 0, 1},
-            bottomLeft = {Addon.media.textures.borders.onyxBottomLeft, 8, 8, 0, 1, 0, 1},
-            bottomRight = {Addon.media.textures.borders.onyxBottomLeft, 8, 8, 1, 0, 0, 1},
-            top = {Addon.media.textures.borders.onyxTop, 32, 8, 0, 1, 0, 1},
-            bottom = {Addon.media.textures.borders.onyxBottom, 32, 8, 0, 1, 0, 1},
-            left = {Addon.media.textures.borders.onyxLeft, 8, 32, 0, 1, 0, 1},
-            right = {Addon.media.textures.borders.onyxLeft, 8, 32, 1, 0, 0, 1}
-        },
-        ["Renaitre (Square)"] = {
-            scale = 0.5,
-            offset = {0, 0},
-            topLeft = {Addon.media.textures.borders.renaitreSquareThinTopLeft, 8, 8, 0, 1, 0, 1},
-            topRight = {Addon.media.textures.borders.renaitreSquareThinTopLeft, 8, 8, 1, 0, 0, 1},
-            bottomLeft = {Addon.media.textures.borders.renaitreSquareThinBottomLeft, 8, 8, 0, 1, 0, 1},
-            bottomRight = {Addon.media.textures.borders.renaitreSquareThinBottomLeft, 8, 8, 1, 0, 0, 1},
-            top = {Addon.media.textures.borders.renaitreSquareThinTop, 32, 8, 0, 1, 0, 1},
-            bottom = {Addon.media.textures.borders.renaitreSquareThinBottom, 32, 8, 0, 1, 0, 1},
-            left = {Addon.media.textures.borders.renaitreSquareThinLeft, 8, 32, 0, 1, 0, 1},
-            right = {Addon.media.textures.borders.renaitreSquareThinLeft, 8, 32, 1, 0, 0, 1}
+            topLeft = {Addon.media.textures.borders.onyx, 4, 4, 0, 8 / 64, 0, 8 / 64},
+            topRight = {Addon.media.textures.borders.onyx, 4, 4, 56 / 64, 1, 0, 8 / 64},
+            bottomLeft = {Addon.media.textures.borders.onyx, 4, 4, 0, 8 / 64, 56 / 64, 1},
+            bottomRight = {Addon.media.textures.borders.onyx, 4, 4, 56 / 64, 1, 56 / 64, 1},
+            top = {Addon.media.textures.borders.onyx, 32, 4, 8 / 64, 56 / 64, 0, 8 / 64},
+            bottom = {Addon.media.textures.borders.onyx, 32, 4, 8 / 64, 56 / 64, 56 / 64, 1},
+            left = {Addon.media.textures.borders.onyx, 4, 32, 0, 8 / 64, 8 / 64, 56 / 64},
+            right = {Addon.media.textures.borders.onyx, 4, 32, 56 / 64, 1, 8 / 64, 56 / 64}
         },
         ["Retina"] = {
-            scale = 0.5,
+            scale = 1,
             offset = {0, 0},
-            topLeft = {Addon.media.textures.borders.retinaTopLeft, 8, 8, 0, 1, 0, 1},
-            topRight = {Addon.media.textures.borders.retinaTopLeft, 8, 8, 1, 0, 0, 1},
-            bottomLeft = {Addon.media.textures.borders.retinaTopLeft, 8, 8, 0, 1, 1, 0},
-            bottomRight = {Addon.media.textures.borders.retinaTopLeft, 8, 8, 1, 0, 1, 0},
-            top = {Addon.media.textures.borders.retinaTop, 32, 8, 0, 1, 0, 1},
-            bottom = {Addon.media.textures.borders.retinaTop, 32, 8, 0, 1, 1, 0},
-            left = {Addon.media.textures.borders.retinaLeft, 8, 32, 0, 1, 0, 1},
-            right = {Addon.media.textures.borders.retinaLeft, 8, 32, 1, 0, 0, 1}
+            topLeft = {Addon.media.textures.borders.retina, 4, 4, 0, 8 / 64, 0, 8 / 64},
+            topRight = {Addon.media.textures.borders.retina, 4, 4, 56 / 64, 1, 0, 8 / 64},
+            bottomLeft = {Addon.media.textures.borders.retina, 4, 4, 0, 8 / 64, 56 / 64, 1},
+            bottomRight = {Addon.media.textures.borders.retina, 4, 4, 56 / 64, 1, 56 / 64, 1},
+            top = {Addon.media.textures.borders.retina, 32, 4, 8 / 64, 56 / 64, 0, 8 / 64},
+            bottom = {Addon.media.textures.borders.retina, 32, 4, 8 / 64, 56 / 64, 56 / 64, 1},
+            left = {Addon.media.textures.borders.retina, 4, 32, 0, 8 / 64, 8 / 64, 56 / 64},
+            right = {Addon.media.textures.borders.retina, 4, 32, 56 / 64, 1, 8 / 64, 56 / 64}
         },
         ["Shadowlands"] = {
-            scale = 0.5,
+            scale = 1,
             offset = {-4, 4},
             verticalTiling = true,
             horizontalTiling = true,
-            topLeft = {Addon.media.textures.borders.shadowlandsTopLeft, 16, 16, 0, 1, 0, 1},
-            topRight = {Addon.media.textures.borders.shadowlandsTopLeft, 16, 16, 1, 0, 0, 1},
-            bottomLeft = {Addon.media.textures.borders.shadowlandsTopLeft, 16, 16, 0, 1, 1, 0},
-            bottomRight = {Addon.media.textures.borders.shadowlandsTopLeft, 16, 16, 1, 0, 1, 0},
-            top = {Addon.media.textures.borders.shadowlandsTop, 256, 16, 0, 1, 0, 1},
-            bottom = {Addon.media.textures.borders.shadowlandsTop, 256, 16, 0, 1, 1, 0},
-            left = {Addon.media.textures.borders.shadowlandsLeft, 16, 256, 0, 1, 0, 1},
-            right = {Addon.media.textures.borders.shadowlandsLeft, 16, 256, 1, 0, 0, 1}
+            topLeft = {Addon.media.textures.borders.shadowlandsTopLeft, 8, 8, 0, 1, 0, 1},
+            topRight = {Addon.media.textures.borders.shadowlandsTopLeft, 8, 8, 1, 0, 0, 1},
+            bottomLeft = {Addon.media.textures.borders.shadowlandsTopLeft, 8, 8, 0, 1, 1, 0},
+            bottomRight = {Addon.media.textures.borders.shadowlandsTopLeft, 8, 8, 1, 0, 1, 0},
+            top = {Addon.media.textures.borders.shadowlandsTop, 256, 8, 0, 1, 0, 1},
+            bottom = {Addon.media.textures.borders.shadowlandsTop, 256, 8, 0, 1, 1, 0},
+            left = {Addon.media.textures.borders.shadowlandsLeft, 8, 256, 0, 1, 0, 1},
+            right = {Addon.media.textures.borders.shadowlandsLeft, 8, 256, 1, 0, 0, 1}
         }
     },
     frames = {
@@ -309,120 +332,120 @@ Artwork.atlas = {
     }
 }
 
-function Artwork:GetFrameAtlas()
-    return Artwork.atlas.frames[E.db[addonName].artwork.skins.frameBorder]
+function Addon:GetFrameAtlas()
+    return Addon.atlas.frames[E.db[addonName].artwork.skins.frameBorder]
 end
 
-function Artwork:GetFrameTabBorderAtlas()
-    return Artwork.atlas.borders[E.db[addonName].artwork.skins.frameTabBorder]
+function Addon:GetFrameTabBorderAtlas()
+    return Addon.atlas.borders[E.db[addonName].artwork.skins.frameTabBorder]
 end
 
-function Artwork:GetThinFrameBorderAtlas()
-    return Artwork.atlas.borders[E.db[addonName].artwork.skins.thinFrameBorder]
+function Addon:GetThinFrameBorderAtlas()
+    return Addon.atlas.borders[E.db[addonName].artwork.skins.thinFrameBorder]
 end
 
-function Artwork:GetCloseButtonBackgroundAtlas()
-    local frameAtlas = Artwork:GetFrameAtlas()
+function Addon:GetCloseButtonBackgroundAtlas()
+    local frameAtlas = Addon:GetFrameAtlas()
     return frameAtlas and frameAtlas.closeButtonBackground
 end
 
-function Artwork:GetFrameBackgroundAtlas()
-    return Artwork.atlas.backgrounds[E.db[addonName].artwork.skins.frameBackground]
+function Addon:GetFrameBackgroundAtlas()
+    return Addon.atlas.backgrounds[E.db[addonName].artwork.skins.frameBackground]
 end
 
-function Artwork:GetButtonBorderAtlas()
-    return Artwork.atlas.borders[E.db[addonName].artwork.skins.buttonBorder]
+function Addon:GetButtonBorderAtlas()
+    return Addon.atlas.borders[E.db[addonName].artwork.skins.buttonBorder]
 end
 
-function Artwork:GetActionButtonBorderAtlas()
-    return Artwork.atlas.borders[E.db[addonName].artwork.actionBars.actionButtonBorder]
+function Addon:GetActionButtonBorderAtlas()
+    return Addon.atlas.borders[E.db[addonName].artwork.actionBars.actionButtonBorder]
 end
 
-function Artwork:GetBagButtonBorderAtlas()
-    return Artwork.atlas.borders[E.db[addonName].artwork.bagsAndItems.bagButtonBorder]
+function Addon:GetBagButtonBorderAtlas()
+    return Addon.atlas.borders[E.db[addonName].artwork.bagsAndItems.bagButtonBorder]
 end
 
-function Artwork:GetItemButtonBorderAtlas()
-    return Artwork.atlas.borders[E.db[addonName].artwork.bagsAndItems.itemButtonBorder]
+function Addon:GetItemButtonBorderAtlas()
+    return Addon.atlas.borders[E.db[addonName].artwork.bagsAndItems.itemButtonBorder]
 end
 
-function Artwork:GetDataBarBorderAtlas()
-    return Artwork.atlas.borders[E.db[addonName].artwork.dataBarsAndPanels.dataBarBorder]
+function Addon:GetDataBarBorderAtlas()
+    return Addon.atlas.borders[E.db[addonName].artwork.dataBarsAndPanels.dataBarBorder]
 end
 
-function Artwork:GetDataPanelBorderAtlas()
-    return Artwork.atlas.borders[E.db[addonName].artwork.dataBarsAndPanels.dataPanelBorder]
+function Addon:GetDataPanelBorderAtlas()
+    return Addon.atlas.borders[E.db[addonName].artwork.dataBarsAndPanels.dataPanelBorder]
 end
 
-function Artwork:GetMinimapBorderAtlas()
-    return Artwork.atlas.borders[E.db[addonName].artwork.minimap.border]
+function Addon:GetMinimapBorderAtlas()
+    return Addon.atlas.borders[E.db[addonName].artwork.minimap.border]
 end
 
-function Artwork:GetNamePlateHealthBorderAtlas()
-    return Artwork.atlas.borders[E.db[addonName].artwork.namePlates.healthBorder]
+function Addon:GetNamePlateHealthBorderAtlas()
+    return Addon.atlas.borders[E.db[addonName].artwork.namePlates.healthBorder]
 end
 
-function Artwork:GetNamePlatePowerBorderAtlas()
-    return Artwork.atlas.borders[E.db[addonName].artwork.namePlates.powerBorder]
+function Addon:GetNamePlatePowerBorderAtlas()
+    return Addon.atlas.borders[E.db[addonName].artwork.namePlates.powerBorder]
 end
 
-function Artwork:GetNamePlateCastBarBorderAtlas()
-    return Artwork.atlas.borders[E.db[addonName].artwork.namePlates.castBarBorder]
+function Addon:GetNamePlateCastBarBorderAtlas()
+    return Addon.atlas.borders[E.db[addonName].artwork.namePlates.castBarBorder]
 end
 
-function Artwork:GetTooltipBorderAtlas()
-    return Artwork.atlas.borders[E.db[addonName].artwork.tooltips.tooltipBorder]
+function Addon:GetTooltipBorderAtlas()
+    return Addon.atlas.borders[E.db[addonName].artwork.tooltips.tooltipBorder]
 end
 
-function Artwork:GetAuraBorderAtlas()
-    return Artwork.atlas.borders[E.db[addonName].artwork.auras.auraBorder]
+function Addon:GetAuraBorderAtlas()
+    return Addon.atlas.borders[E.db[addonName].artwork.auras.auraBorder]
 end
 
-function Artwork:GetTempEnchantBorderAtlas()
-    return Artwork.atlas.borders[E.db[addonName].artwork.auras.tempEnchantBorder]
+function Addon:GetTempEnchantBorderAtlas()
+    return Addon.atlas.borders[E.db[addonName].artwork.auras.tempEnchantBorder]
 end
 
-function Artwork:GetUnitFrameBorderAtlas(unit)
+function Addon:GetUnitFrameBorderAtlas(unit)
     local value = E.db[addonName].artwork.unitFrames[unit]
     if not value then
         return
     end
 
-    return Artwork.atlas.borders[value.border]
+    return Addon.atlas.borders[value.border]
 end
 
-function Artwork:GetUnitFrameHealthBorderAtlas(unit)
+function Addon:GetUnitFrameHealthBorderAtlas(unit)
     local value = E.db[addonName].artwork.unitFrames[unit]
     if not value then
         return
     end
 
-    return Artwork.atlas.borders[value.healthBorder]
+    return Addon.atlas.borders[value.healthBorder]
 end
 
-function Artwork:GetUnitFramePowerBorderAtlas(unit)
+function Addon:GetUnitFramePowerBorderAtlas(unit)
     local value = E.db[addonName].artwork.unitFrames[unit]
     if not value then
         return
     end
 
-    return Artwork.atlas.borders[value.powerBorder]
+    return Addon.atlas.borders[value.powerBorder]
 end
 
-function Artwork:GetUnitFrameCastBarBorderAtlas(unit)
+function Addon:GetUnitFrameCastBarBorderAtlas(unit)
     local value = E.db[addonName].artwork.unitFrames[unit]
     if not value then
         return
     end
 
-    return Artwork.atlas.borders[value.castBarBorder]
+    return Addon.atlas.borders[value.castBarBorder]
 end
 
-function Artwork:GetUnitFrameClassBarBorderAtlas(unit)
+function Addon:GetUnitFrameClassBarBorderAtlas(unit)
     local value = E.db[addonName].artwork.unitFrames[unit]
     if not value then
         return
     end
 
-    return Artwork.atlas.borders[value.classBarBorder]
+    return Addon.atlas.borders[value.classBarBorder]
 end

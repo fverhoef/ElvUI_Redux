@@ -2,7 +2,7 @@ local addonName, addonTable = ...
 local Addon = addonTable[1]
 local Artwork = Addon:NewModule(addonName .. "Artwork", "AceHook-3.0", "AceEvent-3.0", "AceTimer-3.0")
 Addon.Artwork = Artwork
-local AS = unpack(AddOnSkins)
+local AS = AddOnSkins and unpack(AddOnSkins)
 local E, L, V, P, G = unpack(ElvUI)
 local A = E:GetModule("Auras")
 local AB = E:GetModule("ActionBars")
@@ -14,6 +14,7 @@ local UF = E:GetModule("UnitFrames")
 -- Init/Update
 function Artwork:Initialize()
     Artwork:RegisterEvent("ADDON_LOADED", Artwork.ADDON_LOADED)
+    Artwork:RegisterEvent("GROUP_ROSTER_UPDATE", Artwork.GROUP_ROSTER_UPDATE)
 
     -- skin any frame that isn't handled by overriding Skins.HandleFrame
     Artwork:SkinFrame(_G.GameMenuFrame)
@@ -113,67 +114,67 @@ function Artwork:Initialize()
 end
 
 function Artwork:UpdateArtwork()
-    for frame, _ in pairs(Artwork.registry.frames) do
+    for frame, _ in pairs(Addon.registry.frames) do
         Artwork:UpdateFrame(frame)
     end
 
-    for frame, _ in pairs(Artwork.registry.nestedFrames) do
+    for frame, _ in pairs(Addon.registry.nestedFrames) do
         Artwork:UpdateNestedFrame(frame)
     end
 
-    for button, _ in pairs(Artwork.registry.closeButtons) do
+    for button, _ in pairs(Addon.registry.closeButtons) do
         Artwork:UpdateCloseButton(button)
     end
 
-    for tab, _ in pairs(Artwork.registry.tabs) do
+    for tab, _ in pairs(Addon.registry.tabs) do
         Artwork:UpdateTab(tab)
     end
 
-    for button, _ in pairs(Artwork.registry.buttons) do
+    for button, _ in pairs(Addon.registry.buttons) do
         Artwork:UpdateButton(button)
     end
 
-    for button, _ in pairs(Artwork.registry.actionButtons) do
+    for button, _ in pairs(Addon.registry.actionButtons) do
         Artwork:UpdateActionButton(button)
     end
 
-    for button, _ in pairs(Artwork.registry.bagButtons) do
+    for button, _ in pairs(Addon.registry.bagButtons) do
         Artwork:UpdateBagButton(button)
     end
 
-    for button, _ in pairs(Artwork.registry.itemButtons) do
+    for button, _ in pairs(Addon.registry.itemButtons) do
         Artwork:UpdateItemButton(button)
     end
 
-    for button, _ in pairs(Artwork.registry.craftItemButtons) do
+    for button, _ in pairs(Addon.registry.craftItemButtons) do
         Artwork:UpdateCraftItemButton(button)
     end
 
-    for aura, _ in pairs(Artwork.registry.auras) do
+    for aura, _ in pairs(Addon.registry.auras) do
         Artwork:UpdateAura(aura)
     end
 
-    for tempEnchant, _ in pairs(Artwork.registry.tempEnchants) do
+    for tempEnchant, _ in pairs(Addon.registry.tempEnchants) do
         Artwork:UpdateTempEnchant(tempEnchant)
     end
 
-    for unitFrame, _ in pairs(Artwork.registry.unitFrames) do
+    for unitFrame, _ in pairs(Addon.registry.unitFrames) do
         Artwork:UpdateUnitFrame(unitFrame)
     end
 
-    for panel, _ in pairs(Artwork.registry.chatPanels) do
+    for panel, _ in pairs(Addon.registry.chatPanels) do
         Artwork:UpdateChatPanel(panel)
     end
 
-    for bar, _ in pairs(Artwork.registry.dataBars) do
+    for bar, _ in pairs(Addon.registry.dataBars) do
         Artwork:UpdateDataBar(bar)
     end
 
-    for panel, _ in pairs(Artwork.registry.dataPanels) do
+    for panel, _ in pairs(Addon.registry.dataPanels) do
         Artwork:UpdateDataPanel(panel)
     end
 
-    for nameplate, _ in pairs(Artwork.registry.namePlates) do
+    for nameplate, _ in pairs(Addon.registry.namePlates) do
         Artwork:UpdateNamePlate(nameplate)
     end
 
@@ -217,6 +218,10 @@ function Artwork:ApplyCustomLayout()
             end
         end
     end)
+end
+
+function Artwork:GROUP_ROSTER_UPDATE()
+    Artwork:UpdateArtwork()
 end
 
 -- Blizzard Addons

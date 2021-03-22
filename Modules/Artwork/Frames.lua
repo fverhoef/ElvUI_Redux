@@ -4,7 +4,7 @@ local Artwork = Addon.Artwork
 local E, L, V, P, G = unpack(ElvUI)
 
 function Artwork:SkinFrame(frame, useThinBorder, noBackground, noTitle)
-    if not frame or Artwork:IsFrameRegistered(frame) then
+    if not frame or Addon:IsFrameRegistered(frame) then
         return
     end
 
@@ -12,11 +12,11 @@ function Artwork:SkinFrame(frame, useThinBorder, noBackground, noTitle)
     frame.noBackground = noBackground
     frame.noTitle = noTitle or true
 
-    local borderAtlas = Artwork:GetFrameBorderAtlas(frame)
+    local borderAtlas = Addon:GetFrameBorderAtlas(frame)
 
     frame.ArtworkBorder = Artwork:CreateBorder(frame, borderAtlas)
     if not frame.noBackground then
-        local backgroundAtlas = Artwork:GetFrameBackgroundAtlas()
+        local backgroundAtlas = Addon:GetFrameBackgroundAtlas()
         frame.ArtworkBackground = Artwork:CreateBackground(frame, backgroundAtlas)
     end
     if not frame.noTitle then
@@ -24,7 +24,7 @@ function Artwork:SkinFrame(frame, useThinBorder, noBackground, noTitle)
     end
 
     Artwork:UpdateFrame(frame)
-    Artwork:RegisterFrame(frame)
+    Addon:RegisterFrame(frame)
 end
 
 function Artwork:UpdateFrame(frame)
@@ -32,26 +32,26 @@ function Artwork:UpdateFrame(frame)
         return
     end
 
-    Artwork:UpdateBorder(frame.ArtworkBorder, Artwork:GetFrameBorderAtlas(frame))
+    Artwork:UpdateBorder(frame.ArtworkBorder, Addon:GetFrameBorderAtlas(frame))
     Artwork:UpdateBorderColor(frame.ArtworkBorder, Artwork:GetFrameBorderColor(frame))
 
     if not frame.noBackground then
-        local backgroundAtlas = Artwork:GetFrameBackgroundAtlas()
+        local backgroundAtlas = Addon:GetFrameBackgroundAtlas()
         Artwork:UpdateBackground(frame.ArtworkBackground, backgroundAtlas)
     end
     if not frame.noTitle then
-        local titleAtlas = Artwork:GetFrameTitleAtlas(frame)
+        local titleAtlas = Addon:GetFrameTitleAtlas(frame)
         Artwork:UpdateFrameTitle(frame.ArtworkTitle, titleAtlas)
     end
 end
 
 function Artwork:SkinNestedFrame(frame)
-    if not frame or Artwork:IsFrameRegistered(frame) then
+    if not frame or Addon:IsFrameRegistered(frame) then
         return
     end
 
     Artwork:UpdateNestedFrame(frame)
-    Artwork:RegisterNestedFrame(frame)
+    Addon:RegisterNestedFrame(frame)
 end
 
 function Artwork:UpdateNestedFrame(frame)
@@ -60,9 +60,9 @@ function Artwork:UpdateNestedFrame(frame)
     end
 
     if not E.db[addonName].artwork.enabled then
-        Artwork:EnablePixelBorders(frame)
+        frame:EnablePixelBorders()
     else
-        Artwork:DisablePixelBorders(frame)
+        frame:DisablePixelBorders()
     end
 end
 
@@ -123,10 +123,10 @@ function Artwork:UpdateFrameTitle(title, atlas)
     end
 end
 
-function Artwork:GetFrameBorderAtlas(frame)
-    local borderAtlas = (frame.useThinBorder or E.db[addonName].artwork.skins.useThinFrameEverywhere) and Artwork:GetThinFrameBorderAtlas()
+function Addon:GetFrameBorderAtlas(frame)
+    local borderAtlas = (frame.useThinBorder or E.db[addonName].artwork.skins.useThinFrameEverywhere) and Addon:GetThinFrameBorderAtlas()
     if not borderAtlas then
-        local frameAtlas = Artwork:GetFrameAtlas()
+        local frameAtlas = Addon:GetFrameAtlas()
         borderAtlas = frameAtlas and frameAtlas.border
     end
 
@@ -138,11 +138,11 @@ function Artwork:GetFrameBorderColor(frame)
                E.db[addonName].artwork.skins.frameBorderColor or {1, 1, 1}
 end
 
-function Artwork:GetFrameTitleAtlas(frame)
+function Addon:GetFrameTitleAtlas(frame)
     if not frame or frame.useThinBorder or E.db[addonName].artwork.skins.useThinFrameEverywhere then
         return
     end
 
-    local frameAtlas = Artwork:GetFrameAtlas()
+    local frameAtlas = Addon:GetFrameAtlas()
     return frameAtlas and frameAtlas.title
 end

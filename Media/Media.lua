@@ -16,11 +16,24 @@ Addon.media = {
             redux = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\StatusBars\\Redux"
         },
         borders = {
+            beautycase = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Borders\\Beautycase",
+            cainyx = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Borders\\Cainyx",
+            caith = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Borders\\Caith",
+            diablo = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Borders\\Diablo",
+            entropy = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Borders\\Entropy",
+            goldpaw = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Borders\\Goldpaw",
+            onyx = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Borders\\Onyx",
+            retina = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Borders\\Retina",
+            gloss1 = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Borders\\Gloss1",
+            gloss2 = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Borders\\Gloss2",
+            gloss3 = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Borders\\Gloss3",
+
             beautyCaseTopLeft = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Borders\\Border_BeautyCase_TopLeft",
             beautyCaseTop = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Borders\\Border_BeautyCase_Top",
             beautyCaseBottomLeft = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Borders\\Border_BeautyCase_BottomLeft",
             beautyCaseBottom = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Borders\\Border_BeautyCase_Bottom",
             beautyCaseLeft = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Borders\\Border_BeautyCase_Left",
+            
             cleanTopLeft = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Borders\\Border_Clean_TopLeft",
             cleanTop = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Borders\\Border_Clean_Top",
             cleanTopRight = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Borders\\Border_Clean_TopRight",
@@ -29,24 +42,29 @@ Addon.media = {
             cleanBottom = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Borders\\Border_Clean_Bottom",
             cleanBottomLeft = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Borders\\Border_Clean_BottomLeft",
             cleanLeft = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Borders\\Border_Clean_Left",
+
             goldpawTopLeft = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Borders\\Border_Goldpaw_TopLeft",
             goldpawTop = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Borders\\Border_Goldpaw_Top",
             goldpawBottomLeft = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Borders\\Border_Goldpaw_BottomLeft",
             goldpawBottom = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Borders\\Border_Goldpaw_Bottom",
             goldpawLeft = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Borders\\Border_Goldpaw_Left",
+
             onyxTopLeft = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Borders\\Border_Onyx_TopLeft",
             onyxTop = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Borders\\Border_Onyx_Top",
             onyxBottomLeft = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Borders\\Border_Onyx_BottomLeft",
             onyxBottom = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Borders\\Border_Onyx_Bottom",
             onyxLeft = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Borders\\Border_Onyx_Left",
+
             renaitreSquareThinTopLeft = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Borders\\Border_RenaitreSquareThin_TopLeft",
             renaitreSquareThinTop = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Borders\\Border_RenaitreSquareThin_Top",
             renaitreSquareThinBottomLeft = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Borders\\Border_RenaitreSquareThin_BottomLeft",
             renaitreSquareThinBottom = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Borders\\Border_RenaitreSquareThin_Bottom",
             renaitreSquareThinLeft = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Borders\\Border_RenaitreSquareThin_Left",
+
             retinaTopLeft = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Borders\\Border_Retina_TopLeft",
             retinaTop = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Borders\\Border_Retina_Top",
             retinaLeft = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Borders\\Border_Retina_Left",
+
             shadowlandsTopLeft = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Borders\\Border_Shadowlands_TopLeft",
             shadowlandsTop = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Borders\\Border_Shadowlands_Top",
             shadowlandsLeft = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Borders\\Border_Shadowlands_Left",
