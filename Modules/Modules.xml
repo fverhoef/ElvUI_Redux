@@ -1,9 +1,8 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
-    <Include file="Artwork\Artwork.xml"/>
     <Include file="Automation\Automation.xml"/>
     <Include file="Installer\Installer.xml"/>
     <Include file="InventoryDatabase\InventoryDatabase.xml"/>
     <Include file="MinimapButtonFrame\MinimapButtonFrame.xml"/>
-    <Include file="Shadows\Shadows.xml"/>
+    <Include file="Skins\Skins.xml"/>
     <Include file="Tooltips\Tooltips.xml"/>
 </Ui>

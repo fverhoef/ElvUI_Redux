@@ -7,13 +7,17 @@ Addon.media = {
         adventure = "Interface\\AddOns\\" .. addonName .. "\\Media\\Fonts\\Adventure.ttf"
     },
     textures = {
-        statusBars = {
-            kait1 = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\StatusBars\\Kait1",
-            kait2 = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\StatusBars\\Kait2",
-            melli = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\StatusBars\\Melli",
-            melliDark = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\StatusBars\\MelliDark",
-            onePixel = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\StatusBars\\OnePixel",
-            redux = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\StatusBars\\Redux"
+        backgrounds = {
+            alliance = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Backgrounds\\UIFrameAllianceBackground",
+            horde = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Backgrounds\\UIFrameHordeBackground",
+            kyrian = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Backgrounds\\UIFrameKyrianBackground",
+            marine = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Backgrounds\\UIFrameMarineBackground",
+            mechagon = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Backgrounds\\UIFrameMechagonBackground",
+            neutral = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Backgrounds\\UIFrameNeutralBackground",
+            necrolord = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Backgrounds\\UIFrameNecrolordBackground",
+            nightFae = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Backgrounds\\UIFrameNightFaeBackground",
+            oribos = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Backgrounds\\UIFrameOribosBackground",
+            venthyr = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Backgrounds\\UIFrameVenthyrBackground"
         },
         borders = {
             beautycase = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Borders\\Beautycase",
@@ -27,44 +31,6 @@ Addon.media = {
             gloss1 = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Borders\\Gloss1",
             gloss2 = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Borders\\Gloss2",
             gloss3 = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Borders\\Gloss3",
-
-            beautyCaseTopLeft = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Borders\\Border_BeautyCase_TopLeft",
-            beautyCaseTop = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Borders\\Border_BeautyCase_Top",
-            beautyCaseBottomLeft = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Borders\\Border_BeautyCase_BottomLeft",
-            beautyCaseBottom = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Borders\\Border_BeautyCase_Bottom",
-            beautyCaseLeft = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Borders\\Border_BeautyCase_Left",
-            
-            cleanTopLeft = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Borders\\Border_Clean_TopLeft",
-            cleanTop = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Borders\\Border_Clean_Top",
-            cleanTopRight = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Borders\\Border_Clean_TopRight",
-            cleanRight = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Borders\\Border_Clean_Right",
-            cleanBottomRight = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Borders\\Border_Clean_BottomRight",
-            cleanBottom = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Borders\\Border_Clean_Bottom",
-            cleanBottomLeft = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Borders\\Border_Clean_BottomLeft",
-            cleanLeft = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Borders\\Border_Clean_Left",
-
-            goldpawTopLeft = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Borders\\Border_Goldpaw_TopLeft",
-            goldpawTop = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Borders\\Border_Goldpaw_Top",
-            goldpawBottomLeft = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Borders\\Border_Goldpaw_BottomLeft",
-            goldpawBottom = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Borders\\Border_Goldpaw_Bottom",
-            goldpawLeft = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Borders\\Border_Goldpaw_Left",
-
-            onyxTopLeft = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Borders\\Border_Onyx_TopLeft",
-            onyxTop = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Borders\\Border_Onyx_Top",
-            onyxBottomLeft = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Borders\\Border_Onyx_BottomLeft",
-            onyxBottom = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Borders\\Border_Onyx_Bottom",
-            onyxLeft = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Borders\\Border_Onyx_Left",
-
-            renaitreSquareThinTopLeft = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Borders\\Border_RenaitreSquareThin_TopLeft",
-            renaitreSquareThinTop = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Borders\\Border_RenaitreSquareThin_Top",
-            renaitreSquareThinBottomLeft = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Borders\\Border_RenaitreSquareThin_BottomLeft",
-            renaitreSquareThinBottom = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Borders\\Border_RenaitreSquareThin_Bottom",
-            renaitreSquareThinLeft = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Borders\\Border_RenaitreSquareThin_Left",
-
-            retinaTopLeft = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Borders\\Border_Retina_TopLeft",
-            retinaTop = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Borders\\Border_Retina_Top",
-            retinaLeft = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Borders\\Border_Retina_Left",
-
             shadowlandsTopLeft = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Borders\\Border_Shadowlands_TopLeft",
             shadowlandsTop = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Borders\\Border_Shadowlands_Top",
             shadowlandsLeft = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Borders\\Border_Shadowlands_Left",
@@ -145,13 +111,13 @@ Addon.media = {
             allianceMiddle = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Borders\\FrameBorder_Alliance_TitleMiddle",
             hordeMiddle = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Borders\\FrameBorder_Horde_TitleMiddle",
         },
-        buttons = {
-            redButton = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Buttons\\128RedButton",
-            goldRedButton = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Buttons\\128GoldRedButton",
-            soulBinds_ScrollBar_Down = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Buttons\\Soulbinds_ScrollBar_Down",
-            soulBinds_ScrollBar_Thumb = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Buttons\\Soulbinds_ScrollBar_Thumb",
-            soulBinds_ScrollBar_Track = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Buttons\\Soulbinds_ScrollBar_Track",
-            soulBinds_ScrollBar_Background = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Buttons\\Soulbinds_ScrollBar_Background"
+        statusBars = {
+            kait1 = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\StatusBars\\Kait1",
+            kait2 = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\StatusBars\\Kait2",
+            melli = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\StatusBars\\Melli",
+            melliDark = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\StatusBars\\MelliDark",
+            onePixel = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\StatusBars\\OnePixel",
+            redux = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\StatusBars\\Redux"
         },
 
         arrowUp_ElvUI = "Interface\\Addons\\ElvUI\\Media\\Textures\\ArrowUp",

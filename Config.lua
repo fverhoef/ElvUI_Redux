@@ -3,7 +3,19 @@ local Addon = addonTable[1]
 local E, L, V, P, G = unpack(ElvUI)
 
 Addon.minimapIconStyles = {Square = "Square", Round = "Round"}
-Addon.borders = {"None", "BeautyCase", "Cainyx", "Caith", "Diablo", "Entropy", "Goldpaw", "Onyx", "Retina", "Shadowlands"}
+Addon.borders = {
+    "None",
+    "BeautyCase",
+    "Cainyx",
+    "Caith",
+    "Diablo",
+    "Entropy",
+    "Goldpaw",
+    "Onyx",
+    "Retina",
+    "Redux",
+    "Shadowlands"
+}
 Addon.frameBackgrounds = {
     "None",
     "Alliance",
@@ -33,209 +45,6 @@ Addon.frameBorders = {
 }
 
 P[addonName] = {
-    artwork = {
-        enabled = true,
-        actionBars = {actionButtonBorder = "BeautyCase", actionButtonBorderColor = {89 / 255, 89 / 255, 89 / 255, 1}},
-        auras = {
-            auraBorder = "BeautyCase",
-            auraBorderColor = {89 / 255, 89 / 255, 89 / 255, 1},
-            tempEnchantBorder = "BeautyCase",
-            tempEnchantBorderColor = {89 / 255, 89 / 255, 89 / 255, 1}
-        },
-        bagsAndItems = {
-            bagButtonBorder = "BeautyCase",
-            bagButtonBorderColor = {89 / 255, 89 / 255, 89 / 255, 1},
-            itemButtonBorder = "BeautyCase",
-            itemButtonBorderColor = {89 / 255, 89 / 255, 89 / 255, 1}
-        },
-        dataBarsAndPanels = {
-            dataBarBorder = "BeautyCase",
-            dataBarBorderColor = {89 / 255, 89 / 255, 89 / 255, 1},
-            dataPanelBorder = "BeautyCase",
-            dataPanelBorderColor = {89 / 255, 89 / 255, 89 / 255, 1}
-        },
-        namePlates = {
-            border = "None",
-            borderColor = {89 / 255, 89 / 255, 89 / 255, 1},
-            healthBorder = "BeautyCase",
-            healthBorderColor = {89 / 255, 89 / 255, 89 / 255, 1},
-            powerBorder = "BeautyCase",
-            powerBorderColor = {89 / 255, 89 / 255, 89 / 255, 1},
-            castBarBorder = "BeautyCase",
-            castBarBorderColor = {89 / 255, 89 / 255, 89 / 255, 1}
-        },
-        minimap = {border = "BeautyCase", borderColor = {89 / 255, 89 / 255, 89 / 255, 1}},
-        skins = {
-            frameBorder = "None",
-            frameBorderColor = {1, 1, 1},
-            frameBackground = "None",
-            frameBackgroundColor = {1, 1, 1, 1},
-            frameTabBorder = "BeautyCase",
-            frameTabBorderColor = {89 / 255, 89 / 255, 89 / 255, 1}, -- {139 / 255, 129 / 255, 118 / 255},
-            thinFrameBorder = "BeautyCase",
-            thinFrameBorderColor = {89 / 255, 89 / 255, 89 / 255, 1},
-            useThinFrameEverywhere = true,
-            buttonBorder = "BeautyCase",
-            buttonBorderColor = {89 / 255, 89 / 255, 89 / 255, 1},
-            buttonBorderHighlightColor = {90 / 255, 90 / 255, 90 / 255},
-            useDefaultButtonHighlight = true
-        },
-        tooltips = {tooltipBorder = "BeautyCase", tooltipBorderColor = {89 / 255, 89 / 255, 89 / 255, 1}},
-        unitFrames = {
-            ["player"] = {
-                border = "None",
-                borderColor = {89 / 255, 89 / 255, 89 / 255, 1},
-                healthBorder = "BeautyCase",
-                healthBorderColor = {89 / 255, 89 / 255, 89 / 255, 1},
-                powerBorder = "BeautyCase",
-                powerBorderColor = {89 / 255, 89 / 255, 89 / 255, 1},
-                castBarBorder = "BeautyCase",
-                castBarBorderColor = {89 / 255, 89 / 255, 89 / 255, 1},
-                classBarBorder = "BeautyCase",
-                classBarBorderColor = {89 / 255, 89 / 255, 89 / 255, 1}
-            },
-            ["pet"] = {
-                border = "BeautyCase",
-                borderColor = {89 / 255, 89 / 255, 89 / 255, 1},
-                healthBorder = "None",
-                healthBorderColor = {89 / 255, 89 / 255, 89 / 255, 1},
-                powerBorder = "None",
-                powerBorderColor = {89 / 255, 89 / 255, 89 / 255, 1},
-                castBarBorder = "BeautyCase",
-                castBarBorderColor = {89 / 255, 89 / 255, 89 / 255, 1}
-            },
-            ["pettarget"] = {
-                border = "None",
-                borderColor = {89 / 255, 89 / 255, 89 / 255, 1},
-                healthBorder = "BeautyCase",
-                healthBorderColor = {89 / 255, 89 / 255, 89 / 255, 1},
-                powerBorder = "None",
-                powerBorderColor = {89 / 255, 89 / 255, 89 / 255, 1},
-                castBarBorder = "BeautyCase",
-                castBarBorderColor = {89 / 255, 89 / 255, 89 / 255, 1}
-            },
-            ["target"] = {
-                border = "BeautyCase",
-                borderColor = {89 / 255, 89 / 255, 89 / 255, 1},
-                healthBorder = "None",
-                healthBorderColor = {89 / 255, 89 / 255, 89 / 255, 1},
-                powerBorder = "None",
-                powerBorderColor = {89 / 255, 89 / 255, 89 / 255, 1},
-                castBarBorder = "BeautyCase",
-                castBarBorderColor = {89 / 255, 89 / 255, 89 / 255, 1}
-            },
-            ["targettarget"] = {
-                border = "None",
-                borderColor = {89 / 255, 89 / 255, 89 / 255, 1},
-                healthBorder = "BeautyCase",
-                healthBorderColor = {89 / 255, 89 / 255, 89 / 255, 1},
-                powerBorder = "None",
-                powerBorderColor = {89 / 255, 89 / 255, 89 / 255, 1},
-                castBarBorder = "BeautyCase",
-                castBarBorderColor = {89 / 255, 89 / 255, 89 / 255, 1}
-            },
-            ["targettargettarget"] = {
-                border = "None",
-                borderColor = {89 / 255, 89 / 255, 89 / 255, 1},
-                healthBorder = "BeautyCase",
-                healthBorderColor = {89 / 255, 89 / 255, 89 / 255, 1},
-                powerBorder = "None",
-                powerBorderColor = {89 / 255, 89 / 255, 89 / 255, 1},
-                castBarBorder = "BeautyCase",
-                castBarBorderColor = {89 / 255, 89 / 255, 89 / 255, 1}
-            },
-            ["focus"] = {
-                border = "BeautyCase",
-                borderColor = {89 / 255, 89 / 255, 89 / 255, 1},
-                healthBorder = "None",
-                healthBorderColor = {89 / 255, 89 / 255, 89 / 255, 1},
-                powerBorder = "None",
-                powerBorderColor = {89 / 255, 89 / 255, 89 / 255, 1},
-                castBarBorder = "BeautyCase",
-                castBarBorderColor = {89 / 255, 89 / 255, 89 / 255, 1}
-            },
-            ["arena"] = {
-                border = "BeautyCase",
-                borderColor = {89 / 255, 89 / 255, 89 / 255, 1},
-                healthBorder = "None",
-                healthBorderColor = {89 / 255, 89 / 255, 89 / 255, 1},
-                powerBorder = "None",
-                powerBorderColor = {89 / 255, 89 / 255, 89 / 255, 1},
-                castBarBorder = "BeautyCase",
-                castBarBorderColor = {89 / 255, 89 / 255, 89 / 255, 1}
-            },
-            ["assist"] = {
-                border = "BeautyCase",
-                borderColor = {89 / 255, 89 / 255, 89 / 255, 1},
-                healthBorder = "None",
-                healthBorderColor = {89 / 255, 89 / 255, 89 / 255, 1},
-                powerBorder = "None",
-                powerBorderColor = {89 / 255, 89 / 255, 89 / 255, 1},
-                castBarBorder = "BeautyCase",
-                castBarBorderColor = {89 / 255, 89 / 255, 89 / 255, 1}
-            },
-            ["boss"] = {
-                border = "BeautyCase",
-                borderColor = {89 / 255, 89 / 255, 89 / 255, 1},
-                healthBorder = "None",
-                healthBorderColor = {89 / 255, 89 / 255, 89 / 255, 1},
-                powerBorder = "None",
-                powerBorderColor = {89 / 255, 89 / 255, 89 / 255, 1},
-                castBarBorder = "BeautyCase",
-                castBarBorderColor = {89 / 255, 89 / 255, 89 / 255, 1}
-            },
-            ["party"] = {
-                border = "BeautyCase",
-                borderColor = {89 / 255, 89 / 255, 89 / 255, 1},
-                healthBorder = "None",
-                healthBorderColor = {89 / 255, 89 / 255, 89 / 255, 1},
-                powerBorder = "None",
-                powerBorderColor = {89 / 255, 89 / 255, 89 / 255, 1},
-                castBarBorder = "BeautyCase",
-                castBarBorderColor = {89 / 255, 89 / 255, 89 / 255, 1}
-            },
-            ["raid"] = {
-                border = "BeautyCase",
-                borderColor = {89 / 255, 89 / 255, 89 / 255, 1},
-                healthBorder = "None",
-                healthBorderColor = {89 / 255, 89 / 255, 89 / 255, 1},
-                powerBorder = "None",
-                powerBorderColor = {89 / 255, 89 / 255, 89 / 255, 1},
-                castBarBorder = "BeautyCase",
-                castBarBorderColor = {89 / 255, 89 / 255, 89 / 255, 1}
-            },
-            ["raid40"] = {
-                border = "BeautyCase",
-                borderColor = {89 / 255, 89 / 255, 89 / 255, 1},
-                healthBorder = "None",
-                healthBorderColor = {89 / 255, 89 / 255, 89 / 255, 1},
-                powerBorder = "None",
-                powerBorderColor = {89 / 255, 89 / 255, 89 / 255, 1},
-                castBarBorder = "BeautyCase",
-                castBarBorderColor = {89 / 255, 89 / 255, 89 / 255, 1}
-            },
-            ["raidpet"] = {
-                border = "BeautyCase",
-                borderColor = {89 / 255, 89 / 255, 89 / 255, 1},
-                healthBorder = "None",
-                healthBorderColor = {89 / 255, 89 / 255, 89 / 255, 1},
-                powerBorder = "None",
-                powerBorderColor = {89 / 255, 89 / 255, 89 / 255, 1},
-                castBarBorder = "BeautyCase",
-                castBarBorderColor = {89 / 255, 89 / 255, 89 / 255, 1}
-            },
-            ["tank"] = {
-                border = "BeautyCase",
-                borderColor = {89 / 255, 89 / 255, 89 / 255, 1},
-                healthBorder = "None",
-                healthBorderColor = {89 / 255, 89 / 255, 89 / 255, 1},
-                powerBorder = "None",
-                powerBorderColor = {89 / 255, 89 / 255, 89 / 255, 1},
-                castBarBorder = "BeautyCase",
-                castBarBorderColor = {89 / 255, 89 / 255, 89 / 255, 1}
-            }
-        }
-    },
     automation = {
         enabled = true,
         fastLoot = true,
@@ -257,7 +66,11 @@ P[addonName] = {
         buttonSpacing = 2,
         collapsed = true
     },
-    shadows = {enabled = true, color = {0, 0, 0, 0.7}, size = 5, shadowPerButton = true},
+    skins = {
+        enabled = true,
+        borders = {enabled = true, style = "BeautyCase", color = {89 / 255, 89 / 255, 89 / 255, 1}},
+        shadows = {enabled = true, color = {0, 0, 0, 0.7}, size = 5, shadowPerButton = true}
+    },
     tooltips = {
         enabled = true,
         showIcons = true,
@@ -280,425 +93,8 @@ function Addon:InsertOptions()
         childGroups = "tab",
         args = {
             name = {order = 1, type = "header", name = Addon.title},
-            artwork = {
-                order = 10,
-                type = "group",
-                name = L["Artwork"],
-                args = {
-                    desc = Addon:CreateOptionDescription(L["The Artwork module adds borders, backgrounds, and other art to most ElvUI elements."], 0),
-                    enabled = Addon:CreateToggleOption(L["Enabled"], nil, 1, nil, {"artwork", "enabled"}),
-                    lineBreak = {type = "header", name = "", order = 2},
-                    actionBars = {
-                        order = 10,
-                        type = "group",
-                        name = L["Action Bars & Buttons"],
-                        args = {
-                            header = Addon:CreateOptionHeader(L["Action Bars & Buttons"], 0),
-                            border = {
-                                order = 1,
-                                type = "group",
-                                inline = true,
-                                name = L["Action Buttons"],
-                                args = {
-                                    border = Addon:CreateBorderThemeOption(L["Border Theme"], 1, {
-                                        "artwork",
-                                        "actionBars",
-                                        "actionButtonBorder"
-                                    }),
-                                    borderColor = Addon:CreateColorOption(L["Border Color"], 2, {
-                                        "artwork",
-                                        "actionBars",
-                                        "actionButtonBorderColor"
-                                    })
-                                }
-                            }
-                        }
-                    },
-                    bags = {
-                        order = 20,
-                        type = "group",
-                        name = L["Bags & Item Buttons"],
-                        args = {
-                            header = Addon:CreateOptionHeader(L["Bags & Item Buttons"], 0),
-                            bagSlots = {
-                                order = 1,
-                                type = "group",
-                                inline = true,
-                                name = L["Bag Slots"],
-                                args = {
-                                    border = Addon:CreateBorderThemeOption(L["Border Theme"], 1, {
-                                        "artwork",
-                                        "bagsAndItems",
-                                        "bagButtonBorder"
-                                    }),
-                                    borderColor = Addon:CreateColorOption(L["Border Color"], 2, {
-                                        "artwork",
-                                        "bagsAndItems",
-                                        "bagButtonBorderColor"
-                                    })
-                                }
-                            },
-                            itemButtons = {
-                                order = 2,
-                                type = "group",
-                                inline = true,
-                                name = L["Item Buttons"],
-                                args = {
-                                    border = Addon:CreateBorderThemeOption(L["Border Theme"], 1, {
-                                        "artwork",
-                                        "bagsAndItems",
-                                        "itemButtonBorder"
-                                    }),
-                                    borderColor = Addon:CreateColorOption(L["Border Color"], 2, {
-                                        "artwork",
-                                        "bagsAndItems",
-                                        "itemButtonBorderColor"
-                                    })
-                                }
-                            }
-                        }
-                    },
-                    buffsDebuffs = {
-                        order = 30,
-                        type = "group",
-                        name = L["Buffs & Debuffs"],
-                        args = {
-                            header = Addon:CreateOptionHeader(L["Buffs & Debuffs"], 0),
-                            auras = {
-                                order = 1,
-                                type = "group",
-                                inline = true,
-                                name = L["Auras"],
-                                args = {
-                                    border = Addon:CreateBorderThemeOption(L["Border Theme"], 1, {
-                                        "artwork",
-                                        "auras",
-                                        "auraBorder"
-                                    }),
-                                    borderColor = Addon:CreateColorOption(L["Border Color"], 2, {
-                                        "artwork",
-                                        "auras",
-                                        "auraBorderColor"
-                                    })
-                                }
-                            },
-                            tempEnchants = {
-                                order = 2,
-                                type = "group",
-                                inline = true,
-                                name = L["Temp Enchants"],
-                                args = {
-                                    border = Addon:CreateBorderThemeOption(L["Border Theme"], 1, {
-                                        "artwork",
-                                        "auras",
-                                        "tempEnchantBorder"
-                                    }),
-                                    borderColor = Addon:CreateColorOption(L["Border Color"], 2, {
-                                        "artwork",
-                                        "auras",
-                                        "tempEnchantBorderColor"
-                                    })
-                                }
-                            }
-                        }
-                    },
-                    dataBarsAndPanels = {
-                        order = 40,
-                        type = "group",
-                        name = L["Data Bars & Panels"],
-                        args = {
-                            header = Addon:CreateOptionHeader(L["Data Bars & Panels"], 0),
-                            dataBars = {
-                                order = 1,
-                                type = "group",
-                                inline = true,
-                                name = L["Data Bars"],
-                                args = {
-                                    border = Addon:CreateBorderThemeOption(L["Border Theme"], 1, {
-                                        "artwork",
-                                        "dataBarsAndPanels",
-                                        "dataBarBorder"
-                                    }),
-                                    borderColor = Addon:CreateColorOption(L["Border Color"], 2, {
-                                        "artwork",
-                                        "dataBarsAndPanels",
-                                        "dataBarBorderColor"
-                                    })
-                                }
-                            },
-                            dataPanels = {
-                                order = 2,
-                                type = "group",
-                                inline = true,
-                                name = L["Data Panels"],
-                                args = {
-                                    border = Addon:CreateBorderThemeOption(L["Border Theme"], 1, {
-                                        "artwork",
-                                        "dataBarsAndPanels",
-                                        "dataPanelBorder"
-                                    }),
-                                    borderColor = Addon:CreateColorOption(L["Border Color"], 2, {
-                                        "artwork",
-                                        "dataBarsAndPanels",
-                                        "dataPanelBorderColor"
-                                    })
-                                }
-                            }
-                        }
-                    },
-                    minimap = {
-                        order = 50,
-                        type = "group",
-                        name = L["Minimap"],
-                        args = {
-                            header = Addon:CreateOptionHeader(L["Minimap"], 0),
-                            border = {
-                                order = 1,
-                                type = "group",
-                                inline = true,
-                                name = L["Border"],
-                                args = {
-                                    border = Addon:CreateBorderThemeOption(L["Border Theme"], 1, {"artwork", "minimap", "border"}),
-                                    borderColor = Addon:CreateColorOption(L["Border Color"], 2, {
-                                        "artwork",
-                                        "minimap",
-                                        "borderColor"
-                                    })
-                                }
-                            }
-                        }
-                    },
-                    namePlates = {
-                        order = 60,
-                        type = "group",
-                        name = L["Nameplates"],
-                        args = {
-                            header = Addon:CreateOptionHeader(L["Nameplates"], 0),
-                            border = {
-                                order = 1,
-                                type = "group",
-                                inline = true,
-                                name = L["Border"],
-                                args = {
-                                    border = Addon:CreateBorderThemeOption(L["Border Theme"], 1, {
-                                        "artwork",
-                                        "namePlates",
-                                        "border"
-                                    }),
-                                    borderColor = Addon:CreateColorOption(L["Border Color"], 2, {
-                                        "artwork",
-                                        "namePlates",
-                                        "borderColor"
-                                    })
-                                }
-                            },
-                            healthBorder = {
-                                order = 2,
-                                type = "group",
-                                inline = true,
-                                name = L["Health"],
-                                args = {
-                                    border = Addon:CreateBorderThemeOption(L["Border Theme"], 1, {
-                                        "artwork",
-                                        "namePlates",
-                                        "healthBorder"
-                                    }),
-                                    borderColor = Addon:CreateColorOption(L["Border Color"], 2, {
-                                        "artwork",
-                                        "namePlates",
-                                        "healthBorderColor"
-                                    })
-                                }
-                            },
-                            powerBorder = {
-                                order = 3,
-                                type = "group",
-                                inline = true,
-                                name = L["Power"],
-                                args = {
-                                    border = Addon:CreateBorderThemeOption(L["Border Theme"], 1, {
-                                        "artwork",
-                                        "namePlates",
-                                        "powerBorder"
-                                    }),
-                                    borderColor = Addon:CreateColorOption(L["Border Color"], 2, {
-                                        "artwork",
-                                        "namePlates",
-                                        "powerBorderColor"
-                                    })
-                                }
-                            },
-                            castBarBorder = {
-                                order = 4,
-                                type = "group",
-                                inline = true,
-                                name = L["Castbar"],
-                                args = {
-                                    border = Addon:CreateBorderThemeOption(L["Border Theme"], 1, {
-                                        "artwork",
-                                        "namePlates",
-                                        "castBarBorder"
-                                    }),
-                                    borderColor = Addon:CreateColorOption(L["Border Color"], 2, {
-                                        "artwork",
-                                        "namePlates",
-                                        "castBarBorderColor"
-                                    })
-                                }
-                            }
-                        }
-                    },
-                    skins = {
-                        order = 70,
-                        type = "group",
-                        name = L["Skins"],
-                        args = {
-                            header = Addon:CreateOptionHeader(L["Skins"], 0),
-                            frameBorders = {
-                                order = 1,
-                                type = "group",
-                                inline = true,
-                                name = L["Frame Borders"],
-                                args = {
-                                    desc = Addon:CreateOptionDescription(L["This controls the borders for larger UI frames (character screen etc)."], 0),
-                                    border = Addon:CreateFrameBorderThemeOption(L["Border Theme"], 1, {
-                                        "artwork",
-                                        "skins",
-                                        "frameBorder"
-                                    }),
-                                    borderColor = Addon:CreateColorOption(L["Border Color"], 2, {
-                                        "artwork",
-                                        "skins",
-                                        "frameBorderColor"
-                                    })
-                                }
-                            },
-                            thinFrameBorder = {
-                                order = 1,
-                                type = "group",
-                                inline = true,
-                                name = L["Thin Frame Borders"],
-                                args = {
-                                    desc = Addon:CreateOptionDescription(L["This controls the borders for smaller UI frames (popups etc)."], 0),
-                                    border = Addon:CreateBorderThemeOption(L["Border Theme"], 1, {
-                                        "artwork",
-                                        "skins",
-                                        "thinFrameBorder"
-                                    }),
-                                    borderColor = Addon:CreateColorOption(L["Border Color"], 2, {
-                                        "artwork",
-                                        "skins",
-                                        "thinFrameBorderColor"
-                                    }),
-                                    useThinFrameEverywhere = Addon:CreateToggleOption(L["Use Thin Frame Everywhere"], L["When checked, use the Thin Frame Border for all frames, ignoring the normal Frame Border."], 3, "full", {
-                                        "artwork",
-                                        "skins",
-                                        "useThinFrameEverywhere"
-                                    })
-                                }
-                            },
-                            tabs = {
-                                order = 3,
-                                type = "group",
-                                inline = true,
-                                name = L["Frame Tabs"],
-                                args = {
-                                    desc = Addon:CreateOptionDescription(L["This controls the borders for the tabs on e.g. the character screen."], 0),
-                                    border = Addon:CreateBorderThemeOption(L["Border Theme"], 1, {
-                                        "artwork",
-                                        "skins",
-                                        "frameTabBorder"
-                                    }),
-                                    borderColor = Addon:CreateColorOption(L["Border Color"], 2, {
-                                        "artwork",
-                                        "skins",
-                                        "frameTabBorderColor"
-                                    })
-                                }
-                            },
-                            frameBackgrounds = {
-                                order = 4,
-                                type = "group",
-                                inline = true,
-                                name = L["Frame Background"],
-                                args = {
-                                    border = Addon:CreateFrameBackgroundOption(L["Background Theme"], 1, {
-                                        "artwork",
-                                        "skins",
-                                        "frameBackground"
-                                    }),
-                                    borderColor = Addon:CreateColorOption(L["Background Color"], 2, {
-                                        "artwork",
-                                        "skins",
-                                        "frameBackgroundColor"
-                                    })
-                                }
-                            },
-                            buttons = {
-                                order = 4,
-                                type = "group",
-                                inline = true,
-                                name = L["Frame Buttons"],
-                                args = {
-                                    border = Addon:CreateBorderThemeOption(L["Border Theme"], 1, {
-                                        "artwork",
-                                        "skins",
-                                        "buttonBorder"
-                                    }),
-                                    borderColor = Addon:CreateColorOption(L["Border Color"], 2, {
-                                        "artwork",
-                                        "skins",
-                                        "buttonBorderColor"
-                                    }),
-                                    borderColor = Addon:CreateColorOption(L["Border Highlight Color"], 2, {
-                                        "artwork",
-                                        "skins",
-                                        "buttonBorderHighlightColor"
-                                    }),
-                                    useDefaultButtonHighlight = Addon:CreateToggleOption(L["Use Default Highlight"], L["When checked, use the ElvUI Highlight color all buttons, ignoring the normal Highlight color above."], 4, "full", {
-                                        "artwork",
-                                        "skins",
-                                        "useDefaultButtonHighlight"
-                                    })
-                                }
-                            }
-                        }
-                    },
-                    tooltips = {
-                        order = 80,
-                        type = "group",
-                        name = L["Tooltips"],
-                        args = {
-                            header = Addon:CreateOptionHeader(L["Tooltips"], 0),
-                            border = {
-                                order = 1,
-                                type = "group",
-                                inline = true,
-                                name = L["Border"],
-                                args = {
-                                    border = Addon:CreateBorderThemeOption(L["Border Theme"], 1, {"artwork", "tooltips", "tooltipBorder"}),
-                                    borderColor = Addon:CreateColorOption(L["Border Color"], 2, {"artwork", "tooltips", "tooltipBorderColor"})
-                                }
-                            }
-                        }
-                    },
-                    unitFrames = {
-                        order = 90,
-                        type = "group",
-                        name = L["Unit Frames"],
-                        args = {
-                            player = Addon:CreateUnitFrameOptions("player", L["Player"], 1),
-                            pet = Addon:CreateUnitFrameOptions("pet", L["Pet"], 2),
-                            target = Addon:CreateUnitFrameOptions("target", L["Target"], 3),
-                            targettarget = Addon:CreateUnitFrameOptions("targettarget", L["Target's Target"], 4),
-                            focus = Addon:CreateUnitFrameOptions("focus", L["Focus Target"], 5, Addon.isClassic),
-                            focustarget = Addon:CreateUnitFrameOptions("focustarget", L["Focus Target's Target"], 6, Addon.isClassic)
-                        }
-                    }
-                }
-            },
             automation = {
-                order = 20,
+                order = 10,
                 type = "group",
                 name = L["Automation"],
                 args = {
@@ -817,7 +213,9 @@ function Addon:InsertOptions()
                         name = L["Auto Invite Password"],
                         order = 22,
                         width = "full",
-                        disabled = function() return not E.db[addonName].automation.autoInvite end,
+                        disabled = function()
+                            return not E.db[addonName].automation.autoInvite
+                        end,
                         get = function()
                             return E.db[addonName].automation.autoInvitePassword
                         end,
@@ -828,7 +226,7 @@ function Addon:InsertOptions()
                 }
             },
             minimapButtonFrame = {
-                order = 30,
+                order = 20,
                 type = "group",
                 name = L["Minimap Button Frame"],
                 args = {
@@ -913,45 +311,52 @@ function Addon:InsertOptions()
                     }
                 }
             },
-            shadows = {
-                order = 40,
+            skins = {
+                order = 30,
                 type = "group",
-                name = L["Shadows"],
+                name = L["Skins"],
                 args = {
-                    enabled = Addon:CreateToggleOption(L["Enabled"], nil, 1, nil, {"shadows", "enabled"}),
-                    lineBreak = {type = "header", name = "", order = 2},
-                    color = Addon:CreateColorOption(L["Shadow Color"], 10, {"shadows", "color"}),
-                    size = {
-                        order = 11,
-                        type = "range",
-                        name = L["Shadow Size"],
-                        min = 3,
-                        max = 30,
-                        step = 1,
-                        get = function(info)
-                            return E.db[addonName].shadows.size
-                        end,
-                        set = function(info, value)
-                            E.db[addonName].shadows.size = value
-                            Addon.Shadows:UpdateShadows()
-                        end
-                    },
-                    shadowPerButton = {
-                        order = 21,
-                        type = "toggle",
-                        name = L["Shadow Per Button"],
-                        get = function(info)
-                            return E.db[addonName].shadows.shadowPerButton
-                        end,
-                        set = function(info, value)
-                            E.db[addonName].shadows.shadowPerButton = value
-                            Addon.Shadows:UpdateShadows()
-                        end
+                    shadows = {
+                        order = 10,
+                        type = "group",
+                        name = L["Shadows"],
+                        args = {
+                            enabled = Addon:CreateToggleOption(L["Enabled"], nil, 1, nil, {"skins", "shadows", "enabled"}),
+                            lineBreak = {type = "header", name = "", order = 2},
+                            color = Addon:CreateColorOption(L["Shadow Color"], 10, {"skins", "shadows", "color"}),
+                            size = {
+                                order = 11,
+                                type = "range",
+                                name = L["Shadow Size"],
+                                min = 3,
+                                max = 30,
+                                step = 1,
+                                get = function(info)
+                                    return E.db[addonName].skins.shadows.size
+                                end,
+                                set = function(info, value)
+                                    E.db[addonName].skins.shadows.size = value
+                                    Addon.Skins:Update()
+                                end
+                            },
+                            shadowPerButton = {
+                                order = 21,
+                                type = "toggle",
+                                name = L["Shadow Per Button"],
+                                get = function(info)
+                                    return E.db[addonName].skins.shadows.shadowPerButton
+                                end,
+                                set = function(info, value)
+                                    E.db[addonName].skins.shadows.shadowPerButton = value
+                                    Addon.Skins:Update()
+                                end
+                            }
+                        }
                     }
                 }
             },
             tooltips = {
-                order = 50,
+                order = 40,
                 type = "group",
                 name = L["Tooltips"],
                 args = {
@@ -1203,12 +608,8 @@ function Addon:CreateUnitFrameOptions(unit, caption, order, hidden, additionalAr
                 name = L["Health Bar"],
                 args = {
                     border = Addon:CreateBorderThemeOption(L["Border Theme"], 1, {"artwork", "unitFrames", unit, "healthBorder"}),
-                    borderColor = Addon:CreateColorOption(L["Border Color"], 2, {
-                        "artwork",
-                        "unitFrames",
-                        unit,
-                        "healthBorderColor"
-                    })
+                    borderColor = Addon:CreateColorOption(L["Border Color"], 2,
+                                                          {"artwork", "unitFrames", unit, "healthBorderColor"})
                 }
             },
             powerBar = {
@@ -1218,12 +619,8 @@ function Addon:CreateUnitFrameOptions(unit, caption, order, hidden, additionalAr
                 name = L["Power Bar"],
                 args = {
                     border = Addon:CreateBorderThemeOption(L["Border Theme"], 1, {"artwork", "unitFrames", unit, "powerBorder"}),
-                    borderColor = Addon:CreateColorOption(L["Border Color"], 2, {
-                        "artwork",
-                        "unitFrames",
-                        unit,
-                        "powerBorderColor"
-                    })
+                    borderColor = Addon:CreateColorOption(L["Border Color"], 2,
+                                                          {"artwork", "unitFrames", unit, "powerBorderColor"})
                 }
             },
             castBar = {
@@ -1233,12 +630,8 @@ function Addon:CreateUnitFrameOptions(unit, caption, order, hidden, additionalAr
                 name = L["Castbar"],
                 args = {
                     border = Addon:CreateBorderThemeOption(L["Border Theme"], 1, {"artwork", "unitFrames", unit, "castBarBorder"}),
-                    borderColor = Addon:CreateColorOption(L["Border Color"], 2, {
-                        "artwork",
-                        "unitFrames",
-                        unit,
-                        "castBarBorderColor"
-                    })
+                    borderColor = Addon:CreateColorOption(L["Border Color"], 2,
+                                                          {"artwork", "unitFrames", unit, "castBarBorderColor"})
                 }
             }
         }

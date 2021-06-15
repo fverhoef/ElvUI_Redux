@@ -12,8 +12,4 @@ Init.lua
 Media\Media.lua
 Config.lua
 Toolkit.lua
-Utilities.lua
-Atlas.lua
-Registry.lua
 Modules\Modules.xml
-Hooks.lua

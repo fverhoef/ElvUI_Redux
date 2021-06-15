@@ -46,7 +46,7 @@ function InventoryDatabase:Update()
         "SecondaryHandSlot"
     }
 
-    if Addon.isClassic then
+    if Addon.isClassic or Addon.isTbc then
         table.insert(slots, "RangedSlot")
     end
 

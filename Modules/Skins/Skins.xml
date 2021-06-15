@@ -1,0 +1,9 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+    <Script file="Skins.lua"/>
+    <Script file="Registry.lua"/>
+    <Script file="Borders.lua"/>
+    <Script file="Shadows.lua"/>
+    <Script file="Atlas.lua"/>
+    <Include file="Elements\Elements.xml"/>
+    <Script file="Hooks.lua"/>
+</Ui>

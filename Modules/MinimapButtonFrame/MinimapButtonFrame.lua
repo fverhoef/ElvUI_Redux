@@ -72,7 +72,7 @@ end
 
 function MinimapButtonFrame:CreateButtonFrame()
     Minimap.ButtonFrame = CreateFrame("Frame", "MinimapButtonFrame", UIParent)
-    Minimap.ButtonFrame:SetFrameStrata("MEDIUM")
+    Minimap.ButtonFrame:SetFrameStrata("LOW")
     Minimap.ButtonFrame:SetFrameLevel(1)
     Minimap.ButtonFrame:EnableMouse(true)
     Minimap.ButtonFrame:CreateBackdrop()
@@ -90,7 +90,8 @@ function MinimapButtonFrame:CreateButtonFrame()
 
     Minimap.ButtonFrame.Toggle = CreateFrame("Button", "MinimapButtonFrameToggle", Minimap.ButtonFrame)
     Minimap.ButtonFrame.Toggle:SetNormalTexture(Addon.media.textures.arrowUp_ElvUI)
-    Minimap.ButtonFrame.Toggle:SetPoint("TOPRIGHT", Minimap.ButtonFrame, "TOPRIGHT", -5, 0)
+    Minimap.ButtonFrame.Toggle:SetFrameLevel(5)
+    Minimap.ButtonFrame.Toggle:SetPoint("TOPRIGHT", Minimap.ButtonFrame, "TOPRIGHT", -8, 0)
     Minimap.ButtonFrame.Toggle:SetSize(16, 16)
     Minimap.ButtonFrame.Toggle:SetScript("OnEnter", function(btn)
         GameTooltip:SetOwner(btn, "ANCHOR_TOPLEFT")
@@ -126,8 +127,8 @@ function MinimapButtonFrame:CreateButtonFrame()
         Minimap.ButtonFrame.Toggle:GetNormalTexture():SetRotation(0)
     end
 
-    Addon.Shadows:CreateShadow(Minimap.ButtonFrame)
-    Addon.Shadows:CreateShadow(Minimap.ButtonFrame.Container)
+    Addon.Skins:CreateShadow(Minimap.ButtonFrame.Container)
+    Addon.Skins:CreateBorder(Minimap.ButtonFrame.Container, Addon.Skins:GetFrameBorderAtlas(), Addon.Skins:GetBorderColor(Minimap.ButtonFrame.Container))
 
     MinimapButtonFrame:UpdateFramePosition()
 end
@@ -408,7 +409,7 @@ function MinimapButtonFrame:UpdateFramePosition()
         end
         Minimap.ButtonFrame:SetSize(18, MinimapPanel:GetHeight() - 2)
         Minimap.ButtonFrame:SetPoint("LEFT", MinimapPanel, "RIGHT", 0, 0)
-        Minimap.ButtonFrame.Toggle:SetPoint("TOPRIGHT", Minimap.ButtonFrame, "TOPRIGHT", 0, -2)
+        Minimap.ButtonFrame.Toggle:SetPoint("TOPRIGHT", Minimap.ButtonFrame, "TOPRIGHT", -2, -1)
         Minimap.ButtonFrame.Container:SetPoint("TOPRIGHT", Minimap.ButtonFrame, "BOTTOMRIGHT", 0, -6)
 
         MinimapPanel:Point("TOPLEFT", Minimap, "BOTTOMLEFT", (E.PixelMode and -1 or -2) + offset, 0)

@@ -3,6 +3,7 @@ local Addon = addonTable[1]
 local Tooltips = Addon:NewModule(addonName .. "Tooltips", "AceHook-3.0", "AceEvent-3.0", "AceTimer-3.0")
 Addon.Tooltips = Tooltips
 local E, L, V, P, G = unpack(ElvUI)
+local TT = E:GetModule("Tooltip")
 
 function Tooltips:Initialize()
     Tooltips:HookSetItem(_G.GameTooltip)
@@ -18,6 +19,24 @@ function Tooltips:Initialize()
         -- disable built-in item counts
         E.db.tooltip.itemCount = "NONE"
     end
+
+    Tooltips:SecureHook(TT, "GameTooltip_SetDefaultAnchor", function(self, tt, parent)
+        Tooltips:GameTooltip_SetDefaultAnchor(tt, parent)
+    end)
+end
+
+function Tooltips:GameTooltip_SetDefaultAnchor(tt, parent)
+    if tt.StatusBar and TT.db.healthBar.statusPosition ~= "DISABLED" then
+        if TT.db.healthBar.statusPosition == "BOTTOM" then
+            tt.StatusBar:ClearAllPoints()
+            tt.StatusBar:Point("BOTTOMLEFT", tt, "BOTTOMLEFT", 2, 2)
+            tt.StatusBar:Point("BOTTOMRIGHT", tt, "BOTTOMRIGHT", -2, 2)
+        else
+            tt.StatusBar:ClearAllPoints()
+            tt.StatusBar:Point("TOPLEFT", tt, "TOPLEFT", 2, -2)
+            tt.StatusBar:Point("TOPRIGHT", tt, "TOPRIGHT", -2, -2)
+        end
+    end
 end
 
 function Tooltips:HookSetItem(tip)
@@ -28,7 +47,8 @@ function Tooltips:HookSetItem(tip)
 
         local itemName, link = tooltip:GetItem()
         if link then
-            local itemName, itemLink, itemRarity, itemLevel, itemMinLevel, itemType, itemSubType, itemStackCount, itemEquipLoc, itemIcon, sellPrice, classID = GetItemInfo(link)
+            local itemName, itemLink, itemRarity, itemLevel, itemMinLevel, itemType, itemSubType, itemStackCount, itemEquipLoc,
+                  itemIcon, sellPrice, classID = GetItemInfo(link)
             Tooltips:AddIcon(tooltip, itemIcon)
             if itemEquipLoc and itemEquipLoc ~= "" then
                 Tooltips:AddItemLevel(tooltip, itemLevel)
@@ -113,7 +133,10 @@ end
 
 function Tooltips:AddItemLevel(tooltip, itemLevel)
     if E.db[addonName].tooltips.showItemLevel then
-        Tooltips:InsertLine(tooltip, 2, {left = {text = L["Item Level"] .. " " .. itemLevel, color = E.db[addonName].tooltips.colors.itemLevel}, right = {}})
+        Tooltips:InsertLine(tooltip, 2, {
+            left = {text = L["Item Level"] .. " " .. itemLevel, color = E.db[addonName].tooltips.colors.itemLevel},
+            right = {}
+        })
     end
 end
 
@@ -151,11 +174,15 @@ function Tooltips:InsertLine(tooltip, position, line)
             lines[index] = line
             index = index + 1
         end
-        lines[index] = {left = {text = tooltipLeft:GetText(), color = {lR, lG, lB}}, right = {text = tooltipRight:GetText(), color = {rR, rG, rB}}}
+        lines[index] = {
+            left = {text = tooltipLeft:GetText(), color = {lR, lG, lB}},
+            right = {text = tooltipRight:GetText(), color = {rR, rG, rB}}
+        }
     end
 
     if line.right then
-        tooltip:AddDoubleLine(line.left.text, line.right.text, unpack(line.left.color or {1, 1, 1}), unpack(line.right.color or {1, 1, 1}))
+        tooltip:AddDoubleLine(line.left.text, line.right.text, unpack(line.left.color or {1, 1, 1}),
+                              unpack(line.right.color or {1, 1, 1}))
     else
         tooltip:AddLine(line.left.text, unpack(line.left.color))
     end

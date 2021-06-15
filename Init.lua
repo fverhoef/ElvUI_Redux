@@ -6,8 +6,13 @@ local LSM = LibStub("LibSharedMedia-3.0")
 local Addon = E:NewModule(addonName, "AceHook-3.0", "AceEvent-3.0", "AceTimer-3.0")
 Addon.name = "ElvUI Redux"
 Addon.title = "|cff1784d1ElvUI|r |cff76FF03Redux|r"
-Addon.isClassic = WOW_PROJECT_ID == WOW_PROJECT_CLASSIC
 Addon.version = GetAddOnMetadata(addonName, "Version")
+
+local build = select(4, GetBuildInfo())
+Addon.isClassic = build < 20000
+Addon.isTbc = build < 30000
+Addon.isWotlk = build < 40000
+Addon.isRetail = build > 40000
 
 addonTable[1] = Addon
 _G[addonName] = Addon
@@ -15,9 +20,8 @@ _G[addonName] = Addon
 function Addon:Initialize()
     EP:RegisterPlugin(addonName, Addon.InsertOptions)
 
-    Addon.Shadows:Initialize()
+    Addon.Skins:Initialize()
     Addon.MinimapButtonFrame:Initialize()
-    Addon.Artwork:Initialize()
     Addon.Automation:Initialize()
     Addon.InventoryDatabase:Initialize()
     Addon.Tooltips:Initialize()
@@ -32,8 +36,7 @@ function Addon:Initialize()
 end
 
 function Addon:Update()
-    Addon.Artwork:UpdateArtwork()
-    Addon.Shadows:UpdateShadows()
+    Addon.Skins:Update()
 end
 
 E:RegisterModule(Addon:GetName())
