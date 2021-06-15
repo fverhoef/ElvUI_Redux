@@ -43,7 +43,15 @@ function Skins:HandleDataBar(bar, holder)
     end
 
     Skins:CreateShadow(holder)
-    Skins:CreateBorder(bar, Skins:GetFrameBorderAtlas(), Skins:GetBorderColor(bar))
+    local border = Skins:CreateBorder(holder, Skins:GetFrameBorderAtlas(), Skins:GetBorderColor(holder))    
+
+    if border and border:IsShown() then
+        local borderColor = {border:GetBorderColor()}
+        border:HideOriginalBackdrop(true)
+        border:SetBorderColor(unpack(borderColor))
+
+        border:SetFrameLevel(bar:GetFrameLevel() + 1)
+    end
 end
 
 function Skins:HandleChatPanel(panel)
@@ -68,7 +76,13 @@ function Skins:HandleDataPanel(panel)
     end
 
     Skins:CreateShadow(panel)
-    Skins:CreateBorder(panel, Skins:GetFrameBorderAtlas(), Skins:GetBorderColor(panel))
+    local border = Skins:CreateBorder(panel, Skins:GetFrameBorderAtlas(), Skins:GetBorderColor(panel))
+
+    if border and border:IsShown() then
+        local borderColor = {border:GetBorderColor()}
+        border:HideOriginalBackdrop(true)
+        border:SetBorderColor(unpack(borderColor))
+    end
 end
 
 function Skins:HandleActionBar(bar)
@@ -95,5 +109,11 @@ function Skins:HandleStatusBar(bar)
     end
 
     Skins:CreateShadow(bar)
-    Skins:CreateBorder(bar, Skins:GetFrameBorderAtlas(), Skins:GetBorderColor(bar))
+    local border = Skins:CreateBorder(bar, Skins:GetFrameBorderAtlas(), Skins:GetBorderColor(bar))
+
+    if border and border:IsShown() then
+        local borderColor = {border:GetBorderColor()}
+        border:HideOriginalBackdrop(true)
+        border:SetBorderColor(unpack(borderColor))
+    end
 end

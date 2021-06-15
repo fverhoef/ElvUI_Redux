@@ -4,7 +4,7 @@ local Skins = Addon.Skins
 local E, L, V, P, G = unpack(ElvUI)
 local UF = E:GetModule("UnitFrames")
 
-local function HandleUnitFrameAura(unitFrame)
+local function HandleUnitFrameAura(unitFrame, unit, button)
     Skins:HandleAuraButton(button)
 end
 

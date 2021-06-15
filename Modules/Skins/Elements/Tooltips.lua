@@ -10,13 +10,13 @@ function Skins:HandleToolTip(tip)
     end
 
     Skins:CreateShadow(tip)
-    Skins:CreateBorder(tip, Skins:GetTooltipBorderAtlas(), E.media.bordercolor)
+    local border = Skins:CreateBorder(tip, Skins:GetTooltipBorderAtlas(), E.media.bordercolor)
 
-    if tip._border then
+    if border and border:IsShown() then
         local backdropColor = {tip:GetBackdropColor()}
         backdropColor[4] = TT.db.colorAlpha
 
-        tip._border:HideOriginalBackdrop(true)
+        border:HideOriginalBackdrop(true)
 
         local borderColor = E.media.bordercolor
         if E.db.tooltip.itemQualityBorderColor and tip.GetItem then
@@ -31,15 +31,15 @@ function Skins:HandleToolTip(tip)
         tip:SetBackdropBorderColor(unpack(borderColor))
         tip:SetBackdropColor(unpack(backdropColor))
 
-        if tip._border and tip.StatusBar then
-            tip._border:SetFrameLevel(tip.StatusBar:GetFrameLevel() + 1)
+        if border and tip.StatusBar then
+            border:SetFrameLevel(tip.StatusBar:GetFrameLevel() + 1)
             tip.StatusBar:SetScript("OnShow", function(self)
                 self.text:Show()
             end)
             tip.StatusBar:SetScript("OnHide", function(self)
                 self.text:Hide()
             end)
-            tip.StatusBar.text:SetParent(tip._border)
+            tip.StatusBar.text:SetParent(border)
         end
     end
 end

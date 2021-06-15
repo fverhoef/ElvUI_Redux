@@ -149,6 +149,7 @@ function Skins:Initialize()
         Skins:HandlePanel(_G[merathilis[1].Title .. "BottomPanel"], "BOTTOM")
     end
 
+    Skins:RegisterEvent("ADDON_LOADED", Skins.ADDON_LOADED)
     Skins:RegisterEvent("GROUP_ROSTER_UPDATE", Skins.GROUP_ROSTER_UPDATE)
 end
 
@@ -194,12 +195,8 @@ function Skins:Update()
     end
 
     for border, _ in pairs(Skins.registry.borders) do
-        --border:Update()
+        -- border:Update()
     end
-end
-
-function Skins:GROUP_ROSTER_UPDATE()
-    Skins:Update()
 end
 
 function Skins:GetBorderColor(frame)
@@ -210,4 +207,95 @@ function Skins:GetBorderColor(frame)
     end
 
     return color or E.media.bordercolor
+end
+
+function Skins:ADDON_LOADED(addonName)
+    if addonName == "Blizzard_AuctionUI" then
+        Skins:ScheduleTimer("SkinAuctionFrame", 0.01)
+    elseif addonName == "Blizzard_CraftUI" then
+        Skins:ScheduleTimer("SkinCraftFrame", 0.01)
+    elseif addonName == "Blizzard_InspectUI" then
+        Skins:ScheduleTimer("SkinInspectFrame", 0.01)
+    elseif addonName == "Blizzard_MacroUI" then
+        Skins:ScheduleTimer("SkinMacroFrame", 0.01)
+    elseif addonName == "Blizzard_TalentUI" then
+        Skins:ScheduleTimer("SkinTalentFrame", 0.01)
+    elseif addonName == "Blizzard_TradeSkillUI" then
+        Skins:ScheduleTimer("SkinTradeSkillFrame", 0.01)
+    elseif addonName == "Blizzard_TrainerUI" then
+        Skins:ScheduleTimer("SkinTrainerFrame", 0.01)
+    end
+end
+
+function Skins:SkinAuctionFrame()
+end
+
+function Skins:SkinCraftFrame()
+    if _G.CraftFrame then
+        for i = 1, _G.MAX_CRAFT_REAGENTS do
+            local button = _G["CraftReagent" .. i]
+            --Artwork:SkinCraftItemButton(button)
+        end
+    else
+        Skins:ScheduleTimer("SkinCraftFrame", 0.01)
+    end
+end
+
+function Skins:SkinInspectFrame()
+    if _G.InspectPaperDollItemsFrame then
+        for _, slot in ipairs({_G.InspectPaperDollItemsFrame:GetChildren()}) do
+            if slot:IsObjectType("Button") then
+                Skins:HandleItemButton(slot)
+            end
+        end
+    else
+        Skins:ScheduleTimer("SkinInspectFrame", 0.01)
+    end
+end
+
+function Skins:SkinMacroFrame()
+    if _G.MacroFrame then
+        for i = 1, _G.MAX_ACCOUNT_MACROS do
+            --Skins:SkinActionButton(_G["MacroButton" .. i])
+        end
+
+        --Skins:SkinActionButton(_G.MacroFrameSelectedMacroButton)
+    else
+        Skins:ScheduleTimer("SkinMacroFrame", 0.01)
+    end
+end
+
+function Skins:SkinTalentFrame()
+end
+
+function Skins:SkinTradeSkillFrame()
+    if _G.TradeSkillFrame then
+        for i = 1, _G.MAX_TRADE_SKILL_REAGENTS do
+            local button = _G["TradeSkillReagent" .. i]
+            --Skins:SkinCraftItemButton(button)
+        end
+        --Skins:SkinCraftItemButton(_G.TradeSkillSkillIcon)
+
+        local id = _G.TradeSkillFrame.selectedSkill
+        local skillType = select(2, GetTradeSkillInfo(id))
+        if skillType ~= "header" then
+            local skillLink = GetTradeSkillItemLink(id)
+            if skillLink then
+                local quality = select(3, GetItemInfo(skillLink))
+                if quality and quality > 1 then
+                    local r, g, b = GetItemQualityColor(quality)
+                    _G.TradeSkillSkillIcon.backdrop:SetBackdropBorderColor(r, g, b)
+                end
+            end
+        end
+    else
+        Skins:ScheduleTimer("LoadTradeSkillFrame", 0.01)
+    end
+end
+
+function Skins:SkinTrainerFrame()
+end
+
+function Skins:GROUP_ROSTER_UPDATE()
+    Skins:Update()
 end

@@ -22,7 +22,7 @@ Skins:SecureHook(S, "HandleFrame", function(self, frame, setBackdrop, template, 
 end)
 
 Skins:SecureHook(S, "HandleTab", function(self, tab, noBackdrop)
-    Skins:HandleTab(tab, noBackdrop, "DOWN")
+    Skins:HandleTab(tab, noBackdrop, tab and string.match(tab:GetName(), "InspectTalentFrameTab") and "UP" or "DOWN")
 end)
 
 Skins:SecureHook(S, "HandleCloseButton", function(self, button, point, x, y)
@@ -113,7 +113,20 @@ Skins:SecureHook(DB, "CreateBar", function(self, name, key, updateFunc, onEnter,
     Skins:HandleDataBar(_G[name], _G[name .. "Holder"])
 end)
 
+Skins:SecureHook(DB, "UpdateAll", function(self)
+    for _, bar in pairs(DB.StatusBars) do
+        Skins:HandleDataBar(bar, _G[bar:GetName() .. "Holder"])
+    end
+end)
+
 Skins:SecureHook(DT, "RegisterPanel", function(self, panel, numPoints, anchor, xOff, yOff, vertical)
+    Skins:HandleDataPanel(panel)
+end)
+
+Skins:SecureHook(DT, "UpdatePanelInfo", function(self, panelName, panel, ...)
+    if not panel then
+        panel = DT.RegisteredPanels[panelName]
+    end
     Skins:HandleDataPanel(panel)
 end)
 

@@ -176,8 +176,11 @@ local function RestoreOriginalBackdrop(border)
 end
 
 function Skins:CreateBorder(frame, atlas, color, layer)
-    if not frame or frame._border then
+    if not frame then
         return
+    end
+    if frame._border then
+        return frame._border
     end
 
     layer = layer or "BORDER"
