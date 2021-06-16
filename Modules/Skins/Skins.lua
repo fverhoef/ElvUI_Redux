@@ -53,6 +53,7 @@ function Skins:Initialize()
     Skins:HandleButton(_G.LeftChatToggleButton)
     Skins:HandleChatPanel(_G.RightChatPanel)
     Skins:HandleButton(_G.RightChatToggleButton)
+    Skins:HandleFrame(_G.ChatButtonHolder)
 
     -- skill book tabs
     for i = 1, _G.MAX_SKILLLINE_TABS do
@@ -83,9 +84,9 @@ function Skins:Initialize()
     end
 
     -- ElvUI panels
-    Skins:HandlePanel(LO.BottomPanel, "BOTTOM")
-    Skins:HandlePanel(LO.TopPanel, "TOP")
-    Skins:HandlePanel(AFK.AFKMode.bottom, "BOTTOM")
+    Skins:HandleDecorativePanel(LO.BottomPanel, "BOTTOM")
+    Skins:HandleDecorativePanel(LO.TopPanel, "TOP")
+    Skins:HandleDecorativePanel(AFK.AFKMode.bottom, "BOTTOM")
 
     -- Unit Frames
     Skins:HandleUnitFrame("player")
@@ -145,8 +146,8 @@ function Skins:Initialize()
     -- plugins: ElvUI_MerathilisUI
     local merathilis = _G["ElvUI_MerathilisUI"] or _G["ElvUI_MerathilisUI-Classic"]
     if merathilis then
-        Skins:HandlePanel(_G[merathilis[1].Title .. "TopPanel"], "TOP")
-        Skins:HandlePanel(_G[merathilis[1].Title .. "BottomPanel"], "BOTTOM")
+        Skins:HandleDecorativePanel(_G[merathilis[1].Title .. "TopPanel"], "TOP")
+        Skins:HandleDecorativePanel(_G[merathilis[1].Title .. "BottomPanel"], "BOTTOM")
     end
 
     Skins:RegisterEvent("ADDON_LOADED", Skins.ADDON_LOADED)
@@ -231,65 +232,55 @@ function Skins:SkinAuctionFrame()
 end
 
 function Skins:SkinCraftFrame()
-    if _G.CraftFrame then
-        for i = 1, _G.MAX_CRAFT_REAGENTS do
-            local button = _G["CraftReagent" .. i]
-            --Artwork:SkinCraftItemButton(button)
-        end
-    else
-        Skins:ScheduleTimer("SkinCraftFrame", 0.01)
+    for i = 1, _G.MAX_CRAFT_REAGENTS do
+        local button = _G["CraftReagent" .. i]
+        -- Artwork:SkinCraftItemButton(button)
     end
 end
 
 function Skins:SkinInspectFrame()
-    if _G.InspectPaperDollItemsFrame then
-        for _, slot in ipairs({_G.InspectPaperDollItemsFrame:GetChildren()}) do
-            if slot:IsObjectType("Button") then
-                Skins:HandleItemButton(slot)
-            end
+    for _, slot in ipairs({_G.InspectPaperDollItemsFrame:GetChildren()}) do
+        if slot:IsObjectType("Button") then
+            Skins:HandleItemButton(slot)
         end
-    else
-        Skins:ScheduleTimer("SkinInspectFrame", 0.01)
+    end
+    for i = 1, _G.MAX_NUM_TALENTS do
+        Skins:HandleTalentButton(_G["InspectTalentFrameTalent" .. i])
     end
 end
 
 function Skins:SkinMacroFrame()
-    if _G.MacroFrame then
-        for i = 1, _G.MAX_ACCOUNT_MACROS do
-            --Skins:SkinActionButton(_G["MacroButton" .. i])
-        end
-
-        --Skins:SkinActionButton(_G.MacroFrameSelectedMacroButton)
-    else
-        Skins:ScheduleTimer("SkinMacroFrame", 0.01)
+    for i = 1, _G.MAX_ACCOUNT_MACROS do
+        Skins:HandleIcon(_G["MacroButton" .. i])
     end
+
+    Skins:HandleIcon(_G.MacroFrameSelectedMacroButton)
 end
 
 function Skins:SkinTalentFrame()
+    for i = 1, _G.MAX_NUM_TALENTS do
+        Skins:HandleTalentButton(_G["PlayerTalentFrameTalent" .. i])
+    end
 end
 
 function Skins:SkinTradeSkillFrame()
-    if _G.TradeSkillFrame then
-        for i = 1, _G.MAX_TRADE_SKILL_REAGENTS do
-            local button = _G["TradeSkillReagent" .. i]
-            --Skins:SkinCraftItemButton(button)
-        end
-        --Skins:SkinCraftItemButton(_G.TradeSkillSkillIcon)
+    for i = 1, _G.MAX_TRADE_SKILL_REAGENTS do
+        local button = _G["TradeSkillReagent" .. i]
+        -- Skins:SkinCraftItemButton(button)
+    end
+    -- Skins:SkinCraftItemButton(_G.TradeSkillSkillIcon)
 
-        local id = _G.TradeSkillFrame.selectedSkill
-        local skillType = select(2, GetTradeSkillInfo(id))
-        if skillType ~= "header" then
-            local skillLink = GetTradeSkillItemLink(id)
-            if skillLink then
-                local quality = select(3, GetItemInfo(skillLink))
-                if quality and quality > 1 then
-                    local r, g, b = GetItemQualityColor(quality)
-                    _G.TradeSkillSkillIcon.backdrop:SetBackdropBorderColor(r, g, b)
-                end
+    local id = _G.TradeSkillFrame.selectedSkill
+    local skillType = select(2, GetTradeSkillInfo(id))
+    if skillType ~= "header" then
+        local skillLink = GetTradeSkillItemLink(id)
+        if skillLink then
+            local quality = select(3, GetItemInfo(skillLink))
+            if quality and quality > 1 then
+                local r, g, b = GetItemQualityColor(quality)
+                _G.TradeSkillSkillIcon.backdrop:SetBackdropBorderColor(r, g, b)
             end
         end
-    else
-        Skins:ScheduleTimer("LoadTradeSkillFrame", 0.01)
     end
 end
 

@@ -2,48 +2,12 @@ local addonName, addonTable = ...
 local Addon = addonTable[1]
 local Skins = Addon.Skins
 local E, L, V, P, G = unpack(ElvUI)
+local RU = E:GetModule("RaidUtility")
+local S = E:GetModule("Skins")
 
-function Skins:HandleActionButton(button, noBackdrop, useMasque, ignoreNormal)
-    if not button or useMasque then
-        return
-    end
-
-    Skins:CreateShadow(button)
-    Skins:CreateBorder(button, Skins:GetActionButtonBorderAtlas(), Skins:GetBorderColor(button))
-
-    local icon = button.icon or _G[button:GetName() .. "Icon"]
-    if icon then
-        icon:SetInside(nil, 2, 2)
-    end
-end
-
-function Skins:HandleAuraButton(button)
-    if not button then
-        return
-    end
-
-    Skins:CreateShadow(button)
-    Skins:CreateBorder(button, Skins:GetAuraBorderAtlas(), Skins:GetBorderColor(button))
-
-    local icon = button.icon or _G[button:GetName() .. "Icon"]
-    if icon then
-        icon:SetInside(nil, 2, 2)
-    end
-end
-
-function Skins:HandleTempEnchantButton(button)
-    if not button then
-        return
-    end
-
-    Skins:CreateShadow(button)
-    Skins:CreateBorder(button, Skins:GetTempEnchantBorderAtlas(), Skins:GetBorderColor(button))
-
-    local icon = button.icon or _G[button:GetName() .. "Icon"]
-    if icon then
-        icon:SetInside(nil, 2, 2)
-    end
-end
+Skins:SecureHook(S, "HandleItemButton", function(self, button, shrinkIcon)
+    Skins:HandleItemButton(button, shrinkIcon)
+end)
 
 function Skins:HandleItemButton(button, shrinkIcon)
     if not button then
@@ -54,16 +18,23 @@ function Skins:HandleItemButton(button, shrinkIcon)
     Skins:CreateBorder(button, Skins:GetItemButtonBorderAtlas(), Skins:GetBorderColor(button))
 
     local name = button:GetName()
-    if string.match(name, "TradePlayerItem") or string.match(name, "TradeRecipientItem") then
-        -- TODO: resize icon for trade items
-        return
-    end
+    if name then
+        if string.match(name, "TradePlayerItem") or string.match(name, "TradeRecipientItem") then
+            -- TODO: resize icon for trade items
+            return
+        end
 
-    local icon = button.icon or _G[button:GetName() .. "Icon"]
-    if icon then
-        icon:SetInside(nil, 2, 2)
+        local icon = button.icon or _G[name .. "Icon"]
+        if icon then
+            icon:SetInside(nil, 2, 2)
+        end
     end
 end
+
+Skins:SecureHook(RU, "CreateUtilButton",
+                 function(self, name, parent, template, width, height, point, relativeto, point2, xOfs, yOfs, text, texture)
+    Skins:HandleRaidUtilityButton(_G[name])
+end)
 
 function Skins:HandleRaidUtilityButton(button)
     if not button then
@@ -74,30 +45,20 @@ function Skins:HandleRaidUtilityButton(button)
     Skins:CreateBorder(button, Skins:GetButtonBorderAtlas(), Skins:GetBorderColor(button))
 end
 
-function Skins:HandleBagSlotButton(button, bagID, slotID)
+Skins:Hook(S, "HandleNextPrevButton", function(self, button, arrowDir, color, noBackdrop, stripTexts)
+    button.artworkType = "NEXT_PREV"
+end)
+
+function Skins:HandleTalentButton(button)
     if not button then
         return
     end
 
     Skins:CreateShadow(button)
-    Skins:CreateBorder(button, Skins:GetBagSlotButtonBorderAtlas(), Skins:GetBorderColor(button))
+    local border = Skins:CreateBorder(button, Skins:GetButtonBorderAtlas(), Skins:GetBorderColor(button))
 
-    local icon = button.icon or _G[button:GetName() .. "Icon"]
-    if icon then
-        icon:SetInside(nil, 2, 2)
-    end
-end
-
-function Skins:HandleBagBarButton(button)
-    if not button then
-        return
-    end
-
-    Skins:CreateShadow(button)
-    Skins:CreateBorder(button, Skins:GetBagBarButtonBorderAtlas(), Skins:GetBorderColor(button))
-
-    local icon = button.icon or _G[button:GetName() .. "Icon"]
-    if icon then
-        icon:SetInside(nil, 2, 2)
+    local rank = _G[button:GetName() .. "Rank"]
+    if rank then
+        rank:SetParent(border)
     end
 end

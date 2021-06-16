@@ -2,7 +2,30 @@ local addonName, addonTable = ...
 local Addon = addonTable[1]
 local Skins = Addon.Skins
 local E, L, V, P, G = unpack(ElvUI)
+local S = E:GetModule("Skins")
 local TT = E:GetModule("Tooltip")
+
+Skins:SecureHook(TT, "SetStyle", function(self, tip)
+    Skins:HandleToolTip(tip)
+end)
+
+Skins:SecureHook(S, "Ace3_StyleTooltip", function(self)
+    Skins:HandleToolTip(self)
+end)
+
+local AS = AS and unpack(AddOnSkins)
+if AS and false then
+    Skins:SecureHook(AS, "SkinTooltip", function(self, tooltip, scale)
+        Skins:HandleToolTip(tooltip)
+    end)
+end
+
+local DBIcon = LibStub("LibDBIcon-1.0", true)
+if DBIcon and DBIcon.tooltip and DBIcon.tooltip:IsObjectType("GameTooltip") then
+    DBIcon.tooltip:HookScript("OnShow", function(self)
+        Skins:HandleToolTip(self)
+    end)
+end
 
 function Skins:HandleToolTip(tip)
     if not tip then

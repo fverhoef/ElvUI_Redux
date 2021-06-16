@@ -2,44 +2,50 @@ local addonName, addonTable = ...
 local Addon = addonTable[1]
 local Skins = Addon.Skins
 local E, L, V, P, G = unpack(ElvUI)
+local NP = E:GetModule("NamePlates")
 local UF = E:GetModule("UnitFrames")
 
 local function HandleUnitFrameAura(unitFrame, unit, button)
-    Skins:HandleAuraButton(button)
+    Skins:HandleAura(button)
 end
 
 function Skins:HandleUnitFrame(unit)
     local unitFrame = UF[unit]
     if unitFrame then
+        local border
+
         if unitFrame.USE_MINI_POWERBAR then
             Skins:CreateShadow(unitFrame.Health)
-            Skins:CreateBorder(unitFrame.Health, Skins:GetUnitFrameBorderAtlas(), Skins:GetBorderColor(unitFrame.Health))
-            unitFrame.Health._border:SetFrameLevel(unitFrame.Health:GetFrameLevel() + 1)
+            border = Skins:CreateBorder(unitFrame.Health, Skins:GetUnitFrameBorderAtlas(), Skins:GetBorderColor(unitFrame.Health))
+            border:SetFrameLevel(unitFrame.Health:GetFrameLevel() + 1)
         else
             Skins:CreateShadow(unitFrame)
-            Skins:CreateBorder(unitFrame, Skins:GetUnitFrameBorderAtlas(), Skins:GetBorderColor(unitFrame))
-            unitFrame._border:SetFrameLevel(math.max(unitFrame.Health:GetFrameLevel(),
-                                                     unitFrame.Power and unitFrame.Power:GetFrameLevel() or 0) + 1)
+            border = Skins:CreateBorder(unitFrame, Skins:GetUnitFrameBorderAtlas(), Skins:GetBorderColor(unitFrame))
+            border:SetFrameLevel(math.max(unitFrame.Health:GetFrameLevel(),
+                                          unitFrame.Power and unitFrame.Power:GetFrameLevel() or 0) + 1)
         end
 
         if unitFrame.Castbar then
             Skins:CreateShadow(unitFrame.Castbar.Holder)
-            Skins:CreateBorder(unitFrame.Castbar.Holder, Skins:GetUnitFrameBorderAtlas(),
-                               Skins:GetBorderColor(unitFrame.Castbar.Holder))
-            Skins:CreateShadow(unitFrame.Castbar.ButtonIcon.bg, unitFrame.db.castbar.iconAttached)
-            unitFrame.Castbar.Holder._border:SetFrameLevel(unitFrame.Castbar.Holder:GetFrameLevel() + 1)
+            border = Skins:CreateBorder(unitFrame.Castbar.Holder, Skins:GetUnitFrameBorderAtlas(),
+                                        Skins:GetBorderColor(unitFrame.Castbar.Holder))
+            border:SetFrameLevel(unitFrame.Castbar.Holder:GetFrameLevel() + 1)
+
+            local iconBg = unitFrame.Castbar.ButtonIcon.bg
+            Skins:CreateShadow(iconBg, unitFrame.db.castbar.iconAttached)
+            border = Skins:CreateBorder(iconBg, Skins:GetUnitFrameBorderAtlas(), Skins:GetBorderColor(iconBg))
+            border:SetShown(not unitFrame.db.castbar.iconAttached)
         end
         if unitFrame.Power and (unitFrame.POWERBAR_DETACHED or unitFrame.USE_MINI_POWERBAR) then
             Skins:CreateShadow(unitFrame.Power.Holder)
-            Skins:CreateBorder(unitFrame.Power.Holder, Skins:GetUnitFrameBorderAtlas(),
-                               Skins:GetBorderColor(unitFrame.Power.Holder))
-            unitFrame.Power.Holder._border:SetFrameLevel(unitFrame.Power.Holder:GetFrameLevel() + 1)
+            border = Skins:CreateBorder(unitFrame.Power.Holder, Skins:GetUnitFrameBorderAtlas(), Skins:GetBorderColor(unitFrame.Power))
+            border:SetFrameLevel(unitFrame.Power.Holder:GetFrameLevel() + 1)
         end
         if unitFrame.ClassBar and unitFrame[unitFrame.ClassBar] and unitFrame[unitFrame.ClassBar]:IsShown() then
             Skins:CreateShadow(unitFrame.ClassBarHolder)
-            Skins:CreateBorder(unitFrame.ClassBarHolder, Skins:GetUnitFrameBorderAtlas(),
-                               Skins:GetBorderColor(unitFrame.ClassBarHolder))
-            unitFrame.ClassBarHolder._border:SetFrameLevel(unitFrame.ClassBarHolder:GetFrameLevel() + 1)
+            border = Skins:CreateBorder(unitFrame.ClassBarHolder, Skins:GetUnitFrameBorderAtlas(),
+                                        Skins:GetBorderColor(unitFrame.ClassBarHolder))
+            border:SetFrameLevel(unitFrame.ClassBarHolder:GetFrameLevel() + 1)
         end
         if unitFrame.Auras and not Skins:IsHooked(unitFrame.Auras, "PostUpdateIcon") then
             Skins:SecureHook(unitFrame.Auras, "PostUpdateIcon", HandleUnitFrameAura)
@@ -116,8 +122,12 @@ function Skins:HandleUnitFrameGroup(group)
     end
 end
 
+Skins:SecureHook(NP, "StylePlate", function(self, nameplate)
+    Skins:HandleNamePlate(nameplate)
+end)
+
 local function HandleNamePlateAura(self, unit, button)
-    Skins:HandleAuraButton(button)
+    Skins:HandleAura(button)
 end
 
 function Skins:HandleNamePlate(nameplate)
@@ -126,17 +136,19 @@ function Skins:HandleNamePlate(nameplate)
     end
 
     if not nameplate.Health.shadow then
+        local border
+
         Skins:CreateShadow(nameplate.Health)
-        Skins:CreateBorder(nameplate.Health, Skins:GetUnitFrameBorderAtlas(), Skins:GetBorderColor(nameplate.Health))
-        nameplate.Health._border:SetFrameLevel(nameplate.Health:GetFrameLevel() + 1)
+        border = Skins:CreateBorder(nameplate.Health, Skins:GetUnitFrameBorderAtlas(), Skins:GetBorderColor(nameplate.Health))
+        border:SetFrameLevel(nameplate.Health:GetFrameLevel() + 1)
 
         Skins:CreateShadow(nameplate.Power)
-        Skins:CreateBorder(nameplate.Power, Skins:GetUnitFrameBorderAtlas(), Skins:GetBorderColor(nameplate.Power))
-        nameplate.Power._border:SetFrameLevel(nameplate.Power:GetFrameLevel() + 1)
+        border = Skins:CreateBorder(nameplate.Power, Skins:GetUnitFrameBorderAtlas(), Skins:GetBorderColor(nameplate.Power))
+        border:SetFrameLevel(nameplate.Power:GetFrameLevel() + 1)
 
         Skins:CreateShadow(nameplate.Castbar)
-        Skins:CreateBorder(nameplate.Castbar, Skins:GetUnitFrameBorderAtlas(), Skins:GetBorderColor(nameplate.Castbar))
-        nameplate.Castbar._border:SetFrameLevel(nameplate.Castbar:GetFrameLevel() + 1)
+        border = Skins:CreateBorder(nameplate.Castbar, Skins:GetUnitFrameBorderAtlas(), Skins:GetBorderColor(nameplate.Castbar))
+        border:SetFrameLevel(nameplate.Castbar:GetFrameLevel() + 1)
 
         if nameplate.Auras and not Addon:IsHooked(nameplate.Auras, "PostUpdateIcon") then
             Addon:SecureHook(nameplate.Auras, "PostUpdateIcon", HandleNamePlateAura)
@@ -149,3 +161,11 @@ function Skins:HandleNamePlate(nameplate)
         end
     end
 end
+
+Skins:SecureHook(UF, "Configure_Castbar", function(self, frame)
+    local castbar = frame.Castbar
+    if castbar.ButtonIcon and castbar.ButtonIcon.bg and castbar.ButtonIcon.bg.shadow then
+        castbar.ButtonIcon.bg.shadow.isHidden = frame.db.castbar.iconAttached
+        castbar.ButtonIcon.bg.shadow:Update()
+    end
+end)

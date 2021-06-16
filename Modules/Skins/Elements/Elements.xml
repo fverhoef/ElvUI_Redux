@@ -1,6 +1,10 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
-    <Script file="BarsAndPanels.lua"/>
+    <Script file="ActionBars.lua"/>
+    <Script file="Auras.lua"/>
+    <Script file="Bags.lua"/>
     <Script file="Buttons.lua"/>
+    <Script file="Controls.lua"/>
+    <Script file="DataBarsAndPanels.lua"/>
     <Script file="Frames.lua"/>
     <Script file="Tooltips.lua"/>
     <Script file="UnitFrames.lua"/>

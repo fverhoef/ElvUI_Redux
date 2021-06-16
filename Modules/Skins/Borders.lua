@@ -175,6 +175,17 @@ local function RestoreOriginalBackdrop(border)
     end
 end
 
+local function SetDrawLayer(border, layer, sublayer)
+    border.TopLeft:SetDrawLayer(layer, sublayer)
+    border.TopRight:SetDrawLayer(layer, sublayer)
+    border.BottomLeft:SetDrawLayer(layer, sublayer)
+    border.BottomRight:SetDrawLayer(layer, sublayer)
+    border.Top:SetDrawLayer(layer, sublayer)
+    border.Bottom:SetDrawLayer(layer, sublayer)
+    border.Left:SetDrawLayer(layer, sublayer)
+    border.Right:SetDrawLayer(layer, sublayer)
+end
+
 function Skins:CreateBorder(frame, atlas, color, layer)
     if not frame then
         return
@@ -222,6 +233,7 @@ function Skins:CreateBorder(frame, atlas, color, layer)
     border.SetBorderColor = SetBorderColor
     border.RestoreOriginalBackdrop = RestoreOriginalBackdrop
     border.HideOriginalBackdrop = HideOriginalBackdrop
+    border.SetDrawLayer = SetDrawLayer
     border:Update(atlas, color)
 
     frame._border = border
