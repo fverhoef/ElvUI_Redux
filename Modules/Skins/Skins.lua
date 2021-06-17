@@ -21,6 +21,7 @@ function Skins:Initialize()
     Skins:SkinBlizzardOptions()
     Skins:SkinChat()
     Skins:SkinMerchantFrame()
+    Skins:SkinPopups()
     Skins:SkinUnitFrames()
 
     Skins:HandleFrame(_G.GameMenuFrame)
@@ -43,11 +44,6 @@ function Skins:Initialize()
     Skins:HandleFrame(_G.GuildMemberDetailFrame)
     Skins:HandleFrame(_G.RaidInfoFrame)
     Skins:HandleFrame(_G.ItemSocketingFrame)
-
-    for i = 1, 4 do
-        Skins:HandleFrame(_G["StaticPopup" .. i])
-        Skins:HandleFrame(_G["ElvUI_StaticPopup" .. i])
-    end
 
     -- skill book tabs
     for i = 1, _G.MAX_SKILLLINE_TABS do
@@ -288,10 +284,13 @@ function Skins:SkinActionBars()
 end
 
 function Skins:SkinAuctionFrame()
+    Skins:HandleItemButton(_G.AuctionsItemButton)
+
     for _, frame in pairs({_G.AuctionFrameBrowse, _G.AuctionFrameAuctions}) do
         Skins:HandleInsetFrame(frame.LeftBackground)
         Skins:HandleInsetFrame(frame.RightBackground)
     end
+
     for frame, numButtons in pairs({
         ["Browse"] = _G.NUM_BROWSE_TO_DISPLAY,
         ["Auctions"] = _G.NUM_AUCTIONS_TO_DISPLAY,
@@ -460,7 +459,18 @@ function Skins:SkinMerchantFrame()
     Skins:HandleButton(_G.MerchantBuyBackItemItemButton)
 end
 
+function Skins:SkinPopups()
+    for i = 1, 4 do
+        Skins:HandleFrame(_G["StaticPopup" .. i])
+        Skins:HandleFrame(_G["ElvUI_StaticPopup" .. i])
+    end
+end
+
 function Skins:SkinTalentFrame()
+    Skins:HandleFrame(_G.PlayerTalentFrameScrollFrame)
+    _G.PlayerTalentFrameScrollFrame:Point("TOPRIGHT", -60, -77)
+    _G.PlayerTalentFrameScrollFrame:Size(301, 332)
+
     for i = 1, _G.MAX_NUM_TALENTS do
         Skins:HandleTalentButton(_G["PlayerTalentFrameTalent" .. i])
     end
@@ -492,7 +502,6 @@ function Skins:SkinUnitFrames()
     Skins:HandleUnitFrame("arena4")
     Skins:HandleUnitFrame("arena5")
 
-    -- Unit Frame Groups
     Skins:HandleUnitFrameGroup("assist")
     Skins:HandleUnitFrameGroup("boss")
     Skins:HandleUnitFrameGroup("party")
