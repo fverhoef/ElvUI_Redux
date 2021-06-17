@@ -9,10 +9,6 @@ Skins:SecureHook(TT, "SetStyle", function(self, tip)
     Skins:HandleToolTip(tip)
 end)
 
-Skins:SecureHook(S, "Ace3_StyleTooltip", function(self)
-    Skins:HandleToolTip(self)
-end)
-
 local AS = AS and unpack(AddOnSkins)
 if AS and false then
     Skins:SecureHook(AS, "SkinTooltip", function(self, tooltip, scale)
@@ -36,11 +32,6 @@ function Skins:HandleToolTip(tip)
     local border = Skins:CreateBorder(tip, Skins:GetTooltipBorderAtlas(), E.media.bordercolor)
 
     if border and border:IsShown() then
-        local backdropColor = {tip:GetBackdropColor()}
-        backdropColor[4] = TT.db.colorAlpha
-
-        border:HideOriginalBackdrop(true)
-
         local borderColor = E.media.bordercolor
         if E.db.tooltip.itemQualityBorderColor and tip.GetItem then
             local _, link = tip:GetItem()
@@ -52,7 +43,6 @@ function Skins:HandleToolTip(tip)
             end
         end
         tip:SetBackdropBorderColor(unpack(borderColor))
-        tip:SetBackdropColor(unpack(backdropColor))
 
         if border and tip.StatusBar then
             border:SetFrameLevel(tip.StatusBar:GetFrameLevel() + 1)
@@ -63,6 +53,10 @@ function Skins:HandleToolTip(tip)
                 self.text:Hide()
             end)
             tip.StatusBar.text:SetParent(border)
+
+            if tip.StatusBar._border then
+                tip.StatusBar._border:Hide()
+            end
         end
     end
 end

@@ -7,7 +7,11 @@ local CH = E:GetModule("Chat")
 local S = E:GetModule("Skins")
 
 Skins:SecureHook(S, "HandleFrame", function(self, frame, setBackdrop, template, x1, y1, x2, y2)
-    Skins:HandleFrame(frame, setBackdrop)
+    if string.match(frame:GetName() or "", "FriendsTabHeaderTab") then
+        Skins:HandleTab(frame)
+    else
+        Skins:HandleFrame(frame, setBackdrop)
+    end
 end)
 
 Skins:SecureHook(S, "HandlePortraitFrame", function(self, frame, setTemplate)
@@ -16,10 +20,6 @@ end)
 
 Skins:SecureHook(S, "HandleMaxMinFrame", function(self, frame)
     Skins:HandleFrame(frame)
-end)
-
-Skins:SecureHook(E, "Config_WindowOpened", function(self)
-    Skins:HandleFrame(E:Config_GetWindow())
 end)
 
 Skins:SecureHook(E, "StaticPopupSpecial_Show", function(self, frame)
@@ -46,17 +46,26 @@ function Skins:HandleFrame(frame, setBackdrop)
 end
 
 Skins:SecureHook(S, "HandleInsetFrame", function(self, frame)
-    Skins:HandleInsetFrame(frame)
+    --Skins:HandleInsetFrame(frame)
 end)
 
 function Skins:HandleInsetFrame(frame)
     if not frame then
         return
     end
+
+    Skins:CreateShadow(frame)
+    Skins:CreateBorder(frame, Skins:GetFrameBorderAtlas(), Skins:GetBorderColor(frame))
 end
 
 Skins:SecureHook(S, "HandleTab", function(self, tab, noBackdrop)
-    Skins:HandleTab(tab, noBackdrop, tab and string.match(tab:GetName(), "InspectTalentFrameTab") and "UP" or "DOWN")
+    local orientation = "DOWN"
+    local name = tab and tab:GetName() or ""
+    if string.match(name, "InspectTalentFrameTab") or string.match(name, "CombatConfigTab") then
+        orientation = "UP"
+    end
+    
+    Skins:HandleTab(tab, noBackdrop, orientation)
 end)
 
 function Skins:HandleTab(tab, noBackdrop, orientation)

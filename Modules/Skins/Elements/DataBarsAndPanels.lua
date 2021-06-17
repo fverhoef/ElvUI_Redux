@@ -21,15 +21,8 @@ function Skins:HandleDataBar(bar, holder)
     end
 
     Skins:CreateShadow(holder)
-    local border = Skins:CreateBorder(holder, Skins:GetFrameBorderAtlas(), Skins:GetBorderColor(holder))    
-
-    if border and border:IsShown() then
-        local borderColor = {border:GetBorderColor()}
-        border:HideOriginalBackdrop(true)
-        border:SetBorderColor(unpack(borderColor))
-
-        border:SetFrameLevel(bar:GetFrameLevel() + 1)
-    end
+    local border = Skins:CreateBorder(holder, Skins:GetFrameBorderAtlas(), Skins:GetBorderColor(holder))
+    border:SetFrameLevel(bar:GetFrameLevel() + 1)
 end
 
 Skins:SecureHook(DT, "RegisterPanel", function(self, panel, numPoints, anchor, xOff, yOff, vertical)
@@ -49,11 +42,5 @@ function Skins:HandleDataPanel(panel)
     end
 
     Skins:CreateShadow(panel)
-    local border = Skins:CreateBorder(panel, Skins:GetFrameBorderAtlas(), Skins:GetBorderColor(panel))
-
-    if border and border:IsShown() then
-        local borderColor = {border:GetBorderColor()}
-        border:HideOriginalBackdrop(true)
-        border:SetBorderColor(unpack(borderColor))
-    end
+    Skins:CreateBorder(panel, Skins:GetFrameBorderAtlas(), Skins:GetBorderColor(panel))
 end

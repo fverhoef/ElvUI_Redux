@@ -438,7 +438,7 @@ end
 function Installer:SetupMovers()
     E.db["movers"] = E.db["movers"] or {}
     E.db["movers"]["ElvUIBagMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-4,30"
-    E.db["movers"]["ElvUIBankMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,4,31"
+    E.db["movers"]["ElvUIBankMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,4,30"
     E.db["movers"]["PetAB"] = "BOTTOM,ElvUIParent,BOTTOM,0,38"
     E.db["movers"]["ElvAB_1"] = "BOTTOM,ElvUIParent,BOTTOM,0,245"
     E.db["movers"]["ElvAB_3"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-4,-401"
@@ -457,6 +457,7 @@ function Installer:SetupMovers()
     E.db["movers"]["ElvUF_PetMover"] = "BOTTOM,ElvUIParent,BOTTOM,-345,247"
     E.db["movers"]["ElvUF_PetCastbarMover"] = "BOTTOM,ElvUIParent,BOTTOM,-345,227"
     E.db["movers"]["ElvUF_PartyMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,460,363"
+    E.db["movers"]["ArenaHeaderMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-400,363"
     E.db["movers"]["ExperienceBarMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,465,4"
     E.db["movers"]["ReputationBarMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,528,16"
     E.db["movers"]["MageBar"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-560,4"

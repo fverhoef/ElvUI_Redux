@@ -121,55 +121,42 @@ local function SetBorderColor(border, r, g, b, a)
     end
 end
 
-local function RestoreOriginalBackdropColor(backdropFrame)
-    if not backdropFrame.ignoreUpdates then
-        if backdropFrame.callbackBackdropColor then
-            backdropFrame:callbackBackdropColor()
-        elseif backdropFrame.template == "Default" then
-            local r, g, b = unpack(E.media.backdropcolor)
-            backdropFrame:SetBackdropColor(r, g, b)
-        elseif backdropFrame.template == "Transparent" then
-            local r2, g2, b2, a2 = unpack(E.media.backdropfadecolor)
-            backdropFrame:SetBackdropColor(r2, g2, b2, backdropFrame.customBackdropAlpha or a2)
-        end
-    end
-end
-
-local function HideOriginalBackdrop(border, force)
+local function HideOriginalBackdrop(border, force, backdropColor, backdropBorderColor)
     local frame = border.frame
     if frame.originalBackdrop and not force then
         return
     end
 
-    local backdropFrame = frame.backdrop or frame
-    if backdropFrame and backdropFrame.GetBackdrop then
-        frame.originalBackdrop = frame.originalBackdrop or backdropFrame:GetBackdrop()
+    if border.parent and border.parent.GetBackdrop then
+        frame.originalBackdrop = frame.originalBackdrop or border.parent:GetBackdrop()
 
-        local backdropBorderColor = {backdropFrame:GetBackdropBorderColor()}
+        backdropColor = backdropColor or {border.parent:GetBackdropColor()}
+        backdropBorderColor = backdropBorderColor or {border.parent:GetBackdropBorderColor()}
 
-        backdropFrame:SetBackdrop({bgFile = frame.originalBackdrop and frame.originalBackdrop.bgFile, insets = {left = 2, right = 2, top = 2, bottom = 2}})
-        backdropFrame._SetBackdropBorderColor = backdropFrame.SetBackdropBorderColor
-        backdropFrame.SetBackdropBorderColor = function(self, r, g, b, a)
+        border.parent:SetBackdrop({
+            bgFile = frame.originalBackdrop and frame.originalBackdrop.bgFile,
+            insets = {left = 2, right = 2, top = 2, bottom = 2}
+        })
+        border.parent._SetBackdropBorderColor = border.parent.SetBackdropBorderColor
+        border.parent.SetBackdropBorderColor = function(self, r, g, b, a)
             border:SetBorderColor(r, g, b, a)
         end
-        backdropFrame:SetBackdropBorderColor(unpack(backdropBorderColor))
-
-        RestoreOriginalBackdropColor(backdropFrame)
+        border.parent:SetBackdropColor(unpack(backdropColor))
+        border.parent:SetBackdropBorderColor(unpack(backdropBorderColor))
     end
 end
 
 local function RestoreOriginalBackdrop(border)
     local frame = border.frame
     if frame.originalBackdrop then
-        local backdropFrame = frame.backdrop or frame
-        local backdropBorderColor = {backdropFrame:GetBackdropBorderColor()}
+        local backdropColor = {border.parent:GetBackdropColor()}
+        local backdropBorderColor = {border.parent:GetBackdropBorderColor()}
 
-        backdropFrame:SetBackdrop(frame.originalBackdrop)
-        backdropFrame.SetBackdropBorderColor = backdropFrame._SetBackdropBorderColor
-        backdropFrame._SetBackdropBorderColor = nil
-
-        RestoreOriginalBackdropColor(backdropFrame)
-        backdropFrame:SetBackdropBorderColor(unpack(backdropBorderColor))
+        border.parent:SetBackdrop(frame.originalBackdrop)
+        border.parent.SetBackdropBorderColor = border.parent._SetBackdropBorderColor
+        border.parent._SetBackdropBorderColor = nil
+        border.parent:SetBackdropColor(unpack(backdropColor))
+        border.parent:SetBackdropBorderColor(unpack(backdropBorderColor))
 
         frame.originalBackdrop = nil
     end
@@ -191,14 +178,16 @@ function Skins:CreateBorder(frame, atlas, color, layer)
         return
     end
     if frame._border then
+        frame._border:HideOriginalBackdrop(true, nil, {frame._border:GetBorderColor()})
         return frame._border
     end
 
     layer = layer or "BORDER"
 
-    local border = CreateFrame("Frame", nil, frame)
+    local parent = frame.backdrop or frame
+    local border = CreateFrame("Frame", nil, parent)
     border.frame = frame
-    border.parent = frame.backdrop or frame
+    border.parent = parent
 
     border.TopLeft = border:CreateTexture(nil, layer, nil, 2)
     border.TopRight = border:CreateTexture(nil, layer, nil, 2)

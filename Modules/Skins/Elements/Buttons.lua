@@ -31,6 +31,20 @@ function Skins:HandleItemButton(button, shrinkIcon)
     end
 end
 
+function Skins:HandleLargeItemButton(button)
+    if not button then
+        return
+    end
+
+    Skins:CreateShadow(button)
+    Skins:CreateBorder(button, Skins:GetItemButtonBorderAtlas(), Skins:GetBorderColor(button))
+
+    if button.Icon then
+        button.Icon:Size(33)
+        button.Icon:Point("TOPLEFT", 4, -4)
+    end
+end
+
 Skins:SecureHook(RU, "CreateUtilButton",
                  function(self, name, parent, template, width, height, point, relativeto, point2, xOfs, yOfs, text, texture)
     Skins:HandleRaidUtilityButton(_G[name])

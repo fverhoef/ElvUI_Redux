@@ -21,6 +21,15 @@ end
 function Skins:HandleButton(button, setBorderLevel)
     if not button then
         return
+    elseif button:GetParent() == _G.ChatConfigFrameChatTabManager then
+        button.backdrop:SetPoint("TOPLEFT", button, "TOPLEFT", 2, -5)
+        button.backdrop:SetPoint("BOTTOMRIGHT", button, "BOTTOMRIGHT", -2, 0)
+        Skins:HandleTab(button, nil, "UP")
+        return
+    elseif button == _G.GraphicsButton or button == _G.RaidButton then
+        Skins:HandleTab(button, nil, "UP")
+        button.originalFrameLevel = button:GetFrameLevel()
+        return
     end
 
     Skins:CreateShadow(button)
@@ -45,7 +54,8 @@ function Skins:HandleScrollBar(frame, thumbTrimY, thumbTrimX)
     end
 
     Skins:CreateShadow(frame)
-    Skins:CreateBorder(frame, Skins:GetButtonBorderAtlas(), Skins:GetBorderColor(frame))
+    local border = Skins:CreateBorder(frame, Skins:GetButtonBorderAtlas(), Skins:GetBorderColor(frame))
+    border:SetFrameLevel(frame:GetFrameLevel() + 1)
 end
 
 Skins:SecureHook(S, "HandleEditBox", function(self, frame)
@@ -112,6 +122,30 @@ function Skins:HandleDropDownList(listFrame)
 
     Skins:CreateShadow(listFrame)
     Skins:CreateBorder(listFrame, Skins:GetButtonBorderAtlas(), Skins:GetBorderColor(listFrame))
+
+    local name = listFrame:GetName()
+    for i = 1, _G.UIDROPDOWNMENU_MAXBUTTONS do
+        local button = _G[name .. "Button" .. i]
+        local text = _G[name .. "Button" .. i .. "NormalText"]
+        local border = Skins:CreateBorder(button, Skins:GetButtonBorderAtlas(), Skins:GetBorderColor(button))
+
+        button.backdrop = CreateFrame("Frame", nil, button)
+
+        if not button.notCheckable then
+            local check = _G[name .. "Button" .. i .. "Check"]
+            local _, co = check:GetTexCoord()
+            if co == 0 then
+                border:Hide()
+            else
+                text:SetPoint("LEFT", 15, 0)
+                border:Show()
+                border:SetOutside(check)
+            end
+        else
+            text:SetPoint("LEFT", -5, 0)
+            border:Hide()
+        end
+    end
 end
 
 Skins:SecureHook(S, "HandleSliderFrame", function(self, frame)
@@ -132,17 +166,15 @@ Skins:SecureHook(S, "HandleStatusBar", function(self, frame, color)
     Skins:HandleStatusBar(frame, color)
 end)
 
+Skins:SecureHook(E, "RegisterStatusBar", function(self, frame, color)
+    Skins:HandleStatusBar(frame, color)
+end)
+
 function Skins:HandleStatusBar(bar)
     if not bar then
         return
     end
 
     Skins:CreateShadow(bar)
-    local border = Skins:CreateBorder(bar, Skins:GetFrameBorderAtlas(), Skins:GetBorderColor(bar))
-
-    if border and border:IsShown() then
-        local borderColor = {border:GetBorderColor()}
-        border:HideOriginalBackdrop(true)
-        border:SetBorderColor(unpack(borderColor))
-    end
+    Skins:CreateBorder(bar, Skins:GetFrameBorderAtlas(), Skins:GetBorderColor(bar))
 end
