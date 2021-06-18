@@ -24,7 +24,7 @@ function Skins:HandleItemButton(button, shrinkIcon)
             return
         end
 
-        local icon = button.icon or _G[name .. "Icon"]
+        local icon = button.icon or _G[name .. "Icon"] or _G[name .. "IconTexture"]
         if icon then
             icon:SetInside(nil, 2, 2)
         end

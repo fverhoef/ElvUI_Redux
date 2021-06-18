@@ -5,7 +5,9 @@ local E, L, V, P, G = unpack(ElvUI)
 local S = E:GetModule("Skins")
 
 Skins:SecureHook(S, "Ace3_RegisterAsContainer", function(self, widget)
-    if widget.type == "Frame" then
+    if widget.type == "ScrollFrame" then
+        RaiseFrameLevel(widget.scrollbar)
+    elseif widget.type == "Frame" then
         local frame = widget.content:GetParent()
         Skins:HandleFrame(frame)
     elseif widget.type == "InlineGroup" then
@@ -39,7 +41,7 @@ Skins:SecureHook(S, "Ace3_RegisterAsWidget", function(self, widget)
         border:SetOutside(widget.checkbg.backdrop, 3, 3)
     elseif widget.type == "ColorPicker" or widget.type == "ColorPicker-ElvUI" then
         Skins:HandleInsetFrame(widget.frame)
-        widget.frame._border:SetDrawLayer("OVERLAY")
+        widget.frame.border:SetDrawLayer("OVERLAY")
 
         widget.colorSwatch:SetInside(widget.frame.backdrop, 2, 2)
         if widget.colorSwatch.checkers then
@@ -48,6 +50,7 @@ Skins:SecureHook(S, "Ace3_RegisterAsWidget", function(self, widget)
     elseif widget.type == "Dropdown" or widget.type == "LQDropdown" then
         Skins:HandleFrame(widget.dropdown)
         RaiseFrameLevel(widget.dropdown)
+        Skins:HandleFrame(widget.button)
         RaiseFrameLevel(widget.button)
     elseif widget.type == "Dropdown-Pullout" then
         Skins:HandleFrame(widget.frame)
@@ -62,15 +65,20 @@ Skins:SecureHook(S, "Ace3_RegisterAsWidget", function(self, widget)
     elseif widget.type == "Keybinding" then
         RaiseFrameLevel(widget.button)
         Skins:HandleFrame(widget.msgframe)
-    elseif widget.type == "LSM30_Font" or widget.type == "LSM30_Sound" or widget.type == "LSM30_Border" or widget.type ==
+    elseif widget.type == "LSM30_Font" or widget.type == "LSM30_Sound" or widget.type == "LSM30border" or widget.type ==
         "LSM30_Background" or widget.type == "LSM30_Statusbar" then
-        Skins:HandleInsetFrame(widget.frame)
-        RaiseFrameLevel(widget.frame)
-        RaiseFrameLevel(widget.frame.dropButton)
+        if widget.type ~= "LSM30_Statusbar" then
+            -- Skins:HandleFrame(widget.frame.dropButton)
+            RaiseFrameLevel(widget.frame.dropButton)
+        end
+
+        Skins:HandleFrame(widget.frame)
+        RaiseFrameLevel(widget.frame.border)
     elseif widget.type == "MultiLineEditBox" or widget.type == "MultiLineEditBox-ElvUI" then
         RaiseFrameLevel(widget.button)
         Skins:HandleInsetFrame(widget.scrollBG)
         RaiseFrameLevel(widget.scrollBG)
+        RaiseFrameLevel(widget.scrollBar)
     elseif widget.type == "Slider" or widget.type == "Slider-ElvUI" then
         RaiseFrameLevel(widget.slider)
         Skins:HandleEditBox(widget.editbox)
@@ -86,7 +94,7 @@ Skins:SecureHook(S, "Ace3_SkinDropdown", function(self)
     end
 
     if widget.dropdown then
-        Skins:HandleFrame(widget.dropdown)
+        Skins:HandleFrame(widget.dropdown.frame or widget.dropdown)
 
         if widget.dropdown.slider then
             Skins:HandleSliderFrame(widget.dropdown.slider)
@@ -96,7 +104,7 @@ end)
 
 Skins:SecureHook(S, "Ace3_SkinTab", function(self, tab)
     Skins:HandleTab(tab, false, "UP")
-    local border = tab._border
+    local border = tab.border
     border:SetPoint("TOPLEFT", border.parent, "TOPLEFT", -2, 0)
     border:SetPoint("BOTTOMRIGHT", border.parent, "BOTTOMRIGHT", 2, 0)
     RaiseFrameLevel(tab)
@@ -108,4 +116,22 @@ end)
 
 Skins:SecureHook(S, "Ace3_StyleTooltip", function(self)
     Skins:HandleToolTip(self)
+end)
+
+Skins:SecureHook(E, "Config_WindowOpened", function(self, frame)
+    if frame.leftHolder then
+        frame.leftHolder:SetBackdrop()
+    end
+    if frame.topHolder then
+        frame.topHolder:SetBackdrop()
+    end
+    if frame.bottomHolder then
+        -- frame.bottomHolder:SetBackdrop()
+    end
+
+    local holderHeight = frame.bottomHolder:GetHeight()
+    local content = frame.obj.content
+    content:ClearAllPoints()
+    content:Point("TOPLEFT", frame, "TOPLEFT", 8, -40)
+    content:Point("BOTTOMRIGHT", frame, "BOTTOMRIGHT", -12, holderHeight + 6)
 end)

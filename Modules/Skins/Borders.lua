@@ -177,9 +177,9 @@ function Skins:CreateBorder(frame, atlas, color, layer)
     if not frame then
         return
     end
-    if frame._border then
-        frame._border:HideOriginalBackdrop(true, nil, {frame._border:GetBorderColor()})
-        return frame._border
+    if frame.border then
+        frame.border:HideOriginalBackdrop(true, nil, {frame.border:GetBorderColor()})
+        return frame.border
     end
 
     layer = layer or "BORDER"
@@ -211,7 +211,7 @@ function Skins:CreateBorder(frame, atlas, color, layer)
     border.Right:SetPoint("TOPRIGHT", border.TopRight, "BOTTOMRIGHT")
     border.Right:SetPoint("BOTTOMRIGHT", border.BottomRight, "TOPRIGHT")
 
-    border:SetFrameLevel(border.parent:GetFrameLevel() + 1)
+    border:SetFrameLevel(frame:GetFrameLevel() + 1)
     border:SetScript("OnShow", function(self)
         self:SetBorderScale(atlas)
     end)
@@ -225,7 +225,7 @@ function Skins:CreateBorder(frame, atlas, color, layer)
     border.SetDrawLayer = SetDrawLayer
     border:Update(atlas, color)
 
-    frame._border = border
+    frame.border = border
     Skins:RegisterBorder(border)
 
     return border

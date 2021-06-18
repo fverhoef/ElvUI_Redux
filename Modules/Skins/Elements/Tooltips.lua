@@ -54,8 +54,8 @@ function Skins:HandleToolTip(tip)
             end)
             tip.StatusBar.text:SetParent(border)
 
-            if tip.StatusBar._border then
-                tip.StatusBar._border:Hide()
+            if tip.StatusBar.border then
+                tip.StatusBar.border:Hide()
             end
         end
     end

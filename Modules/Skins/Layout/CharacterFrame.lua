@@ -87,8 +87,7 @@ function Skins:LayoutCharacterFrame()
         Skins:SecureHook("PaperDollFrame_SetGuild", function()
             local guildName, title, rank = GetGuildInfo("player")
             if guildName then
-                _G.CharacterGuildText:SetFormattedText(_G.GUILD_TITLE_TEMPLATE, title, Addon:Hex(
-                                                           E.db[addonName].skins.characterStats.colors.guild) .. guildName .. "|r")
+                _G.CharacterGuildText:SetFormattedText(_G.GUILD_TITLE_TEMPLATE, title, Addon:Hex(0, 230 / 255, 0) .. guildName .. "|r")
             end
         end)
     end

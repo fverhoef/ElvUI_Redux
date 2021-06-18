@@ -18,33 +18,35 @@ if AS and false then
     end)
 end
 
-function Skins:HandleButton(button, setBorderLevel)
+function Skins:HandleButton(button)
     if not button then
         return
-    elseif button:GetParent() == _G.ChatConfigFrameChatTabManager then
+    end
+
+    if button == _G.GraphicsButton or button == _G.RaidButton then
+        Skins:HandleTab(button, nil, "UP")
+        return
+    end
+
+    local parent = button:GetParent()
+    if parent == _G.ChatConfigFrameChatTabManager then
         button.backdrop:SetPoint("TOPLEFT", button, "TOPLEFT", 2, -5)
         button.backdrop:SetPoint("BOTTOMRIGHT", button, "BOTTOMRIGHT", -2, 0)
         Skins:HandleTab(button, nil, "UP")
         return
-    elseif button == _G.GraphicsButton or button == _G.RaidButton then
-        Skins:HandleTab(button, nil, "UP")
-        button.originalFrameLevel = button:GetFrameLevel()
+    elseif button.obj and
+        (button.obj.type == "Dropdown") then
         return
     end
 
     Skins:CreateShadow(button)
     local border = Skins:CreateBorder(button, Skins:GetButtonBorderAtlas(), Skins:GetBorderColor(button))
-
-    if setBorderLevel then
-        border:SetFrameLevel(button:GetFrameLevel() + 1)
-    end
-
     if button == _G.ChatFrameChannelButton then
         border:SetShown(not CH.db.pinVoiceButtons)
     end
 end
 
-Skins:Hook(S, "HandleScrollBar", function(self, frame, thumbTrimY, thumbTrimX)
+Skins:SecureHook(S, "HandleScrollBar", function(self, frame, thumbTrimY, thumbTrimX)
     Skins:HandleScrollBar(frame, thumbTrimY, thumbTrimX)
 end)
 
@@ -54,8 +56,7 @@ function Skins:HandleScrollBar(frame, thumbTrimY, thumbTrimX)
     end
 
     Skins:CreateShadow(frame)
-    local border = Skins:CreateBorder(frame, Skins:GetButtonBorderAtlas(), Skins:GetBorderColor(frame))
-    border:SetFrameLevel(frame:GetFrameLevel() + 1)
+    Skins:CreateBorder(frame, Skins:GetButtonBorderAtlas(), Skins:GetBorderColor(frame))
 end
 
 Skins:SecureHook(S, "HandleEditBox", function(self, frame)
@@ -107,8 +108,7 @@ function Skins:HandleCheckBox(frame, noBackdrop, noReplaceTextures, frameLevel)
     end
 
     Skins:CreateShadow(frame)
-    local border = Skins:CreateBorder(frame, Skins:GetButtonBorderAtlas(), Skins:GetBorderColor(frame))
-    border:SetFrameLevel(frame:GetFrameLevel() + 1)
+    Skins:CreateBorder(frame, Skins:GetButtonBorderAtlas(), Skins:GetBorderColor(frame))
 end
 
 Skins:SecureHook(nil, "ToggleDropDownMenu", function(level)
@@ -158,8 +158,7 @@ function Skins:HandleSliderFrame(frame)
     end
 
     Skins:CreateShadow(frame)
-    local border = Skins:CreateBorder(frame, Skins:GetFrameBorderAtlas(), Skins:GetBorderColor(frame))
-    border:SetFrameLevel(frame:GetFrameLevel() + 1)
+    Skins:CreateBorder(frame, Skins:GetFrameBorderAtlas(), Skins:GetBorderColor(frame))
 end
 
 Skins:SecureHook(S, "HandleStatusBar", function(self, frame, color)

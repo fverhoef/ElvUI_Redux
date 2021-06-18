@@ -47,6 +47,7 @@ function Skins:Initialize()
     Skins:HandleFrame(_G.ColorPickerFrame)
     Skins:HandleFrame(_G.ItemSocketingFrame)
     Skins:HandleFrame(_G.StopwatchFrame)
+    Skins:HandleFrame(_G.BattlefieldFrame)    
 
     -- Help
     if Addon.isClassic then
@@ -134,7 +135,7 @@ function Skins:ADDON_LOADED(addonName)
 end
 
 function Skins:GROUP_ROSTER_UPDATE()
-    --Skins:Update()
+    -- Skins:Update()
 end
 
 function Skins:SkinActionBars()
@@ -149,6 +150,8 @@ function Skins:SkinActionBars()
             end
         end
     end
+
+    Skins:HandleFrame(_G.ElvUI_MicroBar)
 
     -- vehicle Leave
     Skins:HandleActionButton(_G.MainMenuBarVehicleLeaveButton)
@@ -268,13 +271,13 @@ function Skins:SkinBlizzardOptions()
     end)
 
     Skins:SecureHook(nil, "GraphicsOptions_SelectBase", function(self)
-        _G.GraphicsButton._border:SetFrameLevel(_G.GraphicsButton:GetFrameLevel() + 1)
-        _G.RaidButton._border:SetFrameLevel(_G.RaidButton:GetFrameLevel() + 1)
+        _G.GraphicsButton.border:SetFrameLevel(_G.GraphicsButton:GetFrameLevel() + 1)
+        _G.RaidButton.border:SetFrameLevel(_G.RaidButton:GetFrameLevel() + 1)
     end)
 
     Skins:SecureHook(nil, "GraphicsOptions_SelectRaid", function(self)
-        _G.GraphicsButton._border:SetFrameLevel(_G.GraphicsButton:GetFrameLevel() + 1)
-        _G.RaidButton._border:SetFrameLevel(_G.RaidButton:GetFrameLevel() + 1)
+        _G.GraphicsButton.border:SetFrameLevel(_G.GraphicsButton:GetFrameLevel() + 1)
+        _G.RaidButton.border:SetFrameLevel(_G.RaidButton:GetFrameLevel() + 1)
     end)
 
     local chatFrames = {
@@ -307,7 +310,7 @@ end
 
 function Skins:SkinCharacterFrame()
     Skins:HandleFrame(_G.ReputationDetailFrame)
-    
+
     -- equipment slots
     for _, slot in pairs({_G.PaperDollItemsFrame:GetChildren()}) do
         if slot:IsObjectType("Button") then
@@ -383,8 +386,31 @@ function Skins:SkinInspectFrame()
             Skins:HandleItemButton(slot)
         end
     end
+
+    -- NOTE: ElvUI (mistakenly?) has a double backdrop for inspect talent frame
+    if _G.InspectTalentFrame.backdrop then
+        _G.InspectTalentFrame.backdrop:Hide()
+    end
+
+    Skins:HandleFrame(_G.InspectTalentFrameScrollFrame)
+    _G.InspectTalentFrameScrollFrame:Point("TOPRIGHT", -60, -77)
+    _G.InspectTalentFrameScrollFrame:Size(301, 332)
+    _G.InspectTalentFrameScrollFrameScrollBar:Point("TOPLEFT", _G.PlayerTalentFrameScrollFrame, "TOPRIGHT", 2, -16)
+
+    for i = 1, 3 do
+        local tab = _G["InspectTalentFrameTab" .. i]
+        tab:SetHeight(28)
+        if i == 1 then
+            tab:SetPoint("TOPLEFT", 70, -48)
+        end
+    end
+
     for i = 1, _G.MAX_NUM_TALENTS do
         Skins:HandleTalentButton(_G["InspectTalentFrameTalent" .. i])
+    end
+
+    for i = 1, _G.MAX_ARENA_TEAMS do
+        Skins:HandleFrame(_G["InspectPVPTeam" .. i])
     end
 end
 
@@ -473,6 +499,11 @@ function Skins:SkinSpellbook()
     for i = 1, _G.MAX_SKILLLINE_TABS do
         Skins:HandleTab(_G["SpellBookSkillLineTab" .. i], false, "RIGHT")
     end
+    for i = 1, _G.SPELLS_PER_PAGE do
+        local button = _G["SpellButton" .. i]
+        Skins:HandleItemButton(button)
+        Skins:HandleButton(button.bg)
+    end
 end
 
 function Skins:SkinTalentFrame()
@@ -499,24 +530,24 @@ function Skins:SkinTrainerFrame()
 end
 
 function Skins:SkinUnitFrames()
-    Skins:HandleUnitFrame("player")
-    Skins:HandleUnitFrame("pet")
-    Skins:HandleUnitFrame("pettarget")
-    Skins:HandleUnitFrame("target")
-    Skins:HandleUnitFrame("targettarget")
-    Skins:HandleUnitFrame("targettargettarget")
-    Skins:HandleUnitFrame("focus")
-    Skins:HandleUnitFrame("arena1")
-    Skins:HandleUnitFrame("arena2")
-    Skins:HandleUnitFrame("arena3")
-    Skins:HandleUnitFrame("arena4")
-    Skins:HandleUnitFrame("arena5")
+    Skins:HandleUnitFrame(UF["player"])
+    Skins:HandleUnitFrame(UF["pet"])
+    Skins:HandleUnitFrame(UF["pettarget"])
+    Skins:HandleUnitFrame(UF["target"])
+    Skins:HandleUnitFrame(UF["targettarget"])
+    Skins:HandleUnitFrame(UF["targettargettarget"])
+    Skins:HandleUnitFrame(UF["focus"])
+    Skins:HandleUnitFrame(UF["arena1"])
+    Skins:HandleUnitFrame(UF["arena2"])
+    Skins:HandleUnitFrame(UF["arena3"])
+    Skins:HandleUnitFrame(UF["arena4"])
+    Skins:HandleUnitFrame(UF["arena5"])
 
-    Skins:HandleUnitFrameGroup("assist")
-    Skins:HandleUnitFrameGroup("boss")
-    Skins:HandleUnitFrameGroup("party")
-    Skins:HandleUnitFrameGroup("raid")
-    Skins:HandleUnitFrameGroup("raid40")
-    Skins:HandleUnitFrameGroup("raidpet")
-    Skins:HandleUnitFrameGroup("tank")
+    Skins:HandleUnitFrameGroup(UF["assist"])
+    Skins:HandleUnitFrameGroup(UF["boss"])
+    Skins:HandleUnitFrameGroup(UF["party"])
+    Skins:HandleUnitFrameGroup(UF["raid"])
+    Skins:HandleUnitFrameGroup(UF["raid40"])
+    Skins:HandleUnitFrameGroup(UF["raidpet"])
+    Skins:HandleUnitFrameGroup(UF["tank"])
 end
