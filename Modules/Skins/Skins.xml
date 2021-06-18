@@ -5,4 +5,5 @@
     <Script file="Shadows.lua"/>
     <Script file="Atlas.lua"/>
     <Include file="Elements\Elements.xml"/>
+    <Include file="Layout\Layout.xml"/>
 </Ui>

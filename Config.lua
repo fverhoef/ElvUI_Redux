@@ -69,7 +69,27 @@ P[addonName] = {
     skins = {
         enabled = true,
         borders = {enabled = true, style = "BeautyCase", color = {89 / 255, 89 / 255, 89 / 255, 1}},
-        shadows = {enabled = true, color = {0, 0, 0, 0.7}, size = 5, shadowPerButton = true}
+        shadows = {enabled = true, color = {0, 0, 0, 0.7}, size = 5, shadowPerButton = true},
+        characterStats = {
+            colors = {
+                normalFont = {255 / 255, 209 / 255, 0 / 255}, -- GameFontNormal
+                highlightFont = {255 / 255, 255 / 255, 255 / 255}, -- GameFontHighlight
+                greenFont = {25 / 255, 255 / 255, 25 / 255}, -- GameFontGreen
+                redFont = {255 / 255, 25 / 255, 25 / 255}, -- GameFontRed
+                grayFont = {127 / 255, 127 / 255, 127 / 255}, -- GameFontGray
+                darkGrayFont = {89 / 255, 89 / 255, 89 / 255}, -- GameFontDarkGray
+
+                guild = {0 / 255, 230 / 255, 0 / 255},
+
+                holy = {255 / 255, 255 / 255, 160 / 255},
+                fire = {255 / 255, 107 / 255, 107 / 255},
+                frost = {77 / 255, 133 / 255, 230 / 255},
+                arcane = {181 / 255, 255 / 255, 235 / 255},
+                shadow = {128 / 255, 82 / 255, 140 / 255},
+                nature = {133 / 255, 255 / 255, 133 / 255}
+            },
+            itemLevels = {poor = 0, common = 15, uncommon = 45, rare = 80, epic = 110, legendary = 150}
+        }
     },
     tooltips = {
         enabled = true,

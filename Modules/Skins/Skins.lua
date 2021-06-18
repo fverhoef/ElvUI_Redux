@@ -17,129 +17,44 @@ local UF = E:GetModule("UnitFrames")
 
 function Skins:Initialize()
     Skins:SkinActionBars()
+    Skins:SkinArenaRegistrarFrame()
     Skins:SkinBags()
     Skins:SkinBlizzardOptions()
+    Skins:SkinCharacterFrame()
     Skins:SkinChat()
+    Skins:SkinDecorativePanels()
+    Skins:SkinFriendsFrame()
+    Skins:SkinMailFrame()
     Skins:SkinMerchantFrame()
+    Skins:SkinMirrorTimers()
     Skins:SkinPopups()
+    Skins:SkinQuestLog()
+    Skins:SkinRaidUtilityFrame()
+    Skins:SkinSpellbook()
     Skins:SkinUnitFrames()
 
     Skins:HandleFrame(_G.GameMenuFrame)
     Skins:HandleFrame(_G.ScriptErrorsFrame)
     Skins:HandleFrame(_G.HelpFrame)
     Skins:HandleFrame(_G.StackSplitFrame)
+    Skins:HandleFrame(_G.ReadyCheckFrame)
     Skins:HandleFrame(_G.ElvLootFrame)
     Skins:HandleFrame(_G.LootFrame)
     Skins:HandleFrame(_G.LootHistoryFrame)
     Skins:HandleFrame(_G.MasterLooterFrame)
-    Skins:HandleFrame(_G.ReadyCheckFrame)
     Skins:HandleFrame(_G.WorldMapFrame.BorderFrame)
     Skins:HandleFrame(_G.MMHolder)
     Skins:HandleFrame(_G.ColorPickerFrame)
-    Skins:HandleFrame(_G.CopyChatFrame)
-    Skins:HandleFrame(_G.ReputationDetailFrame)
-    Skins:HandleFrame(_G.AddFriendFrame)
-    Skins:HandleFrame(_G.GuildInfoFrame)
-    Skins:HandleFrame(_G.GuildControlPopupFrame)
-    Skins:HandleFrame(_G.GuildMemberDetailFrame)
-    Skins:HandleFrame(_G.RaidInfoFrame)
     Skins:HandleFrame(_G.ItemSocketingFrame)
-
-    -- skill book tabs
-    for i = 1, _G.MAX_SKILLLINE_TABS do
-        Skins:HandleTab(_G["SpellBookSkillLineTab" .. i], false, "RIGHT")
-    end
-
-    -- skin character equipment slot items
-    for _, slot in pairs({_G.PaperDollItemsFrame:GetChildren()}) do
-        if slot:IsObjectType("Button") then
-            Skins:HandleItemButton(slot)
-        end
-    end
-
-    -- skin character resistance icons
-    for i = 1, 5 do
-        Skins:HandleButton(_G["MagicResFrame" .. i])
-    end
-
-    -- skin arena teams
-    for i = 1, _G.MAX_ARENA_TEAMS do
-        Skins:HandleButton(_G["PVPTeam" .. i])
-    end
-
-    -- skin quest log items
-    local questLogItems = {["QuestLogItem"] = _G.MAX_NUM_ITEMS, ["QuestProgressItem"] = _G.MAX_REQUIRED_ITEMS}
-    for frame, count in pairs(questLogItems) do
-        for i = 1, count do
-            Skins:HandleLargeItemButton(_G[frame .. i])
-        end
-    end
-
-    -- Mail items
-    for i = 1, _G.INBOXITEMS_TO_DISPLAY do
-        local mail = _G["MailItem" .. i]
-        local button = _G["MailItem" .. i .. "Button"]
-
-        Skins:HandleButton(mail)
-        Skins:HandleButton(mail.bg)
-        Skins:HandleButton(button)
-        button.shadow.isHidden = true
-        button.shadow:Update()
-    end
-
-    -- Send mail
-    Skins:HandleInsetFrame(_G.SendMailScrollFrame)
-    Skins:SecureHook(nil, "SendMailFrame_Update", function()
-        for i = 1, _G.ATTACHMENTS_MAX_SEND do
-            Skins:HandleButton(_G["SendMailAttachment" .. i])
-        end
-    end)
-
-    -- Open mail
-    Skins:HandleInsetFrame(_G.OpenMailScrollFrame)
-    for i = 1, _G.ATTACHMENTS_MAX_SEND do
-        Skins:HandleButton(_G["OpenMailAttachmentButton" .. i])
-    end
-
-    -- Mirror Timers
-    for i = 1, 3 do
-        Skins:HandleStatusBar(_G["MirrorTimer" .. i .. "StatusBar"])
-    end
-
-    -- Raid Utility Panel
-    Skins:HandleFrame(_G.RaidUtilityPanel)
-    Skins:HandleRaidUtilityButton(_G.RaidUtility_ShowButton)
-    Skins:HandleRaidUtilityButton(_G.RaidUtility_CloseButton)
-    Skins:HandleRaidUtilityButton(_G.RaidControlButton)
-
-    -- Battle.Net status edit
-    Skins:HandleEditBox(_G.FriendsFrameBroadcastInput)
-    Skins:HandleEditBox(_G.GuildInfoTextBackground)
-    Skins:HandleEditBox(_G.GuildMemberNoteBackground)
-    Skins:HandleEditBox(_G.GuildMemberOfficerNoteBackground)
-    Skins:HandleEditBox(_G.GuildMOTDEditButton)
+    Skins:HandleFrame(_G.StopwatchFrame)
 
     -- Help
     if Addon.isClassic then
         Skins:HandleFrame(_G.HelpFrameHeader)
     end
 
-    -- ElvUI panels
-    Skins:HandleDecorativePanel(LO.BottomPanel, "BOTTOM")
-    Skins:HandleDecorativePanel(LO.TopPanel, "TOP")
-    Skins:HandleDecorativePanel(AFK.AFKMode.bottom, "BOTTOM")
-
-    -- plugins: ElvUI_MerathilisUI
-    local merathilis = _G["ElvUI_MerathilisUI"] or _G["ElvUI_MerathilisUI-Classic"]
-    if merathilis then
-        Skins:HandleDecorativePanel(_G[merathilis[1].Title .. "TopPanel"], "TOP")
-        Skins:HandleDecorativePanel(_G[merathilis[1].Title .. "BottomPanel"], "BOTTOM")
-    end
-
     Skins:RegisterEvent("ADDON_LOADED", Skins.ADDON_LOADED)
     Skins:RegisterEvent("GROUP_ROSTER_UPDATE", Skins.GROUP_ROSTER_UPDATE)
-
-    Skins:ApplyCustomLayout()
 end
 
 function Skins:Update()
@@ -188,34 +103,6 @@ function Skins:Update()
     end
 end
 
-function Skins:ApplyCustomLayout()
-    -- add icons to guild member details frames    
-    _G.GuildMemberDetailFrame.icon = _G.GuildMemberDetailFrame:CreateTexture("$parentIcon", "ARTWORK")
-    _G.GuildMemberDetailFrame.icon:SetPoint("TOPLEFT", _G.GuildMemberDetailName, "TOPLEFT", -30, 0)
-    _G.GuildMemberDetailFrame.icon:SetSize(25, 25)
-    _G.GuildMemberDetailFrame.icon:SetTexture([[Interface\WorldStateFrame\Icons-Classes]])
-    _G.GuildMemberDetailName:Offset(30, 0)
-    _G.GuildMemberDetailZoneLabel:Offset(-30, 0)
-
-    Skins:SecureHook("GuildStatus_Update", function()
-        local selection = GetGuildRosterSelection()
-        if selection then
-            local fullName, rank, rankIndex, level, class, zone, note, officernote, online = GetGuildRosterInfo(selection)
-            local classFileName = E:UnlocalizedClassName(class)
-            local classTextColor = _G.CUSTOM_CLASS_COLORS and _G.CUSTOM_CLASS_COLORS[classFileName] or
-                                       _G.RAID_CLASS_COLORS[classFileName]
-            if classTextColor then
-                local levelTextColor = GetQuestDifficultyColor(level)
-                _G.GuildMemberDetailName:SetTextColor(classTextColor.r, classTextColor.g, classTextColor.b)
-                _G.GuildMemberDetailLevel:SetTextColor(levelTextColor.r, levelTextColor.g, levelTextColor.b)
-                if _G.GuildMemberDetailFrame.icon then
-                    _G.GuildMemberDetailFrame.icon:SetTexCoord(unpack(_G.CLASS_ICON_TCOORDS[classFileName]))
-                end
-            end
-        end
-    end)
-end
-
 function Skins:GetBorderColor(frame)
     local color
     local parent = frame.backdrop or frame
@@ -244,6 +131,10 @@ function Skins:ADDON_LOADED(addonName)
     elseif addonName == "Blizzard_TrainerUI" then
         Skins:ScheduleTimer("SkinTrainerFrame", 0.01)
     end
+end
+
+function Skins:GROUP_ROSTER_UPDATE()
+    --Skins:Update()
 end
 
 function Skins:SkinActionBars()
@@ -281,6 +172,11 @@ function Skins:SkinActionBars()
             end
         end
     end
+end
+
+function Skins:SkinArenaRegistrarFrame()
+    Skins:HandleFrame(_G.ArenaRegistrarFrame)
+    Skins:HandleFrame(_G.PVPBannerFrame)
 end
 
 function Skins:SkinAuctionFrame()
@@ -409,12 +305,39 @@ function Skins:SkinBlizzardOptions()
     end
 end
 
+function Skins:SkinCharacterFrame()
+    Skins:HandleFrame(_G.ReputationDetailFrame)
+    
+    -- equipment slots
+    for _, slot in pairs({_G.PaperDollItemsFrame:GetChildren()}) do
+        if slot:IsObjectType("Button") then
+            Skins:HandleItemButton(slot)
+        end
+    end
+
+    -- resistance icons
+    for i = 1, 5 do
+        Skins:HandleButton(_G["MagicResFrame" .. i])
+    end
+
+    -- skin arena teams
+    if Addon.isTbc then
+        for i = 1, _G.MAX_ARENA_TEAMS do
+            Skins:HandleButton(_G["PVPTeam" .. i])
+        end
+    end
+
+    -- custom layout
+    Skins:LayoutCharacterFrame()
+end
+
 function Skins:SkinChat()
     Skins:HandleChatPanel(_G.LeftChatPanel)
     Skins:HandleButton(_G.LeftChatToggleButton)
     Skins:HandleChatPanel(_G.RightChatPanel)
     Skins:HandleButton(_G.RightChatToggleButton)
     Skins:HandleFrame(_G.ChatButtonHolder)
+    Skins:HandleFrame(_G.CopyChatFrame)
 
     Skins:SecureHook(nil, "ChatEdit_UpdateHeader", function(editbox)
         Skins:HandleEditBox(editbox)
@@ -422,6 +345,36 @@ function Skins:SkinChat()
 end
 
 function Skins:SkinCraftFrame()
+end
+
+function Skins:SkinDecorativePanels()
+    Skins:HandleDecorativePanel(LO.BottomPanel, "BOTTOM")
+    Skins:HandleDecorativePanel(LO.TopPanel, "TOP")
+    Skins:HandleDecorativePanel(AFK.AFKMode.bottom, "BOTTOM")
+
+    -- plugins: ElvUI_MerathilisUI
+    local merathilis = _G["ElvUI_MerathilisUI"] or _G["ElvUI_MerathilisUI-Classic"]
+    if merathilis then
+        Skins:HandleDecorativePanel(_G[merathilis[1].Title .. "TopPanel"], "TOP")
+        Skins:HandleDecorativePanel(_G[merathilis[1].Title .. "BottomPanel"], "BOTTOM")
+    end
+end
+
+function Skins:SkinFriendsFrame()
+    Skins:HandleFrame(_G.AddFriendFrame)
+    Skins:HandleFrame(_G.GuildInfoFrame)
+    Skins:HandleFrame(_G.GuildControlPopupFrame)
+    Skins:HandleFrame(_G.GuildMemberDetailFrame)
+    Skins:HandleFrame(_G.RaidInfoFrame)
+
+    Skins:HandleEditBox(_G.FriendsFrameBroadcastInput)
+    Skins:HandleEditBox(_G.GuildInfoTextBackground)
+    Skins:HandleEditBox(_G.GuildMemberNoteBackground)
+    Skins:HandleEditBox(_G.GuildMemberOfficerNoteBackground)
+    Skins:HandleEditBox(_G.GuildMOTDEditButton)
+
+    -- custom layout
+    Skins:LayoutFriendsFrame()
 end
 
 function Skins:SkinInspectFrame()
@@ -451,12 +404,46 @@ function Skins:SkinMacroFrame()
     Skins:HandleIcon(_G.MacroFrameSelectedMacroButton)
 end
 
+function Skins:SkinMailFrame()
+    -- Mail items
+    for i = 1, _G.INBOXITEMS_TO_DISPLAY do
+        local mail = _G["MailItem" .. i]
+        local button = _G["MailItem" .. i .. "Button"]
+
+        Skins:HandleButton(mail)
+        Skins:HandleButton(mail.bg)
+        Skins:HandleButton(button)
+        button.shadow.isHidden = true
+        button.shadow:Update()
+    end
+
+    -- Send mail
+    Skins:HandleInsetFrame(_G.SendMailScrollFrame)
+    Skins:SecureHook(nil, "SendMailFrame_Update", function()
+        for i = 1, _G.ATTACHMENTS_MAX_SEND do
+            Skins:HandleButton(_G["SendMailAttachment" .. i])
+        end
+    end)
+
+    -- Open mail
+    Skins:HandleInsetFrame(_G.OpenMailScrollFrame)
+    for i = 1, _G.ATTACHMENTS_MAX_SEND do
+        Skins:HandleButton(_G["OpenMailAttachmentButton" .. i])
+    end
+end
+
 function Skins:SkinMerchantFrame()
     for i = 1, _G.BUYBACK_ITEMS_PER_PAGE do
         Skins:HandleButton(_G["MerchantItem" .. i])
         Skins:HandleButton(_G["MerchantItem" .. i .. "ItemButton"])
     end
     Skins:HandleButton(_G.MerchantBuyBackItemItemButton)
+end
+
+function Skins:SkinMirrorTimers()
+    for i = 1, 3 do
+        Skins:HandleStatusBar(_G["MirrorTimer" .. i .. "StatusBar"])
+    end
 end
 
 function Skins:SkinPopups()
@@ -466,10 +453,33 @@ function Skins:SkinPopups()
     end
 end
 
+function Skins:SkinQuestLog()
+    local questLogItems = {["QuestLogItem"] = _G.MAX_NUM_ITEMS, ["QuestProgressItem"] = _G.MAX_REQUIRED_ITEMS}
+    for frame, count in pairs(questLogItems) do
+        for i = 1, count do
+            Skins:HandleLargeItemButton(_G[frame .. i])
+        end
+    end
+end
+
+function Skins:SkinRaidUtilityFrame()
+    Skins:HandleFrame(_G.RaidUtilityPanel)
+    Skins:HandleRaidUtilityButton(_G.RaidUtility_ShowButton)
+    Skins:HandleRaidUtilityButton(_G.RaidUtility_CloseButton)
+    Skins:HandleRaidUtilityButton(_G.RaidControlButton)
+end
+
+function Skins:SkinSpellbook()
+    for i = 1, _G.MAX_SKILLLINE_TABS do
+        Skins:HandleTab(_G["SpellBookSkillLineTab" .. i], false, "RIGHT")
+    end
+end
+
 function Skins:SkinTalentFrame()
     Skins:HandleFrame(_G.PlayerTalentFrameScrollFrame)
     _G.PlayerTalentFrameScrollFrame:Point("TOPRIGHT", -60, -77)
     _G.PlayerTalentFrameScrollFrame:Size(301, 332)
+    _G.PlayerTalentFrameScrollFrameScrollBar:Point("TOPLEFT", _G.PlayerTalentFrameScrollFrame, "TOPRIGHT", 2, -16)
 
     for i = 1, _G.MAX_NUM_TALENTS do
         Skins:HandleTalentButton(_G["PlayerTalentFrameTalent" .. i])
@@ -509,8 +519,4 @@ function Skins:SkinUnitFrames()
     Skins:HandleUnitFrameGroup("raid40")
     Skins:HandleUnitFrameGroup("raidpet")
     Skins:HandleUnitFrameGroup("tank")
-end
-
-function Skins:GROUP_ROSTER_UPDATE()
-    Skins:Update()
 end
