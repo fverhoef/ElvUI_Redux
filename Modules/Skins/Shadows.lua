@@ -43,8 +43,11 @@ local function SetShadowColor(shadow, r, g, b, a)
 end
 
 function Skins:CreateShadow(frame, isHidden)
-    if not frame or frame.shadow then
+    if not frame then
         return
+    end
+    if frame.shadow then
+        return frame.shadow
     end
 
     local parent = frame.backdrop or frame

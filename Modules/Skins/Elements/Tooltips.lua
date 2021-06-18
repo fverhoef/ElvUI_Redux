@@ -6,6 +6,10 @@ local S = E:GetModule("Skins")
 local TT = E:GetModule("Tooltip")
 
 Skins:SecureHook(TT, "SetStyle", function(self, tip)
+    if not tip or (tip == E.ScanTooltip or tip.IsEmbedded) or tip:IsForbidden() then
+        return
+    end
+
     Skins:HandleToolTip(tip)
 end)
 

@@ -121,6 +121,32 @@ local function SetBorderColor(border, r, g, b, a)
     end
 end
 
+local function GetTemplate(template, isUnitFrameElement)
+    if template == "ClassColor" then
+        return E:ClassColor(E.myclass), E.media.backdropcolor
+    elseif template == "Transparent" then
+        return (isUnitFrameElement and E.media.unitframeBorderColor or E.media.bordercolor), E.media.backdropfadecolor
+    else
+        return (isUnitFrameElement and E.media.unitframeBorderColor or E.media.bordercolor), E.media.backdropcolor
+    end
+end
+
+local function SetTemplate(frame, template, glossTex, ignoreUpdates, forcePixelMode, isUnitFrameElement, isNamePlateElement)
+    local borderColor, backdropColor = GetTemplate(template, isUnitFrameElement)
+
+    if frame.callbackBackdropColor then
+        frame:callbackBackdropColor()
+    else
+        frame:SetBackdropColor(backdropColor[1], backdropColor[2], backdropColor[3], frame.customBackdropAlpha or 1)
+    end
+
+    if frame.forcedBorderColors then
+        borderColor = unpack(frame.forcedBorderColors)
+    end
+
+    frame:SetBackdropBorderColor(unpack(borderColor))
+end
+
 local function HideOriginalBackdrop(border, force, backdropColor, backdropBorderColor)
     local frame = border.frame
     if frame.originalBackdrop and not force then
@@ -143,6 +169,12 @@ local function HideOriginalBackdrop(border, force, backdropColor, backdropBorder
         end
         border.parent:SetBackdropColor(unpack(backdropColor))
         border.parent:SetBackdropBorderColor(unpack(backdropBorderColor))
+
+        border.parent._SetTemplate = border.parent.SetTemplate
+        border.parent.SetTemplate = SetTemplate
+
+        border.parent._SetBackdrop = border.parent.SetBackdrop
+        border.parent.SetBackdrop = E.noop
     end
 end
 
@@ -157,6 +189,9 @@ local function RestoreOriginalBackdrop(border)
         border.parent._SetBackdropBorderColor = nil
         border.parent:SetBackdropColor(unpack(backdropColor))
         border.parent:SetBackdropBorderColor(unpack(backdropBorderColor))
+
+        border.parent.SetTemplate = border.parent._SetTemplate
+        border.parent._SetTemplate = nil
 
         frame.originalBackdrop = nil
     end
@@ -178,7 +213,7 @@ function Skins:CreateBorder(frame, atlas, color, layer)
         return
     end
     if frame.border then
-        frame.border:HideOriginalBackdrop(true, nil, {frame.border:GetBorderColor()})
+        -- frame.border:HideOriginalBackdrop(true, nil, {frame.border:GetBorderColor()})
         return frame.border
     end
 

@@ -3,15 +3,10 @@ local Addon = addonTable[1]
 local Skins = Addon:NewModule(addonName .. "Shadows", "AceHook-3.0", "AceEvent-3.0", "AceTimer-3.0")
 Addon.Skins = Skins
 local E, L, V, P, G = unpack(ElvUI)
-local LSM = LibStub("LibSharedMedia-3.0")
-local A = E:GetModule("Auras")
 local AB = E:GetModule("ActionBars")
 local AFK = E:GetModule("AFK")
 local B = E:GetModule("Bags")
-local DB = E:GetModule("DataBars")
-local DT = E:GetModule("DataTexts")
 local LO = E:GetModule("Layout")
-local NP = E:GetModule("NamePlates")
 local S = E:GetModule("Skins")
 local UF = E:GetModule("UnitFrames")
 
@@ -47,7 +42,7 @@ function Skins:Initialize()
     Skins:HandleFrame(_G.ColorPickerFrame)
     Skins:HandleFrame(_G.ItemSocketingFrame)
     Skins:HandleFrame(_G.StopwatchFrame)
-    Skins:HandleFrame(_G.BattlefieldFrame)    
+    Skins:HandleFrame(_G.BattlefieldFrame)
 
     -- Help
     if Addon.isClassic then
@@ -476,6 +471,10 @@ function Skins:SkinPopups()
     for i = 1, 4 do
         Skins:HandleFrame(_G["StaticPopup" .. i])
         Skins:HandleFrame(_G["ElvUI_StaticPopup" .. i])
+
+        for j = 1, 3 do
+            Skins:HandleButton(_G["ElvUI_StaticPopup" .. i .. "Button" .. j])
+        end
     end
 end
 
