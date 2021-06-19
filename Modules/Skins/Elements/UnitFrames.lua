@@ -37,13 +37,16 @@ function Skins:HandleUnitFrame(unitFrame)
 
     if unitFrame.Castbar then
         Skins:CreateShadow(unitFrame.Castbar.Holder)
-        Skins:CreateBorder(unitFrame.Castbar.Holder, Skins:GetUnitFrameBorderAtlas(),
-                           Skins:GetBorderColor(unitFrame.Castbar.Holder))
+        local border = Skins:CreateBorder(unitFrame.Castbar, Skins:GetUnitFrameBorderAtlas(),
+                                          Skins:GetBorderColor(unitFrame.Castbar))
+        border:ClearAllPoints()
+        border:SetAllPoints(unitFrame.Castbar.Holder)
+        border:SetFrameLevel(unitFrame.Castbar.Holder:GetFrameLevel() + 1)
 
         local iconBg = unitFrame.Castbar.ButtonIcon.bg
         Skins:CreateShadow(iconBg, unitFrame.db.castbar.iconAttached)
-        local border = Skins:CreateBorder(iconBg, Skins:GetUnitFrameBorderAtlas(), Skins:GetBorderColor(iconBg))
-        border:SetShown(not unitFrame.db.castbar.iconAttached)
+        local iconBorder = Skins:CreateBorder(iconBg, Skins:GetUnitFrameBorderAtlas(), Skins:GetBorderColor(iconBg))
+        iconBorder:SetShown(not unitFrame.db.castbar.iconAttached)
     end
 
     if unitFrame.ClassBar and unitFrame[unitFrame.ClassBar] and unitFrame[unitFrame.ClassBar]:IsShown() then
