@@ -50,8 +50,9 @@ Skins:SecureHook(S, "Ace3_RegisterAsWidget", function(self, widget)
     elseif widget.type == "Dropdown" or widget.type == "LQDropdown" then
         Skins:HandleFrame(widget.dropdown)
         RaiseFrameLevel(widget.dropdown)
-        Skins:HandleFrame(widget.button)
-        RaiseFrameLevel(widget.button)
+        --Skins:HandleFrame(widget.button)
+        --RaiseFrameLevel(widget.button)
+        widget.button.backdrop:Hide()
     elseif widget.type == "Dropdown-Pullout" then
         Skins:HandleFrame(widget.frame)
         RaiseFrameLevel(widget.frame)
@@ -65,15 +66,13 @@ Skins:SecureHook(S, "Ace3_RegisterAsWidget", function(self, widget)
     elseif widget.type == "Keybinding" then
         RaiseFrameLevel(widget.button)
         Skins:HandleFrame(widget.msgframe)
-    elseif widget.type == "LSM30_Font" or widget.type == "LSM30_Sound" or widget.type == "LSM30border" or widget.type ==
-        "LSM30_Background" or widget.type == "LSM30_Statusbar" then
-        if widget.type ~= "LSM30_Statusbar" then
-            -- Skins:HandleFrame(widget.frame.dropButton)
-            RaiseFrameLevel(widget.frame.dropButton)
-        end
-
+    elseif strfind(widget.type, "LSM30_") then
+        widget.frame.backdrop:SetFrameLevel(0)
         Skins:HandleFrame(widget.frame)
-        RaiseFrameLevel(widget.frame.border)
+
+        if widget.type ~= "LSM30_Statusbar" then
+            --Skins:HandleFrame(widget.frame.dropButton)
+        end
     elseif widget.type == "MultiLineEditBox" or widget.type == "MultiLineEditBox-ElvUI" then
         RaiseFrameLevel(widget.button)
         Skins:HandleInsetFrame(widget.scrollBG)

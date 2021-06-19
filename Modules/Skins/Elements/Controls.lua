@@ -34,8 +34,8 @@ function Skins:HandleButton(button)
         button.backdrop:SetPoint("BOTTOMRIGHT", button, "BOTTOMRIGHT", -2, 0)
         Skins:HandleTab(button, nil, "UP")
         return
-    elseif button.obj and
-        (button.obj.type == "Dropdown") then
+    elseif button.obj and (button.obj.type == "Dropdown" or strfind(button.obj.type, "LSM30_")) then
+        -- Don't skin Ace3 dropdown buttons on this pass (to prevent layering issues)
         return
     end
 
@@ -70,6 +70,19 @@ function Skins:HandleEditBox(frame)
 
     Skins:CreateShadow(frame)
     Skins:CreateBorder(frame, Skins:GetButtonBorderAtlas(), Skins:GetBorderColor(frame))
+
+    if frame.backdrop then
+        frame.backdrop:SetOutside(nil, 4, 1)
+
+        local name = frame:GetName()
+        if name then
+            if strfind(name, "Gold") then
+                frame.backdrop:Point("BOTTOMRIGHT", -4, -2)
+            elseif strfind(name, "Silver") or strfind(name, "Copper") then
+                frame.backdrop:Point("BOTTOMRIGHT", -12, -2)
+            end
+        end
+    end
 end
 
 Skins:SecureHook(S, "HandleDropDownBox", function(self, frame, width, pos)
@@ -83,6 +96,10 @@ function Skins:HandleDropDownBox(frame, width, pos)
 
     Skins:CreateShadow(frame)
     Skins:CreateBorder(frame, Skins:GetButtonBorderAtlas(), Skins:GetBorderColor(frame))
+
+    local name = frame.GetName and frame:GetName()
+    local button = frame.Button or name and (_G[name .. "Button"] or _G[name .. "_Button"])
+    button.backdrop:Hide()
 end
 
 Skins:SecureHook(S, "HandleRadioButton", function(self, button)
@@ -115,10 +132,15 @@ Skins:SecureHook(nil, "ToggleDropDownMenu", function(level)
     Skins:HandleDropDownList(_G["DropDownList" .. (level or 1)])
 end)
 
+Skins:SecureHook("UIDropDownMenu_CreateFrames", function(level, index)
+end)
+
 function Skins:HandleDropDownList(listFrame)
     if not listFrame then
         return
     end
+
+    listFrame:CreateBackdrop("Transparent")
 
     Skins:CreateShadow(listFrame)
     Skins:CreateBorder(listFrame, Skins:GetButtonBorderAtlas(), Skins:GetBorderColor(listFrame))
@@ -146,6 +168,16 @@ function Skins:HandleDropDownList(listFrame)
             border:Hide()
         end
     end
+
+    local backdrop = _G[name .. "Backdrop"]
+    if backdrop then
+        backdrop:SetBackdrop()
+    end
+
+    local menuBackdrop = _G[name .. "MenuBackdrop"]
+    if menuBackdrop then
+        menuBackdrop:SetBackdrop()
+    end
 end
 
 Skins:SecureHook(S, "HandleSliderFrame", function(self, frame)
@@ -159,6 +191,10 @@ function Skins:HandleSliderFrame(frame)
 
     Skins:CreateShadow(frame)
     Skins:CreateBorder(frame, Skins:GetFrameBorderAtlas(), Skins:GetBorderColor(frame))
+
+    if frame.backdrop then
+        frame.backdrop:SetOutside(nil, 1, 0)
+    end
 end
 
 Skins:SecureHook(S, "HandleStatusBar", function(self, frame, color)

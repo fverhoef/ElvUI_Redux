@@ -14,14 +14,25 @@ function Skins:HandleUnitFrame(unitFrame)
         return
     end
 
+    local shadow = Skins:CreateShadow(unitFrame.Health)
+    local border = Skins:CreateBorder(unitFrame.Health, Skins:GetUnitFrameBorderAtlas(), Skins:GetBorderColor(unitFrame.Health))
+    border:SetFrameLevel(math.max(unitFrame.Health:GetFrameLevel(), unitFrame.Power and unitFrame.Power:GetFrameLevel() or 0) + 1)
+
     if unitFrame.USE_MINI_POWERBAR then
-        Skins:CreateShadow(unitFrame.Health)
-        Skins:CreateBorder(unitFrame.Health, Skins:GetUnitFrameBorderAtlas(), Skins:GetBorderColor(unitFrame.Health))
+        shadow.parent = unitFrame.Health.backdrop
+        shadow:Update(true)
+        border:ClearAllPoints()
+        border:SetAllPoints(unitFrame.Health)
     else
-        Skins:CreateShadow(unitFrame)
-        local border = Skins:CreateBorder(unitFrame, Skins:GetUnitFrameBorderAtlas(), Skins:GetBorderColor(unitFrame))
-        border:SetFrameLevel(
-            math.max(unitFrame.Health:GetFrameLevel(), unitFrame.Power and unitFrame.Power:GetFrameLevel() or 0) + 1)
+        shadow.parent = unitFrame
+        shadow:Update(true)
+        border:ClearAllPoints()
+        border:SetAllPoints(unitFrame)
+    end
+
+    if unitFrame.Power and (unitFrame.POWERBAR_DETACHED or unitFrame.USE_MINI_POWERBAR) then
+        Skins:CreateShadow(unitFrame.Power.Holder)
+        Skins:CreateBorder(unitFrame.Power, Skins:GetUnitFrameBorderAtlas(), Skins:GetBorderColor(unitFrame.Power))
     end
 
     if unitFrame.Castbar then
@@ -33,11 +44,6 @@ function Skins:HandleUnitFrame(unitFrame)
         Skins:CreateShadow(iconBg, unitFrame.db.castbar.iconAttached)
         local border = Skins:CreateBorder(iconBg, Skins:GetUnitFrameBorderAtlas(), Skins:GetBorderColor(iconBg))
         border:SetShown(not unitFrame.db.castbar.iconAttached)
-    end
-
-    if unitFrame.Power and (unitFrame.POWERBAR_DETACHED or unitFrame.USE_MINI_POWERBAR) then
-        Skins:CreateShadow(unitFrame.Power.Holder)
-        Skins:CreateBorder(unitFrame.Power.Holder, Skins:GetUnitFrameBorderAtlas(), Skins:GetBorderColor(unitFrame.Power))
     end
 
     if unitFrame.ClassBar and unitFrame[unitFrame.ClassBar] and unitFrame[unitFrame.ClassBar]:IsShown() then

@@ -137,7 +137,7 @@ local function SetTemplate(frame, template, glossTex, ignoreUpdates, forcePixelM
     if frame.callbackBackdropColor then
         frame:callbackBackdropColor()
     else
-        frame:SetBackdropColor(backdropColor[1], backdropColor[2], backdropColor[3], frame.customBackdropAlpha or 1)
+        frame:SetBackdropColor(backdropColor[1], backdropColor[2], backdropColor[3], frame.customBackdropAlpha or backdropColor[4] or 1)
     end
 
     if frame.forcedBorderColors then

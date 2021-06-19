@@ -32,6 +32,7 @@ function Skins:Initialize()
     Skins:HandleFrame(_G.ScriptErrorsFrame)
     Skins:HandleFrame(_G.HelpFrame)
     Skins:HandleFrame(_G.StackSplitFrame)
+    Skins:HandleFrame(_G.StackSplitFrame.bg1)
     Skins:HandleFrame(_G.ReadyCheckFrame)
     Skins:HandleFrame(_G.ElvLootFrame)
     Skins:HandleFrame(_G.LootFrame)
@@ -93,10 +94,8 @@ function Skins:Update()
     for shadow, _ in pairs(Skins.registry.shadows) do
         shadow:Update()
     end
-
-    for border, _ in pairs(Skins.registry.borders) do
-        -- border:Update()
-    end
+    
+    -- TODO: update borders
 end
 
 function Skins:GetBorderColor(frame)
@@ -260,6 +259,11 @@ function Skins:SkinBlizzardOptions()
     for _, frame in pairs(backdrops) do
         Skins:HandleFrame(frame)
     end
+
+    _G.InterfaceOptionsFrameTab1:CreateBackdrop()
+    Skins:HandleTab(_G.InterfaceOptionsFrameTab1, nil, "UP")
+    _G.InterfaceOptionsFrameTab2:CreateBackdrop()
+    Skins:HandleTab(_G.InterfaceOptionsFrameTab2, nil, "UP")
 
     Skins:SecureHook(nil, "AudioOptionsVoicePanel_InitializeCommunicationModeUI", function(self)
         Skins:HandleButton(self.PushToTalkKeybindButton)

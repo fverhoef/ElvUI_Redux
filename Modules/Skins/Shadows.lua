@@ -4,7 +4,7 @@ local Skins = Addon.Skins
 local E, L, V, P, G = unpack(ElvUI)
 local LSM = LibStub("LibSharedMedia-3.0")
 
-local function UpdateShadow(shadow)
+local function UpdateShadow(shadow, force)
     local config = E.db[addonName].skins.shadows
 
     if not config.enabled or shadow.isHidden then
@@ -12,7 +12,7 @@ local function UpdateShadow(shadow)
     else
         shadow:Show()
 
-        if (not shadow.color or shadow.color[1] ~= config.color[1] or shadow.color[2] ~= config.color[2] or shadow.color[3] ~=
+        if (force or not shadow.color or shadow.color[1] ~= config.color[1] or shadow.color[2] ~= config.color[2] or shadow.color[3] ~=
             config.color[3] or shadow.size ~= config.size) then
             shadow.color = {unpack(config.color)}
             shadow.size = config.size
