@@ -137,7 +137,8 @@ local function SetTemplate(frame, template, glossTex, ignoreUpdates, forcePixelM
     if frame.callbackBackdropColor then
         frame:callbackBackdropColor()
     else
-        frame:SetBackdropColor(backdropColor[1], backdropColor[2], backdropColor[3], frame.customBackdropAlpha or backdropColor[4] or 1)
+        frame:SetBackdropColor(backdropColor[1], backdropColor[2], backdropColor[3],
+                               frame.customBackdropAlpha or backdropColor[4] or 1)
     end
 
     if frame.forcedBorderColors then
@@ -244,7 +245,8 @@ function Skins:CreateBorder(frame, atlas, color, layer)
     border.Right:SetPoint("TOPRIGHT", border.TopRight, "BOTTOMRIGHT")
     border.Right:SetPoint("BOTTOMRIGHT", border.BottomRight, "TOPRIGHT")
 
-    border:SetFrameLevel(frame:GetFrameLevel() + 1)
+    -- TODO: if an element overlaying the current element has a shadow, it will overlap this frame's border. Fix that somehow.
+    border:SetFrameLevel(math.max(frame:GetFrameLevel(), frame.shadow and frame.shadow:GetFrameLevel() or 0) + 1)
     border:SetScript("OnShow", function(self)
         self:SetBorderScale(atlas)
     end)

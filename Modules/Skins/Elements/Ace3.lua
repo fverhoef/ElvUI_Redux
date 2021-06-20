@@ -7,6 +7,10 @@ local S = E:GetModule("Skins")
 Skins:SecureHook(S, "Ace3_RegisterAsContainer", function(self, widget)
     if widget.type == "ScrollFrame" then
         RaiseFrameLevel(widget.scrollbar)
+    elseif widget.type == "DropdownGroup" then
+        local frame = widget.content:GetParent()
+        Skins:HandleInsetFrame(frame)
+        RaiseFrameLevel(frame)
     elseif widget.type == "Frame" then
         local frame = widget.content:GetParent()
         Skins:HandleFrame(frame)
@@ -27,6 +31,10 @@ Skins:SecureHook(S, "Ace3_RegisterAsContainer", function(self, widget)
             Skins:HandleInsetFrame(widget.treeframe)
             RaiseFrameLevel(widget.treeframe)
         end
+    elseif widget.type == "SimpleGroup" then
+        local frame = widget.content:GetParent()
+        Skins:HandleInsetFrame(frame)
+        RaiseFrameLevel(frame)
     end
 end)
 
@@ -50,8 +58,8 @@ Skins:SecureHook(S, "Ace3_RegisterAsWidget", function(self, widget)
     elseif widget.type == "Dropdown" or widget.type == "LQDropdown" then
         Skins:HandleFrame(widget.dropdown)
         RaiseFrameLevel(widget.dropdown)
-        --Skins:HandleFrame(widget.button)
-        --RaiseFrameLevel(widget.button)
+        -- Skins:HandleFrame(widget.button)
+        -- RaiseFrameLevel(widget.button)
         widget.button.backdrop:Hide()
     elseif widget.type == "Dropdown-Pullout" then
         Skins:HandleFrame(widget.frame)
@@ -71,7 +79,7 @@ Skins:SecureHook(S, "Ace3_RegisterAsWidget", function(self, widget)
         Skins:HandleFrame(widget.frame)
 
         if widget.type ~= "LSM30_Statusbar" then
-            --Skins:HandleFrame(widget.frame.dropButton)
+            -- Skins:HandleFrame(widget.frame.dropButton)
         end
     elseif widget.type == "MultiLineEditBox" or widget.type == "MultiLineEditBox-ElvUI" then
         RaiseFrameLevel(widget.button)

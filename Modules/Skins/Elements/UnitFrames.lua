@@ -28,7 +28,8 @@ function Skins:HandleUnitFrame(unitFrame)
         shadow:Update(true)
         border:ClearAllPoints()
         border:SetAllPoints(unitFrame)
-        border:SetFrameLevel(math.max(unitFrame.Health:GetFrameLevel(), unitFrame.Power and unitFrame.Power:GetFrameLevel() or 0) + 1)
+        border:SetFrameLevel(
+            math.max(unitFrame.Health:GetFrameLevel(), unitFrame.Power and unitFrame.Power:GetFrameLevel() or 0) + 1)
     end
 
     if unitFrame.Power then
@@ -83,6 +84,10 @@ function Skins:HandleUnitFrame(unitFrame)
     end
 end
 
+Skins:SecureHook(UF, "Configure_HealthBar", function(self, unitFrame)
+    Skins:HandleUnitFrame(unitFrame)
+end)
+
 Skins:SecureHook(UF, "Configure_Castbar", function(self, unitFrame)
     Skins:HandleUnitFrame(unitFrame)
 end)
@@ -91,25 +96,26 @@ Skins:SecureHook(UF, "Configure_Power", function(self, unitFrame)
     Skins:HandleUnitFrame(unitFrame)
 end)
 
-function Skins:HandleUnitFrameGroup(group)
-    local header = UF[group]
-    if header then
-        if header.groups then
-            for i, group in next, header.groups do
-                for j, obj in next, group do
-                    if type(obj) == "table" and obj.unit then
-                        Skins:HandleUnitFrame(obj)
-                    end
+function Skins:HandleUnitFrameGroup(header)
+    if not header then
+        return
+    end
+
+    if header.groups then
+        for i, group in next, header.groups do
+            for j, obj in next, group do
+                if type(obj) == "table" and obj.unit then
+                    Skins:HandleUnitFrame(obj)
                 end
             end
-        else
-            -- tank, assist
-            -- TODO: targets
-            for i, obj in next, header do
-                if type(obj) == "table" then
-                    if obj.unit then
-                        Skins:HandleUnitFrame(obj)
-                    end
+        end
+    else
+        -- tank, assist
+        -- TODO: targets
+        for i, obj in next, header do
+            if type(obj) == "table" then
+                if obj.unit then
+                    Skins:HandleUnitFrame(obj)
                 end
             end
         end
