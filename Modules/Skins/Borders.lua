@@ -181,17 +181,16 @@ end
 local function RestoreOriginalBackdrop(border)
     local frame = border.frame
     if frame.originalBackdrop then
-        local backdropColor = {border.parent:GetBackdropColor()}
-        local backdropBorderColor = {border.parent:GetBackdropBorderColor()}
-
-        border.parent:SetBackdrop(frame.originalBackdrop)
         border.parent.SetBackdropBorderColor = border.parent._SetBackdropBorderColor
         border.parent._SetBackdropBorderColor = nil
-        border.parent:SetBackdropColor(unpack(backdropColor))
-        border.parent:SetBackdropBorderColor(unpack(backdropBorderColor))
 
         border.parent.SetTemplate = border.parent._SetTemplate
         border.parent._SetTemplate = nil
+
+        border.parent.SetBackdrop = border.parent._SetTemplate
+        border.parent._SetTemplate = nil
+
+        border.parent:SetTemplate(border.parent.template)
 
         frame.originalBackdrop = nil
     end
@@ -213,7 +212,6 @@ function Skins:CreateBorder(frame, atlas, color, layer)
         return
     end
     if frame.border then
-        -- frame.border:HideOriginalBackdrop(true, nil, {frame.border:GetBorderColor()})
         return frame.border
     end
 

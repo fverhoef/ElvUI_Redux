@@ -16,23 +16,34 @@ function Skins:HandleUnitFrame(unitFrame)
 
     local shadow = Skins:CreateShadow(unitFrame.Health)
     local border = Skins:CreateBorder(unitFrame.Health, Skins:GetUnitFrameBorderAtlas(), Skins:GetBorderColor(unitFrame.Health))
-    border:SetFrameLevel(math.max(unitFrame.Health:GetFrameLevel(), unitFrame.Power and unitFrame.Power:GetFrameLevel() or 0) + 1)
 
     if unitFrame.USE_MINI_POWERBAR then
         shadow.parent = unitFrame.Health.backdrop
         shadow:Update(true)
         border:ClearAllPoints()
         border:SetAllPoints(unitFrame.Health)
+        border:SetFrameLevel(unitFrame.Health:GetFrameLevel() + 1)
     else
         shadow.parent = unitFrame
         shadow:Update(true)
         border:ClearAllPoints()
         border:SetAllPoints(unitFrame)
+        border:SetFrameLevel(math.max(unitFrame.Health:GetFrameLevel(), unitFrame.Power and unitFrame.Power:GetFrameLevel() or 0) + 1)
     end
 
-    if unitFrame.Power and (unitFrame.POWERBAR_DETACHED or unitFrame.USE_MINI_POWERBAR) then
-        Skins:CreateShadow(unitFrame.Power.Holder)
-        Skins:CreateBorder(unitFrame.Power, Skins:GetUnitFrameBorderAtlas(), Skins:GetBorderColor(unitFrame.Power))
+    if unitFrame.Power then
+        local shadow = Skins:CreateShadow(unitFrame.Power)
+        local border = Skins:CreateBorder(unitFrame.Power, Skins:GetUnitFrameBorderAtlas(), Skins:GetBorderColor(unitFrame.Power))
+
+        if unitFrame.POWERBAR_DETACHED or unitFrame.USE_MINI_POWERBAR then
+            shadow:Show()
+            border:Show()
+            border:HideOriginalBackdrop()
+        else
+            shadow:Hide()
+            border:Hide()
+            border:RestoreOriginalBackdrop()
+        end
     end
 
     if unitFrame.Castbar then
@@ -64,7 +75,21 @@ function Skins:HandleUnitFrame(unitFrame)
     if unitFrame.Debuffs and not Skins:IsHooked(unitFrame.Debuffs, "PostUpdateIcon") then
         Skins:SecureHook(unitFrame.Debuffs, "PostUpdateIcon", HandleUnitFrameAura)
     end
+
+    if unitFrame.Update and not Skins:IsHooked(unitFrame, "Update") then
+        Skins:SecureHook(unitFrame, "Update", function(self)
+            Skins:HandleUnitFrame(self)
+        end)
+    end
 end
+
+Skins:SecureHook(UF, "Configure_Castbar", function(self, unitFrame)
+    Skins:HandleUnitFrame(unitFrame)
+end)
+
+Skins:SecureHook(UF, "Configure_Power", function(self, unitFrame)
+    Skins:HandleUnitFrame(unitFrame)
+end)
 
 function Skins:HandleUnitFrameGroup(group)
     local header = UF[group]
@@ -92,6 +117,10 @@ function Skins:HandleUnitFrameGroup(group)
 end
 
 Skins:SecureHook(NP, "StylePlate", function(self, nameplate)
+    Skins:HandleNamePlate(nameplate)
+end)
+
+Skins:SecureHook(NP, "UpdatePlate", function(self, nameplate)
     Skins:HandleNamePlate(nameplate)
 end)
 
@@ -123,11 +152,3 @@ function Skins:HandleNamePlate(nameplate)
         Addon:SecureHook(nameplate.Debuffs, "PostUpdateIcon", HandleNamePlateAura)
     end
 end
-
-Skins:SecureHook(UF, "Configure_Castbar", function(self, frame)
-    local castbar = frame.Castbar
-    if castbar.ButtonIcon and castbar.ButtonIcon.bg and castbar.ButtonIcon.bg.shadow then
-        castbar.ButtonIcon.bg.shadow.isHidden = frame.db.castbar.iconAttached
-        castbar.ButtonIcon.bg.shadow:Update()
-    end
-end)

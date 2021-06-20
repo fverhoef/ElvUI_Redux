@@ -12,15 +12,15 @@ local function UpdateShadow(shadow, force)
     else
         shadow:Show()
 
-        if (force or not shadow.color or shadow.color[1] ~= config.color[1] or shadow.color[2] ~= config.color[2] or shadow.color[3] ~=
-            config.color[3] or shadow.size ~= config.size) then
+        if (force or not shadow.color or shadow.color[1] ~= config.color[1] or shadow.color[2] ~= config.color[2] or
+            shadow.color[3] ~= config.color[3] or shadow.size ~= config.size) then
             shadow.color = {unpack(config.color)}
             shadow.size = config.size
 
             shadow:SetFrameLevel(0)
             shadow:SetOutside(shadow.parent, config.size or 3, config.size or 3)
             shadow:SetBackdrop({edgeFile = LSM:Fetch("border", "ElvUI GlowBorder"), edgeSize = E:Scale(2 + (config.size or 3))})
-            
+
             shadow:SetShadowColor(unpack(config.color))
         end
     end
@@ -47,6 +47,10 @@ function Skins:CreateShadow(frame, isHidden)
         return
     end
     if frame.shadow then
+        if frame.shadow.isHidden ~= isHidden then
+            frame.shadow.isHidden = isHidden
+            frame.shadow:Update()
+        end
         return frame.shadow
     end
 
@@ -54,7 +58,7 @@ function Skins:CreateShadow(frame, isHidden)
 
     local shadow = parent:CreateShadow(nil, true)
     shadow.parent = parent
-    shadow.isHidden = isHidden
+    shadow.isHidden = isHidden or false
     shadow.Update = UpdateShadow
     shadow.GetShadowColor = GetShadowColor
     shadow.SetShadowColor = SetShadowColor
