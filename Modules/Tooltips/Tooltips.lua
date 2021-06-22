@@ -132,11 +132,15 @@ function Tooltips:AddItemCount(tooltip, itemId)
 end
 
 function Tooltips:AddItemLevel(tooltip, itemLevel)
-    if E.db[addonName].tooltips.showItemLevel then
-        Tooltips:InsertLine(tooltip, 2, {
-            left = {text = L["Item Level"] .. " " .. itemLevel, color = E.db[addonName].tooltips.colors.itemLevel},
-            right = {}
-        })
+    if E.db[addonName].tooltips.showItemLevel and itemLevel then
+        tooltip:AddLine(L["Item Level"] .. " " .. itemLevel, unpack(E.db[addonName].tooltips.colors.itemLevel))
+
+        if TODO then
+            Tooltips:InsertLine(tooltip, 2, {
+                left = {text = L["Item Level"] .. " " .. itemLevel, color = E.db[addonName].tooltips.colors.itemLevel},
+                right = {}
+            })
+        end
     end
 end
 
@@ -158,6 +162,7 @@ function Tooltips:AddVendorPrice(tooltip, sellPrice, classID)
     end
 end
 
+-- TODO: fix this so it doesn't screw up the following lines
 function Tooltips:InsertLine(tooltip, position, line)
     local name = tooltip:GetName()
     local lines = {}

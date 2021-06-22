@@ -26,8 +26,8 @@ function Addon:ParseItemLink(itemLink)
     if not itemLink then
         return {}
     end
-    local _, _, color, Ltype, itemId, Enchant, Gem1, Gem2, Gem3, Gem4, Suffix, Unique, LinkLvl, Name =
-        string.find(itemLink, "|?c?f?f?(%x*)|?H?([^:]*):?(%d+):?(%d*):?(%d*):?(%d*):?(%d*):?(%d*):?(%-?%d*):?(%-?%d*):?(%d*):?(%d*):?(%-?%d*)|?h?%[?([^%[%]]*)%]?|?h?|?r?")
+    local _, _, color, Ltype, itemId, Enchant, Gem1, Gem2, Gem3, Gem4, Suffix, Unique, LinkLvl, Name = string.find(itemLink,
+                                                                                                                   "|?c?f?f?(%x*)|?H?([^:]*):?(%d+):?(%d*):?(%d*):?(%d*):?(%d*):?(%d*):?(%-?%d*):?(%-?%d*):?(%d*):?(%d*):?(%-?%d*)|?h?%[?([^%[%]]*)%]?|?h?|?r?")
 
     return {itemId = itemId, color = color}
 end
@@ -36,29 +36,21 @@ function Addon:GetItemIdFromLink(itemLink)
     return Addon:ParseItemLink(itemLink).itemId
 end
 
-function Addon:OffsetFrame(frame, offsetX, offsetY)
+local function Offset(frame, point, x, y)
     if frame then
-        if not frame.originalPoint then
-            frame.originalPoint = {frame:GetPoint()}
-        end
-        frame:SetPoint(frame.originalPoint[1], frame.originalPoint[2], frame.originalPoint[3], frame.originalPoint[4] + offsetX, frame.originalPoint[5] + offsetY)
-    end
-end
 
-local function Offset(frame, offsetX, offsetY)
-    if frame then
-        local point, relativeTo, relativePoint, xOfs, yOfs = frame:GetPoint()
-        if not frame.originalPoint then
-            frame.originalPoint = {
-                point = point,
-                relativeTo = relativeTo,
-                relativePoint = relativePoint,
-                xOfs = xOfs,
-                yOfs = yOfs
-            }
+        if not frame.originalPoints then
+            frame.originalPoints = {}
+            local numRegions = frame:GetNumPoints()
+            for i = 1, numRegions do
+                local anchor, relativeTo, relativePoint, xOfs, yOfs = frame:GetPoint(i)
+                frame.originalPoints[anchor] = {anchor, relativeTo, relativePoint, xOfs, yOfs}
+            end
         end
-        frame:SetPoint(frame.originalPoint.point, frame.originalPoint.relativeTo, frame.originalPoint.relativePoint,
-                       frame.originalPoint.xOfs + offsetX, frame.originalPoint.yOfs + offsetY)
+        local originalPoint = frame.originalPoints[point]
+        if originalPoint then
+            frame:SetPoint(originalPoint[1], originalPoint[2], originalPoint[3], originalPoint[4] + x, originalPoint[5] + y)
+        end
     end
 end
 

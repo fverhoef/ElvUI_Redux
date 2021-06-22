@@ -3,25 +3,26 @@ local Addon = addonTable[1]
 local Skins = Addon.Skins
 local E, L, V, P, G = unpack(ElvUI)
 
-local function UpdateBorder(border, atlas)
+local function UpdateBorder(border, force)
     if not border then
         return
     end
-    atlas = atlas or Skins:GetBorderAtlas(border.styleConfigKey)
 
-    if not E.db[addonName].skins.borders.enabled or not atlas then
+    local atlas = Skins:GetBorderAtlas(border.styleConfigKey)
+
+    if not E.db[addonName].skins.borders.enabled or not atlas or border.isHidden then
         border:Hide()
         border:RestoreOriginalBackdrop()
     else
         border:Show()
         border:HideOriginalBackdrop()
 
-        if border.atlas ~= atlas then
+        if border.atlas ~= atlas or force then
             border.atlas = atlas
 
             local offsetX, offsetY = atlas.offset[1], atlas.offset[2]
-            border:SetPoint("TOPLEFT", border.parent, "TOPLEFT", offsetX, offsetY)
-            border:SetPoint("BOTTOMRIGHT", border.parent, "BOTTOMRIGHT", -offsetX, -offsetY)
+            border:SetPoint("TOPLEFT", border.anchor, "TOPLEFT", offsetX, offsetY)
+            border:SetPoint("BOTTOMRIGHT", border.anchor, "BOTTOMRIGHT", -offsetX, -offsetY)
 
             border.TopLeft:SetSize(atlas.topLeft[2], atlas.topLeft[3])
             border.TopLeft:SetTexture(atlas.topLeft[1])
@@ -60,6 +61,14 @@ local function UpdateBorder(border, atlas)
             border.Right:SetVertTile(atlas.verticalTiling)
         end
 
+        border:SetParent(border.anchor)
+        local frameLevel = math.max(border.frameLevel or 0, math.max(border.frame:GetFrameLevel(), border.anchor:GetFrameLevel(),
+                                                                     border.frame.shadow and border.frame.shadow:GetFrameLevel() or
+                                                                         0) + 1)
+        border:SetFrameLevel(frameLevel)
+        if not border.frameLevel then
+            border.frameLevel = frameLevel
+        end
         border:SetBorderScale(atlas)
     end
 end
@@ -210,7 +219,7 @@ local function SetDrawLayer(border, layer, sublayer)
     border.Right:SetDrawLayer(layer, sublayer)
 end
 
-function Skins:CreateBorder(frame, configKey, layer)
+function Skins:CreateBorder(frame, configKey, anchor, layer)
     if not frame then
         return
     end
@@ -224,6 +233,7 @@ function Skins:CreateBorder(frame, configKey, layer)
     local border = CreateFrame("Frame", nil, parent)
     border.frame = frame
     border.parent = parent
+    border.anchor = anchor or border.parent
     border.styleConfigKey = configKey
 
     border.TopLeft = border:CreateTexture(nil, layer, nil, 2)
@@ -249,7 +259,6 @@ function Skins:CreateBorder(frame, configKey, layer)
     border.Right:SetPoint("BOTTOMRIGHT", border.BottomRight, "TOPRIGHT")
 
     -- TODO: if an element overlaying the current element has a shadow, it will overlap this frame's border. Fix that somehow.
-    border:SetFrameLevel(math.max(frame:GetFrameLevel(), frame.shadow and frame.shadow:GetFrameLevel() or 0) + 1)
     border:SetScript("OnShow", function(self)
         self:SetBorderScale(atlas)
     end)

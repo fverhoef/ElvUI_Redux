@@ -267,12 +267,16 @@ function Skins:SkinBlizzardOptions()
     end)
 
     Skins:SecureHook(nil, "GraphicsOptions_SelectBase", function(self)
+        _G.GraphicsButton.shadow:SetFrameLevel(0)
         _G.GraphicsButton.border:SetFrameLevel(_G.GraphicsButton:GetFrameLevel() + 1)
+        _G.RaidButton.shadow:SetFrameLevel(0)
         _G.RaidButton.border:SetFrameLevel(_G.RaidButton:GetFrameLevel() + 1)
     end)
 
     Skins:SecureHook(nil, "GraphicsOptions_SelectRaid", function(self)
+        _G.GraphicsButton.shadow:SetFrameLevel(0)
         _G.GraphicsButton.border:SetFrameLevel(_G.GraphicsButton:GetFrameLevel() + 1)
+        _G.RaidButton.shadow:SetFrameLevel(0)
         _G.RaidButton.border:SetFrameLevel(_G.RaidButton:GetFrameLevel() + 1)
     end)
 
@@ -461,10 +465,8 @@ function Skins:SkinMerchantFrame()
 end
 
 function Skins:SkinMinimap()
-    local shadow = Skins:CreateShadow(_G.MMHolder)
-    local border = Skins:CreateBorder(_G.MMHolder, Addon.BORDER_CONFIG_KEYS.MINIMAP)
-    border:SetBorderColor(unpack(E.media.bordercolor))
-    -- TODO: set border on _G.Minimap instead to properly replace the default border
+    Skins:CreateShadow(_G.Minimap, _G.MMHolder)
+    Skins:CreateBorder(_G.Minimap, Addon.BORDER_CONFIG_KEYS.MINIMAP, _G.MMHolder)
 end
 
 function Skins:SkinMirrorTimers()

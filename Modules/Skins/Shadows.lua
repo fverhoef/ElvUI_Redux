@@ -4,7 +4,7 @@ local Skins = Addon.Skins
 local E, L, V, P, G = unpack(ElvUI)
 local LSM = LibStub("LibSharedMedia-3.0")
 
-local function UpdateShadow(shadow, force)
+local function UpdateShadow(shadow)
     local config = E.db[addonName].skins.shadows
 
     if not config.enabled or shadow.isHidden then
@@ -17,12 +17,12 @@ local function UpdateShadow(shadow, force)
             shadow.color = {unpack(config.color)}
             shadow.size = config.size
 
-            shadow:SetFrameLevel(0)
-            shadow:SetOutside(shadow.parent, config.size or 3, config.size or 3)
             shadow:SetBackdrop({edgeFile = LSM:Fetch("border", "ElvUI GlowBorder"), edgeSize = E:Scale(2 + (config.size or 3))})
 
             shadow:SetShadowColor(unpack(config.color))
         end
+
+        shadow:SetOutside(shadow.anchor, config.size or 3, config.size or 3)
     end
 end
 
@@ -42,7 +42,7 @@ local function SetShadowColor(shadow, r, g, b, a)
     return shadow:SetBackdropBorderColor(r, g, b, a)
 end
 
-function Skins:CreateShadow(frame, isHidden)
+function Skins:CreateShadow(frame, anchor, isHidden)
     if not frame then
         return
     end
@@ -55,13 +55,16 @@ function Skins:CreateShadow(frame, isHidden)
     end
 
     local parent = frame.backdrop or frame
+    anchor = anchor or parent
 
-    local shadow = parent:CreateShadow(nil, true)
+    local shadow = anchor:CreateShadow(nil, true)
     shadow.parent = parent
+    shadow.anchor = anchor
     shadow.isHidden = isHidden or false
     shadow.Update = UpdateShadow
     shadow.GetShadowColor = GetShadowColor
     shadow.SetShadowColor = SetShadowColor
+    shadow:SetFrameLevel(0)
     shadow:Update()
 
     frame.shadow = shadow

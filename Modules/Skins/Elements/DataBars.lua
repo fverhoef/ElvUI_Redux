@@ -21,5 +21,6 @@ function Skins:HandleDataBar(bar, holder)
 
     Skins:CreateShadow(holder)
     local border = Skins:CreateBorder(holder, Addon.BORDER_CONFIG_KEYS.DATA_BAR)
-    border:SetFrameLevel(bar:GetFrameLevel() + 1)
+    border.frameLevel = bar:GetFrameLevel() + 1
+    border:Update()
 end

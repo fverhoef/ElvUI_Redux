@@ -83,15 +83,17 @@ function Skins:HandleTab(tab, noBackdrop, orientation)
         border.BottomLeft:Hide()
         border.BottomRight:Hide()
 
-        border.Left:SetPoint("BOTTOMLEFT", border.parent, "BOTTOMLEFT")
-        border.Right:SetPoint("BOTTOMRIGHT", border.parent, "BOTTOMRIGHT")
+        border.Left:SetPoint("BOTTOMLEFT", border.parent, "BOTTOMLEFT", 0, 2)
+        border.Right:SetPoint("BOTTOMRIGHT", border.parent, "BOTTOMRIGHT", 0, 2)
+        border.parent:Offset("BOTTOMRIGHT", 0, -1)
     elseif orientation == "DOWN" then
         border.Top:Hide()
         border.TopLeft:Hide()
         border.TopRight:Hide()
 
-        border.Left:SetPoint("TOPLEFT", border.parent, "TOPLEFT")
-        border.Right:SetPoint("TOPRIGHT", border.parent, "TOPRIGHT")
+        border.Left:SetPoint("TOPLEFT", border.parent, "TOPLEFT", 0, -2)
+        border.Right:SetPoint("TOPRIGHT", border.parent, "TOPRIGHT", 0, -2)
+        border.parent:Offset("TOPLEFT", 0, 1)
     elseif orientation == "LEFT" then
         border.Right:Hide()
         border.TopRight:Hide()
@@ -158,6 +160,9 @@ function Skins:HandleDecorativePanel(panel, location)
 
         border.Bottom:SetPoint("BOTTOMLEFT", border.parent, "BOTTOMLEFT")
         border.Bottom:SetPoint("BOTTOMRIGHT", border.parent, "BOTTOMRIGHT")
+
+        border.parent:Offset("TOPLEFT", -1, 1)
+        border.parent:Offset("TOPRIGHT", 1, 1)
     elseif location == "BOTTOM" then
         border.TopLeft:Hide()
         border.TopRight:Hide()
@@ -169,6 +174,9 @@ function Skins:HandleDecorativePanel(panel, location)
 
         border.Top:SetPoint("TOPLEFT", border.parent, "TOPLEFT")
         border.Top:SetPoint("TOPRIGHT", border.parent, "TOPRIGHT")
+
+        border.parent:Offset("BOTTOMLEFT", -1, -1)
+        border.parent:Offset("BOTTOMRIGHT", 1, -1)
     end
 end
 
@@ -192,6 +200,7 @@ function Skins:HandleIcon(icon, backdrop)
     if icon.backdrop then
         Skins:CreateShadow(icon.backdrop)
         local border = Skins:CreateBorder(icon.backdrop, Addon.BORDER_CONFIG_KEYS.ICON)
-        border:SetFrameLevel((icon.GetFrameLevel and icon:GetFrameLevel() or icon:GetParent():GetFrameLevel()) + 4)
+        border.frameLevel = (icon.GetFrameLevel and icon:GetFrameLevel() or icon:GetParent():GetFrameLevel()) + 4
+        border:Update()
     end
 end

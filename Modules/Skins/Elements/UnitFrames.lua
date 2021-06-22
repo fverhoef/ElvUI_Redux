@@ -29,18 +29,17 @@ function Skins:HandleUnitFrame(unitFrame)
     local border = Skins:CreateBorder(unitFrame.Health, Addon.BORDER_CONFIG_KEYS.UNITFRAME_HEALTH)
 
     if unitFrame.USE_MINI_POWERBAR then
-        shadow.parent = unitFrame.Health.backdrop
+        shadow.anchor = unitFrame.Health
         shadow:Update(true)
-        border:ClearAllPoints()
-        border:SetAllPoints(unitFrame.Health)
-        border:SetFrameLevel(unitFrame.Health:GetFrameLevel() + 1)
+        border.anchor = unitFrame.Health        
+        border.frameLevel = nil
+        border:Update(true)
     else
-        shadow.parent = unitFrame
+        shadow.anchor = unitFrame
         shadow:Update(true)
-        border:ClearAllPoints()
-        border:SetAllPoints(unitFrame)
-        border:SetFrameLevel(
-            math.max(unitFrame.Health:GetFrameLevel(), unitFrame.Power and unitFrame.Power:GetFrameLevel() or 0) + 1)
+        border.anchor = unitFrame
+        border.frameLevel = math.max(unitFrame.Health:GetFrameLevel(), unitFrame.Power and unitFrame.Power:GetFrameLevel() or 0) + 1
+        border:Update(true)
     end
 
     if unitFrame.Power then
@@ -48,25 +47,23 @@ function Skins:HandleUnitFrame(unitFrame)
         local border = Skins:CreateBorder(unitFrame.Power, Addon.BORDER_CONFIG_KEYS.UNITFRAME_POWER)
 
         if unitFrame.POWERBAR_DETACHED or unitFrame.USE_MINI_POWERBAR then
-            shadow:Show()
-            border:Show()
-            border:HideOriginalBackdrop()
+            shadow.isHidden = false
+            border.isHidden = false
         else
-            shadow:Hide()
-            border:Hide()
-            border:RestoreOriginalBackdrop()
+            shadow.isHidden = true
+            border.isHidden = true
         end
+
+        shadow:Update()
+        border:Update()
     end
 
     if unitFrame.Castbar then
-        Skins:CreateShadow(unitFrame.Castbar.Holder)
-        local border = Skins:CreateBorder(unitFrame.Castbar, Addon.BORDER_CONFIG_KEYS.UNITFRAME_CASTBAR)
-        border:ClearAllPoints()
-        border:SetAllPoints(unitFrame.Castbar.Holder)
-        border:SetFrameLevel(unitFrame.Castbar.Holder:GetFrameLevel() + 1)
+        Skins:CreateShadow(unitFrame.Castbar, unitFrame.Castbar.Holder)
+        Skins:CreateBorder(unitFrame.Castbar, Addon.BORDER_CONFIG_KEYS.UNITFRAME_CASTBAR, unitFrame.Castbar.Holder)
 
         local iconBg = unitFrame.Castbar.ButtonIcon.bg
-        Skins:CreateShadow(iconBg, unitFrame.db.castbar.iconAttached)
+        Skins:CreateShadow(iconBg, nil, unitFrame.db.castbar.iconAttached)
         local iconBorder = Skins:CreateBorder(iconBg, Addon.BORDER_CONFIG_KEYS.UNITFRAME_CASTBAR)
         iconBorder:SetShown(not unitFrame.db.castbar.iconAttached)
     end
