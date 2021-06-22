@@ -17,5 +17,5 @@ function Skins:HandleDataPanel(panel)
     end
 
     Skins:CreateShadow(panel)
-    Skins:CreateBorder(panel, Skins:GetFrameBorderAtlas(), Skins:GetBorderColor(panel))
+    Skins:CreateBorder(panel, Addon.BORDER_CONFIG_KEYS.DATA_PANEL)
 end

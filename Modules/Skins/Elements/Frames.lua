@@ -10,7 +10,7 @@ Skins:SecureHook(S, "HandleFrame", function(self, frame, setBackdrop, template, 
     if string.match(frame:GetName() or "", "FriendsTabHeaderTab") then
         Skins:HandleTab(frame)
     else
-        Skins:HandleFrame(frame, setBackdrop)
+        Skins:HandleFrame(frame)
     end
 end)
 
@@ -36,13 +36,13 @@ if AS and false then
     end)
 end
 
-function Skins:HandleFrame(frame, setBackdrop)
+function Skins:HandleFrame(frame)
     if not frame then
         return
     end
 
     Skins:CreateShadow(frame)
-    Skins:CreateBorder(frame, Skins:GetFrameBorderAtlas(), Skins:GetBorderColor(frame))
+    Skins:CreateBorder(frame, Addon.BORDER_CONFIG_KEYS.FRAME)
 end
 
 Skins:SecureHook(S, "HandleInsetFrame", function(self, frame)
@@ -55,7 +55,7 @@ function Skins:HandleInsetFrame(frame)
     end
 
     Skins:CreateShadow(frame)
-    Skins:CreateBorder(frame, Skins:GetFrameBorderAtlas(), Skins:GetBorderColor(frame))
+    Skins:CreateBorder(frame, Addon.BORDER_CONFIG_KEYS.INSET_FRAME)
 end
 
 Skins:SecureHook(S, "HandleTab", function(self, tab, noBackdrop)
@@ -76,7 +76,7 @@ function Skins:HandleTab(tab, noBackdrop, orientation)
     tab.orientation = orientation
 
     Skins:CreateShadow(tab)
-    local border = Skins:CreateBorder(tab, Skins:GetFrameBorderAtlas(), Skins:GetBorderColor(tab))
+    local border = Skins:CreateBorder(tab, Addon.BORDER_CONFIG_KEYS.TAB)
 
     if orientation == "UP" then
         border.Bottom:Hide()
@@ -129,7 +129,7 @@ function Skins:HandleChatPanel(panel)
     end
 
     Skins:CreateShadow(panel)
-    local border = Skins:CreateBorder(panel, Skins:GetFrameBorderAtlas(), Skins:GetBorderColor(panel))
+    local border = Skins:CreateBorder(panel, Addon.BORDER_CONFIG_KEYS.CHAT_PANEL)
 
     if panel == _G.LeftChatPanel and (CH.db.panelBackdrop == "HIDEBOTH" or CH.db.panelBackdrop == "RIGHT") then
         border:Hide()
@@ -145,7 +145,7 @@ function Skins:HandleDecorativePanel(panel, location)
     end
 
     Skins:CreateShadow(panel)
-    local border = Skins:CreateBorder(panel, Skins:GetFrameBorderAtlas(), Skins:GetBorderColor(panel))
+    local border = Skins:CreateBorder(panel, Addon.BORDER_CONFIG_KEYS.DECORATIVE_PANEL)
 
     if location == "TOP" then
         border.Top:Hide()
@@ -191,7 +191,7 @@ function Skins:HandleIcon(icon, backdrop)
 
     if icon.backdrop then
         Skins:CreateShadow(icon.backdrop)
-        local border = Skins:CreateBorder(icon.backdrop, Skins:GetButtonBorderAtlas(), Skins:GetBorderColor(icon.backdrop))
+        local border = Skins:CreateBorder(icon.backdrop, Addon.BORDER_CONFIG_KEYS.ICON)
         border:SetFrameLevel((icon.GetFrameLevel and icon:GetFrameLevel() or icon:GetParent():GetFrameLevel()) + 4)
     end
 end

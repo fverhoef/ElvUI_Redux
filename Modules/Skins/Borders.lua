@@ -3,10 +3,11 @@ local Addon = addonTable[1]
 local Skins = Addon.Skins
 local E, L, V, P, G = unpack(ElvUI)
 
-local function UpdateBorder(border, atlas, color)
+local function UpdateBorder(border, atlas)
     if not border then
         return
     end
+    atlas = atlas or Skins:GetBorderAtlas(border.styleConfigKey)
 
     if not E.db[addonName].skins.borders.enabled or not atlas then
         border:Hide()
@@ -60,7 +61,6 @@ local function UpdateBorder(border, atlas, color)
         end
 
         border:SetBorderScale(atlas)
-        border:SetBorderColor(unpack(color))
     end
 end
 
@@ -181,20 +181,22 @@ end
 
 local function RestoreOriginalBackdrop(border)
     local frame = border.frame
-    if frame.originalBackdrop then
-        border.parent.SetBackdropBorderColor = border.parent._SetBackdropBorderColor
-        border.parent._SetBackdropBorderColor = nil
-
-        border.parent.SetTemplate = border.parent._SetTemplate
-        border.parent._SetTemplate = nil
-
-        border.parent.SetBackdrop = border.parent._SetTemplate
-        border.parent._SetTemplate = nil
-
-        border.parent:SetTemplate(border.parent.template)
-
-        frame.originalBackdrop = nil
+    if not frame.originalBackdrop then
+        return
     end
+
+    border.parent.SetBackdropBorderColor = border.parent._SetBackdropBorderColor
+    border.parent._SetBackdropBorderColor = nil
+
+    border.parent.SetTemplate = border.parent._SetTemplate
+    border.parent._SetTemplate = nil
+
+    border.parent.SetBackdrop = border.parent._SetTemplate
+    border.parent._SetTemplate = nil
+
+    border.parent:SetTemplate(border.parent.template)
+
+    frame.originalBackdrop = nil
 end
 
 local function SetDrawLayer(border, layer, sublayer)
@@ -208,7 +210,7 @@ local function SetDrawLayer(border, layer, sublayer)
     border.Right:SetDrawLayer(layer, sublayer)
 end
 
-function Skins:CreateBorder(frame, atlas, color, layer)
+function Skins:CreateBorder(frame, configKey, layer)
     if not frame then
         return
     end
@@ -222,6 +224,7 @@ function Skins:CreateBorder(frame, atlas, color, layer)
     local border = CreateFrame("Frame", nil, parent)
     border.frame = frame
     border.parent = parent
+    border.styleConfigKey = configKey
 
     border.TopLeft = border:CreateTexture(nil, layer, nil, 2)
     border.TopRight = border:CreateTexture(nil, layer, nil, 2)
@@ -258,7 +261,7 @@ function Skins:CreateBorder(frame, atlas, color, layer)
     border.RestoreOriginalBackdrop = RestoreOriginalBackdrop
     border.HideOriginalBackdrop = HideOriginalBackdrop
     border.SetDrawLayer = SetDrawLayer
-    border:Update(atlas, color)
+    border:Update(atlas)
 
     frame.border = border
     Skins:RegisterBorder(border)

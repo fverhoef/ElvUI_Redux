@@ -6,17 +6,17 @@ local B = E:GetModule("Bags")
 
 Skins:SecureHook(B, "UpdateSlot", function(self, frame, bagID, slotID)
     if frame and frame.Bags[bagID] then
-        Skins:HandleBagSlotButton(frame.Bags[bagID][slotID], bagID, slotID)
+        Skins:HandleBagSlotButton(frame.Bags[bagID][slotID])
     end
 end)
 
-function Skins:HandleBagSlotButton(button, bagID, slotID)
+function Skins:HandleBagSlotButton(button)
     if not button then
         return
     end
 
     Skins:CreateShadow(button)
-    Skins:CreateBorder(button, Skins:GetBagSlotButtonBorderAtlas(), Skins:GetBorderColor(button))
+    Skins:CreateBorder(button, Addon.BORDER_CONFIG_KEYS.BAG_SLOT)
 
     local icon = button.icon or _G[button:GetName() .. "Icon"]
     if icon then
@@ -34,7 +34,7 @@ function Skins:HandleBagBarButton(button)
     end
 
     Skins:CreateShadow(button)
-    Skins:CreateBorder(button, Skins:GetBagBarButtonBorderAtlas(), Skins:GetBorderColor(button))
+    Skins:CreateBorder(button, Addon.BORDER_CONFIG_KEYS.BAG_BAR)
 
     local icon = button.icon or _G[button:GetName() .. "Icon"]
     if icon then

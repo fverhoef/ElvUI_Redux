@@ -17,5 +17,5 @@ function Skins:HandleLootRollBar(bar)
 
     Skins:CreateShadow(bar)
     Skins:CreateShadow(bar.button)
-    Skins:CreateBorder(bar, Skins:GetFrameBorderAtlas(), Skins:GetBorderColor(bar))
+    Skins:CreateBorder(bar, Addon.BORDER_CONFIG_KEYS.LOOT_ROLL_BAR)
 end

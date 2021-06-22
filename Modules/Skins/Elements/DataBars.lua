@@ -20,6 +20,6 @@ function Skins:HandleDataBar(bar, holder)
     end
 
     Skins:CreateShadow(holder)
-    local border = Skins:CreateBorder(holder, Skins:GetFrameBorderAtlas(), Skins:GetBorderColor(holder))
+    local border = Skins:CreateBorder(holder, Addon.BORDER_CONFIG_KEYS.DATA_BAR)
     border:SetFrameLevel(bar:GetFrameLevel() + 1)
 end

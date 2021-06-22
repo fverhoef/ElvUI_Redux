@@ -4,8 +4,7 @@ local Skins = Addon.Skins
 
 Skins.registry = {
     borders = {},
-    shadows = {},
-    tabs = {}
+    shadows = {}
 }
 
 function Skins:RegisterShadow(shadow)
@@ -22,12 +21,4 @@ function Skins:RegisterBorder(border)
     end
     Skins.registry.borders[border] = true
     border.isRegistered = true
-end
-
-function Skins:RegisterTab(tab)
-    if not tab or tab.isRegistered then
-        return
-    end
-    Skins.registry.tabs[border] = true
-    tab.isRegistered = true
 end

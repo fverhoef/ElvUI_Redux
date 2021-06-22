@@ -40,7 +40,7 @@ function Skins:HandleButton(button)
     end
 
     Skins:CreateShadow(button)
-    local border = Skins:CreateBorder(button, Skins:GetButtonBorderAtlas(), Skins:GetBorderColor(button))
+    local border = Skins:CreateBorder(button, Addon.BORDER_CONFIG_KEYS.BUTTON)
     if button == _G.ChatFrameChannelButton then
         border:SetShown(not CH.db.pinVoiceButtons)
     end
@@ -56,7 +56,7 @@ function Skins:HandleScrollBar(frame, thumbTrimY, thumbTrimX)
     end
 
     Skins:CreateShadow(frame)
-    Skins:CreateBorder(frame, Skins:GetButtonBorderAtlas(), Skins:GetBorderColor(frame))
+    Skins:CreateBorder(frame, Addon.BORDER_CONFIG_KEYS.SCROLL_BAR)
 end
 
 Skins:SecureHook(S, "HandleEditBox", function(self, frame)
@@ -69,7 +69,7 @@ function Skins:HandleEditBox(frame)
     end
 
     Skins:CreateShadow(frame)
-    Skins:CreateBorder(frame, Skins:GetButtonBorderAtlas(), Skins:GetBorderColor(frame))
+    Skins:CreateBorder(frame, Addon.BORDER_CONFIG_KEYS.EDIT_BOX)
 
     if frame.backdrop then
         frame.backdrop:SetOutside(nil, 4, 1)
@@ -85,23 +85,6 @@ function Skins:HandleEditBox(frame)
     end
 end
 
-Skins:SecureHook(S, "HandleDropDownBox", function(self, frame, width, pos)
-    Skins:HandleDropDownBox(frame)
-end)
-
-function Skins:HandleDropDownBox(frame, width, pos)
-    if not frame then
-        return
-    end
-
-    Skins:CreateShadow(frame)
-    Skins:CreateBorder(frame, Skins:GetButtonBorderAtlas(), Skins:GetBorderColor(frame))
-
-    local name = frame.GetName and frame:GetName()
-    local button = frame.Button or name and (_G[name .. "Button"] or _G[name .. "_Button"])
-    button.backdrop:Hide()
-end
-
 Skins:SecureHook(S, "HandleRadioButton", function(self, button)
     Skins:HandleRadioButton(button)
 end)
@@ -111,8 +94,8 @@ function Skins:HandleRadioButton(button)
         return
     end
 
-    Skins:CreateShadow(button)
-    Skins:CreateBorder(button, Skins:GetButtonBorderAtlas(), Skins:GetBorderColor(button))
+    --Skins:CreateShadow(button)
+    --Skins:CreateBorder(button, Addon.BORDER_CONFIG_KEYS.RADIO_BUTTON)
 end
 
 Skins:SecureHook(S, "HandleCheckBox", function(self, frame, noBackdrop, noReplaceTextures, frameLevel)
@@ -125,7 +108,24 @@ function Skins:HandleCheckBox(frame, noBackdrop, noReplaceTextures, frameLevel)
     end
 
     Skins:CreateShadow(frame)
-    Skins:CreateBorder(frame, Skins:GetButtonBorderAtlas(), Skins:GetBorderColor(frame))
+    Skins:CreateBorder(frame, Addon.BORDER_CONFIG_KEYS.CHECK_BOX)
+end
+
+Skins:SecureHook(S, "HandleDropDownBox", function(self, frame, width, pos)
+    Skins:HandleDropDownBox(frame)
+end)
+
+function Skins:HandleDropDownBox(frame, width, pos)
+    if not frame then
+        return
+    end
+
+    Skins:CreateShadow(frame)
+    Skins:CreateBorder(frame, Addon.BORDER_CONFIG_KEYS.DROP_DOWN_BOX)
+
+    local name = frame.GetName and frame:GetName()
+    local button = frame.Button or name and (_G[name .. "Button"] or _G[name .. "_Button"])
+    button.backdrop:Hide()
 end
 
 Skins:SecureHook(nil, "ToggleDropDownMenu", function(level)
@@ -143,13 +143,13 @@ function Skins:HandleDropDownList(listFrame)
     listFrame:CreateBackdrop("Transparent")
 
     Skins:CreateShadow(listFrame)
-    Skins:CreateBorder(listFrame, Skins:GetButtonBorderAtlas(), Skins:GetBorderColor(listFrame))
+    Skins:CreateBorder(listFrame, Addon.BORDER_CONFIG_KEYS.DROP_DOWN_LIST)
 
     local name = listFrame:GetName()
     for i = 1, _G.UIDROPDOWNMENU_MAXBUTTONS do
         local button = _G[name .. "Button" .. i]
         local text = _G[name .. "Button" .. i .. "NormalText"]
-        local border = Skins:CreateBorder(button, Skins:GetButtonBorderAtlas(), Skins:GetBorderColor(button))
+        local border = Skins:CreateBorder(button, Addon.BORDER_CONFIG_KEYS.DROP_DOWN_LIST_BUTTON)
 
         button.backdrop = CreateFrame("Frame", nil, button)
 
@@ -190,7 +190,7 @@ function Skins:HandleSliderFrame(frame)
     end
 
     Skins:CreateShadow(frame)
-    Skins:CreateBorder(frame, Skins:GetFrameBorderAtlas(), Skins:GetBorderColor(frame))
+    Skins:CreateBorder(frame, Addon.BORDER_CONFIG_KEYS.SLIDER)
 
     if frame.backdrop then
         frame.backdrop:SetOutside(nil, 1, 0)
@@ -211,5 +211,5 @@ function Skins:HandleStatusBar(bar)
     end
 
     Skins:CreateShadow(bar)
-    Skins:CreateBorder(bar, Skins:GetFrameBorderAtlas(), Skins:GetBorderColor(bar))
+    Skins:CreateBorder(bar, Addon.BORDER_CONFIG_KEYS.STATUS_BAR)
 end

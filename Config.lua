@@ -13,8 +13,66 @@ Addon.borders = {
     "Goldpaw",
     "Onyx",
     "Retina",
-    "Redux",
-    "Shadowlands"
+    "Redux"
+}
+Addon.BORDER_CONFIG_KEYS = {
+    DEFAULT = "style",
+
+    FRAME = "frameStyle",
+    INSET_FRAME = "insetFrameStyle",
+    CHAT_PANEL = "chatPanelStyle",
+    DECORATIVE_PANEL = "decorativePanelStyle",
+    ICON = "iconStyle",
+    TAB = "tabStyle",
+    MINIMAP = "minimapStyle",
+    LOOT_ROLL_BAR = "lootRollBarStyle",
+
+    -- Controls
+    BUTTON = "buttonStyle",
+    CHECK_BOX = "checkBoxStyle",
+    DROP_DOWN_BOX = "dropDownBoxStyle",
+    DROP_DOWN_LIST = "dropDownListStyle",
+    DROP_DOWN_LIST_BUTTON = "dropDownListButtonStyle",
+    EDIT_BOX = "editBoxStyle",
+    RADIO_BUTTON = "radioButtonStyle",
+    SCROLL_BAR = "scrollBarStyle",
+    SLIDER = "sliderStyle",
+    STATUS_BAR = "statusBarStyle",
+
+    -- Action Bars
+    ACTION_BAR = "actionBarStyle",
+    ACTION_BUTTON = "actionButtonStyle",
+    MICRO_BUTTON = "microButtonStyle",
+
+    -- Auras
+    AURA = "auraStyle",
+
+    -- Bags
+    BAG_SLOT = "bagSlotStyle",
+    BAG_BAR = "bagBarStyle",
+
+    -- Buttons
+    ITEM_BUTTON = "itemButtonStyle",
+    TALENT_BUTTON = "talentButtonStyle",
+    RAID_UTILITY_BUTTON = "raidUtilityButtonStyle",
+
+    -- Data Bars/Text
+    DATA_BAR = "dataBarStyle",
+    DATA_PANEL = "dataPanelStyle",
+
+    -- Nameplates
+    NAMEPLATE_HEALTH = "nameplateHealthStyle",
+    NAMEPLATE_POWER = "nameplatePowerStyle",
+    NAMEPLATE_CASTBAR = "nameplateCastBarStyle",
+
+    -- Unit Frames
+    UNITFRAME_HEALTH = "unitFrameHealthStyle",
+    UNITFRAME_POWER = "unitFramePowerStyle",
+    UNITFRAME_CASTBAR = "unitFrameCastBarStyle",
+    UNITFRAME_CLASSBAR = "unitFrameClassBarStyle",
+
+    -- Tooltips
+    TOOLTIP = "tooltipStyle"
 }
 Addon.frameBackgrounds = {
     "None",
@@ -68,12 +126,10 @@ P[addonName] = {
     },
     skins = {
         enabled = true,
-        borders = {enabled = true, style = "BeautyCase", color = {89 / 255, 89 / 255, 89 / 255, 1}},
+        borders = {enabled = true, style = "Redux"},
         shadows = {enabled = true, color = {0, 0, 0, 0.7}, size = 5, shadowPerButton = true},
         characterStats = {
-            colors = {
-                guild = {0 / 255, 230 / 255, 0 / 255}
-            },
+            colors = {guild = {0 / 255, 230 / 255, 0 / 255}},
             itemLevels = {poor = 0, common = 15, uncommon = 45, rare = 80, epic = 110, legendary = 150}
         }
     },
@@ -322,6 +378,16 @@ function Addon:InsertOptions()
                 type = "group",
                 name = L["Skins"],
                 args = {
+                    borders = {
+                        order = 1,
+                        type = "group",
+                        name = L["Borders"],
+                        args = {
+                            enabled = Addon:CreateToggleOption(L["Enabled"], nil, 1, nil, {"skins", "borders", "enabled"}),
+                            lineBreak = {type = "header", name = "", order = 2},
+                            style = Addon:CreateBorderStyleOption(L["Default Border Theme"], 3, {"skins", "borders", "style"})
+                        }
+                    },
                     shadows = {
                         order = 10,
                         type = "group",
@@ -529,7 +595,7 @@ function Addon:CreateColorOption(caption, order, setting, noAlpha)
     }
 end
 
-function Addon:CreateBorderThemeOption(caption, order, setting)
+function Addon:CreateBorderStyleOption(caption, order, setting)
     return {
         order = order,
         type = "select",
@@ -603,7 +669,7 @@ function Addon:CreateUnitFrameOptions(unit, caption, order, hidden, additionalAr
                 inline = true,
                 name = L["Frame Border"],
                 args = {
-                    border = Addon:CreateBorderThemeOption(L["Border Theme"], 1, {"artwork", "unitFrames", unit, "border"}),
+                    border = Addon:CreateBorderStyleOption(L["Border Theme"], 1, {"artwork", "unitFrames", unit, "border"}),
                     borderColor = Addon:CreateColorOption(L["Border Color"], 2, {"artwork", "unitFrames", unit, "borderColor"})
                 }
             },
@@ -613,7 +679,7 @@ function Addon:CreateUnitFrameOptions(unit, caption, order, hidden, additionalAr
                 inline = true,
                 name = L["Health Bar"],
                 args = {
-                    border = Addon:CreateBorderThemeOption(L["Border Theme"], 1, {"artwork", "unitFrames", unit, "healthBorder"}),
+                    border = Addon:CreateBorderStyleOption(L["Border Theme"], 1, {"artwork", "unitFrames", unit, "healthBorder"}),
                     borderColor = Addon:CreateColorOption(L["Border Color"], 2,
                                                           {"artwork", "unitFrames", unit, "healthBorderColor"})
                 }
@@ -624,7 +690,7 @@ function Addon:CreateUnitFrameOptions(unit, caption, order, hidden, additionalAr
                 inline = true,
                 name = L["Power Bar"],
                 args = {
-                    border = Addon:CreateBorderThemeOption(L["Border Theme"], 1, {"artwork", "unitFrames", unit, "powerBorder"}),
+                    border = Addon:CreateBorderStyleOption(L["Border Theme"], 1, {"artwork", "unitFrames", unit, "powerBorder"}),
                     borderColor = Addon:CreateColorOption(L["Border Color"], 2,
                                                           {"artwork", "unitFrames", unit, "powerBorderColor"})
                 }
@@ -635,7 +701,7 @@ function Addon:CreateUnitFrameOptions(unit, caption, order, hidden, additionalAr
                 inline = true,
                 name = L["Castbar"],
                 args = {
-                    border = Addon:CreateBorderThemeOption(L["Border Theme"], 1, {"artwork", "unitFrames", unit, "castBarBorder"}),
+                    border = Addon:CreateBorderStyleOption(L["Border Theme"], 1, {"artwork", "unitFrames", unit, "castBarBorder"}),
                     borderColor = Addon:CreateColorOption(L["Border Color"], 2,
                                                           {"artwork", "unitFrames", unit, "castBarBorderColor"})
                 }

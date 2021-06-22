@@ -14,7 +14,7 @@ function Skins:HandleAura(button)
     end
 
     Skins:CreateShadow(button)
-    Skins:CreateBorder(button, Skins:GetAuraBorderAtlas(), Skins:GetBorderColor(button))
+    Skins:CreateBorder(button, Addon.BORDER_CONFIG_KEYS.AURA)
 
     local icon = button.icon or _G[button:GetName() .. "Icon"]
     if icon then
@@ -32,7 +32,7 @@ function Skins:HandleTempEnchant(button)
     end
 
     Skins:CreateShadow(button)
-    Skins:CreateBorder(button, Skins:GetTempEnchantBorderAtlas(), Skins:GetBorderColor(button))
+    Skins:CreateBorder(button, Addon.BORDER_CONFIG_KEYS.AURA)
 
     local icon = button.icon or _G[button:GetName() .. "Icon"]
     if icon then

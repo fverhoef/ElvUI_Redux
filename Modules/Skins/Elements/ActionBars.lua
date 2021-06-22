@@ -10,7 +10,7 @@ function Skins:HandleActionBar(bar)
     end
 
     Skins:CreateShadow(bar)
-    Skins:CreateBorder(bar, Skins:GetFrameBorderAtlas(), Skins:GetBorderColor(bar))
+    Skins:CreateBorder(bar, Addon.BORDER_CONFIG_KEYS.ACTION_BAR)
 end
 
 Skins:SecureHook(AB, "StyleButton", function(self, button, noBackdrop, useMasque, ignoreNormal)
@@ -23,7 +23,7 @@ function Skins:HandleActionButton(button, noBackdrop, useMasque, ignoreNormal)
     end
 
     Skins:CreateShadow(button)
-    Skins:CreateBorder(button, Skins:GetActionButtonBorderAtlas(), Skins:GetBorderColor(button))
+    Skins:CreateBorder(button, Addon.BORDER_CONFIG_KEYS.ACTION_BUTTON)
 
     local icon = button.icon or _G[button:GetName() .. "Icon"]
     if icon then
@@ -41,7 +41,7 @@ function Skins:HandleMicroButton(button)
     end
 
     Skins:CreateShadow(button)
-    Skins:CreateBorder(button, Skins:GetActionButtonBorderAtlas(), Skins:GetBorderColor(button))
+    Skins:CreateBorder(button, Addon.BORDER_CONFIG_KEYS.MICRO_BUTTON)
 
     local pushed = button:GetPushedTexture()
     local normal = button:GetNormalTexture()

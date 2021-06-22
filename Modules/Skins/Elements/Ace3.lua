@@ -44,8 +44,7 @@ Skins:SecureHook(S, "Ace3_RegisterAsWidget", function(self, widget)
     elseif widget.type == "CheckBox" then
         -- TODO: fix Ace3 checkbox shadow
         -- local shadow = Skins:CreateShadow(widget.checkbg)
-        local border = Skins:CreateBorder(widget.checkbg.backdrop, Skins:GetButtonBorderAtlas(),
-                                          Skins:GetBorderColor(widget.checkbg.backdrop))
+        local border = Skins:CreateBorder(widget.checkbg.backdrop, Addon.BORDER_CONFIG_KEYS.CHECK_BOX)
         border:SetOutside(widget.checkbg.backdrop, 3, 3)
     elseif widget.type == "ColorPicker" or widget.type == "ColorPicker-ElvUI" then
         Skins:HandleInsetFrame(widget.frame)

@@ -33,7 +33,7 @@ function Skins:HandleToolTip(tip)
     end
 
     Skins:CreateShadow(tip)
-    local border = Skins:CreateBorder(tip, Skins:GetTooltipBorderAtlas(), E.media.bordercolor)
+    local border = Skins:CreateBorder(tip, Addon.BORDER_CONFIG_KEYS.TOOLTIP)
 
     if border and border:IsShown() then
         local borderColor = E.media.bordercolor

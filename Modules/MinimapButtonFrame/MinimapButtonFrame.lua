@@ -128,7 +128,7 @@ function MinimapButtonFrame:CreateButtonFrame()
     end
 
     Addon.Skins:CreateShadow(Minimap.ButtonFrame.Container)
-    Addon.Skins:CreateBorder(Minimap.ButtonFrame.Container, Addon.Skins:GetFrameBorderAtlas(), Addon.Skins:GetBorderColor(Minimap.ButtonFrame.Container))
+    Addon.Skins:CreateBorder(Minimap.ButtonFrame.Container, Addon.BORDER_CONFIG_KEYS.MINIMAP)
 
     MinimapButtonFrame:UpdateFramePosition()
 end

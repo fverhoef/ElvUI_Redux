@@ -21,6 +21,7 @@ function Skins:Initialize()
     Skins:SkinFriendsFrame()
     Skins:SkinMailFrame()
     Skins:SkinMerchantFrame()
+    Skins:SkinMinimap()
     Skins:SkinMirrorTimers()
     Skins:SkinPopups()
     Skins:SkinQuestLog()
@@ -39,7 +40,6 @@ function Skins:Initialize()
     Skins:HandleFrame(_G.LootFrame)
     Skins:HandleFrame(_G.LootHistoryFrame)
     Skins:HandleFrame(_G.MasterLooterFrame)
-    Skins:HandleFrame(_G.MMHolder)
     Skins:HandleFrame(_G.ColorPickerFrame)
     Skins:HandleFrame(_G.ItemSocketingFrame)
     Skins:HandleFrame(_G.StopwatchFrame)
@@ -51,7 +51,6 @@ function Skins:Initialize()
     end
 
     Skins:RegisterEvent("ADDON_LOADED", Skins.ADDON_LOADED)
-    Skins:RegisterEvent("GROUP_ROSTER_UPDATE", Skins.GROUP_ROSTER_UPDATE)
 end
 
 function Skins:Update()
@@ -94,8 +93,10 @@ function Skins:Update()
     for shadow, _ in pairs(Skins.registry.shadows) do
         shadow:Update()
     end
-    
-    -- TODO: update borders
+
+    for border, _ in pairs(Skins.registry.borders) do
+        border:Update()
+    end
 end
 
 function Skins:GetBorderColor(frame)
@@ -126,10 +127,6 @@ function Skins:ADDON_LOADED(addonName)
     elseif addonName == "Blizzard_TrainerUI" then
         Skins:ScheduleTimer("SkinTrainerFrame", 0.01)
     end
-end
-
-function Skins:GROUP_ROSTER_UPDATE()
-    -- Skins:Update()
 end
 
 function Skins:SkinActionBars()
@@ -437,9 +434,7 @@ function Skins:SkinMailFrame()
 
         Skins:HandleButton(mail)
         Skins:HandleButton(mail.bg)
-        Skins:HandleButton(button)
-        button.shadow.isHidden = true
-        button.shadow:Update()
+        RaiseFrameLevelByTwo(mail.bg)
     end
 
     -- Send mail
@@ -463,6 +458,13 @@ function Skins:SkinMerchantFrame()
         Skins:HandleButton(_G["MerchantItem" .. i .. "ItemButton"])
     end
     Skins:HandleButton(_G.MerchantBuyBackItemItemButton)
+end
+
+function Skins:SkinMinimap()
+    local shadow = Skins:CreateShadow(_G.MMHolder)
+    local border = Skins:CreateBorder(_G.MMHolder, Addon.BORDER_CONFIG_KEYS.MINIMAP)
+    border:SetBorderColor(unpack(E.media.bordercolor))
+    -- TODO: set border on _G.Minimap instead to properly replace the default border
 end
 
 function Skins:SkinMirrorTimers()
@@ -489,6 +491,8 @@ function Skins:SkinQuestLog()
             Skins:HandleLargeItemButton(_G[frame .. i])
         end
     end
+
+    Skins:LayoutQuestLog()
 end
 
 function Skins:SkinRaidUtilityFrame()
@@ -523,6 +527,8 @@ end
 function Skins:SkinTradeSkillFrame()
     Skins:HandleIcon(_G.TradeSkillSkillIcon)
     Skins:HandleStatusBar(_G.TradeSkillRankFrame)
+    
+    Skins:LayoutTradeSkillFrame()
 end
 
 function Skins:SkinTrainerFrame()
@@ -530,6 +536,8 @@ function Skins:SkinTrainerFrame()
     Skins:SecureHook("ClassTrainer_SetSelection", function()
         Skins:HandleButton(_G.ClassTrainerSkillIcon)
     end)
+    
+    Skins:StyleClassTrainerFrame()
 end
 
 function Skins:SkinUnitFrames()
