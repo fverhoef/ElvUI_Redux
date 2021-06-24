@@ -39,4 +39,26 @@ function Addon:Update()
     Addon.Skins:Update()
 end
 
+function Addon:OnSettingChanged(setting)
+    if setting[1] == "minimapButtonFrame" then
+        if setting[2] == "enabled" then
+            if not E.db[addonName].minimapButtonFrame.enabled then
+                ReloadUI()
+            else
+                Addon.MinimapButtonFrame:Initialize()
+            end
+        else
+            if E.db[addonName].minimapButtonFrame.enabled then
+                Addon.MinimapButtonFrame:UpdateButtonFrame()
+            end
+        end
+    elseif setting[1] == "skins" then
+        if setting[2] == "shadows" or setting[2] == "borders" then
+            Addon.Skins:Update()
+        elseif setting[2] == "layout" then
+            ReloadUI()
+        end
+    end
+end
+
 E:RegisterModule(Addon:GetName())

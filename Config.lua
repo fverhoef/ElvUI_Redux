@@ -2,34 +2,47 @@ local addonName, addonTable = ...
 local Addon = addonTable[1]
 local E, L, V, P, G = unpack(ElvUI)
 
-Addon.minimapIconStyles = {Square = "Square", Round = "Round"}
-Addon.borders = {
+local BACKGROUNDS = {
     "None",
-    "BeautyCase",
-    "Cainyx",
-    "Caith",
-    "Diablo",
-    "Entropy",
-    "Goldpaw",
-    "Onyx",
-    "Retina",
-    "Redux"
+    "Alliance",
+    "Horde",
+    "Neutral",
+    "Marine",
+    "Mechagon",
+    "Kyrian",
+    "Necrolord",
+    "NightFae",
+    "Oribos",
+    "Venthyr"
 }
-Addon.BORDER_CONFIG_KEYS = {
+local BORDERS = {
+    [""] = "(Inherit from Default)",
+    ["(ElvUI)"] = "(ElvUI)",
+    ["BeautyCase"] = "BeautyCase",
+    ["Cainyx"] = "Cainyx",
+    ["Caith"] = "Caith",
+    ["Diablo"] = "Diablo",
+    ["Entropy"] = "Entropy",
+    ["Goldpaw"] = "Goldpaw",
+    ["Onyx"] = "Onyx",
+    ["Retina"] = "Retina",
+    ["Redux"] = "Redux"
+}
+local BORDER_CONFIG_KEYS = {
     DEFAULT = "style",
 
+    -- Frames
     FRAME = "frameStyle",
     INSET_FRAME = "insetFrameStyle",
     CHAT_PANEL = "chatPanelStyle",
     DECORATIVE_PANEL = "decorativePanelStyle",
-    ICON = "iconStyle",
     TAB = "tabStyle",
     MINIMAP = "minimapStyle",
-    LOOT_ROLL_BAR = "lootRollBarStyle",
 
     -- Controls
     BUTTON = "buttonStyle",
     CHECK_BOX = "checkBoxStyle",
+    COLOR_PICKER = "colorPickerStyle",
     DROP_DOWN_BOX = "dropDownBoxStyle",
     DROP_DOWN_LIST = "dropDownListStyle",
     DROP_DOWN_LIST_BUTTON = "dropDownListButtonStyle",
@@ -43,6 +56,7 @@ Addon.BORDER_CONFIG_KEYS = {
     ACTION_BAR = "actionBarStyle",
     ACTION_BUTTON = "actionButtonStyle",
     MICRO_BUTTON = "microButtonStyle",
+    LOOT_ROLL_BAR = "lootRollBarStyle",
 
     -- Auras
     AURA = "auraStyle",
@@ -55,6 +69,7 @@ Addon.BORDER_CONFIG_KEYS = {
     ITEM_BUTTON = "itemButtonStyle",
     TALENT_BUTTON = "talentButtonStyle",
     RAID_UTILITY_BUTTON = "raidUtilityButtonStyle",
+    ICON = "iconStyle",
 
     -- Data Bars/Text
     DATA_BAR = "dataBarStyle",
@@ -74,20 +89,7 @@ Addon.BORDER_CONFIG_KEYS = {
     -- Tooltips
     TOOLTIP = "tooltipStyle"
 }
-Addon.frameBackgrounds = {
-    "None",
-    "Alliance",
-    "Horde",
-    "Neutral",
-    "Marine",
-    "Mechagon",
-    "Kyrian",
-    "Necrolord",
-    "NightFae",
-    "Oribos",
-    "Venthyr"
-}
-Addon.frameBorders = {
+local FRAME_BORDERS = {
     "None",
     "Alliance",
     "Horde",
@@ -101,6 +103,13 @@ Addon.frameBorders = {
     "Oribos",
     "Venthyr"
 }
+local MINIMAP_ICON_STYLES = {Square = "Square", Round = "Round"}
+
+Addon.BACKGROUNDS = BACKGROUNDS
+Addon.BORDERS = BORDERS
+Addon.BORDER_CONFIG_KEYS = BORDER_CONFIG_KEYS
+Addon.FRAME_BORDERS = FRAME_BORDERS
+Addon.MINIMAP_ICON_STYLES = MINIMAP_ICON_STYLES
 
 P[addonName] = {
     automation = {
@@ -118,7 +127,7 @@ P[addonName] = {
     },
     minimapButtonFrame = {
         enabled = true,
-        iconStyle = Addon.minimapIconStyles.Square,
+        iconStyle = MINIMAP_ICON_STYLES.Square,
         iconSize = 22,
         buttonsPerRow = 6,
         buttonSpacing = 2,
@@ -126,11 +135,14 @@ P[addonName] = {
     },
     skins = {
         enabled = true,
-        borders = {enabled = true, style = "Redux"},
+        borders = {enabled = true, style = BORDERS["Redux"]},
         shadows = {enabled = true, color = {0, 0, 0, 0.7}, size = 5, shadowPerButton = true},
-        characterStats = {
-            colors = {guild = {0 / 255, 230 / 255, 0 / 255}},
-            itemLevels = {poor = 0, common = 15, uncommon = 45, rare = 80, epic = 110, legendary = 150}
+        layout = {
+            characterFrame = {enabled = true},
+            classTrainerFrame = {enabled = true},
+            guildMemberDetailFrame = {enabled = true},
+            questLogFrame = {enabled = true},
+            tradeSkillFrame = {enabled = true}
         }
     },
     tooltips = {
@@ -162,114 +174,21 @@ function Addon:InsertOptions()
                 args = {
                     enabled = Addon:CreateToggleOption(L["Enabled"], nil, 1, nil, {"automation", "enabled"}),
                     lineBreak = {type = "header", name = "", order = 2},
-                    fastLoot = {
-                        type = "toggle",
-                        name = L["Faster Auto-Loot"],
-                        order = 10,
-                        width = "full",
-                        get = function()
-                            return E.db[addonName].automation.fastLoot
-                        end,
-                        set = function(_, val)
-                            E.db[addonName].automation.fastLoot = val
-                        end
-                    },
-                    standDismount = {
-                        type = "toggle",
-                        name = L["Auto Stand/Dismount"],
-                        order = 11,
-                        width = "full",
-                        get = function()
-                            return E.db[addonName].automation.standDismount
-                        end,
-                        set = function(_, val)
-                            E.db[addonName].automation.standDismount = val
-                        end
-                    },
-                    acceptSummon = {
-                        type = "toggle",
-                        name = L["Accept Summons"],
-                        order = 14,
-                        width = "full",
-                        get = function()
-                            return E.db[addonName].automation.acceptSummon
-                        end,
-                        set = function(_, val)
-                            E.db[addonName].automation.acceptSummon = val
-                        end
-                    },
-                    acceptResurrection = {
-                        type = "toggle",
-                        name = L["Accept Resurrection"],
-                        order = 15,
-                        width = "full",
-                        get = function()
-                            return E.db[addonName].automation.acceptResurrection
-                        end,
-                        set = function(_, val)
-                            E.db[addonName].automation.acceptResurrection = val
-                        end
-                    },
-                    disableLootBindConfirmation = {
-                        type = "toggle",
-                        name = L["Disable Bind on Pickup Confirmation"],
-                        order = 16,
-                        width = "full",
-                        get = function()
-                            return E.db[addonName].automation.disableLootBindConfirmation
-                        end,
-                        set = function(_, val)
-                            E.db[addonName].automation.disableLootBindConfirmation = val
-                        end
-                    },
-                    disableLootRollConfirmation = {
-                        type = "toggle",
-                        name = L["Disable Loot Roll Confirmation"],
-                        order = 17,
-                        width = "full",
-                        get = function()
-                            return E.db[addonName].automation.disableLootRollConfirmation
-                        end,
-                        set = function(_, val)
-                            E.db[addonName].automation.disableLootRollConfirmation = val
-                        end
-                    },
-                    disableVendorRefundWarning = {
-                        type = "toggle",
-                        name = L["Disable Vendor Refund Warning"],
-                        order = 18,
-                        width = "full",
-                        get = function()
-                            return E.db[addonName].automation.disableVendorRefundWarning
-                        end,
-                        set = function(_, val)
-                            E.db[addonName].automation.disableVendorRefundWarning = val
-                        end
-                    },
-                    disableMailRefundWarning = {
-                        type = "toggle",
-                        name = L["Disable Mail Refund Warning"],
-                        order = 19,
-                        width = "full",
-                        get = function()
-                            return E.db[addonName].automation.disableMailRefundWarning
-                        end,
-                        set = function(_, val)
-                            E.db[addonName].automation.disableMailRefundWarning = val
-                        end
-                    },
-                    autoInvite = {
-                        type = "toggle",
-                        name = L["Auto Invite"],
-                        order = 21,
-                        width = "full",
-                        get = function()
-                            return E.db[addonName].automation.autoInvite
-                        end,
-                        set = function(_, val)
-                            E.db[addonName].automation.autoInvite = val
-                        end
-                    },
+                    fastLoot = Addon:CreateToggleOption(L["Faster Auto-Loot"], nil, 10, "full", {"automation", "fastLoot"}),
+                    standDismount = Addon:CreateToggleOption(L["Auto Stand/Dismount"], nil, 11, "full",
+                                                             {"automation", "standDismount"}),
+                    acceptSummon = Addon:CreateToggleOption(L["Accept Summons"], nil, 12, "full", {"automation", "acceptSummon"}),
+                    acceptResurrection = Addon:CreateToggleOption(L["Accept Resurrection"], nil, 13, "full",
+                                                                  {"automation", "acceptResurrection"}),
+                    disableLootBindConfirmation = Addon:CreateToggleOption(L["Disable Bind on Pickup Confirmation"], nil, 14,
+                                                                           "full", {"automation", "disableLootBindConfirmation"}),
+                    disableLootRollConfirmation = Addon:CreateToggleOption(L["Disable Loot Roll Confirmation"], nil, 15, "full",
+                                                                           {"automation", "disableLootRollConfirmation"}),
+                    disableVendorRefundWarning = Addon:CreateToggleOption(L["Disable Vendor Refund Warning"], nil, 16, "full",
+                                                                          {"automation", "disableVendorRefundWarning"}),
+                    disableMailRefundWarning = Addon:CreateToggleOption(L["Disable Mail Refund Warning"], nil, 17, "full",
+                                                                        {"automation", "disableMailRefundWarning"}),
+                    autoInvite = Addon:CreateToggleOption(L["Auto Invite"], nil, 18, "full", {"automation", "autoInvite"}),
                     autoInvitePassword = {
                         type = "input",
                         name = L["Auto Invite Password"],
@@ -292,85 +211,30 @@ function Addon:InsertOptions()
                 type = "group",
                 name = L["Minimap Button Frame"],
                 args = {
-                    enabled = {
-                        order = 1,
-                        type = "toggle",
-                        name = L["Enabled"],
-                        get = function(info)
-                            return E.db[addonName].minimapButtonFrame.enabled
-                        end,
-                        set = function(info, value)
-                            E.db[addonName].minimapButtonFrame.enabled = value
-                            if value then
-                                Addon.MinimapButtonFrame:Initialize()
-                            else
-                                ReloadUI()
-                            end
-                        end
-                    },
+                    enabled = Addon:CreateToggleOption(L["Enabled"], nil, 1, nil, {"minimapButtonFrame", "enabled"}),
                     lineBreak = {type = "header", name = "", order = 2},
                     iconStyle = {
                         order = 10,
                         type = "select",
                         name = L["Icon Style"],
-                        values = Addon.minimapIconStyles,
+                        values = Addon.MINIMAP_ICON_STYLES,
                         get = function()
-                            for key, val in pairs(Addon.minimapIconStyles) do
+                            for key, val in pairs(Addon.MINIMAP_ICON_STYLES) do
                                 if E.db[addonName].minimapButtonFrame.iconStyle == val then
                                     return val
                                 end
                             end
                         end,
                         set = function(_, key)
-                            E.db[addonName].minimapButtonFrame.iconStyle = Addon.minimapIconStyles[key]
+                            E.db[addonName].minimapButtonFrame.iconStyle = Addon.MINIMAP_ICON_STYLES[key]
                             Addon.MinimapButtonFrame:UpdateButtonFrame()
                         end
                     },
-                    iconSize = {
-                        order = 11,
-                        type = "range",
-                        name = L["Icon Size"],
-                        min = 4,
-                        max = 100,
-                        step = 1,
-                        get = function(info)
-                            return E.db[addonName].minimapButtonFrame.iconSize
-                        end,
-                        set = function(info, value)
-                            E.db[addonName].minimapButtonFrame.iconSize = value
-                            Addon.MinimapButtonFrame:UpdateButtonFrame()
-                        end
-                    },
-                    buttonSpacing = {
-                        order = 12,
-                        type = "range",
-                        name = L["Buttons Spacing"],
-                        min = 0,
-                        max = 10,
-                        step = 1,
-                        get = function(info)
-                            return E.db[addonName].minimapButtonFrame.buttonSpacing
-                        end,
-                        set = function(info, value)
-                            E.db[addonName].minimapButtonFrame.buttonSpacing = value
-                            Addon.MinimapButtonFrame:UpdateButtonFrame()
-                        end
-                    },
-                    buttonsPerRow = {
-                        order = 13,
-                        type = "range",
-                        name = L["Buttons per Row"],
-                        min = 1,
-                        max = 50,
-                        step = 1,
-                        get = function(info)
-                            return E.db[addonName].minimapButtonFrame.buttonsPerRow
-                        end,
-                        set = function(info, value)
-                            E.db[addonName].minimapButtonFrame.buttonsPerRow = value
-                            Addon.MinimapButtonFrame:UpdateButtonFrame()
-                        end
-                    }
+                    iconSize = Addon:CreateRangeOption(L["Icon Size"], nil, 11, 4, 100, 1, {"minimapButtonFrame", "iconSize"}),
+                    buttonSpacing = Addon:CreateRangeOption(L["Button Spacing"], nil, 12, 0, 10, 1,
+                                                            {"minimapButtonFrame", "buttonSpacing"}),
+                    buttonsPerRow = Addon:CreateRangeOption(L["Buttons per Row"], nil, 13, 1, 50, 1,
+                                                            {"minimapButtonFrame", "buttonsPerRow"})
                 }
             },
             skins = {
@@ -385,7 +249,40 @@ function Addon:InsertOptions()
                         args = {
                             enabled = Addon:CreateToggleOption(L["Enabled"], nil, 1, nil, {"skins", "borders", "enabled"}),
                             lineBreak = {type = "header", name = "", order = 2},
-                            style = Addon:CreateBorderStyleOption(L["Default Border Theme"], 3, {"skins", "borders", "style"})
+                            style = Addon:CreateBorderStyleOption(L["Default Border Theme"], 3, "style"),
+                            frames = {
+                                order = 10,
+                                type = "group",
+                                name = L["Frames"],
+                                inline = true,
+                                args = {
+                                    frameStyle = Addon:CreateBorderStyleOption(L["Frame Theme"], 1, BORDER_CONFIG_KEYS.FRAME),
+                                    insetFrameStyle = Addon:CreateBorderStyleOption(L["Inset Frame Theme"], 2, BORDER_CONFIG_KEYS.INSET_FRAME),
+                                    chatPanelStyle = Addon:CreateBorderStyleOption(L["Chat Panel Theme"], 3, BORDER_CONFIG_KEYS.CHAT_PANEL),
+                                    decorativePanelStyle = Addon:CreateBorderStyleOption(L["Top/Bottom Panel Theme"], 4, BORDER_CONFIG_KEYS.DECORATIVE_PANEL),
+                                    tabStyle = Addon:CreateBorderStyleOption(L["Tab Theme"], 5, BORDER_CONFIG_KEYS.TAB),
+                                    minimapStyle = Addon:CreateBorderStyleOption(L["Minimap Theme"], 5,BORDER_CONFIG_KEYS.MINIMAP)
+                                }
+                            },
+                            controls = {
+                                order = 11,
+                                type = "group",
+                                name = L["Controls"],
+                                inline = true,
+                                args = {
+                                    buttonStyle = Addon:CreateBorderStyleOption(L["Button Theme"], 1, BORDER_CONFIG_KEYS.BUTTON),
+                                    checkBoxStyle = Addon:CreateBorderStyleOption(L["Checkbox Theme"], 2, BORDER_CONFIG_KEYS.CHECK_BOX),
+                                    colorPickerStyle = Addon:CreateBorderStyleOption(L["Color Picker Theme"], 3, BORDER_CONFIG_KEYS.COLOR_PICKER),
+                                    dropdownBoxStyle = Addon:CreateBorderStyleOption(L["Dropdown Theme"], 4, BORDER_CONFIG_KEYS.DROP_DOWN_BOX),
+                                    dropdownListStyle = Addon:CreateBorderStyleOption(L["Dropdown List Theme"], 5, BORDER_CONFIG_KEYS.DROP_DOWN_LIST),
+                                    dropdownListButtonStyle = Addon:CreateBorderStyleOption(L["Dropdown List Button Theme"], 6, BORDER_CONFIG_KEYS.DROP_DOWN_LIST_BUTTON),
+                                    editBoxStyle = Addon:CreateBorderStyleOption(L["Edit Box Theme"], 7, BORDER_CONFIG_KEYS.EDIT_BOX),
+                                    radioButtonStyle = Addon:CreateBorderStyleOption(L["Radio Button Theme"], 8, BORDER_CONFIG_KEYS.RADIO_BUTTON),
+                                    scrollBarStyle = Addon:CreateBorderStyleOption(L["Scroll Bar Theme"], 9, BORDER_CONFIG_KEYS.SCROLL_BAR),
+                                    sliderStyle = Addon:CreateBorderStyleOption(L["Slider Theme"], 10, BORDER_CONFIG_KEYS.SLIDER),
+                                    statusBarStyle = Addon:CreateBorderStyleOption(L["Status Bar Theme"], 11, BORDER_CONFIG_KEYS.STATUS_BAR)
+                                }
+                            }
                         }
                     },
                     shadows = {
@@ -396,33 +293,31 @@ function Addon:InsertOptions()
                             enabled = Addon:CreateToggleOption(L["Enabled"], nil, 1, nil, {"skins", "shadows", "enabled"}),
                             lineBreak = {type = "header", name = "", order = 2},
                             color = Addon:CreateColorOption(L["Shadow Color"], 10, {"skins", "shadows", "color"}),
-                            size = {
-                                order = 11,
-                                type = "range",
-                                name = L["Shadow Size"],
-                                min = 3,
-                                max = 30,
-                                step = 1,
-                                get = function(info)
-                                    return E.db[addonName].skins.shadows.size
-                                end,
-                                set = function(info, value)
-                                    E.db[addonName].skins.shadows.size = value
-                                    Addon.Skins:Update()
-                                end
-                            },
-                            shadowPerButton = {
-                                order = 21,
-                                type = "toggle",
-                                name = L["Shadow Per Button"],
-                                get = function(info)
-                                    return E.db[addonName].skins.shadows.shadowPerButton
-                                end,
-                                set = function(info, value)
-                                    E.db[addonName].skins.shadows.shadowPerButton = value
-                                    Addon.Skins:Update()
-                                end
-                            }
+                            size = Addon:CreateRangeOption(L["Shadow Size"], nil, 11, 3, 30, 1, {"skins", "shadows", "size"}),
+                            shadowPerButton = Addon:CreateToggleOption(L["Shadow Per Button"], nil, 12, nil,
+                                                                       {"skins", "shadows", "shadowPerButton"})
+                        }
+                    },
+                    layout = {
+                        order = 20,
+                        type = "group",
+                        name = L["Layout"],
+                        args = {
+                            characterFrame = Addon:CreateToggleOption(L["Retail-style Character Frame"], nil, 1, "full",
+                                                                      {"skins", "layout", "characterFrame", "enabled"}),
+                            classTrainerFrame = Addon:CreateToggleOption(L["Larger Trainer Frame"], nil, 2, "full",
+                                                                         {"skins", "layout", "classTrainerFrame", "enabled"}),
+                            tradeSkillFrame = Addon:CreateToggleOption(L["Larger Profession Frame"], nil, 3, "full",
+                                                                       {"skins", "layout", "tradeSkillFrame", "enabled"}),
+                            questLogFrame = Addon:CreateToggleOption(L["Larger Quest Log"], nil, 4, "full",
+                                                                     {"skins", "layout", "questLogFrame", "enabled"}),
+                            guildMemberDetailFrame = Addon:CreateToggleOption(L["Add Icons to Guild Member Frame"], nil, 5,
+                                                                              "full", {
+                                "skins",
+                                "layout",
+                                "guildMemberDetailFrame",
+                                "enabled"
+                            })
                         }
                     }
                 }
@@ -434,58 +329,11 @@ function Addon:InsertOptions()
                 args = {
                     enabled = Addon:CreateToggleOption(L["Enabled"], nil, 1, nil, {"tooltips", "enabled"}),
                     lineBreak = {type = "header", name = "", order = 2},
-                    showIcons = {
-                        type = "toggle",
-                        name = L["Show Icons"],
-                        order = 10,
-                        width = "full",
-                        get = function()
-                            return E.db[addonName].tooltips.showIcons
-                        end,
-                        set = function(_, val)
-                            E.db[addonName].tooltips.showIcons = val
-                        end
-                    },
-                    showItemCount = {
-                        type = "toggle",
-                        name = L["Show Item Count"],
-                        order = 11,
-                        width = "full",
-                        get = function()
-                            return E.db[addonName].tooltips.showItemCount
-                        end,
-                        set = function(_, val)
-                            E.db[addonName].tooltips.showItemCount = val
-                            if val then
-                                -- disable built-in item counts
-                                E.db.tooltip.itemCount = "NONE"
-                            end
-                        end
-                    },
-                    showVendorPrice = {
-                        type = "toggle",
-                        name = L["Show Vendor Price"],
-                        order = 12,
-                        width = "full",
-                        get = function()
-                            return E.db[addonName].tooltips.showVendorPrice
-                        end,
-                        set = function(_, val)
-                            E.db[addonName].tooltips.showVendorPrice = val
-                        end
-                    },
-                    showItemLevel = {
-                        type = "toggle",
-                        name = L["Show Item Level"],
-                        order = 13,
-                        width = "full",
-                        get = function()
-                            return E.db[addonName].tooltips.showItemLevel
-                        end,
-                        set = function(_, val)
-                            E.db[addonName].tooltips.showItemLevel = val
-                        end
-                    }
+                    showIcons = Addon:CreateToggleOption(L["Show Icons"], nil, 10, "full", {"tooltips", "showIcons"}),
+                    showItemCount = Addon:CreateToggleOption(L["Show Item Count"], nil, 11, "full", {"tooltips", "showItemCount"}),
+                    showVendorPrice = Addon:CreateToggleOption(L["Show Vendor Price"], nil, 12, "full",
+                                                               {"tooltips", "showVendorPrice"}),
+                    showItemLevel = Addon:CreateToggleOption(L["Show Item Level"], nil, 13, "full", {"tooltips", "showItemLevel"})
                 }
             },
             installer = {
@@ -571,7 +419,26 @@ function Addon:CreateToggleOption(caption, desc, order, width, setting)
         end,
         set = function(info, value)
             Addon:SetOptionValue(setting, value)
-            Addon:Update()
+            Addon:OnSettingChanged(setting)
+        end
+    }
+end
+
+function Addon:CreateRangeOption(caption, desc, order, min, max, step, setting)
+    return {
+        type = "range",
+        name = caption,
+        desc = desc,
+        order = order,
+        min = min,
+        max = max,
+        step = step,
+        get = function(info)
+            return Addon:GetOptionValue(setting)
+        end,
+        set = function(info, value)
+            Addon:SetOptionValue(setting, value)
+            Addon:OnSettingChanged(setting)
         end
     }
 end
@@ -590,27 +457,32 @@ function Addon:CreateColorOption(caption, order, setting, noAlpha)
         set = function(info, r, g, b, a)
             local t = Addon:GetOptionValue(setting)
             t[1], t[2], t[3], t[4] = r, g, b, a
-            Addon:Update()
+            Addon:OnSettingChanged(setting)
         end
     }
 end
 
-function Addon:CreateBorderStyleOption(caption, order, setting)
+function Addon:CreateBorderStyleOption(caption, order, configKey)
+    local setting = {"skins", "borders", configKey}
     return {
         order = order,
         type = "select",
         name = caption,
-        values = Addon.borders,
+        values = BORDERS,
         get = function()
-            for key, val in pairs(Addon.borders) do
-                if Addon:GetOptionValue(setting) == val then
+            local optionValue = Addon:GetOptionValue(setting)
+            for key, val in pairs(BORDERS) do
+                if (optionValue or "") == key then
                     return key
                 end
             end
         end,
         set = function(_, key)
-            Addon:SetOptionValue(setting, Addon.borders[key])
-            Addon:Update()
+            if key == "" then
+                key = nil
+            end
+            Addon:SetOptionValue(setting, key)
+            Addon:OnSettingChanged(setting)
         end
     }
 end
@@ -620,17 +492,21 @@ function Addon:CreateFrameBorderThemeOption(caption, order, setting)
         order = order,
         type = "select",
         name = caption,
-        values = Addon.frameBorders,
+        values = FRAME_BORDERS,
         get = function()
-            for key, val in pairs(Addon.frameBorders) do
-                if Addon:GetOptionValue(setting) == val then
+            local optionValue = Addon:GetOptionValue(setting)
+            for key, val in pairs(FRAME_BORDERS) do
+                if (optionValue or "") == key then
                     return key
                 end
             end
         end,
         set = function(_, key)
-            Addon:SetOptionValue(setting, Addon.frameBorders[key])
-            Addon:Update()
+            if key == "" then
+                key = nil
+            end
+            Addon:SetOptionValue(setting, key)
+            Addon:OnSettingChanged(setting)
         end
     }
 end
@@ -640,82 +516,21 @@ function Addon:CreateFrameBackgroundOption(caption, order, setting)
         order = order,
         type = "select",
         name = caption,
-        values = Addon.frameBackgrounds,
+        values = BACKGROUNDS,
         get = function()
-            for key, val in pairs(Addon.frameBackgrounds) do
-                if Addon:GetOptionValue(setting) == val then
+            local optionValue = Addon:GetOptionValue(setting)
+            for key, val in pairs(BACKGROUNDS) do
+                if (optionValue or "") == key then
                     return key
                 end
             end
         end,
         set = function(_, key)
-            Addon:SetOptionValue(setting, Addon.frameBackgrounds[key])
-            Addon:Update()
-        end
-    }
-end
-
-function Addon:CreateUnitFrameOptions(unit, caption, order, hidden, additionalArgs)
-    local options = {
-        order = order,
-        type = "group",
-        name = caption,
-        hidden = hidden,
-        args = {
-            header = Addon:CreateOptionHeader(caption, 0),
-            border = {
-                order = 1,
-                type = "group",
-                inline = true,
-                name = L["Frame Border"],
-                args = {
-                    border = Addon:CreateBorderStyleOption(L["Border Theme"], 1, {"artwork", "unitFrames", unit, "border"}),
-                    borderColor = Addon:CreateColorOption(L["Border Color"], 2, {"artwork", "unitFrames", unit, "borderColor"})
-                }
-            },
-            healthBar = {
-                order = 2,
-                type = "group",
-                inline = true,
-                name = L["Health Bar"],
-                args = {
-                    border = Addon:CreateBorderStyleOption(L["Border Theme"], 1, {"artwork", "unitFrames", unit, "healthBorder"}),
-                    borderColor = Addon:CreateColorOption(L["Border Color"], 2,
-                                                          {"artwork", "unitFrames", unit, "healthBorderColor"})
-                }
-            },
-            powerBar = {
-                order = 3,
-                type = "group",
-                inline = true,
-                name = L["Power Bar"],
-                args = {
-                    border = Addon:CreateBorderStyleOption(L["Border Theme"], 1, {"artwork", "unitFrames", unit, "powerBorder"}),
-                    borderColor = Addon:CreateColorOption(L["Border Color"], 2,
-                                                          {"artwork", "unitFrames", unit, "powerBorderColor"})
-                }
-            },
-            castBar = {
-                order = 4,
-                type = "group",
-                inline = true,
-                name = L["Castbar"],
-                args = {
-                    border = Addon:CreateBorderStyleOption(L["Border Theme"], 1, {"artwork", "unitFrames", unit, "castBarBorder"}),
-                    borderColor = Addon:CreateColorOption(L["Border Color"], 2,
-                                                          {"artwork", "unitFrames", unit, "castBarBorderColor"})
-                }
-            }
-        }
-    }
-
-    if additionalArgs then
-        for key, value in pairs(additionalArgs) do
-            if not options.args[key] then
-                options.args[key] = value
+            if key == "" then
+                key = nil
             end
+            Addon:SetOptionValue(setting, key)
+            Addon:OnSettingChanged(setting)
         end
-    end
-
-    return options
+    }
 end

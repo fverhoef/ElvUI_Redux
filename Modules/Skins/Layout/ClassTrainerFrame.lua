@@ -4,7 +4,11 @@ local Skins = Addon.Skins
 local E, L, V, P, G = unpack(ElvUI)
 local S = E:GetModule("Skins")
 
-function Skins:StyleClassTrainerFrame()
+function Skins:LayoutClassTrainerFrame()
+    if not E.db[addonName].skins.layout.classTrainerFrame.enabled then
+        return
+    end
+
     local width, height = 714, 487
     _G.UIPanelWindows["ClassTrainerFrame"].width = width
     _G.UIPanelWindows["ClassTrainerFrame"].height = height

@@ -16,6 +16,10 @@ local enhancementCategories = {
 }
 
 function Skins:LayoutCharacterFrame()
+    if not E.db[addonName].skins.layout.characterFrame.enabled then
+        return
+    end
+    
     -- resize model
     _G.CharacterModelFrame:SetSize(231, 320)
     _G.CharacterModelFrame:SetFrameLevel(10)
@@ -87,7 +91,8 @@ function Skins:LayoutCharacterFrame()
         Skins:SecureHook("PaperDollFrame_SetGuild", function()
             local guildName, title, rank = GetGuildInfo("player")
             if guildName then
-                _G.CharacterGuildText:SetFormattedText(_G.GUILD_TITLE_TEMPLATE, title, Addon:Hex(0, 230 / 255, 0) .. guildName .. "|r")
+                _G.CharacterGuildText:SetFormattedText(_G.GUILD_TITLE_TEMPLATE, title,
+                                                       Addon:Hex(0, 230 / 255, 0) .. guildName .. "|r")
             end
         end)
     end
@@ -315,7 +320,7 @@ function Skins:UpdateCharacterStatsPane()
     PaperDollFrame_UpdateStats()
 end
 
-local function GetPlayerItemLevel()
+local function GetPlayerItemLevelAndQuality()
     local slots = {
         "HeadSlot",
         "NeckSlot",
@@ -335,6 +340,7 @@ local function GetPlayerItemLevel()
         "SecondaryHandSlot",
         "RangedSlot"
     }
+    local minimumItemQuality = 5
     local totalItemLevel = 0
     local count = 0
     local hasTwoHander = false
@@ -349,33 +355,20 @@ local function GetPlayerItemLevel()
             if itemLevel then
                 totalItemLevel = totalItemLevel + itemLevel
             end
+            if itemRarity and itemRarity < minimumItemQuality then
+                minimumItemQuality = itemRarity
+            end
             count = count + 1
         elseif slot ~= "SecondaryHandSlot" and hasTwoHander then
             count = count + 1
         end
     end
 
-    return math.floor((count and totalItemLevel / count) or 0)
+    return math.floor((count and totalItemLevel / count) or 0), minimumItemQuality
 end
 
 function Skins:UpdateAverageItemLevel()
-    local itemLevel = GetPlayerItemLevel()
-    if itemLevel then
-        local itemLevelCategory
-        if itemLevel >= E.db[addonName].skins.characterStats.itemLevels.legendary then
-            itemLevelCategory = 5 -- legendary
-        elseif itemLevel >= E.db[addonName].skins.characterStats.itemLevels.epic then
-            itemLevelCategory = 4 -- epic
-        elseif itemLevel >= E.db[addonName].skins.characterStats.itemLevels.rare then
-            itemLevelCategory = 3 -- rare
-        elseif itemLevel >= E.db[addonName].skins.characterStats.itemLevels.uncommon then
-            itemLevelCategory = 2 -- uncommon
-        elseif itemLevel >= E.db[addonName].skins.characterStats.itemLevels.common then
-            itemLevelCategory = 1 -- common
-        else
-            itemLevelCategory = 0 -- poor
-        end
-        local r, g, b = GetItemQualityColor(itemLevelCategory)
-        _G.PaperDollFrame.CharacterStatsPane.ItemLevel.Value.Text:SetText(Addon:Hex(r, g, b) .. itemLevel .. "|r")
-    end
+    local averageItemLevel, minimumItemQuality = GetPlayerItemLevelAndQuality()
+    local r, g, b = GetItemQualityColor(minimumItemQuality)
+    _G.PaperDollFrame.CharacterStatsPane.ItemLevel.Value.Text:SetText(Addon:Hex(r, g, b) .. averageItemLevel .. "|r")
 end

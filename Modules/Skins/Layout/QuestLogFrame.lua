@@ -4,7 +4,11 @@ local Skins = Addon.Skins
 local E, L, V, P, G = unpack(ElvUI)
 local S = E:GetModule("Skins")
 
-function Skins:LayoutQuestLog()
+function Skins:LayoutQuestLogFrame()
+    if not E.db[addonName].skins.layout.questLogFrame.enabled then
+        return
+    end
+
     -- Resize quest log
     local width, height = 714, 487
     _G.UIPanelWindows["QuestLogFrame"].width = width

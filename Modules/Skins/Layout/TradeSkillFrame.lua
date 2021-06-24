@@ -5,6 +5,10 @@ local E, L, V, P, G = unpack(ElvUI)
 local S = E:GetModule("Skins")
 
 function Skins:LayoutTradeSkillFrame()
+    if not E.db[addonName].skins.layout.tradeSkillFrame.enabled then
+        return
+    end
+
     local width, height = 714, 487
     _G.UIPanelWindows["TradeSkillFrame"].width = width
     _G.UIPanelWindows["TradeSkillFrame"].height = height
@@ -69,11 +73,13 @@ function Skins:LayoutTradeSkillFrame()
 
     -- Reposition status bar
     _G.TradeSkillRankFrame:ClearAllPoints()
-    _G.TradeSkillRankFrame:Point("TOPLEFT", 20, -45)
+    _G.TradeSkillRankFrame:Point("TOPRIGHT", -40, -45)
 
     -- Position dropdown menus
     _G.TradeSkillInvSlotDropDown:ClearAllPoints()
-    _G.TradeSkillInvSlotDropDown:SetPoint("TOPLEFT", _G.TradeSkillFrame, "TOPLEFT", 510, -40)
+    _G.TradeSkillInvSlotDropDown:SetPoint("TOPLEFT", _G.TradeSkillFrame, "TOPLEFT", 0, -40)
+    _G.TradeSkillInvSlotDropDown:Width(185)
     _G.TradeSkillSubClassDropDown:ClearAllPoints()
-    _G.TradeSkillSubClassDropDown:SetPoint("RIGHT", _G.TradeSkillInvSlotDropDown, "LEFT", 0, 0)
+    _G.TradeSkillSubClassDropDown:SetPoint("LEFT", _G.TradeSkillInvSlotDropDown, "RIGHT", -20, 0)
+    _G.TradeSkillSubClassDropDown:Width(185)
 end

@@ -141,6 +141,8 @@ local function GetTemplate(template, isUnitFrameElement)
 end
 
 local function SetTemplate(frame, template, glossTex, ignoreUpdates, forcePixelMode, isUnitFrameElement, isNamePlateElement)
+    frame.template = template
+    
     local borderColor, backdropColor = GetTemplate(template, isUnitFrameElement)
 
     if frame.callbackBackdropColor then
@@ -151,7 +153,7 @@ local function SetTemplate(frame, template, glossTex, ignoreUpdates, forcePixelM
     end
 
     if frame.forcedBorderColors then
-        borderColor = unpack(frame.forcedBorderColors)
+        borderColor = frame.forcedBorderColors
     end
 
     frame:SetBackdropBorderColor(unpack(borderColor))

@@ -27,6 +27,7 @@ function Skins:Initialize()
     Skins:SkinQuestLog()
     Skins:SkinRaidUtilityFrame()
     Skins:SkinSpellbook()
+    Skins:SkinTradeFrame()
     Skins:SkinUnitFrames()
     Skins:SkinWorldMap()
 
@@ -43,6 +44,7 @@ function Skins:Initialize()
     Skins:HandleFrame(_G.ColorPickerFrame)
     Skins:HandleFrame(_G.ItemSocketingFrame)
     Skins:HandleFrame(_G.StopwatchFrame)
+    Skins:HandleFrame(_G.ArenaFrame)
     Skins:HandleFrame(_G.BattlefieldFrame)
 
     -- Help
@@ -377,7 +379,7 @@ function Skins:SkinFriendsFrame()
     Skins:HandleEditBox(_G.GuildMOTDEditButton)
 
     -- custom layout
-    Skins:LayoutFriendsFrame()
+    Skins:LayoutGuildMemberDetailFrame()
 end
 
 function Skins:SkinInspectFrame()
@@ -494,7 +496,7 @@ function Skins:SkinQuestLog()
         end
     end
 
-    Skins:LayoutQuestLog()
+    Skins:LayoutQuestLogFrame()
 end
 
 function Skins:SkinRaidUtilityFrame()
@@ -526,10 +528,30 @@ function Skins:SkinTalentFrame()
     end
 end
 
+function Skins:SkinTradeFrame()
+    for _, inset in pairs({
+        _G.TradePlayerItemsInset,
+        _G.TradeRecipientItemsInset,
+        _G.TradePlayerEnchantInset,
+        _G.TradeRecipientEnchantInset,
+        _G.TradeRecipientMoneyInset
+    }) do
+        Skins:HandleInsetFrame(inset)
+    end
+
+    Skins:SecureHook("TradeFrame_UpdatePlayerItem", function(id)
+        Skins:HandleItemButton(_G["TradePlayerItem" .. id .. "ItemButton"])
+    end)
+
+    Skins:SecureHook("TradeFrame_UpdateTargetItem", function(id)
+        Skins:HandleItemButton(_G["TradeRecipientItem" .. id .. "ItemButton"])
+    end)
+end
+
 function Skins:SkinTradeSkillFrame()
     Skins:HandleIcon(_G.TradeSkillSkillIcon)
     Skins:HandleStatusBar(_G.TradeSkillRankFrame)
-    
+
     Skins:LayoutTradeSkillFrame()
 end
 
@@ -538,8 +560,8 @@ function Skins:SkinTrainerFrame()
     Skins:SecureHook("ClassTrainer_SetSelection", function()
         Skins:HandleButton(_G.ClassTrainerSkillIcon)
     end)
-    
-    Skins:StyleClassTrainerFrame()
+
+    Skins:LayoutClassTrainerFrame()
 end
 
 function Skins:SkinUnitFrames()

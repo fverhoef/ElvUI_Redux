@@ -16,6 +16,11 @@ function Skins:HandleDataPanel(panel)
         return
     end
 
-    Skins:CreateShadow(panel)
-    Skins:CreateBorder(panel, Addon.BORDER_CONFIG_KEYS.DATA_PANEL)
+    local isBackdropHidden = panel.template == "NoBackdrop"
+    local shadow = Skins:CreateShadow(panel)
+    shadow.isHidden = isBackdropHidden
+    shadow:Update()
+    local border = Skins:CreateBorder(panel, Addon.BORDER_CONFIG_KEYS.DATA_PANEL)
+    border.isHidden = isBackdropHidden
+    border:Update()
 end

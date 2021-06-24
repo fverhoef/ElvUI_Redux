@@ -3,7 +3,11 @@ local Addon = addonTable[1]
 local Skins = Addon.Skins
 local E, L, V, P, G = unpack(ElvUI)
 
-function Skins:LayoutFriendsFrame()
+function Skins:LayoutGuildMemberDetailFrame()
+    if not E.db[addonName].skins.layout.guildMemberDetailFrame.enabled then
+        return
+    end
+
     -- add icons to guild member details frames    
     _G.GuildMemberDetailFrame.icon = _G.GuildMemberDetailFrame:CreateTexture("$parentIcon", "ARTWORK")
     _G.GuildMemberDetailFrame.icon:SetPoint("TOPLEFT", _G.GuildMemberDetailName, "TOPLEFT", -30, 0)

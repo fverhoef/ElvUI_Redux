@@ -47,7 +47,7 @@ Skins:SecureHook(S, "Ace3_RegisterAsWidget", function(self, widget)
         local border = Skins:CreateBorder(widget.checkbg.backdrop, Addon.BORDER_CONFIG_KEYS.CHECK_BOX)
         border:SetOutside(widget.checkbg.backdrop, 3, 3)
     elseif widget.type == "ColorPicker" or widget.type == "ColorPicker-ElvUI" then
-        Skins:HandleInsetFrame(widget.frame)
+        Skins:HandleColorPicker(widget.frame)
         widget.frame.border:SetDrawLayer("OVERLAY")
 
         widget.colorSwatch:SetInside(widget.frame.backdrop, 2, 2)
@@ -55,13 +55,10 @@ Skins:SecureHook(S, "Ace3_RegisterAsWidget", function(self, widget)
             widget.colorSwatch.checkers:SetInside(widget.frame.backdrop, 2, 2)
         end
     elseif widget.type == "Dropdown" or widget.type == "LQDropdown" then
-        Skins:HandleFrame(widget.dropdown)
+        Skins:HandleDropDownBox(widget.dropdown)
         RaiseFrameLevel(widget.dropdown)
-        -- Skins:HandleFrame(widget.button)
-        -- RaiseFrameLevel(widget.button)
-        widget.button.backdrop:Hide()
     elseif widget.type == "Dropdown-Pullout" then
-        Skins:HandleFrame(widget.frame)
+        Skins:HandleDropDownList(widget.frame, true)
         RaiseFrameLevel(widget.frame)
         if widget.slider then
             Skins:HandleSliderFrame(widget.slider)
@@ -75,7 +72,7 @@ Skins:SecureHook(S, "Ace3_RegisterAsWidget", function(self, widget)
         Skins:HandleFrame(widget.msgframe)
     elseif strfind(widget.type, "LSM30_") then
         widget.frame.backdrop:SetFrameLevel(0)
-        Skins:HandleFrame(widget.frame)
+        Skins:HandleDropDownBox(widget.frame)
 
         if widget.type ~= "LSM30_Statusbar" then
             -- Skins:HandleFrame(widget.frame.dropButton)
@@ -100,7 +97,7 @@ Skins:SecureHook(S, "Ace3_SkinDropdown", function(self)
     end
 
     if widget.dropdown then
-        Skins:HandleFrame(widget.dropdown.frame or widget.dropdown)
+        Skins:HandleDropDownList(widget.dropdown.frame or widget.dropdown, true)
 
         if widget.dropdown.slider then
             Skins:HandleSliderFrame(widget.dropdown.slider)

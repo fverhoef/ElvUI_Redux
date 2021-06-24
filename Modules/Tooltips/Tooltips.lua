@@ -98,6 +98,9 @@ function Tooltips:AddItemCount(tooltip, itemId)
     if not ElvDB or not ElvDB.items or not ElvDB.items.realm or not ElvDB.items.realm[E.myrealm] then
         return
     end
+    
+    -- disable built-in item counts
+    E.db.tooltip.itemCount = "NONE"
 
     if Addon.InventoryDatabase then
         Addon.InventoryDatabase:UpdateItemCount(itemId)

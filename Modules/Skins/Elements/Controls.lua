@@ -94,8 +94,8 @@ function Skins:HandleRadioButton(button)
         return
     end
 
-    --Skins:CreateShadow(button)
-    --Skins:CreateBorder(button, Addon.BORDER_CONFIG_KEYS.RADIO_BUTTON)
+    -- Skins:CreateShadow(button)
+    -- Skins:CreateBorder(button, Addon.BORDER_CONFIG_KEYS.RADIO_BUTTON)
 end
 
 Skins:SecureHook(S, "HandleCheckBox", function(self, frame, noBackdrop, noReplaceTextures, frameLevel)
@@ -115,7 +115,7 @@ Skins:SecureHook(S, "HandleDropDownBox", function(self, frame, width, pos)
     Skins:HandleDropDownBox(frame)
 end)
 
-function Skins:HandleDropDownBox(frame, width, pos)
+function Skins:HandleDropDownBox(frame)
     if not frame then
         return
     end
@@ -124,59 +124,63 @@ function Skins:HandleDropDownBox(frame, width, pos)
     Skins:CreateBorder(frame, Addon.BORDER_CONFIG_KEYS.DROP_DOWN_BOX)
 
     local name = frame.GetName and frame:GetName()
-    local button = frame.Button or name and (_G[name .. "Button"] or _G[name .. "_Button"])
-    button.backdrop:Hide()
+    local button = frame.Button or (name and (_G[name .. "Button"] or _G[name .. "_Button"])) or (frame.obj and frame.obj.button)
+    if button then
+        button.backdrop:Hide()
+    end
 end
 
 Skins:SecureHook(nil, "ToggleDropDownMenu", function(level)
     Skins:HandleDropDownList(_G["DropDownList" .. (level or 1)])
 end)
 
-Skins:SecureHook("UIDropDownMenu_CreateFrames", function(level, index)
-end)
-
-function Skins:HandleDropDownList(listFrame)
+function Skins:HandleDropDownList(listFrame, isAce3)
     if not listFrame then
         return
     end
 
-    listFrame:CreateBackdrop("Transparent")
+    if not isAce3 then
+        listFrame:CreateBackdrop("Transparent")
+    end
 
     Skins:CreateShadow(listFrame)
     Skins:CreateBorder(listFrame, Addon.BORDER_CONFIG_KEYS.DROP_DOWN_LIST)
 
-    local name = listFrame:GetName()
-    for i = 1, _G.UIDROPDOWNMENU_MAXBUTTONS do
-        local button = _G[name .. "Button" .. i]
-        local text = _G[name .. "Button" .. i .. "NormalText"]
-        local border = Skins:CreateBorder(button, Addon.BORDER_CONFIG_KEYS.DROP_DOWN_LIST_BUTTON)
+    if not isAce3 then
+        local name = listFrame:GetName()
+        for i = 1, _G.UIDROPDOWNMENU_MAXBUTTONS do
+            local button = _G[name .. "Button" .. i]
+            local text = _G[name .. "Button" .. i .. "NormalText"]
+            local border = Skins:CreateBorder(button, Addon.BORDER_CONFIG_KEYS.DROP_DOWN_LIST_BUTTON)
 
-        button.backdrop = CreateFrame("Frame", nil, button)
+            button.backdrop = CreateFrame("Frame", nil, button)
 
-        if not button.notCheckable then
-            local check = _G[name .. "Button" .. i .. "Check"]
-            local _, co = check:GetTexCoord()
-            if co == 0 then
-                border:Hide()
+            if not button.notCheckable then
+                local check = _G[name .. "Button" .. i .. "Check"]
+                local _, co = check:GetTexCoord()
+                if co == 0 then
+                    border:Hide()
+                else
+                    text:SetPoint("LEFT", 15, 0)
+                    border:Show()
+                    border:SetOutside(check)
+                    border:SetBorderColor(E.media.bordercolor)
+                end
             else
-                text:SetPoint("LEFT", 15, 0)
-                border:Show()
-                border:SetOutside(check)
+                text:SetPoint("LEFT", -5, 0)
+                border:Hide()
             end
-        else
-            text:SetPoint("LEFT", -5, 0)
-            border:Hide()
         end
-    end
 
-    local backdrop = _G[name .. "Backdrop"]
-    if backdrop then
-        backdrop:SetBackdrop()
-    end
+        local backdrop = _G[name .. "Backdrop"]
+        if backdrop then
+            backdrop:SetBackdrop()
+        end
 
-    local menuBackdrop = _G[name .. "MenuBackdrop"]
-    if menuBackdrop then
-        menuBackdrop:SetBackdrop()
+        local menuBackdrop = _G[name .. "MenuBackdrop"]
+        if menuBackdrop then
+            menuBackdrop:SetBackdrop()
+        end
     end
 end
 
@@ -212,4 +216,13 @@ function Skins:HandleStatusBar(bar)
 
     Skins:CreateShadow(bar)
     Skins:CreateBorder(bar, Addon.BORDER_CONFIG_KEYS.STATUS_BAR)
+end
+
+function Skins:HandleColorPicker(frame)
+    if not frame then
+        return
+    end
+
+    Skins:CreateShadow(frame)
+    Skins:CreateBorder(frame, Addon.BORDER_CONFIG_KEYS.COLOR_PICKER)
 end

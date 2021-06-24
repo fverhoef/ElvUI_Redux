@@ -61,13 +61,15 @@ MinimapButtonFrame.RemoveTextureFile = {
 }
 
 function MinimapButtonFrame:Initialize()
-    if E.db[addonName].minimapButtonFrame.enabled then
-        MinimapButtonFrame:CreateButtonFrame()
-
-        -- TODO: check if it's possible to use events rather than a timed update
-        MinimapButtonFrame:ScheduleTimer("GrabMinimapButtons", 1)
-        MinimapButtonFrame:ScheduleRepeatingTimer("GrabMinimapButtons", 5)
+    if not E.db[addonName].minimapButtonFrame.enabled then
+        return
     end
+
+    MinimapButtonFrame:CreateButtonFrame()
+
+    -- TODO: check if it's possible to use events rather than a timed update
+    MinimapButtonFrame:ScheduleTimer("GrabMinimapButtons", 1)
+    MinimapButtonFrame:ScheduleRepeatingTimer("GrabMinimapButtons", 5)
 end
 
 function MinimapButtonFrame:CreateButtonFrame()
@@ -281,7 +283,7 @@ function MinimapButtonFrame:StyleButton(button)
             region.SetTexCoord = region.__setTexCoord
             region:SetTexCoord(unpack(region.__texCoords))
 
-            if E.db[addonName].minimapButtonFrame.iconStyle == Addon.minimapIconStyles.Round then
+            if E.db[addonName].minimapButtonFrame.iconStyle == Addon.MINIMAP_ICON_STYLES.Round then
                 if region.__textureID == 136430 or region.__texture == "interface\\minimap\\minimap-trackingborder" then
                     region:SetSize(32, 32)
                     region:SetTexture(Addon.media.textures.minimapButtonBorder1)
@@ -373,7 +375,8 @@ function MinimapButtonFrame:UpdateButtonFrame()
 
             button:SetParent(Minimap.ButtonFrame.Container)
             button:ClearAllPoints()
-            button:SetPoint("TOPLEFT", Minimap.ButtonFrame.Container, "TOPLEFT", spacing + (size + spacing) * (columnIndex - 1), -spacing - (size + spacing) * (rowIndex - 1))
+            button:SetPoint("TOPLEFT", Minimap.ButtonFrame.Container, "TOPLEFT", spacing + (size + spacing) * (columnIndex - 1),
+                            -spacing - (size + spacing) * (rowIndex - 1))
             button:SetSize(size, size)
             button:SetScale(1)
             button:SetFrameStrata("MEDIUM")

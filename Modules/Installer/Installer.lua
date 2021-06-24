@@ -48,12 +48,20 @@ function Installer:SetupGeneral()
     E.db["general"]["font"] = DEFAULT_FONT
     E.db["general"]["interruptAnnounce"] = "SAY"
     E.db["general"]["valuecolor"] = {["r"] = 0.25, ["g"] = 0.78, ["b"] = 0.92}
+    E.db["general"]["backdropcolor"] = {["a"] = 1}
+    E.db["general"]["backdropfadecolor"] = {["a"] = 0.8, ["r"] = 0.059, ["g"] = 0.059, ["b"] = 0.059}
     E.db["general"]["bordercolor"] = {["r"] = 0, ["g"] = 0, ["b"] = 0}
+    E.db["general"]["autoRepair"] = true
+    E.db["general"]["topPanel"] = true
     E.db["general"]["minimap"]["locationText"] = "SHOW"
     E.db["general"]["minimap"]["locationFont"] = DEFAULT_FONT
     E.db["general"]["minimap"]["locationFontSize"] = 14
     if Addon.isClassic then
         E.db["general"]["minimap"]["icons"]["tracking"]["scale"] = 0.75
+    elseif Addon.isTbc then
+        E.db["general"]["minimap"]["icons"]["tracking"]["scale"] = 0.6
+        E.db["general"]["minimap"]["icons"]["tracking"]["xOffset"] = -8
+        E.db["general"]["minimap"]["icons"]["tracking"]["yOffset"] = 6
     end
 
     E.private["general"]["dmgfont"] = "Adventure"
@@ -75,7 +83,7 @@ function Installer:SetupActionBars()
     E.db["actionbar"]["bar1"]["enabled"] = true
     E.db["actionbar"]["bar1"]["buttons"] = 12
     E.db["actionbar"]["bar1"]["buttonsPerRow"] = 6
-    E.db["actionbar"]["bar1"]["buttonsize"] = 38
+    E.db["actionbar"]["bar1"]["buttonSize"] = 38
     E.db["actionbar"]["bar1"]["point"] = "TOPLEFT"
     E.db["actionbar"]["bar1"]["backdrop"] = false
     E.db["actionbar"]["bar1"]["countFont"] = DEFAULT_FONT
@@ -158,6 +166,10 @@ function Installer:SetupActionBars()
     E.db["actionbar"]["barPet"]["countFontOutline"] = "OUTLINE"
     E.db["actionbar"]["barPet"]["hotkeyFont"] = DEFAULT_FONT
     E.db["actionbar"]["barPet"]["hotkeyFontOutline"] = "OUTLINE"
+
+    E.db["actionbar"]["microbar"]["buttons"] = 8
+    E.db["actionbar"]["microbar"]["backdrop"] = true
+    E.db["actionbar"]["microbar"]["mouseover"] = true
 end
 
 function Installer:SetupAuras()
@@ -182,8 +194,8 @@ function Installer:SetupAuras()
 end
 
 function Installer:SetupBags()
-    E.db["bags"]["bagWidth"] = 412
-    E.db["bags"]["bankWidth"] = 412
+    E.db["bags"]["bagWidth"] = 411
+    E.db["bags"]["bankWidth"] = 411
     E.db["bags"]["itemLevelFont"] = DEFAULT_FONT
     E.db["bags"]["itemLevelFontOutline"] = "OUTLINE"
     E.db["bags"]["itemLevelFontSize"] = 12
@@ -191,6 +203,9 @@ function Installer:SetupBags()
     E.db["bags"]["countFontOutline"] = "OUTLINE"
     E.db["bags"]["countFontSize"] = 12
     E.db["bags"]["junkIcon"] = true
+    E.db["bags"]["itemLevel"] = false
+    E.db["bags"]["colorBackdrop"] = false
+    E.db["bags"]["vendorGrays"]["enable"] = true
 end
 
 function Installer:SetupChat()
@@ -200,35 +215,121 @@ function Installer:SetupChat()
     E.db["chat"]["tabFont"] = DEFAULT_FONT
     E.db["chat"]["tabFontOutline"] = "OUTLINE"
     E.db["chat"]["timeStampFormat"] = "%H:%M:%S "
+    E.db["chat"]["timeStampLocalTime"] = true
     E.db["chat"]["panelBackdrop"] = "HIDEBOTH"
+    E.db["chat"]["historySize"] = 500
 end
 
 function Installer:SetupDatabars()
     E.db["databars"]["experience"]["enable"] = true
     E.db["databars"]["reputation"]["enable"] = true
     E.db["databars"]["threat"]["enable"] = false
+    E.db["databars"]["threat"]["enable"] = false
 end
 
 function Installer:SetupDatatexts()
     E.db["datatexts"]["font"] = DEFAULT_FONT
     E.db["datatexts"]["fontOutline"] = "OUTLINE"
+    E.db["datatexts"]["panels"] = {
+        ["LeftChatDataPanel"] = {
+            nil, -- [1]
+            "System", -- [2]
+            "Mail" -- [3]
+        },
+        ["RightChatDataPanel"] = {
+            "Durability", -- [1]
+            "Bags" -- [2]
+        },
+        ["MinimapPanel"] = {
+            "Friends", -- [1]
+            "Guild" -- [2]
+        },
+        ["Top Panel"] = {
+            "Guild", -- [1]
+            "", -- [2]
+            "Friends", -- [3]
+            ["enable"] = false
+        },
+        ["Top Panel (Center)"] = {
+            "Time", -- [1]
+            ["enable"] = true
+        }
+    }
+
+    E.global["datatexts"]["customPanels"] = E.global["datatexts"]["customPanels"] or {}
+    E.global["datatexts"]["customPanels"]["Top Panel"] = {
+        ["enable"] = true,
+        ["name"] = "Top Panel",
+        ["width"] = 300,
+        ["height"] = 22,
+        ["panelTransparency"] = false,
+        ["border"] = true,
+        ["tooltipYOffset"] = 4,
+        ["numPoints"] = 3,
+        ["tooltipAnchor"] = "ANCHOR_TOPLEFT",
+        ["frameLevel"] = 1,
+        ["frameStrata"] = "LOW",
+        ["mouseover"] = false,
+        ["fonts"] = {["enable"] = false, ["font"] = "PT Sans Narrow", ["fontSize"] = 12, ["fontOutline"] = "OUTLINE"},
+        ["growth"] = "HORIZONTAL",
+        ["backdrop"] = true,
+        ["tooltipXOffset"] = -17,
+        ["visibility"] = "show"
+    }
+    E.global["datatexts"]["customPanels"]["Top Panel (Center)"] = {
+        ["enable"] = true,
+        ["name"] = "Top Panel (Center)",
+        ["width"] = 100,
+        ["height"] = 40,
+        ["panelTransparency"] = false,
+        ["border"] = true,
+        ["tooltipYOffset"] = 4,
+        ["numPoints"] = 1,
+        ["tooltipAnchor"] = "ANCHOR_TOPLEFT",
+        ["frameLevel"] = 10,
+        ["frameStrata"] = "LOW",
+        ["mouseover"] = false,
+        ["fonts"] = {["enable"] = true, ["font"] = "Expressway", ["fontSize"] = 24, ["fontOutline"] = "OUTLINE"},
+        ["growth"] = "HORIZONTAL",
+        ["backdrop"] = false,
+        ["tooltipXOffset"] = -17,
+        ["visibility"] = "show"
+    }
 end
 
 function Installer:SetupNameplates()
     E.db["nameplates"]["font"] = DEFAULT_FONT
     E.db["nameplates"]["statusbar"] = DEFAULT_STATUSBAR
+    E.db["nameplates"]["units"] = {
+        ["TARGET"] = {
+            ["arrowScale"] = 0.5,
+            ["arrow"] = "Arrow30",
+            ["classpower"] = {["width"] = 105},
+            ["glowStyle"] = "style8",
+            ["arrowSpacing"] = 5
+        },
+        ["FRIENDLY_NPC"] = {["health"] = {["text"] = {["font"] = "Expressway"}}},
+        ["FRIENDLY_PLAYER"] = {["health"] = {["text"] = {["font"] = "Expressway"}}},
+        ["ENEMY_NPC"] = {
+            ["debuffs"] = {["priority"] = "Blacklist,Personal,CCDebuffs,RaidDebuffs"},
+            ["health"] = {["text"] = {["font"] = "Expressway", ["format"] = "[health:current:shortvalue]"}}
+        },
+        ["ENEMY_PLAYER"] = {["health"] = {["text"] = {["font"] = "Expressway"}}}
+    }
 end
 
 function Installer:SetupTooltip()
+    E.db["tooltip"]["font"] = DEFAULT_FONT
+    E.db["tooltip"]["fontSize"] = 12
     E.db["tooltip"]["cursorAnchor"] = true
     E.db["tooltip"]["cursorAnchorType"] = "ANCHOR_CURSOR_RIGHT"
     E.db["tooltip"]["cursorAnchorX"] = 20
     E.db["tooltip"]["cursorAnchorY"] = 10
-    E.db["tooltip"]["font"] = DEFAULT_FONT
-    E.db["tooltip"]["fontSize"] = 12
-    E.db["tooltip"]["healthBar"]["font"] = DEFAULT_FONT
-    E.db["tooltip"]["modifierID"] = "HIDE"
     E.db["tooltip"]["itemCount"] = "NONE"
+    E.db["tooltip"]["itemQualityBorderColor"] = true
+    E.db["tooltip"]["modifierID"] = "HIDE"
+    E.db["tooltip"]["healthBar"]["statusPosition"] = "TOP"
+    E.db["tooltip"]["healthBar"]["font"] = DEFAULT_FONT
 end
 
 function Installer:SetupUnitFrames()
@@ -239,6 +340,7 @@ function Installer:SetupUnitFrames()
     E.db["unitframe"]["smoothbars"] = true
     E.db["unitframe"]["colors"]["healthclass"] = true
     E.db["unitframe"]["colors"]["castClassColor"] = true
+    E.db["unitframe"]["colors"]["borderColor"] = {["a"] = 1, ["r"] = 0.28, ["g"] = 0.28, ["b"] = 0.28}
     E.db["unitframe"]["colors"]["auraBarBuff"] = {["r"] = 0.25, ["g"] = 0.78, ["b"] = 0.92}
 
     E.db["unitframe"]["units"]["player"]["width"] = 240
@@ -366,8 +468,8 @@ function Installer:SetupUnitFrames()
     }
 
     E.db["unitframe"]["units"]["targettarget"]["height"] = 30
-    E.db["unitframe"]["units"]["targettarget"]["power"]["enable"] = false
     E.db["unitframe"]["units"]["targettarget"]["name"]["text_format"] = ""
+    E.db["unitframe"]["units"]["targettarget"]["power"]["enable"] = false
     E.db["unitframe"]["units"]["targettarget"]["customTexts"] = {
         ["CustomName"] = {
             ["attachTextTo"] = "Health",
@@ -384,8 +486,92 @@ function Installer:SetupUnitFrames()
 
     E.db["unitframe"]["units"]["pet"]["castbar"]["width"] = 130
 
+    E.db["unitframe"]["units"]["focus"]["width"] = 240
+    E.db["unitframe"]["units"]["focus"]["height"] = 38
+    E.db["unitframe"]["units"]["focus"]["disableTargetGlow"] = true
+    E.db["unitframe"]["units"]["focus"]["middleClickFocus"] = true
+    E.db["unitframe"]["units"]["focus"]["orientation"] = "RIGHT"
+    E.db["unitframe"]["units"]["focus"]["aurabar"]["enable"] = false
+    E.db["unitframe"]["units"]["focus"]["buffs"] = {
+        ["enable"] = true,
+        ["anchorPoint"] = "TOPRIGHT",
+        ["yOffset"] = 10,
+        ["priority"] = "Blacklist,Personal,nonPersonal",
+        ["perrow"] = 8,
+        ["maxDuration"] = 0
+    }
+    E.db["unitframe"]["units"]["focus"]["debuffs"] = {
+        ["priority"] = "Blacklist,Personal,RaidDebuffs,CCDebuffs,Friendly:Dispellable",
+        ["perrow"] = 8,
+        ["attachTo"] = "BUFFS"
+    }
+    E.db["unitframe"]["units"]["focus"]["castbar"]["width"] = 240
+    E.db["unitframe"]["units"]["focus"]["name"]["text_format"] = ""
+    E.db["unitframe"]["units"]["focus"]["health"]["text_format"] = ""
+    E.db["unitframe"]["units"]["focus"]["power"]["text_format"] = ""
+    E.db["unitframe"]["units"]["focus"]["raidRoleIcons"]["enable"] = true
+    E.db["unitframe"]["units"]["focus"]["raidRoleIcons"]["position"] = "TOPRIGHT"
+    E.db["unitframe"]["units"]["focus"]["raidRoleIcons"]["xOffset"] = 2
+    E.db["unitframe"]["units"]["focus"]["raidRoleIcons"]["yOffset"] = -18
+    E.db["unitframe"]["units"]["focus"]["resurrectIcon"] = {
+        ["enable"] = true,
+        ["attachTo"] = "CENTER",
+        ["attachToObject"] = "Frame",
+        ["xOffset"] = 0,
+        ["yOffset"] = 0,
+        ["size"] = 30
+    }
+    E.db["unitframe"]["units"]["focus"]["pvpIcon"] = {["enable"] = false}
+    E.db["unitframe"]["units"]["focus"]["customTexts"] = {
+        ["CustomName"] = {
+            ["attachTextTo"] = "Frame",
+            ["xOffset"] = -2,
+            ["text_format"] = "[namecolor][name:long] [difficultycolor][level][shortclassification]",
+            ["yOffset"] = 20,
+            ["font"] = DEFAULT_FONT,
+            ["justifyH"] = "RIGHT",
+            ["fontOutline"] = "OUTLINE",
+            ["enable"] = true,
+            ["size"] = 14
+        },
+        ["CustomPower"] = {
+            ["attachTextTo"] = "Power",
+            ["xOffset"] = 0,
+            ["text_format"] = "[power:current]",
+            ["yOffset"] = 5,
+            ["font"] = DEFAULT_FONT,
+            ["justifyH"] = "CENTER",
+            ["fontOutline"] = "OUTLINE",
+            ["enable"] = true,
+            ["size"] = 10
+        },
+        ["CustomHealth"] = {
+            ["attachTextTo"] = "Health",
+            ["xOffset"] = 5,
+            ["text_format"] = "[health:current:shortvalue]",
+            ["yOffset"] = 0,
+            ["font"] = DEFAULT_FONT,
+            ["justifyH"] = "LEFT",
+            ["fontOutline"] = "OUTLINE",
+            ["enable"] = true,
+            ["size"] = 14
+        },
+        ["CustomHealthPercent"] = {
+            ["attachTextTo"] = "Health",
+            ["xOffset"] = 2,
+            ["text_format"] = "[health:percent]",
+            ["yOffset"] = 16,
+            ["font"] = DEFAULT_FONT,
+            ["justifyH"] = "LEFT",
+            ["fontOutline"] = "OUTLINE",
+            ["enable"] = true,
+            ["size"] = 12
+        }
+    }
+
     E.db["unitframe"]["units"]["party"]["height"] = 34
     E.db["unitframe"]["units"]["party"]["verticalSpacing"] = 10
+    E.db["unitframe"]["units"]["party"]["showPlayer"] = false
     E.db["unitframe"]["units"]["party"]["debuffs"]["sizeOverride"] = 0
     E.db["unitframe"]["units"]["party"]["debuffs"]["xOffset"] = 5
     E.db["unitframe"]["units"]["party"]["rdebuffs"]["font"] = DEFAULT_FONT
@@ -394,7 +580,7 @@ function Installer:SetupUnitFrames()
     E.db["unitframe"]["units"]["party"]["power"]["text_format"] = ""
     E.db["unitframe"]["units"]["party"]["raidRoleIcons"]["xOffset"] = 2
     E.db["unitframe"]["units"]["party"]["raidRoleIcons"]["yOffset"] = -17
-    E.db["unitframe"]["units"]["party"]["showPlayer"] = false
+    E.db["unitframe"]["units"]["party"]["rdebuffs"]["font"] = DEFAULT_FONT
     E.db["unitframe"]["units"]["party"]["customTexts"] = {
         ["CustomName"] = {
             ["attachTextTo"] = "Health",
@@ -431,6 +617,12 @@ function Installer:SetupUnitFrames()
         }
     }
 
+    E.db["unitframe"]["units"]["arena"]["width"] = 184
+    E.db["unitframe"]["units"]["arena"]["height"] = 34
+    E.db["unitframe"]["units"]["arena"]["spacing"] = 30
+    E.db["unitframe"]["units"]["arena"]["power"]["height"] = 7
+    E.db["unitframe"]["units"]["arena"]["pvpTrinket"]["size"] = 34
+
     E.db["unitframe"]["units"]["raid"]["rdebuffs"]["font"] = DEFAULT_FONT
     E.db["unitframe"]["units"]["raid40"]["rdebuffs"]["font"] = DEFAULT_FONT
 end
@@ -439,24 +631,29 @@ function Installer:SetupMovers()
     E.db["movers"] = E.db["movers"] or {}
     E.db["movers"]["ElvUIBagMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-4,30"
     E.db["movers"]["ElvUIBankMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,4,30"
-    E.db["movers"]["PetAB"] = "BOTTOM,ElvUIParent,BOTTOM,0,38"
     E.db["movers"]["ElvAB_1"] = "BOTTOM,ElvUIParent,BOTTOM,0,245"
     E.db["movers"]["ElvAB_3"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-4,-401"
     E.db["movers"]["ElvAB_4"] = "TOPRIGHT,ElvAB_3,TOPLEFT,-4,0"
     E.db["movers"]["ElvAB_5"] = "BOTTOM,ElvUIParent,BOTTOM,0,4"
     E.db["movers"]["ElvAB_6"] = "BOTTOM,ElvAB_5,TOP,0,2"
     E.db["movers"]["VehicleLeaveButton"] = "BOTTOM,ElvUIParent,BOTTOM,0,73"
+    E.db["movers"]["PetAB"] = "BOTTOM,ElvUIParent,BOTTOM,0,38"
     E.db["movers"]["ShiftAB"] = "BOTTOM,ElvUIParent,BOTTOM,0,73"
+    E.db["movers"]["ClassBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,346"
+    E.db["movers"]["MicrobarMover"] = "TOP,ElvUIParent,TOP,0,-4"
     E.db["movers"]["ElvUF_PlayerMover"] = "BOTTOM,ElvUIParent,BOTTOM,-290,284"
     E.db["movers"]["ElvUF_PlayerCastbarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,218"
     E.db["movers"]["PlayerPowerBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,324"
-    E.db["movers"]["ClassBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,346"
     E.db["movers"]["ElvUF_TargetMover"] = "BOTTOM,ElvUIParent,BOTTOM,290,284"
     E.db["movers"]["ElvUF_TargetCastbarMover"] = "BOTTOM,ElvUIParent,BOTTOM,290,264"
     E.db["movers"]["ElvUF_TargetTargetMover"] = "BOTTOM,ElvUIParent,BOTTOM,235,233"
     E.db["movers"]["ElvUF_PetMover"] = "BOTTOM,ElvUIParent,BOTTOM,-345,247"
     E.db["movers"]["ElvUF_PetCastbarMover"] = "BOTTOM,ElvUIParent,BOTTOM,-345,227"
+    E.db["movers"]["ElvUF_FocusMover"] = "TOP,ElvUIParent,TOP,0,-168"
     E.db["movers"]["ElvUF_PartyMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,460,363"
+    E.db["movers"]["ElvUF_RaidMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,4,269"
+    E.db["movers"]["ElvUF_Raid40Mover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,4,269"
+    E.db["movers"]["ElvUF_ArenaMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,460,363"
     E.db["movers"]["ArenaHeaderMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-400,363"
     E.db["movers"]["ExperienceBarMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,465,4"
     E.db["movers"]["ReputationBarMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,528,16"
@@ -482,8 +679,9 @@ Installer.InstallerData = {
     Pages = {
         [1] = function()
             PluginInstallFrame.SubTitle:SetFormattedText("Welcome to the installation for %s.", Addon.title)
-            PluginInstallFrame.Desc1:SetText("Please press the 'Create Profile' button if you wish to create a new profile, otherwise click the 'Cancel' button.")
-            
+            PluginInstallFrame.Desc1:SetText(
+                "Please press the 'Create Profile' button if you wish to create a new profile, otherwise click the 'Cancel' button.")
+
             PluginInstallFrame.Option1:Show()
             PluginInstallFrame.Option1:SetScript("OnClick", function()
                 Installer:NewProfile()
@@ -494,11 +692,9 @@ Installer.InstallerData = {
             PluginInstallFrame.Option2:SetScript("OnClick", function()
             end)
             PluginInstallFrame.Option2:SetText("Cancel")
-        end,
+        end
     },
-    StepTitles = {
-        [1] = "Profile Setup",
-    },
+    StepTitles = {[1] = "Profile Setup"},
     StepTitlesColor = {1, 1, 1},
     StepTitlesColorSelected = {0.921, 0.321, 0.321},
     StepTitleWidth = 200,
