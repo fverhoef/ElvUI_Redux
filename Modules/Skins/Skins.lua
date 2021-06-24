@@ -501,9 +501,20 @@ end
 
 function Skins:SkinRaidUtilityFrame()
     Skins:HandleFrame(_G.RaidUtilityPanel)
-    Skins:HandleRaidUtilityButton(_G.RaidUtility_ShowButton)
-    Skins:HandleRaidUtilityButton(_G.RaidUtility_CloseButton)
-    Skins:HandleRaidUtilityButton(_G.RaidControlButton)
+
+	local buttons = {
+		'DisbandRaidButton',
+		'ReadyCheckButton',
+		'MainTankButton',
+		'MainAssistButton',
+		'RaidControlButton',
+		'RaidUtility_ShowButton',
+		'RaidUtility_CloseButton'
+	}
+
+	for _, button in pairs(buttons) do
+        Skins:HandleRaidUtilityButton(_G[button])
+	end
 end
 
 function Skins:SkinSpellbook()
