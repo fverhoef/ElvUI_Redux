@@ -50,7 +50,7 @@ function Installer:SetupGeneral()
     E.db["general"]["valuecolor"] = {["r"] = 0.25, ["g"] = 0.78, ["b"] = 0.92}
     E.db["general"]["backdropcolor"] = {["a"] = 1}
     E.db["general"]["backdropfadecolor"] = {["a"] = 0.8, ["r"] = 0.059, ["g"] = 0.059, ["b"] = 0.059}
-    E.db["general"]["bordercolor"] = {["r"] = 0, ["g"] = 0, ["b"] = 0}
+    E.db["general"]["bordercolor"] = {["r"] = 0.28, ["g"] = 0.28, ["b"] = 0.28}
     E.db["general"]["autoRepair"] = true
     E.db["general"]["topPanel"] = true
     E.db["general"]["minimap"]["locationText"] = "SHOW"
@@ -509,6 +509,7 @@ function Installer:SetupUnitFrames()
     E.db["unitframe"]["units"]["focus"]["name"]["text_format"] = ""
     E.db["unitframe"]["units"]["focus"]["health"]["text_format"] = ""
     E.db["unitframe"]["units"]["focus"]["power"]["text_format"] = ""
+    E.db["unitframe"]["units"]["focus"]["raidRoleIcons"] = E.db["unitframe"]["units"]["focus"]["raidRoleIcons"] or {}
     E.db["unitframe"]["units"]["focus"]["raidRoleIcons"]["enable"] = true
     E.db["unitframe"]["units"]["focus"]["raidRoleIcons"]["position"] = "TOPRIGHT"
     E.db["unitframe"]["units"]["focus"]["raidRoleIcons"]["xOffset"] = 2
@@ -659,6 +660,8 @@ function Installer:SetupMovers()
     E.db["movers"]["ReputationBarMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,528,16"
     E.db["movers"]["MageBar"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-560,4"
     E.db["movers"]["ShamanBar"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-580,4"
+    E.db["movers"]["DTPanelTop Panel (Center)Mover"] = "TOP,ElvUIParent,TOP,0,0"
+    E.db["movers"]["DTPanelTop PanelMover"] = "TOP,ElvUIParent,TOP,0,-12"
 end
 
 function Installer:SetupPlugins()
