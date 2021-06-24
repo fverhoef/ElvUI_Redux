@@ -20,6 +20,7 @@ function Installer:Setup()
     Installer:SetupUnitFrames()
     Installer:SetupMovers()
     Installer:SetupPlugins()
+    ReloadUI()
 end
 
 function Installer:NewProfile()
