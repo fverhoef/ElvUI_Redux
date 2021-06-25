@@ -1,25 +1,62 @@
 local addonName, addonTable = ...
 local Addon = addonTable[1]
 local Skins = Addon.Skins
+local EquipmentManager = Addon.EquipmentManager
 local E, L, V, P, G = unpack(ElvUI)
+local S = E:GetModule("Skins")
 
 local CATEGORY_HEADER_HEIGHT = 23
 local CATEGORY_SPACING = 5
 local ITEM_LEVEL_HEIGHT = 27
 local STAT_HEIGHT = 18
-local attributeIndex = {["STRENGTH"] = 1, ["AGILITY"] = 2, ["STAMINA"] = 3, ["INTELLECT"] = 4, ["SPIRIT"] = 5}
-local enhancementCategories = {
+local ENHANCEMENT_CATEGORIES = {
     "PLAYERSTAT_MELEE_COMBAT",
     "PLAYERSTAT_RANGED_COMBAT",
     "PLAYERSTAT_SPELL_COMBAT",
     "PLAYERSTAT_DEFENSES"
+}
+local PAPERDOLL_SIDEBARS = {
+    {
+        name = PAPERDOLL_SIDEBAR_STATS,
+        frame = "CharacterStatsPane",
+        icon = nil, -- Uses the character portrait
+        texCoords = {0.109375, 0.890625, 0.09375, 0.90625},
+        disabledTooltip = nil,
+        IsActive = function()
+            return true
+        end
+    },
+    {
+        name = PAPERDOLL_SIDEBAR_TITLES,
+        frame = "PaperDollTitlesPane",
+        icon = "Interface\\PaperDollInfoFrame\\PaperDollSidebarTabs",
+        texCoords = {0.01562500, 0.53125000, 0.32421875, 0.46093750},
+        disabledTooltip = NO_TITLES_TOOLTIP,
+        IsActive = function()
+            -- You always have the "No Title" title so you need to have more than one to have an option.
+            return #GetKnownTitles() > 1
+        end
+    },
+    {
+        name = PAPERDOLL_EQUIPMENTMANAGER,
+        frame = "PaperDollEquipmentManagerPane",
+        icon = "Interface\\PaperDollInfoFrame\\PaperDollSidebarTabs",
+        texCoords = {0.01562500, 0.53125000, 0.46875000, 0.60546875},
+        disabledTooltip = function()
+            local _, failureReason = C_LFGInfo.CanPlayerUseLFD()
+            return failureReason
+        end,
+        IsActive = function()
+            return C_EquipmentSet.GetNumEquipmentSets() > 0 or C_LFGInfo.CanPlayerUseLFD()
+        end
+    }
 }
 
 function Skins:LayoutCharacterFrame()
     if not E.db[addonName].skins.layout.characterFrame.enabled then
         return
     end
-    
+
     -- resize model
     _G.CharacterModelFrame:SetSize(231, 320)
     _G.CharacterModelFrame:SetFrameLevel(10)
@@ -34,6 +71,7 @@ function Skins:LayoutCharacterFrame()
     -- create new stats pane
     _G.CharacterFrame.originalWidth = _G.CharacterFrame:GetWidth()
     _G.PaperDollFrame.CharacterStatsPane = Skins:CreateCharacterStatsPane()
+    --_G.PaperDollFrame.CharacterTabs = Skins:CreateCharacterTabs()
 
     -- adjust frame width
     Skins:SecureHook("CharacterFrame_ShowSubFrame", function()
@@ -99,6 +137,36 @@ function Skins:LayoutCharacterFrame()
 
     Skins:RegisterEvent("PLAYER_EQUIPMENT_CHANGED", Skins.UpdateCharacterStatsPane)
     _G.CharacterFrame:HookScript("OnShow", Skins.UpdateCharacterStatsPane)
+end
+
+function Skins:CreateCharacterTabs()
+    local size = 35
+    local spacing = 5
+
+    local frame = CreateFrame("Frame", addonName .. "CharacterTabs", _G.PaperDollFrame)
+    frame:Size(3 * size + 2 * spacing, size)
+    frame:Point("TOP", _G.PaperDollFrame, "TOPRIGHT", -138, -40)
+
+    local stats = CreateFrame("Button", "$parentStatsTab", frame)
+    stats:Size(size, size)
+    stats:Point("TOPLEFT", 0, 0)
+    S:HandleButton(stats)
+
+    local titles = CreateFrame("Button", "$parentTitlesTab", frame)
+    titles:Size(size, size)
+    titles:Point("LEFT", stats, "RIGHT", spacing, 0)
+    S:HandleButton(titles)
+
+    local equipment = CreateFrame("Button", "$parentEquipmentTab", frame)
+    equipment:Size(size, size)
+    equipment:Point("LEFT", titles, "RIGHT", spacing, 0)
+    S:HandleButton(equipment)
+
+    frame.StatsTab = stats
+    frame.TitlesTab = titles
+    frame.EquipmentTab = equipment
+
+    return frame
 end
 
 function Skins:CreateCharacterStatsPane()
@@ -261,9 +329,9 @@ function Skins:CreateCharacterStatsPane_Enhancements(parent)
     end
     frame.PreviousCategory = function(self)
         local current = GetCVar("playerStatRightDropdown")
-        for i, category in ipairs(enhancementCategories) do
+        for i, category in ipairs(ENHANCEMENT_CATEGORIES) do
             if category == current then
-                SetCVar("playerStatRightDropdown", enhancementCategories[(i == 1 and 4) or (i - 1)])
+                SetCVar("playerStatRightDropdown", ENHANCEMENT_CATEGORIES[(i == 1 and 4) or (i - 1)])
                 break
             end
         end
@@ -271,9 +339,9 @@ function Skins:CreateCharacterStatsPane_Enhancements(parent)
     end
     frame.NextCategory = function(self)
         local current = GetCVar("playerStatRightDropdown")
-        for i, category in ipairs(enhancementCategories) do
+        for i, category in ipairs(ENHANCEMENT_CATEGORIES) do
             if category == current then
-                SetCVar("playerStatRightDropdown", enhancementCategories[(i == 4 and 1) or (i + 1)])
+                SetCVar("playerStatRightDropdown", ENHANCEMENT_CATEGORIES[(i == 4 and 1) or (i + 1)])
                 break
             end
         end

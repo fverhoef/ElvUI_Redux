@@ -119,11 +119,11 @@ P[addonName] = {
         acceptSummon = false,
         acceptResurrection = true,
         disableLootRollConfirmation = true,
-        disableLootBindConfirmation = false,
+        disableLootBindConfirmation = true,
         disableVendorRefundWarning = true,
         disableMailRefundWarning = true,
         autoInvite = true,
-        autoInvitePassword = "safari"
+        autoInvitePassword = "inv"
     },
     minimapButtonFrame = {
         enabled = true,
@@ -150,7 +150,7 @@ P[addonName] = {
         showIcons = true,
         showItemCount = true,
         showVendorPrice = true,
-        showItemLevel = true,
+        showItemLevel = false,
         colors = {itemLevel = {220 / 255, 195 / 255, 30 / 255}}
     }
 }

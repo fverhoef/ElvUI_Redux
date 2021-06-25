@@ -106,6 +106,7 @@ function Installer:SetupActionBars()
     E.db["actionbar"]["bar1"]["buttons"] = 12
     E.db["actionbar"]["bar1"]["buttonsPerRow"] = 6
     E.db["actionbar"]["bar1"]["buttonSize"] = 38
+    E.db["actionbar"]["bar1"]["buttonSpacing"] = 2
     E.db["actionbar"]["bar1"]["point"] = "TOPLEFT"
     E.db["actionbar"]["bar1"]["backdrop"] = false
     E.db["actionbar"]["bar1"]["countFont"] = DEFAULT_FONT
@@ -244,9 +245,11 @@ end
 
 function Installer:SetupDatabars()
     E.db["databars"]["experience"]["enable"] = true
+    E.db["databars"]["experience"]["width"] = 222
     E.db["databars"]["reputation"]["enable"] = true
-    E.db["databars"]["threat"]["enable"] = false
-    E.db["databars"]["threat"]["enable"] = false
+    E.db["databars"]["reputation"]["width"] = 222
+    E.db["databars"]["threat"]["enable"] = true
+    E.db["databars"]["threat"]["width"] = 234
 end
 
 function Installer:SetupDatatexts()
@@ -369,18 +372,18 @@ function Installer:SetupUnitFrames()
     E.db["unitframe"]["units"]["player"]["height"] = 38
     E.db["unitframe"]["units"]["player"]["aurabar"]["enable"] = false
     E.db["unitframe"]["units"]["player"]["debuffs"]["yOffset"] = 10
-    E.db["unitframe"]["units"]["player"]["castbar"]["width"] = 238
+    E.db["unitframe"]["units"]["player"]["castbar"]["width"] = 234
     E.db["unitframe"]["units"]["player"]["castbar"]["height"] = 25
     E.db["unitframe"]["units"]["player"]["name"]["text_format"] = ""
     E.db["unitframe"]["units"]["player"]["health"]["text_format"] = ""
     E.db["unitframe"]["units"]["player"]["power"]["height"] = 20
     E.db["unitframe"]["units"]["player"]["power"]["detachFromFrame"] = true
-    E.db["unitframe"]["units"]["player"]["power"]["detachedWidth"] = 238
+    E.db["unitframe"]["units"]["player"]["power"]["detachedWidth"] = 234
     E.db["unitframe"]["units"]["player"]["power"]["text_format"] = ""
     E.db["unitframe"]["units"]["player"]["power"]["powerPrediction"] = true
     E.db["unitframe"]["units"]["player"]["power"]["EnergyManaRegen"] = true
     E.db["unitframe"]["units"]["player"]["classbar"]["detachFromFrame"] = true
-    E.db["unitframe"]["units"]["player"]["classbar"]["detachedWidth"] = 238
+    E.db["unitframe"]["units"]["player"]["classbar"]["detachedWidth"] = 234
     E.db["unitframe"]["units"]["player"]["raidRoleIcons"]["xOffset"] = 2
     E.db["unitframe"]["units"]["player"]["raidRoleIcons"]["yOffset"] = -18
     E.db["unitframe"]["units"]["player"]["RestIcon"]["yOffset"] = 3
@@ -680,6 +683,7 @@ function Installer:SetupMovers()
     E.db["movers"]["ArenaHeaderMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-400,363"
     E.db["movers"]["ExperienceBarMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,465,4"
     E.db["movers"]["ReputationBarMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,528,16"
+    E.db["movers"]["ThreatBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,207"
     E.db["movers"]["MageBar"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-560,4"
     E.db["movers"]["ShamanBar"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-580,4"
     E.db["movers"]["DTPanelTop Panel (Center)Mover"] = "TOP,ElvUIParent,TOP,0,0"
@@ -727,7 +731,8 @@ Installer.InstallerData = {
             _G.PluginInstallFrame.SubTitle:SetFormattedText("Welcome to the installation for %s.", Addon.title)
             _G.PluginInstallFrame.Desc1:SetText("This installation process will guide you through a few steps and apply the " ..
                                                     Addon.title .. " profile.")
-            _G.PluginInstallFrame.Desc2:SetText("NOTE: This installation process is totally optional, the separate modules of the addon will work fine with existing profiles!")
+            _G.PluginInstallFrame.Desc2:SetText(
+                "NOTE: This installation process is totally optional, the separate modules of the addon will work fine with existing profiles!")
             _G.PluginInstallFrame.Option1:Show()
             _G.PluginInstallFrame.Option1:SetText("Install")
             _G.PluginInstallFrame.Option1:SetScript("OnClick", function()
@@ -757,8 +762,9 @@ Installer.InstallerData = {
         -- Layout Page
         [3] = function()
             _G.PluginInstallFrame.SubTitle:SetText("Core Settings")
-            _G.PluginInstallFrame.Desc1:SetText("This will install the " .. Addon.title .. " layout to the previously selected profile.")
-            _G.PluginInstallFrame.Desc2:SetText("Importance: " .. "Medium")            
+            _G.PluginInstallFrame.Desc1:SetText("This will install the " .. Addon.title ..
+                                                    " layout to the previously selected profile.")
+            _G.PluginInstallFrame.Desc2:SetText("Importance: " .. "Medium")
             _G.PluginInstallFrame.Option1:Show()
             _G.PluginInstallFrame.Option1:SetText("Install")
             _G.PluginInstallFrame.Option1:SetScript("OnClick", function()
