@@ -19,6 +19,7 @@ function Skins:Initialize()
     Skins:SkinChat()
     Skins:SkinDecorativePanels()
     Skins:SkinFriendsFrame()
+    Skins:SkinHelpFrame()
     Skins:SkinMailFrame()
     Skins:SkinMerchantFrame()
     Skins:SkinMinimap()
@@ -31,9 +32,10 @@ function Skins:Initialize()
     Skins:SkinUnitFrames()
     Skins:SkinWorldMap()
 
+    Skins:SkinElvUIInstallerFrames()
+
     Skins:HandleFrame(_G.GameMenuFrame)
     Skins:HandleFrame(_G.ScriptErrorsFrame)
-    Skins:HandleFrame(_G.HelpFrame)
     Skins:HandleFrame(_G.StackSplitFrame)
     Skins:HandleFrame(_G.StackSplitFrame.bg1)
     Skins:HandleFrame(_G.ReadyCheckFrame)
@@ -47,9 +49,9 @@ function Skins:Initialize()
     Skins:HandleFrame(_G.ArenaFrame)
     Skins:HandleFrame(_G.BattlefieldFrame)
 
-    -- Help
-    if Addon.isClassic then
-        Skins:HandleFrame(_G.HelpFrameHeader)
+    if _G.Minimap.ButtonFrame then
+        Addon.Skins:CreateShadow(_G.Minimap.ButtonFrame.Container)
+        Addon.Skins:CreateBorder(_G.Minimap.ButtonFrame.Container, Addon.BORDER_CONFIG_KEYS.MINIMAP)
     end
 
     Skins:RegisterEvent("ADDON_LOADED", Skins.ADDON_LOADED)
@@ -114,8 +116,6 @@ end
 function Skins:ADDON_LOADED(addonName)
     if addonName == "Blizzard_AuctionUI" then
         Skins:ScheduleTimer("SkinAuctionFrame", 0.01)
-    elseif addonName == "Blizzard_CraftUI" then
-        Skins:ScheduleTimer("SkinCraftFrame", 0.01)
     elseif addonName == "Blizzard_InspectUI" then
         Skins:ScheduleTimer("SkinInspectFrame", 0.01)
     elseif addonName == "Blizzard_ItemSocketingUI" then
@@ -349,9 +349,6 @@ function Skins:SkinChat()
     end)
 end
 
-function Skins:SkinCraftFrame()
-end
-
 function Skins:SkinDecorativePanels()
     Skins:HandleDecorativePanel(LO.BottomPanel, "BOTTOM")
     Skins:HandleDecorativePanel(LO.TopPanel, "TOP")
@@ -380,6 +377,11 @@ function Skins:SkinFriendsFrame()
 
     -- custom layout
     Skins:LayoutGuildMemberDetailFrame()
+end
+
+function Skins:SkinHelpFrame()
+    Skins:HandleFrame(_G.HelpFrame)
+    Skins:HandleFrame(_G.HelpFrameHeader)
 end
 
 function Skins:SkinInspectFrame()
@@ -502,19 +504,19 @@ end
 function Skins:SkinRaidUtilityFrame()
     Skins:HandleFrame(_G.RaidUtilityPanel)
 
-	local buttons = {
-		'DisbandRaidButton',
-		'ReadyCheckButton',
-		'MainTankButton',
-		'MainAssistButton',
-		'RaidControlButton',
-		'RaidUtility_ShowButton',
-		'RaidUtility_CloseButton'
-	}
+    local buttons = {
+        "DisbandRaidButton",
+        "ReadyCheckButton",
+        "MainTankButton",
+        "MainAssistButton",
+        "RaidControlButton",
+        "RaidUtility_ShowButton",
+        "RaidUtility_CloseButton"
+    }
 
-	for _, button in pairs(buttons) do
+    for _, button in pairs(buttons) do
         Skins:HandleRaidUtilityButton(_G[button])
-	end
+    end
 end
 
 function Skins:SkinSpellbook()
@@ -604,4 +606,11 @@ function Skins:SkinWorldMap()
     _G.WorldMapFrame.BorderFrame.backdrop:Hide()
     _G.WorldMapFrame.ScrollContainer:CreateBackdrop("Transparent")
     Skins:HandleFrame(_G.WorldMapFrame.ScrollContainer)
+end
+
+function Skins:SkinElvUIInstallerFrames()
+    Skins:HandleFrame(_G.PluginInstallFrame)
+    Skins:HandleFrame(_G.PluginInstallFrame.pending)
+    Skins:HandleFrame(_G.PluginInstallFrame.side)
+    Skins:HandleStatusBar(_G.PluginInstallFrame.Status)
 end

@@ -347,8 +347,7 @@ function Addon:InsertOptions()
                         name = "Install/Update",
                         desc = "Run the installation process.",
                         func = function()
-                            E:GetModule("PluginInstaller"):Queue(Addon.Installer.InstallerData)
-                            E:ToggleOptionsUI()
+                            Addon.Installer:Show()
                         end
                     }
                 }

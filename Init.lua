@@ -20,10 +20,15 @@ _G[addonName] = Addon
 function Addon:Initialize()
     EP:RegisterPlugin(addonName, Addon.InsertOptions)
 
-    Addon.Skins:Initialize()
-    Addon.MinimapButtonFrame:Initialize()
+    if not E.db[addonName].version then
+        Addon.Installer:Show()
+    end
+
     Addon.Automation:Initialize()
+    Addon.EquipmentManager:Initialize()
     Addon.InventoryDatabase:Initialize()
+    Addon.MinimapButtonFrame:Initialize()
+    Addon.Skins:Initialize()
     Addon.Tooltips:Initialize()
 
     if Addon.isClassic then

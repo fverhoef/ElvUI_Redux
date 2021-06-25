@@ -29,6 +29,8 @@ function Skins:HandleNamePlate(nameplate)
 
     Skins:CreateShadow(nameplate.Castbar)
     Skins:CreateBorder(nameplate.Castbar, Addon.BORDER_CONFIG_KEYS.NAMEPLATE_CASTBAR)
+    Skins:CreateShadow(nameplate.Castbar.Button)
+    Skins:CreateBorder(nameplate.Castbar.Button, Addon.BORDER_CONFIG_KEYS.NAMEPLATE_CASTBAR)
 
     if nameplate.Auras and not Addon:IsHooked(nameplate.Auras, "PostUpdateIcon") then
         Addon:SecureHook(nameplate.Auras, "PostUpdateIcon", HandleNamePlateAura)

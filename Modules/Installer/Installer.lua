@@ -7,7 +7,7 @@ local E, L, V, P, G = unpack(ElvUI)
 local DEFAULT_FONT = "Expressway"
 local DEFAULT_STATUSBAR = "Redux"
 
-function Installer:Setup()
+function Installer:Install()
     Installer:SetupGeneral()
     Installer:SetupActionBars()
     Installer:SetupAuras()
@@ -20,28 +20,49 @@ function Installer:Setup()
     Installer:SetupUnitFrames()
     Installer:SetupMovers()
     Installer:SetupPlugins()
-    ReloadUI()
+    Installer.reloadRequired = true
+    E.db[addonName].version = Addon.version
 end
 
-function Installer:NewProfile()
-    StaticPopupDialogs["CreateProfileNameNew"] = {
-        text = L["Name for the new profile"],
-        button1 = L["Accept"],
-        button2 = L["Cancel"],
+function Installer:CreateProfile()
+    E.PopupDialogs.ReduxUI_CreateProfileNameNew = {
+        text = "Name for the new profile",
         hasEditBox = 1,
         whileDead = 1,
         hideOnEscape = 1,
-        timeout = 0,
-        OnShow = function(self, data)
-            self.editBox:SetText(Addon.name)
+        button1 = OKAY,
+        button2 = CANCEL,
+        OnShow = function(frame)
+            frame.editBox:SetAutoFocus(false)
+            frame.editBox.width = frame.editBox:GetWidth()
+            frame.editBox:Width(220)
+            frame.editBox:SetText("ElvUI Redux")
+            frame.editBox:HighlightText()
         end,
-        OnAccept = function(self, data, data2)
-            local text = self.editBox:GetText()
-            ElvUI[1].data:SetProfile(text)
-            Installer:Setup()
+        OnHide = function(frame)
+            frame.editBox:Width(frame.editBox.width or 50)
+            frame.editBox.width = nil
+        end,
+        OnAccept = function(frame)
+            local text = frame.editBox:GetText()
+            E.data:SetProfile(text)
+            E:StaticPopup_Hide("INCOMPATIBLE_ADDON")
+            -- Installer:ShowStepComplete("Profile created")
+            _G.PluginInstallFrame.Desc3:SetText("Your currently active profile is: " .. E.data:GetCurrentProfile())
+        end,
+        EditBoxOnEnterPressed = function(frame)
+            frame:GetParent():Hide()
+        end,
+        EditBoxOnEscapePressed = function(frame)
+            frame:GetParent():Hide()
+        end,
+        EditBoxOnTextChanged = E.noop,
+        OnEditFocusGained = function(frame)
+            frame:HighlightText()
         end
     }
-    StaticPopup_Show("CreateProfileNameNew", "test")
+
+    E:StaticPopup_Show("ReduxUI_CreateProfileNameNew")
 end
 
 function Installer:SetupGeneral()
@@ -676,36 +697,114 @@ function Installer:SetupPlugins()
     end
 end
 
+function Installer:Show()
+    E.private.install_complete = E.version
+    if _G.ElvUIInstallFrame and _G.ElvUIInstallFrame:IsShown() then
+        _G.ElvUIInstallFrame:Hide()
+    end
+
+    local installer = E:GetModule("PluginInstaller")
+    installer:CloseInstall()
+
+    _G.PluginInstallFrame:SetScript("OnHide", function()
+        if Installer.reloadRequired then
+            ReloadUI()
+        else
+            installer:CloseInstall()
+        end
+    end)
+
+    installer:Queue(Installer.InstallerData)
+    E:ToggleOptionsUI()
+end
+
 Installer.InstallerData = {
-    Title = format("%s %s", Addon.title, "Installation"),
+    Title = format("%s %s", Addon.title, "Profile Installation"),
     Name = Addon.name,
-    -- tutorialImage = "Interface\\AddOns\\" .. addonName .. "\\Media\\logo.tga",
     Pages = {
+        -- Welcome Page
         [1] = function()
-            PluginInstallFrame.SubTitle:SetFormattedText("Welcome to the installation for %s.", Addon.title)
-            PluginInstallFrame.Desc1:SetText(
-                "Please press the 'Create Profile' button if you wish to create a new profile, otherwise click the 'Cancel' button.")
-
-            PluginInstallFrame.Option1:Show()
-            PluginInstallFrame.Option1:SetScript("OnClick", function()
-                Installer:NewProfile()
+            _G.PluginInstallFrame.SubTitle:SetFormattedText("Welcome to the installation for %s.", Addon.title)
+            _G.PluginInstallFrame.Desc1:SetText("This installation process will guide you through a few steps and apply the " ..
+                                                    Addon.title .. " profile.")
+            _G.PluginInstallFrame.Desc2:SetText("NOTE: This installation process is totally optional, the separate modules of the addon will work fine with existing profiles!")
+            _G.PluginInstallFrame.Option1:Show()
+            _G.PluginInstallFrame.Option1:SetText("Install")
+            _G.PluginInstallFrame.Option1:SetScript("OnClick", function()
+                _G.PluginInstallFrame.Next:Click()
             end)
-            PluginInstallFrame.Option1:SetText("Create Profile")
-
-            PluginInstallFrame.Option2:Show()
-            PluginInstallFrame.Option2:SetScript("OnClick", function()
+            _G.PluginInstallFrame.Option2:Show()
+            _G.PluginInstallFrame.Option2:SetText("Cancel")
+            _G.PluginInstallFrame.Option2:SetScript("OnClick", function()
+                _G.PluginInstallFrame:Hide()
             end)
-            PluginInstallFrame.Option2:SetText("Cancel")
+        end,
+
+        -- Profile
+        [2] = function()
+            _G.PluginInstallFrame.SubTitle:SetText("Profile")
+            _G.PluginInstallFrame.Desc1:SetText("You can either create a new profile for " .. Addon.title ..
+                                                    " or you can use your current profile (NOTE: using existing profiles might give unexpected results!).")
+            _G.PluginInstallFrame.Desc2:SetText("Importance: " .. "High")
+            _G.PluginInstallFrame.Desc3:SetText("Your currently active profile is: " .. E.data:GetCurrentProfile())
+            _G.PluginInstallFrame.Option1:Show()
+            _G.PluginInstallFrame.Option1:SetText("Create New")
+            _G.PluginInstallFrame.Option1:SetScript("OnClick", function()
+                Installer:CreateProfile()
+            end)
+        end,
+
+        -- Layout Page
+        [3] = function()
+            _G.PluginInstallFrame.SubTitle:SetText("Core Settings")
+            _G.PluginInstallFrame.Desc1:SetText("This will install the " .. Addon.title .. " layout to the previously selected profile.")
+            _G.PluginInstallFrame.Desc2:SetText("Importance: " .. "Medium")            
+            _G.PluginInstallFrame.Option1:Show()
+            _G.PluginInstallFrame.Option1:SetText("Install")
+            _G.PluginInstallFrame.Option1:SetScript("OnClick", function()
+                Installer:Install()
+                -- Installer:ShowStepComplete("Core profile")
+                _G.PluginInstallFrame.Next:Click()
+            end)
+        end,
+
+        -- Details Page
+        [4] = function()
+            _G.PluginInstallFrame.SubTitle:SetText("Details!")
+
+            if E:IsAddOnEnabled("Details") then
+                _G.PluginInstallFrame.Desc1:SetText("This will import the " .. Addon.title .. " Details profile.")
+                _G.PluginInstallFrame.Desc2:SetText("Importance: " .. "Medium")
+                _G.PluginInstallFrame.Desc3:SetText("Details is an AddOn that displays information like damage & healing meters.")
+                _G.PluginInstallFrame.Option1:Show()
+                _G.PluginInstallFrame.Option1:SetText("Setup Details")
+                _G.PluginInstallFrame.Option1:SetScript("OnClick", function()
+                    Installer:SetupDetails()
+                    -- Installer:ShowStepComplete("'Details' profile")
+                    _G.PluginInstallFrame.Next:Click()
+                end)
+            else
+                _G.PluginInstallFrame.Desc1:SetText("Details! is not installed, press the 'Next' button to continue.")
+            end
+        end,
+
+        -- Completed Page
+        [5] = function()
+            _G.PluginInstallFrame.SubTitle:SetText("Installation Complete")
+            _G.PluginInstallFrame.Desc1:SetText("You have completed the installation process.")
+            _G.PluginInstallFrame.Desc2:SetText(
+                "Please click the button below in order to finalize the process and automatically reload your UI.")
+            _G.PluginInstallFrame.Option1:Show()
+            _G.PluginInstallFrame.Option1:SetText("Finish")
+            _G.PluginInstallFrame.Option1:SetScript("OnClick", function()
+                _G.PluginInstallFrame:Hide()
+            end)
         end
     },
-    StepTitles = {[1] = "Profile Setup"},
+    StepTitles = {[1] = "Welcome", [2] = "Profile", [3] = "Layout", [4] = "Details!", [5] = "Installation Complete"},
     StepTitlesColor = {1, 1, 1},
     StepTitlesColorSelected = {0.921, 0.321, 0.321},
     StepTitleWidth = 200,
     StepTitleButtonWidth = 180,
     StepTitleTextJustification = "RIGHT"
 }
-
-function Installer:InstallNewProfile()
-    E:GetModule("PluginInstaller"):Queue(Installer.InstallerData)
-end

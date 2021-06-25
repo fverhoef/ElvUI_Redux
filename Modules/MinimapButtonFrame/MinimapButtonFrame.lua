@@ -129,9 +129,6 @@ function MinimapButtonFrame:CreateButtonFrame()
         Minimap.ButtonFrame.Toggle:GetNormalTexture():SetRotation(0)
     end
 
-    Addon.Skins:CreateShadow(Minimap.ButtonFrame.Container)
-    Addon.Skins:CreateBorder(Minimap.ButtonFrame.Container, Addon.BORDER_CONFIG_KEYS.MINIMAP)
-
     MinimapButtonFrame:UpdateFramePosition()
 end
 
