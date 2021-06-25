@@ -82,6 +82,7 @@ Skins:SecureHook(S, "Ace3_RegisterAsWidget", function(self, widget)
         Skins:HandleInsetFrame(widget.scrollBG)
         RaiseFrameLevel(widget.scrollBG)
         RaiseFrameLevel(widget.scrollBar)
+        RaiseFrameLevel(widget.editBox)
     elseif widget.type == "Slider" or widget.type == "Slider-ElvUI" then
         RaiseFrameLevel(widget.slider)
         Skins:HandleEditBox(widget.editbox)
