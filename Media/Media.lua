@@ -3,9 +3,7 @@ local Addon = addonTable[1]
 local LSM = LibStub("LibSharedMedia-3.0")
 
 Addon.media = {
-    fonts = {
-        adventure = "Interface\\AddOns\\" .. addonName .. "\\Media\\Fonts\\Adventure.ttf"
-    },
+    fonts = {adventure = "Interface\\AddOns\\" .. addonName .. "\\Media\\Fonts\\Adventure.ttf"},
     textures = {
         backgrounds = {
             alliance = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Backgrounds\\UIFrameAllianceBackground",
@@ -48,7 +46,8 @@ Addon.media = {
         },
         frames = {
             allianceTopLeft = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Frames\\FrameBorder_Alliance_TopLeft",
-            allianceHorizontal = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Frames\\FrameBorder_Alliance_Horizontal",
+            allianceHorizontal = "Interface\\AddOns\\" .. addonName ..
+                "\\Media\\Textures\\Frames\\FrameBorder_Alliance_Horizontal",
             allianceVertical = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Frames\\FrameBorder_Alliance_Vertical",
             hordeTopLeft = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Frames\\FrameBorder_Horde_TopLeft",
             hordeHorizontal = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Frames\\FrameBorder_Horde_Horizontal",
@@ -67,18 +66,23 @@ Addon.media = {
             marineHorizontal = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Frames\\FrameBorder_Marine_Horizontal",
             marineVertical = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Frames\\FrameBorder_Marine_Vertical",
             mechagonTopLeft = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Frames\\FrameBorder_Mechagon_TopLeft",
-            mechagonHorizontal = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Frames\\FrameBorder_Mechagon_Horizontal",
+            mechagonHorizontal = "Interface\\AddOns\\" .. addonName ..
+                "\\Media\\Textures\\Frames\\FrameBorder_Mechagon_Horizontal",
             mechagonVertical = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Frames\\FrameBorder_Mechagon_Vertical",
             necrolordTopLeft = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Frames\\FrameBorder_Necrolord_TopLeft",
-            necrolordBottomLeft = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Frames\\FrameBorder_Necrolord_BottomLeft",
-            necrolordHorizontal = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Frames\\FrameBorder_Necrolord_Horizontal",
+            necrolordBottomLeft = "Interface\\AddOns\\" .. addonName ..
+                "\\Media\\Textures\\Frames\\FrameBorder_Necrolord_BottomLeft",
+            necrolordHorizontal = "Interface\\AddOns\\" .. addonName ..
+                "\\Media\\Textures\\Frames\\FrameBorder_Necrolord_Horizontal",
             necrolordVertical = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Frames\\FrameBorder_Necrolord_Vertical",
             neutralTopLeft = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Frames\\FrameBorder_Neutral_TopLeft",
             neutralHorizontal = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Frames\\FrameBorder_Neutral_Horizontal",
             neutralVertical = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Frames\\FrameBorder_Neutral_Vertical",
             nightFaeTopLeft = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Frames\\FrameBorder_NightFae_TopLeft",
-            nightFaeBottomLeft = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Frames\\FrameBorder_NightFae_BottomLeft",
-            nightFaeHorizontal = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Frames\\FrameBorder_NightFae_Horizontal",
+            nightFaeBottomLeft = "Interface\\AddOns\\" .. addonName ..
+                "\\Media\\Textures\\Frames\\FrameBorder_NightFae_BottomLeft",
+            nightFaeHorizontal = "Interface\\AddOns\\" .. addonName ..
+                "\\Media\\Textures\\Frames\\FrameBorder_NightFae_Horizontal",
             nightFaeVertical = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Frames\\FrameBorder_NightFae_Vertical",
             oribosTopLeft = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Frames\\FrameBorder_Oribos_TopLeft",
             oribosTopRight = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Frames\\FrameBorder_Oribos_TopRight",
@@ -89,7 +93,8 @@ Addon.media = {
             venthyrTopLeft = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Frames\\FrameBorder_Venthyr_TopLeft",
             venthyrTopRight = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Frames\\FrameBorder_Venthyr_TopRight",
             venthyrBottomLeft = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Frames\\FrameBorder_Venthyr_BottomLeft",
-            venthyrBottomRight = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Frames\\FrameBorder_Venthyr_BottomRight",
+            venthyrBottomRight = "Interface\\AddOns\\" .. addonName ..
+                "\\Media\\Textures\\Frames\\FrameBorder_Venthyr_BottomRight",
             venthyrHorizontal = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Frames\\FrameBorder_Venthyr_Horizontal",
             venthyrVertical = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Frames\\FrameBorder_Venthyr_Vertical"
         },
@@ -102,13 +107,7 @@ Addon.media = {
             redux = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\StatusBars\\Redux"
         },
 
-        arrowUp_ElvUI = "Interface\\Addons\\ElvUI\\Media\\Textures\\ArrowUp",
-        minimapButtonBorder1 = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\MinimapButtonBorder1",
-        minimapButtonBorder2 = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\MinimapButtonBorder2",
-        minimapMask1 = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\MinimapMask1",
-        minimapMask2 = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\MinimapMask2",
-        minimapMask3 = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\MinimapMask3",
-        portraitAlphaMask = "Interface\\CharacterFrame\\TempPortraitAlphaMask"
+        arrowUp_ElvUI = "Interface\\Addons\\ElvUI\\Media\\Textures\\ArrowUp"
     }
 }
 

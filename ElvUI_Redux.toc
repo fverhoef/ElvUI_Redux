@@ -1,15 +1,11 @@
 ## Interface: 20501
 ## Author: Neya
-## Version: 0.1
+## Version: 0.11
 ## Title: |cff1784d1ElvUI|r |cff76FF03Redux|r
 ## Notes: Adds various bits of functionality to ElvUI.
 ## RequiredDeps: ElvUI
 ## OptionalDeps: AddOnSkins
 ## DefaultState: Enabled
-## X-ElvuiVersion: 1.36
+## X-ElvuiVersion: 2.10
 
-Init.lua
-Media\Media.lua
-Config.lua
-Toolkit.lua
-Modules\Modules.xml
+ElvUI_Redux.xml
