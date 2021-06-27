@@ -5,7 +5,7 @@ local LSM = LibStub("LibSharedMedia-3.0")
 
 local Addon = E:NewModule(addonName, "AceHook-3.0", "AceEvent-3.0", "AceTimer-3.0")
 Addon.name = "ElvUI Redux"
-Addon.title = "|cff1784d1ElvUI|r |cff76FF03Redux|r"
+Addon.title = "|cff1784d1ElvUI|r |cff03D3FFRedux|r"
 Addon.version = GetAddOnMetadata(addonName, "Version")
 
 local build = select(4, GetBuildInfo())
