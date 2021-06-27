@@ -1,0 +1,8 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+    <Script file="Init.lua"/>
+    <Script file="Toolkit.lua"/>
+    <Script file="Config.lua"/>
+    <Script file="Borders.lua"/>
+    <Script file="Shadows.lua"/>
+    <Script file="Registry.lua"/>
+</Ui>

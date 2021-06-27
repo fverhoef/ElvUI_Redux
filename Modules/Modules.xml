@@ -3,7 +3,6 @@
     <Include file="Installer\Installer.xml"/>
     <Include file="EquipmentManager\EquipmentManager.xml"/>
     <Include file="InventoryDatabase\InventoryDatabase.xml"/>
-    <Include file="MinimapButtonFrame\MinimapButtonFrame.xml"/>
-    <Include file="Skins\Skins.xml"/>
-    <Include file="Tooltips\Tooltips.xml"/>
+    <Include file="Layout\Layout.xml"/>
+    <Include file="Styling\Styling.xml"/>
 </Ui>
