@@ -55,6 +55,8 @@ function Styling:Initialize()
     end
 
     Styling:RegisterEvent("ADDON_LOADED", Styling.ADDON_LOADED)
+
+    Styling:Update()
 end
 
 function Styling:Update()
@@ -77,19 +79,15 @@ function Styling:Update()
         end
     end
 
-    local ccb = _G["ElvUI_ClassicClassBars"]
+    local ccb = _G["ElvUI_FlyoutBars"]
     if ccb then
-        if ccb.MageBar then
-            ccb.MageBar.shadow.isHidden = config.shadows.shadowPerButton
-            for i, button in ipairs(ccb.MageBar.buttons) do
-                (button.CurrentAction or button).shadow.isHidden = not config.shadows.shadowPerButton
-            end
-        end
+        for _, bar in pairs(ccb.bars) do
+            Styling:HandleActionBar(bar)
 
-        if ccb.ShamanBar then
-            ccb.ShamanBar.shadow.isHidden = config.shadows.shadowPerButton
-            for i, button in ipairs(ccb.ShamanBar.buttons) do
-                (button.CurrentAction or button).shadow.isHidden = not config.shadows.shadowPerButton
+            for _, button in ipairs(bar.buttons) do
+                local flyoutButton = button.CurrentAction or button
+                Styling:HandleActionButton(flyoutButton)
+                flyoutButton.shadow.isHidden = not config.shadows.shadowPerButton
             end
         end
     end
@@ -148,26 +146,6 @@ function Styling:SkinActionBars()
 
     -- vehicle Leave
     Styling:HandleActionButton(_G.MainMenuBarVehicleLeaveButton)
-
-    -- plugins: ElvUI_ClassicClassBars
-    local ccb = _G["ElvUI_ClassicClassBars"]
-    if ccb then
-        if ccb.MageBar then
-            Styling:HandleActionBar(ccb.MageBar)
-
-            for i, button in ipairs(ccb.MageBar.buttons) do
-                Styling:HandleActionButton(button.CurrentAction or button)
-            end
-        end
-
-        if ccb.ShamanBar then
-            Styling:HandleActionBar(ccb.ShamanBar)
-
-            for i, button in ipairs(ccb.ShamanBar.buttons) do
-                Styling:HandleActionButton(button.CurrentAction or button)
-            end
-        end
-    end
 end
 
 function Styling:SkinArenaRegistrarFrame()
