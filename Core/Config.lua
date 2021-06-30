@@ -103,13 +103,11 @@ local FRAME_BORDERS = {
     "Oribos",
     "Venthyr"
 }
-local MINIMAP_ICON_STYLES = {Square = "Square", Round = "Round"}
 
 Addon.BACKGROUNDS = BACKGROUNDS
 Addon.BORDERS = BORDERS
 Addon.BORDER_CONFIG_KEYS = BORDER_CONFIG_KEYS
 Addon.FRAME_BORDERS = FRAME_BORDERS
-Addon.MINIMAP_ICON_STYLES = MINIMAP_ICON_STYLES
 
 P[addonName] = {
     automation = {
@@ -133,7 +131,6 @@ P[addonName] = {
         tradeSkillFrame = {enabled = true},
         minimapButtonFrame = {
             enabled = true,
-            iconStyle = MINIMAP_ICON_STYLES.Square,
             iconSize = 22,
             buttonsPerRow = 6,
             buttonSpacing = 2,
@@ -230,23 +227,6 @@ function Addon:InsertOptions()
                             enabled = Addon:CreateToggleOption(L["Enabled"], nil, 1, nil,
                                                                {"layout", "minimapButtonFrame", "enabled"}),
                             lineBreak = {type = "header", name = "", order = 2},
-                            iconStyle = {
-                                order = 10,
-                                type = "select",
-                                name = L["Icon Style"],
-                                values = MINIMAP_ICON_STYLES,
-                                get = function()
-                                    for key, val in pairs(MINIMAP_ICON_STYLES) do
-                                        if E.db[addonName].layout.minimapButtonFrame.iconStyle == val then
-                                            return val
-                                        end
-                                    end
-                                end,
-                                set = function(_, key)
-                                    E.db[addonName].layout.minimapButtonFrame.iconStyle = MINIMAP_ICON_STYLES[key]
-                                    Layout:UpdateMinimapButtonFrame()
-                                end
-                            },
                             iconSize = Addon:CreateRangeOption(L["Icon Size"], nil, 11, 4, 100, 1,
                                                                {"layout", "minimapButtonFrame", "iconSize"}),
                             buttonSpacing = Addon:CreateRangeOption(L["Button Spacing"], nil, 12, 0, 10, 1,

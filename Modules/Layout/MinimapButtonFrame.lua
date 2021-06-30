@@ -129,66 +129,36 @@ local function StyleButton(button)
             region.SetTexCoord = region.__setTexCoord
             region:SetTexCoord(unpack(region.__texCoords))
 
-            if E.db[addonName].layout.minimapButtonFrame.iconStyle == Addon.MINIMAP_ICON_STYLES.Round then
-                if region.__textureID == 136430 or region.__texture == "interface\\minimap\\minimap-trackingborder" then
-                    region:SetSize(32, 32)
-                    region:SetTexture(Addon.media.textures.minimapButtonBorder1)
-                elseif region.__textureID == 136467 or region.__texture == "interface\\minimap\\ui-minimap-background" then
-                    region:SetTexture(region.__texture)
-                    region:SetAlpha(0.6)
-                elseif region.__textureID == 136477 or region.__texture == "interface\\minimap\\ui-minimap-zoombutton-highlight" then
-                    region:SetSize(28, 28)
-                    region:ClearAllPoints()
-                    local offset = 1 + (28 - E.db[addonName].layout.minimapButtonFrame.iconSize) / 2
-                    region:SetPoint("CENTER", offset, -1 * offset)
-                else
-                    region:SetSize(18, 18)
-
-                    -- replace icons that don't display properly
-                    -- TODO: find out why masking icons with alpha gives a white background
-                    if name == "LibDBIcon10_DBM" then
-                        region:SetTexture("Interface\\Icons\\INV_Helmet_01")
-                    elseif name == "LibDBIcon10_Leatrix_Plus" then
-                        region:SetTexture("Interface\\Icons\\INV_Staff_20")
-                    end
-                    region:SetTexCoord(0, 1, 0, 1)
-                    region:SetMask(Addon.media.textures.portraitAlphaMask)
-                    region.SetTexCoord = function()
-                        return
-                    end
-                end
+            if RemoveTextureID[region.__textureID] then
+                region:SetTexture()
             else
-                if RemoveTextureID[region.__textureID] then
+                if RemoveTexture(region.__texture) then
                     region:SetTexture()
+                    region:SetAlpha(0)
                 else
-                    if RemoveTexture(region.__texture) then
-                        region:SetTexture()
-                        region:SetAlpha(0)
-                    else
-                        region:ClearAllPoints()
-                        region:SetDrawLayer("ARTWORK")
-                        region:SetInside()
+                    region:ClearAllPoints()
+                    region:SetDrawLayer("ARTWORK")
+                    region:SetInside()
 
-                        local texCoords = {0, 1, 0, 1}
-                        local modifier = 0.04 * E.db.general.cropIcon
-                        for i, v in ipairs(texCoords) do
-                            if i % 2 == 0 then
-                                texCoords[i] = v - modifier
-                            else
-                                texCoords[i] = v + modifier
-                            end
+                    local texCoords = {0, 1, 0, 1}
+                    local modifier = 0.04 * E.db.general.cropIcon
+                    for i, v in ipairs(texCoords) do
+                        if i % 2 == 0 then
+                            texCoords[i] = v - modifier
+                        else
+                            texCoords[i] = v + modifier
                         end
+                    end
 
-                        if not DoNotCrop[name] and not button.ignoreCrop then
-                            region:SetTexCoord(unpack(texCoords))
-                        end
+                    if not DoNotCrop[name] and not button.ignoreCrop then
+                        region:SetTexCoord(unpack(texCoords))
+                    end
 
-                        if not region.__setPoint then
-                            region.__setPoint = region.SetPoint
-                        end
-                        region.SetPoint = function()
-                            return
-                        end
+                    if not region.__setPoint then
+                        region.__setPoint = region.SetPoint
+                    end
+                    region.SetPoint = function()
+                        return
                     end
                 end
             end

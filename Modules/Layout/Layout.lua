@@ -14,9 +14,14 @@ function Layout:Initialize()
     end
 
     Layout:HookTooltips()
+
+    Layout:RegisterEvent("ADDON_LOADED", Layout.ADDON_LOADED)
 end
 
 function Layout:Update()
+    if E.db[addonName].layout.minimapButtonFrame.enabled then
+        Layout:CreateMinimapButtonFrame()
+    end
 end
 
 function Layout:ADDON_LOADED(addonName)

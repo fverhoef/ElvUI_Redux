@@ -7,6 +7,7 @@ local AB = E:GetModule("ActionBars")
 local AFK = E:GetModule("AFK")
 local B = E:GetModule("Bags")
 local LO = E:GetModule("Layout")
+local PI = E:GetModule("PluginInstaller")
 local S = E:GetModule("Skins")
 local UF = E:GetModule("UnitFrames")
 
@@ -575,8 +576,19 @@ function Styling:SkinWorldMap()
 end
 
 function Styling:SkinElvUIInstallerFrames()
-    Styling:HandleFrame(_G.PluginInstallFrame)
-    Styling:HandleFrame(_G.PluginInstallFrame.pending)
-    Styling:HandleFrame(_G.PluginInstallFrame.side)
-    Styling:HandleStatusBar(_G.PluginInstallFrame.Status)
+    if _G.ElvUIInstallFrame then
+        Styling:HandleFrame(_G.ElvUIInstallFrame)
+        Styling:HandleStatusBar(_G.ElvUIInstallFrame.Status)
+    elseif not Styling:IsHooked(E, "Install") then
+        Styling:SecureHook(E, "Install", Styling.SkinElvUIInstallerFrames)
+    end
+
+    if _G.PluginInstallFrame then
+        Styling:HandleFrame(_G.PluginInstallFrame)
+        Styling:HandleFrame(_G.PluginInstallFrame.pending)
+        Styling:HandleFrame(_G.PluginInstallFrame.side)
+        Styling:HandleStatusBar(_G.PluginInstallFrame.Status)
+    elseif not Styling:IsHooked(PI, "CreateFrame") then
+        Styling:SecureHook(PI, "CreateFrame", Styling.SkinElvUIInstallerFrames)
+    end
 end
