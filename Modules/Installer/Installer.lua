@@ -684,20 +684,21 @@ function Installer:SetupMovers()
     E.db["movers"]["ExperienceBarMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,465,4"
     E.db["movers"]["ReputationBarMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,528,16"
     E.db["movers"]["ThreatBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,207"
-    E.db["movers"]["MageBar"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-560,4"
-    E.db["movers"]["ShamanBar"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-580,4"
     E.db["movers"]["DTPanelTop Panel (Center)Mover"] = "TOP,ElvUIParent,TOP,0,0"
     E.db["movers"]["DTPanelTop PanelMover"] = "TOP,ElvUIParent,TOP,0,-12"
 end
 
 function Installer:SetupPlugins()
-    if E.db["ElvUI_ClassicClassBars"] then
-        E.db["ElvUI_ClassicClassBars"]["mageBar"]["backdrop"] = false
-        E.db["ElvUI_ClassicClassBars"]["mageBar"]["backdropSpacing"] = 2
-        E.db["ElvUI_ClassicClassBars"]["mageBar"]["buttonSpacing"] = 2
-        E.db["ElvUI_ClassicClassBars"]["shamanBar"]["backdrop"] = false
-        E.db["ElvUI_ClassicClassBars"]["shamanBar"]["backdropSpacing"] = 2
-        E.db["ElvUI_ClassicClassBars"]["shamanBar"]["buttonSpacing"] = 2
+    if E.db["ElvUI_FlyoutBars"] then
+        E.db["ElvUI_FlyoutBars"]["bars"]["Mage Bar"]["backdrop"] = false
+        E.db["ElvUI_FlyoutBars"]["bars"]["Mage Bar"]["backdropSpacing"] = 2
+        E.db["ElvUI_FlyoutBars"]["bars"]["Mage Bar"]["buttonSpacing"] = 2
+        E.db["movers"]["ElvUI_FlyoutBars_Mage BarMover"] = "BOTTOM,ElvUIParent,BOTTOM,450,4"
+
+        E.db["ElvUI_FlyoutBars"]["bars"]["Shaman Bar"]["backdrop"] = false
+        E.db["ElvUI_FlyoutBars"]["bars"]["Shaman Bar"]["backdropSpacing"] = 2
+        E.db["ElvUI_FlyoutBars"]["bars"]["Shaman Bar"]["buttonSpacing"] = 2
+        E.db["movers"]["ElvUI_FlyoutBars_Shaman BarMover"] = "BOTTOM,ElvUIParent,BOTTOM,450,4"
     end
 end
 
