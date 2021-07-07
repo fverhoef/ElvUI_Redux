@@ -439,8 +439,8 @@ end
 function Styling:SkinMinimap()
     Styling:ApplyStyle(_G.Minimap, Addon.STYLE_CONFIG_KEYS.MINIMAP)
     local border = _G.Minimap:GetBorder()
-    border.anchor = _G.MMHolder
-    border.frameLevel = math.max(_G.Minimap:GetFrameLevel(), _G.MMHolder:GetFrameLevel()) + 1
+    border.frameStrata = _G.MMHolder:GetFrameStrata()
+    border.frameLevel = math.max(_G.Minimap:GetFrameLevel(), _G.MMHolder:GetFrameLevel()) + 1000
     border:Update()
 end
 

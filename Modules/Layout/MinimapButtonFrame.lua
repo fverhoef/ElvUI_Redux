@@ -339,7 +339,6 @@ function Layout:UpdateMinimapButtonFrame()
     Minimap.ButtonFrame.Container:ClearAllPoints()
     MinimapPanel:ClearAllPoints()
 
-    local offset = 2
     if MinimapPanel:IsShown() then
         if Minimap.ButtonFrame.shadow then
             Minimap.ButtonFrame.shadow.isHidden = true
@@ -349,7 +348,7 @@ function Layout:UpdateMinimapButtonFrame()
         Minimap.ButtonFrame.Toggle:SetPoint("TOPRIGHT", Minimap.ButtonFrame, "TOPRIGHT", -2, -1)
         Minimap.ButtonFrame.Container:SetPoint("TOPRIGHT", Minimap.ButtonFrame, "BOTTOMRIGHT", 0, -6)
 
-        MinimapPanel:Point("TOPLEFT", Minimap, "BOTTOMLEFT", (E.PixelMode and -1 or -2) + offset, 0)
+        MinimapPanel:Point("TOPLEFT", Minimap, "BOTTOMLEFT", E.PixelMode and -1 or -2, 0)
         MinimapPanel:Point("BOTTOMRIGHT", Minimap, "BOTTOMRIGHT", (E.PixelMode and 1 or 2) - 19, -22)
     else
         if Minimap.ButtonFrame.shadow then
@@ -360,7 +359,7 @@ function Layout:UpdateMinimapButtonFrame()
         Minimap.ButtonFrame.Toggle:SetPoint("TOPRIGHT", Minimap.ButtonFrame, "TOPRIGHT", -5, 0)
         Minimap.ButtonFrame.Container:SetPoint("TOPRIGHT", Minimap.ButtonFrame, "BOTTOMRIGHT", 0, 0)
 
-        MinimapPanel:Point("TOPLEFT", Minimap, "BOTTOMLEFT", (E.PixelMode and -1 or -2) + offset, 0)
+        MinimapPanel:Point("TOPLEFT", Minimap, "BOTTOMLEFT", E.PixelMode and -1 or -2, 0)
         MinimapPanel:Point("BOTTOMRIGHT", Minimap, "BOTTOMRIGHT", E.PixelMode and 1 or 2, -22)
     end
 end

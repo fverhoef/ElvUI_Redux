@@ -210,7 +210,9 @@ local function UpdateBorder(border, force, styleConfigKey)
         local frameLevel = math.max(parent.shadow and (parent.shadow:GetFrameLevel() + 1) or 2,
                                     border.frameLevel or parent:GetFrameLevel() + 1)
         border:SetFrameLevel(frameLevel)
-        border:SetFrameStrata(parent:GetFrameStrata())
+
+        local frameStrata = border.frameStrata or parent:GetFrameStrata()
+        border:SetFrameStrata(frameStrata)
     end
 end
 
