@@ -32,7 +32,7 @@ function Styling:HandleUnitFrame(unitFrame)
         local border = unitFrame.Health:GetBorder()
 
         if shadow and border then
-            if unitFrame.USE_MINI_POWERBAR then
+            if unitFrame.USE_MINI_POWERBAR or unitFrame.USE_POWERBAR_OFFSET or unitFrame.USE_INSET_POWERBAR then
                 shadow.anchor = nil
                 border.anchor = nil
                 border.frameLevel = nil
@@ -59,10 +59,28 @@ function Styling:HandleUnitFrame(unitFrame)
             if unitFrame.POWERBAR_DETACHED or unitFrame.USE_MINI_POWERBAR or unitFrame.USE_POWERBAR_OFFSET or
                 unitFrame.USE_INSET_POWERBAR then
                 shadow.isHidden = false
-                border.isHidden = false
+
+                border.Top:SetPoint("TOPLEFT", border.TopLeft, "TOPRIGHT")
+                border.Top:SetPoint("TOPRIGHT", border.TopRight, "TOPLEFT")
+                border.TopLeft:Show()
+                border.TopRight:Show()
+                border.BottomLeft:Show()
+                border.BottomRight:Show()
+                border.Bottom:Show()
+                border.Left:Show()
+                border.Right:Show()
             else
                 shadow.isHidden = true
-                border.isHidden = true
+
+                border.Top:SetPoint("TOPLEFT", border, "TOPRIGHT")
+                border.Top:SetPoint("TOPRIGHT", border, "TOPLEFT")
+                border.TopLeft:Hide()
+                border.TopRight:Hide()
+                border.BottomLeft:Hide()
+                border.BottomRight:Hide()
+                border.Bottom:Hide()
+                border.Left:Hide()
+                border.Right:Hide()
             end
 
             shadow:Update()
