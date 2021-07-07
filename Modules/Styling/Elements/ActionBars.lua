@@ -9,8 +9,7 @@ function Styling:HandleActionBar(bar)
         return
     end
 
-    Addon:CreateShadow(bar)
-    Addon:CreateBorder(bar, Addon.BORDER_CONFIG_KEYS.ACTION_BAR)
+    Styling:ApplyStyle(bar, Addon.STYLE_CONFIG_KEYS.ACTION_BAR)
 end
 
 Styling:SecureHook(AB, "StyleButton", function(self, button, noBackdrop, useMasque, ignoreNormal)
@@ -22,8 +21,7 @@ function Styling:HandleActionButton(button, noBackdrop, useMasque, ignoreNormal)
         return
     end
 
-    Addon:CreateShadow(button)
-    Addon:CreateBorder(button, Addon.BORDER_CONFIG_KEYS.ACTION_BUTTON)
+    Styling:ApplyStyle(button, Addon.STYLE_CONFIG_KEYS.ACTION_BUTTON)
 
     local icon = button.icon or _G[button:GetName() .. "Icon"]
     if icon then
@@ -40,8 +38,7 @@ function Styling:HandleMicroButton(button)
         return
     end
 
-    Addon:CreateShadow(button)
-    Addon:CreateBorder(button, Addon.BORDER_CONFIG_KEYS.MICRO_BUTTON)
+    Styling:ApplyStyle(button, Addon.STYLE_CONFIG_KEYS.MICRO_BUTTON)
 
     local pushed = button:GetPushedTexture()
     local normal = button:GetNormalTexture()

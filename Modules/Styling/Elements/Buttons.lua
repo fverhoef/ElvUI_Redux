@@ -18,8 +18,7 @@ function Styling:HandleItemButton(button, shrinkIcon)
         return
     end
 
-    Addon:CreateShadow(button)
-    Addon:CreateBorder(button, Addon.BORDER_CONFIG_KEYS.ITEM_BUTTON)
+    Styling:ApplyStyle(button, Addon.STYLE_CONFIG_KEYS.ITEM_BUTTON)
 
     local name = button:GetName()
     if name then
@@ -40,8 +39,7 @@ function Styling:HandleLargeItemButton(button)
         return
     end
 
-    Addon:CreateShadow(button)
-    Addon:CreateBorder(button, Addon.BORDER_CONFIG_KEYS.ITEM_BUTTON)
+    Styling:ApplyStyle(button, Addon.STYLE_CONFIG_KEYS.ITEM_BUTTON)
 
     if button.Icon then
         button.Icon:Size(33)
@@ -50,7 +48,7 @@ function Styling:HandleLargeItemButton(button)
 end
 
 Styling:SecureHook(RU, "CreateUtilButton",
-                 function(self, name, parent, template, width, height, point, relativeto, point2, xOfs, yOfs, text, texture)
+                   function(self, name, parent, template, width, height, point, relativeto, point2, xOfs, yOfs, text, texture)
     Styling:HandleRaidUtilityButton(_G[name])
 end)
 
@@ -59,8 +57,7 @@ function Styling:HandleRaidUtilityButton(button)
         return
     end
 
-    Addon:CreateShadow(button)
-    Addon:CreateBorder(button, Addon.BORDER_CONFIG_KEYS.RAID_UTILITY_BUTTON)
+    Styling:ApplyStyle(button, Addon.STYLE_CONFIG_KEYS.RAID_UTILITY_BUTTON)
 end
 
 function Styling:HandleTalentButton(button)
@@ -68,11 +65,10 @@ function Styling:HandleTalentButton(button)
         return
     end
 
-    Addon:CreateShadow(button)
-    local border = Addon:CreateBorder(button, Addon.BORDER_CONFIG_KEYS.TALENT_BUTTON)
+    Styling:ApplyStyle(button, Addon.STYLE_CONFIG_KEYS.TALENT_BUTTON)
 
     local rank = _G[button:GetName() .. "Rank"]
     if rank then
-        rank:SetParent(border)
+        rank:SetParent(button:GetBorder())
     end
 end

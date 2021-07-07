@@ -32,35 +32,21 @@ function Styling:HandleToolTip(tip)
         return
     end
 
-    Addon:CreateShadow(tip)
-    local border = Addon:CreateBorder(tip, Addon.BORDER_CONFIG_KEYS.TOOLTIP)
+    Styling:ApplyStyle(tip, Addon.STYLE_CONFIG_KEYS.TOOLTIP)
 
-    if border and border:IsShown() then
-        local borderColor = E.media.bordercolor
-        if E.db.tooltip.itemQualityBorderColor and tip.GetItem then
-            local _, link = tip:GetItem()
-            if link then
-                local _, _, quality = GetItemInfo(link)
-                if quality and quality > 1 then
-                    borderColor = {GetItemQualityColor(quality)}
-                end
-            end
-        end
-        tip:SetBackdropBorderColor(unpack(borderColor))
+    local border = tip:GetBorder()
+    if border and tip.StatusBar then
+        border:SetFrameLevel(tip.StatusBar:GetFrameLevel() + 1)
+        tip.StatusBar:SetScript("OnShow", function(self)
+            self.text:Show()
+        end)
+        tip.StatusBar:SetScript("OnHide", function(self)
+            self.text:Hide()
+        end)
+        tip.StatusBar.text:SetParent(border)
 
-        if border and tip.StatusBar then
-            border:SetFrameLevel(tip.StatusBar:GetFrameLevel() + 1)
-            tip.StatusBar:SetScript("OnShow", function(self)
-                self.text:Show()
-            end)
-            tip.StatusBar:SetScript("OnHide", function(self)
-                self.text:Hide()
-            end)
-            tip.StatusBar.text:SetParent(border)
-
-            if tip.StatusBar.border then
-                tip.StatusBar.border:Hide()
-            end
+        if tip.StatusBar.border then
+            tip.StatusBar.border:Hide()
         end
     end
 end

@@ -19,8 +19,9 @@ function Styling:HandleDataBar(bar, holder)
         return
     end
 
-    Addon:CreateShadow(holder)
-    local border = Addon:CreateBorder(holder, Addon.BORDER_CONFIG_KEYS.DATA_BAR)
+    Styling:ApplyStyle(holder, Addon.STYLE_CONFIG_KEYS.DATA_BAR)
+
+    local border = holder:GetBorder()
     border.frameLevel = bar:GetFrameLevel() + 1
-    border:Update()
+    border:SetFrameLevel(border.frameLevel)
 end

@@ -25,52 +25,62 @@ function Styling:HandleUnitFrame(unitFrame)
         return
     end
 
-    local shadow = Addon:CreateShadow(unitFrame.Health)
-    local border = Addon:CreateBorder(unitFrame.Health, Addon.BORDER_CONFIG_KEYS.UNITFRAME_HEALTH)
+    if unitFrame.Health then
+        Styling:ApplyStyle(unitFrame.Health, Addon.STYLE_CONFIG_KEYS.UNITFRAME_HEALTH)
 
-    if unitFrame.USE_MINI_POWERBAR then
-        shadow.anchor = unitFrame.Health
-        shadow:Update(true)
-        border.anchor = unitFrame.Health        
-        border.frameLevel = nil
-        border:Update(true)
-    else
-        shadow.anchor = unitFrame
-        shadow:Update(true)
-        border.anchor = unitFrame
-        border.frameLevel = math.max(unitFrame.Health:GetFrameLevel(), unitFrame.Power and unitFrame.Power:GetFrameLevel() or 0) + 1
-        border:Update(true)
+        local shadow = unitFrame.Health:GetShadow()
+        local border = unitFrame.Health:GetBorder()
+
+        if shadow and border then
+            if unitFrame.USE_MINI_POWERBAR then
+                shadow.anchor = nil
+                border.anchor = nil
+                border.frameLevel = nil
+            else
+                shadow.anchor = unitFrame
+                border.anchor = unitFrame
+                border.frameLevel = math.max(unitFrame.Health:GetFrameLevel(),
+                                             unitFrame.Power and unitFrame.Power:GetFrameLevel() or 0) + 1
+            end
+
+            shadow:Update()
+            border:Update()
+            border:SetDrawLayer("OVERLAY")
+        end
     end
 
     if unitFrame.Power then
-        local shadow = Addon:CreateShadow(unitFrame.Power)
-        local border = Addon:CreateBorder(unitFrame.Power, Addon.BORDER_CONFIG_KEYS.UNITFRAME_POWER)
+        Styling:ApplyStyle(unitFrame.Power, Addon.STYLE_CONFIG_KEYS.UNITFRAME_POWER)
 
-        if unitFrame.POWERBAR_DETACHED or unitFrame.USE_MINI_POWERBAR then
-            shadow.isHidden = false
-            border.isHidden = false
-        else
-            shadow.isHidden = true
-            border.isHidden = true
+        local shadow = unitFrame.Power:GetShadow()
+        local border = unitFrame.Power:GetBorder()
+
+        if shadow and border then
+            if unitFrame.POWERBAR_DETACHED or unitFrame.USE_MINI_POWERBAR or unitFrame.USE_POWERBAR_OFFSET or
+                unitFrame.USE_INSET_POWERBAR then
+                shadow.isHidden = false
+                border.isHidden = false
+            else
+                shadow.isHidden = true
+                border.isHidden = true
+            end
+
+            shadow:Update()
+            border:Update()
+            border:SetDrawLayer("OVERLAY")
         end
-
-        shadow:Update()
-        border:Update()
     end
 
     if unitFrame.Castbar then
-        Addon:CreateShadow(unitFrame.Castbar, unitFrame.Castbar.Holder)
-        Addon:CreateBorder(unitFrame.Castbar, Addon.BORDER_CONFIG_KEYS.UNITFRAME_CASTBAR, unitFrame.Castbar.Holder)
+        Styling:ApplyStyle(unitFrame.Castbar, Addon.STYLE_CONFIG_KEYS.UNITFRAME_CASTBAR)
+        local border = unitFrame.Castbar:GetBorder()
+        border:SetDrawLayer("OVERLAY")
 
-        local iconBg = unitFrame.Castbar.ButtonIcon.bg
-        Addon:CreateShadow(iconBg, nil, unitFrame.db.castbar.iconAttached)
-        local iconBorder = Addon:CreateBorder(iconBg, Addon.BORDER_CONFIG_KEYS.UNITFRAME_CASTBAR)
-        iconBorder:SetShown(not unitFrame.db.castbar.iconAttached)
+        Styling:ApplyStyle(unitFrame.Castbar.ButtonIcon.bg, Addon.STYLE_CONFIG_KEYS.UNITFRAME_CASTBAR)
     end
 
     if unitFrame.ClassBar and unitFrame[unitFrame.ClassBar] and unitFrame[unitFrame.ClassBar]:IsShown() then
-        Addon:CreateShadow(unitFrame.ClassBarHolder)
-        Addon:CreateBorder(unitFrame.ClassBarHolder, Addon.BORDER_CONFIG_KEYS.UNITFRAME_CLASSBAR)
+        Styling:ApplyStyle(unitFrame.ClassBarHolder, Addon.STYLE_CONFIG_KEYS.UNITFRAME_CLASSBAR)
     end
 
     if unitFrame.Auras and not Styling:IsHooked(unitFrame.Auras, "PostUpdateIcon") then

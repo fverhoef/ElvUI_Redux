@@ -13,8 +13,7 @@ function Styling:HandleAura(button)
         return
     end
 
-    Addon:CreateShadow(button)
-    Addon:CreateBorder(button, Addon.BORDER_CONFIG_KEYS.AURA)
+    Styling:ApplyStyle(button, Addon.STYLE_CONFIG_KEYS.AURA)
 
     local icon = button.icon or _G[button:GetName() .. "Icon"]
     if icon then
@@ -31,8 +30,7 @@ function Styling:HandleTempEnchant(button)
         return
     end
 
-    Addon:CreateShadow(button)
-    Addon:CreateBorder(button, Addon.BORDER_CONFIG_KEYS.AURA)
+    Styling:ApplyStyle(button, Addon.STYLE_CONFIG_KEYS.AURA)
 
     local icon = button.icon or _G[button:GetName() .. "Icon"]
     if icon then

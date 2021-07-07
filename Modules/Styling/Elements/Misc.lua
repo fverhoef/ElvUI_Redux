@@ -15,10 +15,6 @@ function Styling:HandleLootRollBar(bar)
         return
     end
 
-    Addon:CreateShadow(bar)
-    Addon:CreateShadow(bar.button)
-    local border = Addon:CreateBorder(bar, Addon.BORDER_CONFIG_KEYS.LOOT_ROLL_BAR)
-    border:SetBorderColor(E.media.bordercolor)
-    border = Addon:CreateBorder(bar.button, Addon.BORDER_CONFIG_KEYS.LOOT_ROLL_BAR)
-    border:SetBorderColor(E.media.bordercolor)
+    Styling:ApplyStyle(bar, Addon.STYLE_CONFIG_KEYS.LOOT_ROLL_BAR)
+    Styling:ApplyStyle(bar.button, Addon.STYLE_CONFIG_KEYS.LOOT_ROLL_BAR)
 end

@@ -28,7 +28,21 @@ local BORDERS = {
     ["Retina"] = "Retina",
     ["Redux"] = "Redux"
 }
-local BORDER_CONFIG_KEYS = {
+local FRAME_BORDERS = {
+    "None",
+    "Alliance",
+    "Horde",
+    "Neutral",
+    "Metal",
+    "Marine",
+    "Mechagon",
+    "Kyrian",
+    "Necrolord",
+    "NightFae",
+    "Oribos",
+    "Venthyr"
+}
+local STYLE_CONFIG_KEYS = {
     DEFAULT = "style",
 
     -- Frames
@@ -89,25 +103,11 @@ local BORDER_CONFIG_KEYS = {
     -- Tooltips
     TOOLTIP = "tooltipStyle"
 }
-local FRAME_BORDERS = {
-    "None",
-    "Alliance",
-    "Horde",
-    "Neutral",
-    "Metal",
-    "Marine",
-    "Mechagon",
-    "Kyrian",
-    "Necrolord",
-    "NightFae",
-    "Oribos",
-    "Venthyr"
-}
 
 Addon.BACKGROUNDS = BACKGROUNDS
 Addon.BORDERS = BORDERS
-Addon.BORDER_CONFIG_KEYS = BORDER_CONFIG_KEYS
 Addon.FRAME_BORDERS = FRAME_BORDERS
+Addon.STYLE_CONFIG_KEYS = STYLE_CONFIG_KEYS
 
 P[addonName] = {
     automation = {
@@ -129,13 +129,7 @@ P[addonName] = {
         guildMemberDetailFrame = {enabled = true},
         questLogFrame = {enabled = true},
         tradeSkillFrame = {enabled = true},
-        minimapButtonFrame = {
-            enabled = true,
-            iconSize = 22,
-            buttonsPerRow = 6,
-            buttonSpacing = 2,
-            collapsed = true
-        },
+        minimapButtonFrame = {enabled = true, iconSize = 22, buttonsPerRow = 6, buttonSpacing = 2, collapsed = true},
         tooltips = {
             enabled = true,
             showIcons = true,
@@ -147,6 +141,10 @@ P[addonName] = {
     },
     styling = {
         enabled = true,
+        style = {
+            border = {enabled = true, style = BORDERS["Redux"]},
+            shadow = {enabled = true, color = {0, 0, 0, 0.7}, size = 5, shadowPerButton = true}
+        },
         borders = {enabled = true, style = BORDERS["Redux"]},
         shadows = {enabled = true, color = {0, 0, 0, 0.7}, size = 5, shadowPerButton = true}
     }
@@ -274,15 +272,15 @@ function Addon:InsertOptions()
                                 name = L["Frames"],
                                 inline = true,
                                 args = {
-                                    frameStyle = Addon:CreateBorderStyleOption(L["Frame Theme"], 1, BORDER_CONFIG_KEYS.FRAME),
+                                    frameStyle = Addon:CreateBorderStyleOption(L["Frame Theme"], 1, STYLE_CONFIG_KEYS.FRAME),
                                     insetFrameStyle = Addon:CreateBorderStyleOption(L["Inset Frame Theme"], 2,
-                                                                                    BORDER_CONFIG_KEYS.INSET_FRAME),
+                                                                                    STYLE_CONFIG_KEYS.INSET_FRAME),
                                     chatPanelStyle = Addon:CreateBorderStyleOption(L["Chat Panel Theme"], 3,
-                                                                                   BORDER_CONFIG_KEYS.CHAT_PANEL),
+                                                                                   STYLE_CONFIG_KEYS.CHAT_PANEL),
                                     decorativePanelStyle = Addon:CreateBorderStyleOption(L["Top/Bottom Panel Theme"], 4,
-                                                                                         BORDER_CONFIG_KEYS.DECORATIVE_PANEL),
-                                    tabStyle = Addon:CreateBorderStyleOption(L["Tab Theme"], 5, BORDER_CONFIG_KEYS.TAB),
-                                    minimapStyle = Addon:CreateBorderStyleOption(L["Minimap Theme"], 5, BORDER_CONFIG_KEYS.MINIMAP)
+                                                                                         STYLE_CONFIG_KEYS.DECORATIVE_PANEL),
+                                    tabStyle = Addon:CreateBorderStyleOption(L["Tab Theme"], 5, STYLE_CONFIG_KEYS.TAB),
+                                    minimapStyle = Addon:CreateBorderStyleOption(L["Minimap Theme"], 5, STYLE_CONFIG_KEYS.MINIMAP)
                                 }
                             },
                             controls = {
@@ -291,26 +289,26 @@ function Addon:InsertOptions()
                                 name = L["Controls"],
                                 inline = true,
                                 args = {
-                                    buttonStyle = Addon:CreateBorderStyleOption(L["Button Theme"], 1, BORDER_CONFIG_KEYS.BUTTON),
+                                    buttonStyle = Addon:CreateBorderStyleOption(L["Button Theme"], 1, STYLE_CONFIG_KEYS.BUTTON),
                                     checkBoxStyle = Addon:CreateBorderStyleOption(L["Checkbox Theme"], 2,
-                                                                                  BORDER_CONFIG_KEYS.CHECK_BOX),
+                                                                                  STYLE_CONFIG_KEYS.CHECK_BOX),
                                     colorPickerStyle = Addon:CreateBorderStyleOption(L["Color Picker Theme"], 3,
-                                                                                     BORDER_CONFIG_KEYS.COLOR_PICKER),
+                                                                                     STYLE_CONFIG_KEYS.COLOR_PICKER),
                                     dropdownBoxStyle = Addon:CreateBorderStyleOption(L["Dropdown Theme"], 4,
-                                                                                     BORDER_CONFIG_KEYS.DROP_DOWN_BOX),
+                                                                                     STYLE_CONFIG_KEYS.DROP_DOWN_BOX),
                                     dropdownListStyle = Addon:CreateBorderStyleOption(L["Dropdown List Theme"], 5,
-                                                                                      BORDER_CONFIG_KEYS.DROP_DOWN_LIST),
+                                                                                      STYLE_CONFIG_KEYS.DROP_DOWN_LIST),
                                     dropdownListButtonStyle = Addon:CreateBorderStyleOption(L["Dropdown List Button Theme"], 6,
-                                                                                            BORDER_CONFIG_KEYS.DROP_DOWN_LIST_BUTTON),
+                                                                                            STYLE_CONFIG_KEYS.DROP_DOWN_LIST_BUTTON),
                                     editBoxStyle = Addon:CreateBorderStyleOption(L["Edit Box Theme"], 7,
-                                                                                 BORDER_CONFIG_KEYS.EDIT_BOX),
+                                                                                 STYLE_CONFIG_KEYS.EDIT_BOX),
                                     radioButtonStyle = Addon:CreateBorderStyleOption(L["Radio Button Theme"], 8,
-                                                                                     BORDER_CONFIG_KEYS.RADIO_BUTTON),
+                                                                                     STYLE_CONFIG_KEYS.RADIO_BUTTON),
                                     scrollBarStyle = Addon:CreateBorderStyleOption(L["Scroll Bar Theme"], 9,
-                                                                                   BORDER_CONFIG_KEYS.SCROLL_BAR),
-                                    sliderStyle = Addon:CreateBorderStyleOption(L["Slider Theme"], 10, BORDER_CONFIG_KEYS.SLIDER),
+                                                                                   STYLE_CONFIG_KEYS.SCROLL_BAR),
+                                    sliderStyle = Addon:CreateBorderStyleOption(L["Slider Theme"], 10, STYLE_CONFIG_KEYS.SLIDER),
                                     statusBarStyle = Addon:CreateBorderStyleOption(L["Status Bar Theme"], 11,
-                                                                                   BORDER_CONFIG_KEYS.STATUS_BAR)
+                                                                                   STYLE_CONFIG_KEYS.STATUS_BAR)
                                 }
                             }
                         }

@@ -15,8 +15,7 @@ function Styling:HandleBagSlotButton(button)
         return
     end
 
-    Addon:CreateShadow(button)
-    Addon:CreateBorder(button, Addon.BORDER_CONFIG_KEYS.BAG_SLOT)
+    Styling:ApplyStyle(button, Addon.STYLE_CONFIG_KEYS.BAG_SLOT)
 
     local icon = button.icon or _G[button:GetName() .. "Icon"]
     if icon then
@@ -33,8 +32,7 @@ function Styling:HandleBagBarButton(button)
         return
     end
 
-    Addon:CreateShadow(button)
-    Addon:CreateBorder(button, Addon.BORDER_CONFIG_KEYS.BAG_BAR)
+    Styling:ApplyStyle(button, Addon.STYLE_CONFIG_KEYS.BAG_BAR)
 
     local icon = button.icon or _G[button:GetName() .. "Icon"]
     if icon then

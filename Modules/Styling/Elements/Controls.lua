@@ -7,8 +7,8 @@ local CH = E:GetModule("Chat")
 local S = E:GetModule("Skins")
 
 Styling:SecureHook(S, "HandleButton",
-                 function(self, button, strip, isDeclineButton, noStyle, setTemplate, styleTemplate, noGlossTex, overrideTex,
-                          frameLevel)
+                   function(self, button, strip, isDeclineButton, noStyle, setTemplate, styleTemplate, noGlossTex, overrideTex,
+                            frameLevel)
     Styling:HandleButton(button)
 end)
 
@@ -34,16 +34,9 @@ function Styling:HandleButton(button)
         button.backdrop:SetPoint("BOTTOMRIGHT", button, "BOTTOMRIGHT", -2, 0)
         Styling:HandleTab(button, nil, "UP")
         return
-    elseif button.obj and (button.obj.type == "Dropdown" or strfind(button.obj.type, "LSM30_")) then
-        -- Don't skin Ace3 dropdown buttons on this pass (to prevent layering issues)
-        return
     end
 
-    Addon:CreateShadow(button)
-    local border = Addon:CreateBorder(button, Addon.BORDER_CONFIG_KEYS.BUTTON)
-    if button == _G.ChatFrameChannelButton then
-        border:SetShown(not CH.db.pinVoiceButtons)
-    end
+    Styling:ApplyStyle(button, Addon.STYLE_CONFIG_KEYS.BUTTON)
 end
 
 Styling:SecureHook(S, "HandleScrollBar", function(self, frame, thumbTrimY, thumbTrimX)
@@ -55,8 +48,7 @@ function Styling:HandleScrollBar(frame, thumbTrimY, thumbTrimX)
         return
     end
 
-    Addon:CreateShadow(frame)
-    Addon:CreateBorder(frame, Addon.BORDER_CONFIG_KEYS.SCROLL_BAR)
+    Styling:ApplyStyle(frame, Addon.STYLE_CONFIG_KEYS.SCROLL_BAR)
 end
 
 Styling:SecureHook(S, "HandleEditBox", function(self, frame)
@@ -68,12 +60,12 @@ function Styling:HandleEditBox(frame)
         return
     end
 
-    Addon:CreateShadow(frame)
-    Addon:CreateBorder(frame, Addon.BORDER_CONFIG_KEYS.EDIT_BOX)
+    Styling:ApplyStyle(frame, Addon.STYLE_CONFIG_KEYS.EDIT_BOX)
 
     if frame.backdrop then
         frame.backdrop:SetOutside(nil, 4, 1)
 
+        -- reposition Gold/Silver/Copper boxes
         local name = frame:GetName()
         if name then
             if strfind(name, "Gold") then
@@ -94,8 +86,7 @@ function Styling:HandleRadioButton(button)
         return
     end
 
-    -- Addon:CreateShadow(button)
-    -- Addon:CreateBorder(button, Addon.BORDER_CONFIG_KEYS.RADIO_BUTTON)
+    Styling:ApplyStyle(button, Addon.STYLE_CONFIG_KEYS.RADIO_BUTTON)
 end
 
 Styling:SecureHook(S, "HandleCheckBox", function(self, frame, noBackdrop, noReplaceTextures, frameLevel)
@@ -107,8 +98,7 @@ function Styling:HandleCheckBox(frame, noBackdrop, noReplaceTextures, frameLevel
         return
     end
 
-    Addon:CreateShadow(frame)
-    Addon:CreateBorder(frame, Addon.BORDER_CONFIG_KEYS.CHECK_BOX)
+    Styling:ApplyStyle(frame, Addon.STYLE_CONFIG_KEYS.CHECK_BOX)
 end
 
 Styling:SecureHook(S, "HandleDropDownBox", function(self, frame, width, pos)
@@ -120,8 +110,7 @@ function Styling:HandleDropDownBox(frame)
         return
     end
 
-    Addon:CreateShadow(frame)
-    Addon:CreateBorder(frame, Addon.BORDER_CONFIG_KEYS.DROP_DOWN_BOX)
+    Styling:ApplyStyle(frame, Addon.STYLE_CONFIG_KEYS.DROP_DOWN_BOX)
 
     local name = frame.GetName and frame:GetName()
     local button = frame.Button or (name and (_G[name .. "Button"] or _G[name .. "_Button"])) or (frame.obj and frame.obj.button)
@@ -139,19 +128,14 @@ function Styling:HandleDropDownList(listFrame, isAce3)
         return
     end
 
-    if not isAce3 then
-        listFrame:CreateBackdrop("Transparent")
-    end
-
-    Addon:CreateShadow(listFrame)
-    Addon:CreateBorder(listFrame, Addon.BORDER_CONFIG_KEYS.DROP_DOWN_LIST)
+    Styling:ApplyStyle(listFrame, Addon.STYLE_CONFIG_KEYS.DROP_DOWN_LIST)
 
     if not isAce3 then
         local name = listFrame:GetName()
         for i = 1, _G.UIDROPDOWNMENU_MAXBUTTONS do
             local button = _G[name .. "Button" .. i]
             local text = _G[name .. "Button" .. i .. "NormalText"]
-            local border = Addon:CreateBorder(button, Addon.BORDER_CONFIG_KEYS.DROP_DOWN_LIST_BUTTON)
+            local border = button:CreateBorder(Addon.STYLE_CONFIG_KEYS.DROP_DOWN_LIST_BUTTON)
 
             button.backdrop = CreateFrame("Frame", nil, button)
 
@@ -164,22 +148,12 @@ function Styling:HandleDropDownList(listFrame, isAce3)
                     text:SetPoint("LEFT", 15, 0)
                     border:Show()
                     border:SetOutside(check)
-                    border:SetBorderColor(E.media.bordercolor)
+                    border:SetColor(E.media.bordercolor)
                 end
             else
                 text:SetPoint("LEFT", -5, 0)
                 border:Hide()
             end
-        end
-
-        local backdrop = _G[name .. "Backdrop"]
-        if backdrop then
-            backdrop:SetBackdrop()
-        end
-
-        local menuBackdrop = _G[name .. "MenuBackdrop"]
-        if menuBackdrop then
-            menuBackdrop:SetBackdrop()
         end
     end
 end
@@ -193,8 +167,7 @@ function Styling:HandleSliderFrame(frame)
         return
     end
 
-    Addon:CreateShadow(frame)
-    Addon:CreateBorder(frame, Addon.BORDER_CONFIG_KEYS.SLIDER)
+    Styling:ApplyStyle(frame, Addon.STYLE_CONFIG_KEYS.SLIDER)
 
     if frame.backdrop then
         frame.backdrop:SetOutside(nil, 1, 0)
@@ -214,8 +187,7 @@ function Styling:HandleStatusBar(bar)
         return
     end
 
-    Addon:CreateShadow(bar)
-    Addon:CreateBorder(bar, Addon.BORDER_CONFIG_KEYS.STATUS_BAR)
+    Styling:ApplyStyle(frame, Addon.STYLE_CONFIG_KEYS.STATUS_BAR)
 end
 
 function Styling:HandleColorPicker(frame)
@@ -223,6 +195,5 @@ function Styling:HandleColorPicker(frame)
         return
     end
 
-    Addon:CreateShadow(frame)
-    Addon:CreateBorder(frame, Addon.BORDER_CONFIG_KEYS.COLOR_PICKER)
+    Styling:ApplyStyle(frame, Addon.STYLE_CONFIG_KEYS.COLOR_PICKER)
 end

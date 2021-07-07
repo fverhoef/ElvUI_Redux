@@ -21,16 +21,37 @@ function Styling:HandleNamePlate(nameplate)
         return
     end
 
-    Addon:CreateShadow(nameplate.Health)
-    Addon:CreateBorder(nameplate.Health, Addon.BORDER_CONFIG_KEYS.NAMEPLATE_HEALTH)
+    if nameplate.Health then
+        Styling:ApplyStyle(nameplate.Health, Addon.STYLE_CONFIG_KEYS.NAMEPLATE_HEALTH)
 
-    Addon:CreateShadow(nameplate.Power)
-    Addon:CreateBorder(nameplate.Power, Addon.BORDER_CONFIG_KEYS.NAMEPLATE_POWER)
+        local border = nameplate.Health:GetBorder()
+        if border then
+            border:Update()
+            border:SetDrawLayer("OVERLAY")
+        end
+    end
 
-    Addon:CreateShadow(nameplate.Castbar)
-    Addon:CreateBorder(nameplate.Castbar, Addon.BORDER_CONFIG_KEYS.NAMEPLATE_CASTBAR)
-    Addon:CreateShadow(nameplate.Castbar.Button)
-    Addon:CreateBorder(nameplate.Castbar.Button, Addon.BORDER_CONFIG_KEYS.NAMEPLATE_CASTBAR)
+    if nameplate.Power then
+        Styling:ApplyStyle(nameplate.Power, Addon.STYLE_CONFIG_KEYS.NAMEPLATE_POWER)
+
+        local border = nameplate.Power:GetBorder()
+        if border then
+            border:Update()
+            border:SetDrawLayer("OVERLAY")
+        end
+    end
+
+    if nameplate.Castbar then
+        Styling:ApplyStyle(nameplate.Castbar, Addon.STYLE_CONFIG_KEYS.NAMEPLATE_CASTBAR)
+
+        local border = nameplate.Castbar:GetBorder()
+        if border then
+            border:Update()
+            border:SetDrawLayer("OVERLAY")
+        end
+
+        Styling:ApplyStyle(nameplate.Castbar.Button, Addon.STYLE_CONFIG_KEYS.NAMEPLATE_CASTBAR)
+    end
 
     if nameplate.Auras and not Addon:IsHooked(nameplate.Auras, "PostUpdateIcon") then
         Addon:SecureHook(nameplate.Auras, "PostUpdateIcon", HandleNamePlateAura)

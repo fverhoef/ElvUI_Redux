@@ -12,6 +12,18 @@ local S = E:GetModule("Skins")
 local UF = E:GetModule("UnitFrames")
 
 function Styling:Initialize()
+    for frame in pairs(E.frames) do
+        if not Addon.templatedFrames[frame] then
+            frame:RefreshTemplate()
+        end
+    end
+
+    for frame in pairs(E.unitFrameElements) do
+        if not Addon.templatedFrames[frame] then
+            frame:RefreshTemplate()
+        end
+    end
+
     Styling:SkinActionBars()
     Styling:SkinArenaRegistrarFrame()
     Styling:SkinBags()
@@ -51,8 +63,7 @@ function Styling:Initialize()
     Styling:HandleFrame(_G.BattlefieldFrame)
 
     if _G.Minimap.ButtonFrame then
-        Addon:CreateShadow(_G.Minimap.ButtonFrame.Container)
-        Addon:CreateBorder(_G.Minimap.ButtonFrame.Container, Addon.BORDER_CONFIG_KEYS.MINIMAP)
+        Styling:ApplyStyle(_G.Minimap.ButtonFrame.Container, Addon.STYLE_CONFIG_KEYS.MINIMAP)
     end
 
     Styling:RegisterEvent("ADDON_LOADED", Styling.ADDON_LOADED)
@@ -67,49 +78,47 @@ function Styling:Update()
     end
 
     local config = E.db[addonName].styling
-
     for i = 1, 10 do
         local bar = AB.handledBars["bar" .. i]
         if bar then
-            bar.shadow.isHidden = config.shadows.shadowPerButton
+            local shadow = bar:GetShadow()
+            if shadow then
+                shadow.isHidden = config.shadows.shadowPerButton
+            end
 
             for j = 1, _G.NUM_ACTIONBAR_BUTTONS do
-                local button = bar.buttons[j]
-                button.shadow.isHidden = not config.shadows.shadowPerButton
+                shadow = bar.buttons[j]:GetShadow()
+                if shadow then
+                    shadow.isHidden = not config.shadows.shadowPerButton
+                end
             end
         end
     end
 
-    local ccb = _G["ElvUI_FlyoutBars"]
-    if ccb then
-        for _, bar in pairs(ccb.bars) do
-            Styling:HandleActionBar(bar)
-
-            for _, button in ipairs(bar.buttons) do
-                local flyoutButton = button.CurrentAction or button
-                Styling:HandleActionButton(flyoutButton)
-                flyoutButton.shadow.isHidden = not config.shadows.shadowPerButton
-            end
+    for frame in pairs(Addon.templatedFrames) do
+        if frame.shadow then
+            frame.shadow:Update()
         end
-    end
-
-    for shadow, _ in pairs(Addon.registry.shadows) do
-        shadow:Update()
-    end
-
-    for border, _ in pairs(Addon.registry.borders) do
-        border:Update()
+        if frame.border then
+            frame.border:Update()
+        end
     end
 end
 
-function Styling:GetBorderColor(frame)
-    local color
-    local parent = frame.backdrop or frame
-    if parent.GetBackdropBorderColor then
-        color = {parent:GetBackdropBorderColor()}
+function Styling:ApplyStyle(frame, styleConfigKey)
+    if not frame then
+        return
     end
 
-    return color or E.media.bordercolor
+    local shadow = frame:GetShadow()
+    if shadow and shadow.styleConfigKey ~= styleConfigKey then
+        shadow:Update(false, styleConfigKey)
+    end
+
+    local border = frame:GetBorder()
+    if border and border.styleConfigKey ~= styleConfigKey then
+        border:Update(false, styleConfigKey)
+    end
 end
 
 function Styling:ADDON_LOADED(addonName)
@@ -245,20 +254,6 @@ function Styling:SkinBlizzardOptions()
 
     Styling:SecureHook(nil, "AudioOptionsVoicePanel_InitializeCommunicationModeUI", function(self)
         Styling:HandleButton(self.PushToTalkKeybindButton)
-    end)
-
-    Styling:SecureHook(nil, "GraphicsOptions_SelectBase", function(self)
-        _G.GraphicsButton.shadow:SetFrameLevel(0)
-        _G.GraphicsButton.border:SetFrameLevel(_G.GraphicsButton:GetFrameLevel() + 1)
-        _G.RaidButton.shadow:SetFrameLevel(0)
-        _G.RaidButton.border:SetFrameLevel(_G.RaidButton:GetFrameLevel() + 1)
-    end)
-
-    Styling:SecureHook(nil, "GraphicsOptions_SelectRaid", function(self)
-        _G.GraphicsButton.shadow:SetFrameLevel(0)
-        _G.GraphicsButton.border:SetFrameLevel(_G.GraphicsButton:GetFrameLevel() + 1)
-        _G.RaidButton.shadow:SetFrameLevel(0)
-        _G.RaidButton.border:SetFrameLevel(_G.RaidButton:GetFrameLevel() + 1)
     end)
 
     local chatFrames = {
@@ -442,8 +437,11 @@ function Styling:SkinMerchantFrame()
 end
 
 function Styling:SkinMinimap()
-    Addon:CreateShadow(_G.Minimap, _G.MMHolder)
-    Addon:CreateBorder(_G.Minimap, Addon.BORDER_CONFIG_KEYS.MINIMAP, _G.MMHolder)
+    Styling:ApplyStyle(_G.Minimap, Addon.STYLE_CONFIG_KEYS.MINIMAP)
+    local border = _G.Minimap:GetBorder()
+    border.anchor = _G.MMHolder
+    border.frameLevel = math.max(_G.Minimap:GetFrameLevel(), _G.MMHolder:GetFrameLevel()) + 1
+    border:Update()
 end
 
 function Styling:SkinMirrorTimers()

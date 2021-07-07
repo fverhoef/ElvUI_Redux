@@ -16,11 +16,19 @@ function Styling:HandleDataPanel(panel)
         return
     end
 
+    Styling:ApplyStyle(panel, Addon.STYLE_CONFIG_KEYS.DATA_PANEL)
+
     local isBackdropHidden = panel.template == "NoBackdrop"
-    local shadow = Addon:CreateShadow(panel)
-    shadow.isHidden = isBackdropHidden
-    shadow:Update()
-    local border = Addon:CreateBorder(panel, Addon.BORDER_CONFIG_KEYS.DATA_PANEL)
-    border.isHidden = isBackdropHidden
-    border:Update()
+
+    local shadow = panel:GetShadow()
+    if shadow then
+        shadow.isHidden = isBackdropHidden
+        shadow:Update()
+    end
+
+    local border = panel:GetBorder()
+    if shadow then
+        border.isHidden = isBackdropHidden
+        border:Update()
+    end
 end
