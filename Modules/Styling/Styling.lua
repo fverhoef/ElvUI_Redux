@@ -71,35 +71,39 @@ function Styling:Initialize()
     Styling:Update()
 end
 
-function Styling:Update()
+function Styling:Update(styleConfigKey, onlyShadows, onlyBorders)
     if UnitAffectingCombat("player") then
         Styling:ScheduleTimer("Update", 1)
         return
     end
 
-    local config = E.db[addonName].styling
+    local shadowPerButton = E.db[addonName].styling.default.shadow.shadowPerButton
     for i = 1, 10 do
         local bar = AB.handledBars["bar" .. i]
         if bar then
             local shadow = bar:GetShadow()
             if shadow then
-                shadow.isHidden = config.shadows.shadowPerButton
+                shadow.isHidden = shadowPerButton
             end
 
             for j = 1, _G.NUM_ACTIONBAR_BUTTONS do
                 shadow = bar.buttons[j]:GetShadow()
                 if shadow then
-                    shadow.isHidden = not config.shadows.shadowPerButton
+                    shadow.isHidden = not shadowPerButton
                 end
             end
         end
     end
 
     for frame in pairs(Addon.templatedFrames) do
-        if frame.shadow then
+        if frame.shadow and not onlyBorders and
+            (not styleConfigKey or styleConfigKey == Addon.STYLE_CONFIG_KEYS.DEFAULT or frame.shadow.styleConfigKey ==
+                styleConfigKey) then
             frame.shadow:Update()
         end
-        if frame.border then
+        if frame.border and not onlyShadows and
+            (not styleConfigKey or styleConfigKey == Addon.STYLE_CONFIG_KEYS.DEFAULT or frame.border.styleConfigKey ==
+                styleConfigKey) then
             frame.border:Update()
         end
     end
@@ -112,12 +116,12 @@ function Styling:ApplyStyle(frame, styleConfigKey)
 
     local shadow = frame:GetShadow()
     if shadow and shadow.styleConfigKey ~= styleConfigKey then
-        shadow:Update(false, styleConfigKey)
+        shadow:Update(styleConfigKey)
     end
 
     local border = frame:GetBorder()
     if border and border.styleConfigKey ~= styleConfigKey then
-        border:Update(false, styleConfigKey)
+        border:Update(styleConfigKey)
     end
 end
 

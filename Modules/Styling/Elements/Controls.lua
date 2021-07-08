@@ -99,6 +99,10 @@ function Styling:HandleCheckBox(frame, noBackdrop, noReplaceTextures, frameLevel
     end
 
     Styling:ApplyStyle(frame, Addon.STYLE_CONFIG_KEYS.CHECK_BOX)
+    local border = frame:GetBorder()
+    if border then
+        border:SetDrawLayer("OVERLAY")
+    end
 end
 
 Styling:SecureHook(S, "HandleDropDownBox", function(self, frame, width, pos)
@@ -187,7 +191,12 @@ function Styling:HandleStatusBar(bar)
         return
     end
 
-    Styling:ApplyStyle(frame, Addon.STYLE_CONFIG_KEYS.STATUS_BAR)
+    Styling:ApplyStyle(bar, Addon.STYLE_CONFIG_KEYS.STATUS_BAR)
+
+    local border = bar:GetBorder()
+    if border then
+        border:SetDrawLayer("OVERLAY")
+    end
 end
 
 function Styling:HandleColorPicker(frame)

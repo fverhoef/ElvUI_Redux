@@ -17,8 +17,6 @@ Addon.atlas = {
     },
     borders = {
         ["BeautyCase"] = {
-            scale = 1,
-            offset = {0, 0},
             topLeft = {Addon.media.textures.borders.beautycase, 4, 4, 0, 8 / 64, 0, 8 / 64},
             topRight = {Addon.media.textures.borders.beautycase, 4, 4, 56 / 64, 1, 0, 8 / 64},
             bottomLeft = {Addon.media.textures.borders.beautycase, 4, 4, 0, 8 / 64, 56 / 64, 1},
@@ -29,8 +27,6 @@ Addon.atlas = {
             right = {Addon.media.textures.borders.beautycase, 4, 32, 56 / 64, 1, 8 / 64, 56 / 64}
         },
         ["Cainyx"] = {
-            scale = 1,
-            offset = {0, 0},
             topLeft = {Addon.media.textures.borders.cainyx, 4, 4, 0, 8 / 64, 0, 8 / 64},
             topRight = {Addon.media.textures.borders.cainyx, 4, 4, 56 / 64, 1, 0, 8 / 64},
             bottomLeft = {Addon.media.textures.borders.cainyx, 4, 4, 0, 8 / 64, 56 / 64, 1},
@@ -41,8 +37,6 @@ Addon.atlas = {
             right = {Addon.media.textures.borders.cainyx, 4, 32, 56 / 64, 1, 8 / 64, 56 / 64}
         },
         ["Caith"] = {
-            scale = 1,
-            offset = {0, 0},
             topLeft = {Addon.media.textures.borders.caith, 4, 4, 0, 8 / 64, 0, 8 / 64},
             topRight = {Addon.media.textures.borders.caith, 4, 4, 56 / 64, 1, 0, 8 / 64},
             bottomLeft = {Addon.media.textures.borders.caith, 4, 4, 0, 8 / 64, 56 / 64, 1},
@@ -53,8 +47,6 @@ Addon.atlas = {
             right = {Addon.media.textures.borders.caith, 4, 32, 56 / 64, 1, 8 / 64, 56 / 64}
         },
         ["Diablo"] = {
-            scale = 1,
-            offset = {0, 0},
             topLeft = {Addon.media.textures.borders.diablo, 4, 4, 0, 8 / 64, 0, 8 / 64},
             topRight = {Addon.media.textures.borders.diablo, 4, 4, 56 / 64, 1, 0, 8 / 64},
             bottomLeft = {Addon.media.textures.borders.diablo, 4, 4, 0, 8 / 64, 56 / 64, 1},
@@ -65,8 +57,6 @@ Addon.atlas = {
             right = {Addon.media.textures.borders.diablo, 4, 32, 56 / 64, 1, 8 / 64, 56 / 64}
         },
         ["Entropy"] = {
-            scale = 1,
-            offset = {0, 0},
             topLeft = {Addon.media.textures.borders.entropy, 4, 4, 0, 8 / 64, 0, 8 / 64},
             topRight = {Addon.media.textures.borders.entropy, 4, 4, 56 / 64, 1, 0, 8 / 64},
             bottomLeft = {Addon.media.textures.borders.entropy, 4, 4, 0, 8 / 64, 56 / 64, 1},
@@ -77,8 +67,6 @@ Addon.atlas = {
             right = {Addon.media.textures.borders.entropy, 4, 32, 56 / 64, 1, 8 / 64, 56 / 64}
         },
         ["Goldpaw"] = {
-            scale = 1,
-            offset = {0, 0},
             topLeft = {Addon.media.textures.borders.goldpaw, 4, 4, 0, 8 / 64, 0, 8 / 64},
             topRight = {Addon.media.textures.borders.goldpaw, 4, 4, 56 / 64, 1, 0, 8 / 64},
             bottomLeft = {Addon.media.textures.borders.goldpaw, 4, 4, 0, 8 / 64, 56 / 64, 1},
@@ -89,8 +77,6 @@ Addon.atlas = {
             right = {Addon.media.textures.borders.goldpaw, 4, 32, 56 / 64, 1, 8 / 64, 56 / 64}
         },
         ["Onyx"] = {
-            scale = 1,
-            offset = {0, 0},
             topLeft = {Addon.media.textures.borders.onyx, 4, 4, 0, 8 / 64, 0, 8 / 64},
             topRight = {Addon.media.textures.borders.onyx, 4, 4, 56 / 64, 1, 0, 8 / 64},
             bottomLeft = {Addon.media.textures.borders.onyx, 4, 4, 0, 8 / 64, 56 / 64, 1},
@@ -101,8 +87,6 @@ Addon.atlas = {
             right = {Addon.media.textures.borders.onyx, 4, 32, 56 / 64, 1, 8 / 64, 56 / 64}
         },
         ["Redux"] = {
-            scale = 1,
-            offset = {0, 0},
             topLeft = {Addon.media.textures.borders.redux, 4, 4, 0, 8 / 64, 0, 8 / 64},
             topRight = {Addon.media.textures.borders.redux, 4, 4, 56 / 64, 1, 0, 8 / 64},
             bottomLeft = {Addon.media.textures.borders.redux, 4, 4, 0, 8 / 64, 56 / 64, 1},
@@ -113,8 +97,6 @@ Addon.atlas = {
             right = {Addon.media.textures.borders.redux, 4, 32, 56 / 64, 1, 8 / 64, 56 / 64}
         },
         ["Retina"] = {
-            scale = 1,
-            offset = {0, 0},
             topLeft = {Addon.media.textures.borders.retina, 4, 4, 0, 8 / 64, 0, 8 / 64},
             topRight = {Addon.media.textures.borders.retina, 4, 4, 56 / 64, 1, 0, 8 / 64},
             bottomLeft = {Addon.media.textures.borders.retina, 4, 4, 0, 8 / 64, 56 / 64, 1},
@@ -128,8 +110,6 @@ Addon.atlas = {
     frames = {
         ["Alliance"] = {
             border = {
-                scale = 0.5,
-                offset = {-20, 20},
                 verticalTiling = true,
                 horizontalTiling = true,
                 topLeft = {Addon.media.textures.frames.allianceTopLeft, 166, 166, 0, 166 / 256, 0, 166 / 256},
@@ -145,8 +125,6 @@ Addon.atlas = {
         },
         ["Horde"] = {
             border = {
-                scale = 0.5,
-                offset = {-20, 20},
                 verticalTiling = true,
                 horizontalTiling = true,
                 topLeft = {Addon.media.textures.frames.hordeTopLeft, 166, 166, 0, 166 / 256, 0, 166 / 256},
@@ -162,8 +140,6 @@ Addon.atlas = {
         },
         ["Metal"] = {
             border = {
-                scale = 0.5,
-                offset = {-20, 20},
                 verticalTiling = true,
                 horizontalTiling = true,
                 topLeft = {Addon.media.textures.frames.metalTopLeft, 166, 166, 0, 166 / 256, 0, 166 / 256},
@@ -179,8 +155,6 @@ Addon.atlas = {
         },
         ["Kyrian"] = {
             border = {
-                scale = 0.5,
-                offset = {-20, 20},
                 verticalTiling = true,
                 horizontalTiling = true,
                 topLeft = {Addon.media.textures.frames.kyrianTopLeft, 166, 166, 0, 166 / 256, 0, 166 / 256},
@@ -196,8 +170,6 @@ Addon.atlas = {
         },
         ["Marine"] = {
             border = {
-                scale = 0.5,
-                offset = {-20, 20},
                 verticalTiling = true,
                 horizontalTiling = true,
                 topLeft = {Addon.media.textures.frames.marineTopLeft, 166, 166, 0, 166 / 256, 0, 166 / 256},
@@ -213,8 +185,6 @@ Addon.atlas = {
         },
         ["Mechagon"] = {
             border = {
-                scale = 0.5,
-                offset = {-20, 20},
                 verticalTiling = true,
                 horizontalTiling = true,
                 topLeft = {Addon.media.textures.frames.mechagonTopLeft, 166, 166, 0, 166 / 256, 0, 166 / 256},
@@ -230,8 +200,6 @@ Addon.atlas = {
         },
         ["Necrolord"] = {
             border = {
-                scale = 0.5,
-                offset = {-20, 20},
                 verticalTiling = true,
                 horizontalTiling = true,
                 topLeft = {Addon.media.textures.frames.necrolordTopLeft, 166, 166, 0, 166 / 256, 0, 166 / 256},
@@ -247,8 +215,6 @@ Addon.atlas = {
         },
         ["Neutral"] = {
             border = {
-                scale = 0.5,
-                offset = {-20, 20},
                 verticalTiling = true,
                 horizontalTiling = true,
                 topLeft = {Addon.media.textures.frames.neutralTopLeft, 166, 166, 0, 166 / 256, 0, 166 / 256},
@@ -264,8 +230,6 @@ Addon.atlas = {
         },
         ["NightFae"] = {
             border = {
-                scale = 0.5,
-                offset = {-20, 20},
                 verticalTiling = true,
                 horizontalTiling = true,
                 topLeft = {Addon.media.textures.frames.nightFaeTopLeft, 166, 166, 0, 166 / 256, 0, 166 / 256},
@@ -281,8 +245,6 @@ Addon.atlas = {
         },
         ["Oribos"] = {
             border = {
-                scale = 0.5,
-                offset = {-20, 20},
                 verticalTiling = true,
                 horizontalTiling = true,
                 topLeft = {Addon.media.textures.frames.oribosTopLeft, 166, 166, 0, 166 / 256, 0, 166 / 256},
@@ -298,8 +260,6 @@ Addon.atlas = {
         },
         ["Venthyr"] = {
             border = {
-                scale = 0.5,
-                offset = {-20, 20},
                 verticalTiling = true,
                 horizontalTiling = true,
                 topLeft = {Addon.media.textures.frames.venthyrTopLeft, 166, 166, 0, 166 / 256, 0, 166 / 256},
@@ -316,6 +276,6 @@ Addon.atlas = {
     }
 }
 
-function Addon:GetBorderAtlas(configKey)
-    return Addon.atlas.borders[E.db[addonName].styling.borders[configKey or ""] or E.db[addonName].styling.borders.style]
+function Addon:GetBorderAtlas(styleConfigKey)
+    return Addon.atlas.borders[Addon:GetBorderStyle(styleConfigKey)]
 end

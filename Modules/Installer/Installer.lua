@@ -733,7 +733,7 @@ Installer.InstallerData = {
             _G.PluginInstallFrame.Desc1:SetText("This installation process will guide you through a few steps and apply the " ..
                                                     Addon.title .. " profile.")
             _G.PluginInstallFrame.Desc2:SetText(
-                "NOTE: This installation process is totally optional, the separate modules of the addon will work fine with existing profiles!")
+                "|cffFF0000NOTE|r: This installation process is totally optional, the separate modules of the addon will work fine with existing profiles!")
             _G.PluginInstallFrame.Option1:Show()
             _G.PluginInstallFrame.Option1:SetText("Install")
             _G.PluginInstallFrame.Option1:SetScript("OnClick", function()
@@ -750,9 +750,10 @@ Installer.InstallerData = {
         [2] = function()
             _G.PluginInstallFrame.SubTitle:SetText("Profile")
             _G.PluginInstallFrame.Desc1:SetText("You can either create a new profile for " .. Addon.title ..
-                                                    " or you can use your current profile (NOTE: using existing profiles might give unexpected results!).")
-            _G.PluginInstallFrame.Desc2:SetText("Importance: " .. "High")
-            _G.PluginInstallFrame.Desc3:SetText("Your currently active profile is: " .. E.data:GetCurrentProfile())
+                                                    " or you can use your current profile.\r\r|cffFF0000NOTE|r: using existing profiles might give unexpected results!")
+            _G.PluginInstallFrame.Desc2:SetText("Your currently active profile is: |cffFFFF00" .. E.data:GetCurrentProfile() ..
+                                                    "|r")
+            _G.PluginInstallFrame.Desc3:SetText("Importance: |cffFF0000High|r")
             _G.PluginInstallFrame.Option1:Show()
             _G.PluginInstallFrame.Option1:SetText("Create New")
             _G.PluginInstallFrame.Option1:SetScript("OnClick", function()
@@ -765,7 +766,7 @@ Installer.InstallerData = {
             _G.PluginInstallFrame.SubTitle:SetText("Core Settings")
             _G.PluginInstallFrame.Desc1:SetText("This will install the " .. Addon.title ..
                                                     " layout to the previously selected profile.")
-            _G.PluginInstallFrame.Desc2:SetText("Importance: " .. "Medium")
+            _G.PluginInstallFrame.Desc2:SetText("Importance: |cffFFFF00Medium|r")
             _G.PluginInstallFrame.Option1:Show()
             _G.PluginInstallFrame.Option1:SetText("Install")
             _G.PluginInstallFrame.Option1:SetScript("OnClick", function()
@@ -781,8 +782,8 @@ Installer.InstallerData = {
 
             if E:IsAddOnEnabled("Details") then
                 _G.PluginInstallFrame.Desc1:SetText("This will import the " .. Addon.title .. " Details profile.")
-                _G.PluginInstallFrame.Desc2:SetText("Importance: " .. "Medium")
-                _G.PluginInstallFrame.Desc3:SetText("Details is an AddOn that displays information like damage & healing meters.")
+                _G.PluginInstallFrame.Desc2:SetText("Details is an AddOn that displays information like damage & healing meters.")
+                _G.PluginInstallFrame.Desc3:SetText("Importance: |cffFFFF00Medium|r")
                 _G.PluginInstallFrame.Option1:Show()
                 _G.PluginInstallFrame.Option1:SetText("Setup Details")
                 _G.PluginInstallFrame.Option1:SetScript("OnClick", function()
@@ -800,7 +801,8 @@ Installer.InstallerData = {
             _G.PluginInstallFrame.SubTitle:SetText("Installation Complete")
             _G.PluginInstallFrame.Desc1:SetText("You have completed the installation process.")
             _G.PluginInstallFrame.Desc2:SetText(
-                "Please click the button below in order to finalize the process and automatically reload your UI.")
+                "Please click the 'Finish' button below in order to finalize the process and automatically reload your UI.")
+            _G.PluginInstallFrame.Desc3:SetText("Importance: |cffFF0000High|r")
             _G.PluginInstallFrame.Option1:Show()
             _G.PluginInstallFrame.Option1:SetText("Finish")
             _G.PluginInstallFrame.Option1:SetScript("OnClick", function()
@@ -813,5 +815,5 @@ Installer.InstallerData = {
     StepTitlesColorSelected = {0.921, 0.321, 0.321},
     StepTitleWidth = 200,
     StepTitleButtonWidth = 180,
-    StepTitleTextJustification = "RIGHT"
+    StepTitleTextJustification = "CENTER"
 }

@@ -45,19 +45,22 @@ end
 
 function Addon:OnSettingChanged(setting)
     if setting[1] == "styling" then
-        Addon.Styling:Update()
-    elseif setting[1] == "layout" then
-        if setting[2] ~= "minimapButtonFrame" then
+        local styleConfigKey = setting[2] ~= "enabled" and setting[2]
+        local onlyShadows = setting[3] and setting[3] == "shadow"
+        local onlyBorders = setting[3] and setting[3] == "border"
+        Addon.Styling:Update(styleConfigKey, onlyShadows, onlyBorders)
+    elseif setting[1] == "layout" and setting[2] ~= "tooltips" then
+        if setting[2] == "minimapButtonFrame" then
             if setting[3] == "enabled" then
                 if not E.db[addonName].layout.minimapButtonFrame.enabled then
                     ReloadUI()
                 else
-                    Layout:CreateMinimapButtonFrame()
+                    Addon.Layout:CreateMinimapButtonFrame()
                 end
             else
-                Layout:UpdateMinimapButtonFrame()
+                Addon.Layout:UpdateMinimapButtonFrame()
             end
-        elseif setting[2] ~= "tooltips" then
+        else
             ReloadUI()
         end
     end

@@ -130,7 +130,7 @@ local function RefreshTemplate(frame)
                       frame.isNamePlateElement)
 end
 
-local function UpdateBorder(border, force, styleConfigKey)
+local function UpdateBorder(border, styleConfigKey)
     if not border then
         return
     end
@@ -138,60 +138,16 @@ local function UpdateBorder(border, force, styleConfigKey)
     border.styleConfigKey = styleConfigKey or border.styleConfigKey
 
     local atlas = Addon:GetBorderAtlas(border.styleConfigKey)
+    local scale = Addon:GetBorderScale(border.styleConfigKey) or 1
+    local offset = Addon:GetBorderOffset(border.styleConfigKey)
     local parent = border:GetParent()
     local anchor = border.anchor or parent
 
-    if not E.db[addonName].styling.borders.enabled or not atlas or border.isHidden then
+    if not E.db[addonName].styling.enabled or not atlas or border.isHidden then
         border:Hide()
     else
         border:Show()
 
-        if border.atlas ~= atlas or force then
-            border.atlas = atlas
-
-            border.TopLeft:SetSize(atlas.topLeft[2], atlas.topLeft[3])
-            border.TopLeft:SetTexture(atlas.topLeft[1])
-            border.TopLeft:SetTexCoord(atlas.topLeft[4], atlas.topLeft[5], atlas.topLeft[6], atlas.topLeft[7])
-
-            border.TopRight:SetSize(atlas.topRight[2], atlas.topRight[3])
-            border.TopRight:SetTexture(atlas.topRight[1])
-            border.TopRight:SetTexCoord(atlas.topRight[4], atlas.topRight[5], atlas.topRight[6], atlas.topRight[7])
-
-            border.BottomLeft:SetSize(atlas.bottomLeft[2], atlas.bottomLeft[3])
-            border.BottomLeft:SetTexture(atlas.bottomLeft[1])
-            border.BottomLeft:SetTexCoord(atlas.bottomLeft[4], atlas.bottomLeft[5], atlas.bottomLeft[6], atlas.bottomLeft[7])
-
-            border.BottomRight:SetSize(atlas.bottomRight[2], atlas.bottomRight[3])
-            border.BottomRight:SetTexture(atlas.bottomRight[1])
-            border.BottomRight:SetTexCoord(atlas.bottomRight[4], atlas.bottomRight[5], atlas.bottomRight[6], atlas.bottomRight[7])
-
-            border.Top:SetSize(atlas.top[2], atlas.top[3])
-            border.Top:SetTexture(atlas.top[1], "MIRROR")
-            border.Top:SetTexCoord(atlas.top[4], atlas.top[5], atlas.top[6], atlas.top[7])
-            border.Top:SetHorizTile(atlas.horizontalTiling)
-
-            border.Bottom:SetSize(atlas.bottom[2], atlas.bottom[3])
-            border.Bottom:SetTexture(atlas.bottom[1], "MIRROR")
-            border.Bottom:SetTexCoord(atlas.bottom[4], atlas.bottom[5], atlas.bottom[6], atlas.bottom[7])
-            border.Bottom:SetHorizTile(atlas.horizontalTiling)
-
-            border.Left:SetSize(atlas.left[2], atlas.left[3])
-            border.Left:SetTexture(atlas.left[1], nil, "MIRROR")
-            border.Left:SetTexCoord(atlas.left[4], atlas.left[5], atlas.left[6], atlas.left[7])
-            border.Left:SetVertTile(atlas.verticalTiling)
-
-            border.Right:SetSize(atlas.right[2], atlas.right[3])
-            border.Right:SetTexture(atlas.right[1], nil, "MIRROR")
-            border.Right:SetTexCoord(atlas.right[4], atlas.right[5], atlas.right[6], atlas.right[7])
-            border.Right:SetVertTile(atlas.verticalTiling)
-        end
-
-        local offsetX, offsetY = atlas.offset[1], atlas.offset[2]
-        border:ClearAllPoints()
-        border:SetPoint("TOPLEFT", anchor, "TOPLEFT", offsetX, offsetY)
-        border:SetPoint("BOTTOMRIGHT", anchor, "BOTTOMRIGHT", -offsetX, -offsetY)
-
-        local scale = atlas.scale
         local minWidth = atlas.topLeft[2] + atlas.topRight[2]
         local minHeight = atlas.topLeft[3] + atlas.bottomLeft[3]
 
@@ -203,9 +159,65 @@ local function UpdateBorder(border, force, styleConfigKey)
             scale = parentHeight / minHeight
         end
 
-        if scale ~= border:GetScale() then
-            border:SetScale(scale)
+        if border.atlas ~= atlas then
+            border.atlas = atlas
+            border.scale = scale
+
+            border.TopLeft:SetSize(scale * atlas.topLeft[2], scale * atlas.topLeft[3])
+            border.TopLeft:SetTexture(atlas.topLeft[1])
+            border.TopLeft:SetTexCoord(atlas.topLeft[4], atlas.topLeft[5], atlas.topLeft[6], atlas.topLeft[7])
+
+            border.TopRight:SetSize(scale * atlas.topRight[2], scale * atlas.topRight[3])
+            border.TopRight:SetTexture(atlas.topRight[1])
+            border.TopRight:SetTexCoord(atlas.topRight[4], atlas.topRight[5], atlas.topRight[6], atlas.topRight[7])
+
+            border.BottomLeft:SetSize(scale * atlas.bottomLeft[2], scale * atlas.bottomLeft[3])
+            border.BottomLeft:SetTexture(atlas.bottomLeft[1])
+            border.BottomLeft:SetTexCoord(atlas.bottomLeft[4], atlas.bottomLeft[5], atlas.bottomLeft[6], atlas.bottomLeft[7])
+
+            border.BottomRight:SetSize(scale * atlas.bottomRight[2], scale * atlas.bottomRight[3])
+            border.BottomRight:SetTexture(atlas.bottomRight[1])
+            border.BottomRight:SetTexCoord(atlas.bottomRight[4], atlas.bottomRight[5], atlas.bottomRight[6], atlas.bottomRight[7])
+
+            border.Top:SetSize(scale * atlas.top[2], scale * atlas.top[3])
+            border.Top:SetTexture(atlas.top[1], "MIRROR")
+            border.Top:SetTexCoord(atlas.top[4], atlas.top[5], atlas.top[6], atlas.top[7])
+            border.Top:SetHorizTile(atlas.horizontalTiling)
+
+            border.Bottom:SetSize(scale * atlas.bottom[2], scale * atlas.bottom[3])
+            border.Bottom:SetTexture(atlas.bottom[1], "MIRROR")
+            border.Bottom:SetTexCoord(atlas.bottom[4], atlas.bottom[5], atlas.bottom[6], atlas.bottom[7])
+            border.Bottom:SetHorizTile(atlas.horizontalTiling)
+
+            border.Left:SetSize(scale * atlas.left[2], scale * atlas.left[3])
+            border.Left:SetTexture(atlas.left[1], nil, "MIRROR")
+            border.Left:SetTexCoord(atlas.left[4], atlas.left[5], atlas.left[6], atlas.left[7])
+            border.Left:SetVertTile(atlas.verticalTiling)
+
+            border.Right:SetSize(scale * atlas.right[2], scale * atlas.right[3])
+            border.Right:SetTexture(atlas.right[1], nil, "MIRROR")
+            border.Right:SetTexCoord(atlas.right[4], atlas.right[5], atlas.right[6], atlas.right[7])
+            border.Right:SetVertTile(atlas.verticalTiling)
         end
+
+        if border.scale ~= scale then
+            border.scale = scale
+
+            border.TopLeft:SetSize(scale * atlas.topLeft[2], scale * atlas.topLeft[3])
+            border.TopRight:SetSize(scale * atlas.topRight[2], scale * atlas.topRight[3])
+            border.BottomLeft:SetSize(scale * atlas.bottomLeft[2], scale * atlas.bottomLeft[3])
+            border.BottomRight:SetSize(scale * atlas.bottomRight[2], scale * atlas.bottomRight[3])
+            border.Top:SetSize(scale * atlas.top[2], scale * atlas.top[3])
+            border.Bottom:SetSize(scale * atlas.bottom[2], scale * atlas.bottom[3])
+            border.Left:SetSize(scale * atlas.left[2], scale * atlas.left[3])
+            border.Right:SetSize(scale * atlas.right[2], scale * atlas.right[3])
+        end
+
+        border.offset = offset
+        local offsetX, offsetY = offset and offset[1] or 0, offset and offset[2] or 0
+        border:ClearAllPoints()
+        border:SetPoint("TOPLEFT", anchor, "TOPLEFT", offsetX, offsetY)
+        border:SetPoint("BOTTOMRIGHT", anchor, "BOTTOMRIGHT", -offsetX, -offsetY)
 
         local frameLevel = math.max(parent.shadow and (parent.shadow:GetFrameLevel() + 1) or 2,
                                     border.frameLevel or parent:GetFrameLevel() + 1)
@@ -280,6 +292,7 @@ local function CreateBorder(frame, configKey, anchor, layer)
 
     local border = CreateFrame("Frame", nil, frame)
     border.styleConfigKey = configKey or Addon.STYLE_CONFIG_KEYS.DEFAULT
+    border.scale = 1
 
     border.TopLeft = border:CreateTexture(nil, layer, nil, 2)
     border.TopRight = border:CreateTexture(nil, layer, nil, 2)
@@ -319,7 +332,7 @@ local function CreateBorder(frame, configKey, anchor, layer)
     border.SetColor = SetBorderColor
     border.SetDrawLayer = SetBorderDrawLayer
     border.Update = UpdateBorder
-    border:Update(atlas)
+    border:Update()
 
     frame.border = border
 
@@ -334,21 +347,21 @@ local function GetBorder(frame)
     return frame.border or (frame.backdrop and frame.backdrop.border)
 end
 
-local function UpdateShadow(shadow, force, styleConfigKey)
-    local config = (E.db[addonName][styleConfigKey] and E.db[addonName][styleConfigKey].shadow) or E.db[addonName].styling.shadows
+local function UpdateShadow(shadow, styleConfigKey)
+    shadow.styleConfigKey = styleConfigKey or shadow.styleConfigKey
 
-    if not config.enabled or shadow.isHidden then
+    if not Addon:GetShadowEnabled(shadow.styleConfigKey) or shadow.isHidden then
         shadow:Hide()
     else
         shadow:Show()
 
-        local r, g, b, a = unpack(config.color)
-        local size = config.size or 5
+        local r, g, b, a = unpack(Addon:GetShadowColor(shadow.styleConfigKey))
+        local size = Addon:GetShadowSize(shadow.styleConfigKey) or 5
 
-        if (force or shadow.size ~= size or not shadow.color or shadow.color[1] ~= r or shadow.color[2] ~= g or shadow.color[3] ~=
-            b or shadow.color[4] ~= a) then
-            shadow.color = {r, g, b, a}
+        if (shadow.size ~= size or not shadow.color or shadow.color[1] ~= r or shadow.color[2] ~= g or shadow.color[3] ~= b or
+            shadow.color[4] ~= a) then
             shadow.size = size
+            shadow.color = {r, g, b, a}
 
             shadow:SetBackdrop({edgeFile = LSM:Fetch("border", "ElvUI GlowBorder"), edgeSize = E:Scale(2 + size)})
             shadow:SetBackdropBorderColor(r, g, b, a)
