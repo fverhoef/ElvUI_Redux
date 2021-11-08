@@ -118,7 +118,7 @@ function Styling:HandleDropDownBox(frame)
 
     local name = frame.GetName and frame:GetName()
     local button = frame.Button or (name and (_G[name .. "Button"] or _G[name .. "_Button"])) or (frame.obj and frame.obj.button)
-    if button then
+    if button and button.backdrop then
         button.backdrop:Hide()
     end
 end

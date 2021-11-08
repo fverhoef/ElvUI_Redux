@@ -1,11 +1,11 @@
-## Interface: 20501
+## Interface: 20502
 ## Author: Neya
-## Version: 0.14
+## Version: 0.15
 ## Title: |cff1784d1ElvUI|r |cff03D3FFRedux|r
 ## Notes: Adds styling and custom layouts to ElvUI.
 ## RequiredDeps: ElvUI
 ## OptionalDeps: AddOnSkins
 ## DefaultState: Enabled
-## X-ElvuiVersion: 2.10
+## X-ElvuiVersion: 2.21
 
 ElvUI_Redux.xml

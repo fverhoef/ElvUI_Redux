@@ -76,6 +76,10 @@ function Styling:HandleTab(tab, noBackdrop, orientation)
     Styling:ApplyStyle(tab, Addon.STYLE_CONFIG_KEYS.TAB)
 
     local border = tab:GetBorder()
+    if not border then
+        return
+    end
+    
     local parent = border:GetParent()
 
     if orientation == "UP" then

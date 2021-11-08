@@ -95,8 +95,8 @@ local function SetTemplate(frame, template, glossTex, ignoreUpdates, forcePixelM
             insets = {left = 2, right = 2, top = 2, bottom = 2}
         })
 
-        local shadow = frame:CreateShadow(Addon.STYLE_CONFIG_KEYS.DEFAULT)
-        local border = frame:CreateBorder(Addon.STYLE_CONFIG_KEYS.DEFAULT)
+        local shadow = frame:CreateShadow(false, Addon.STYLE_CONFIG_KEYS.DEFAULT)
+        local border = frame:CreateBorder(false, Addon.STYLE_CONFIG_KEYS.DEFAULT)
 
         local borderColor, backdropColor = GetTemplate(template, isUnitFrameElement)
 
@@ -373,11 +373,11 @@ local function UpdateShadow(shadow, styleConfigKey)
     end
 end
 
-local function CreateShadow(frame, configKey)
+local function CreateShadow(frame, pass, configKey)
     if not frame then
         return
     end
-    if frame.shadow then
+    if frame.shadow and not pass then
         return frame.shadow
     end
 
@@ -389,7 +389,9 @@ local function CreateShadow(frame, configKey)
     shadow.Update = UpdateShadow
     shadow:Update()
 
-    frame.shadow = shadow
+    if not pass then
+        frame.shadow = shadow
+    end
 
     return shadow
 end

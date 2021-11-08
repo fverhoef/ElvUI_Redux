@@ -414,7 +414,9 @@ function Styling:SkinMailFrame()
 
         Styling:HandleButton(mail)
         Styling:HandleButton(mail.bg)
-        RaiseFrameLevelByTwo(mail.bg)
+        if mail.bg then
+            RaiseFrameLevelByTwo(mail.bg)
+        end
     end
 
     -- Send mail
