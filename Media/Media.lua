@@ -102,7 +102,7 @@ Addon.media = {
             redux = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\StatusBars\\Redux"
         },
 
-        arrowUp_ElvUI = "Interface\\Addons\\ElvUI\\Media\\Textures\\ArrowUp",
+        arrowUp_ElvUI = "Interface\\Addons\\ElvUI\\Core\\Media\\Textures\\ArrowUp",
         minimapButtonBorder1 = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\MinimapButtonBorder1",
         minimapButtonBorder2 = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\MinimapButtonBorder2",
         minimapMask1 = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\MinimapMask1",
