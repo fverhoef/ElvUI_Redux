@@ -1,6 +1,6 @@
 local addonName, addonTable = ...
 local Addon = addonTable[1]
-local Layout = Addon.Layout
+local Layout = Addon.Layout.TBC
 local E, L, V, P, G = unpack(ElvUI)
 local S = E:GetModule("Skins")
 

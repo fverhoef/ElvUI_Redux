@@ -1,6 +1,6 @@
 local addonName, addonTable = ...
 local Addon = addonTable[1]
-local Layout = Addon.Layout
+local Layout = Addon.Layout.TBC
 local E, L, V, P, G = unpack(ElvUI)
 local S = E:GetModule("Skins")
 
@@ -38,13 +38,14 @@ function Layout:LayoutClassTrainerFrame()
         button:SetPoint("TOPLEFT", _G["ClassTrainerSkill" .. (i - 1)], "BOTTOMLEFT", 0, 1)
 
         -- apply ElvUI styling
-        local highlight = _G["TradeSkillSkill" .. i .. "Highlight"]
-
         button:GetNormalTexture():Size(14)
         button:GetNormalTexture():SetPoint("LEFT", 2, 1)
 
-        highlight:SetTexture("")
-        highlight.SetTexture = E.noop
+        local highlight = _G["TradeSkillSkill" .. i .. "Highlight"]
+        if highlight then
+            highlight:SetTexture("")
+            highlight.SetTexture = E.noop
+        end
     end
 
     Layout:SecureHook("ClassTrainer_SetToTradeSkillTrainer", function()

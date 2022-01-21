@@ -1,5 +1,3 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
     <Script file="Styling.lua"/>
-    <Include file="TBC\Styling.xml"/>
-    <Include file="Elements\Elements.xml"/>
 </Ui>
