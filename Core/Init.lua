@@ -37,6 +37,10 @@ function Addon:Initialize()
             _G.CUSTOM_CLASS_COLORS["SHAMAN"] = {r = 0.0, g = 0.44, b = 0.87}
         end
     end
+
+    if not Addon.isRetail then
+        SetCVar("chatClassColorOverride", 0)
+    end
 end
 
 function Addon:Update()

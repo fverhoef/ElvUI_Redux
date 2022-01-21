@@ -700,6 +700,17 @@ function Installer:SetupPlugins()
         E.db["ElvUI_FlyoutBars"]["bars"]["Shaman Bar"]["buttonSpacing"] = 2
         E.db["movers"]["ElvUI_FlyoutBars_Shaman BarMover"] = "BOTTOM,ElvUIParent,BOTTOM,450,4"
     end
+    if E.db["ElvUI_Cooldowns"] then
+        E.db["ElvUI_Cooldowns"]["bars"]["Mage Bar"]["backdrop"] = false
+        E.db["ElvUI_Cooldowns"]["bars"]["Mage Bar"]["backdropSpacing"] = 2
+        E.db["ElvUI_Cooldowns"]["bars"]["Mage Bar"]["buttonSpacing"] = 2
+        E.db["movers"]["ElvUI_Cooldowns_Mover"] = "BOTTOM,ElvUIParent,BOTTOM,450,4"
+
+        E.db["ElvUI_Cooldowns"]["bars"]["Shaman Bar"]["backdrop"] = false
+        E.db["ElvUI_Cooldowns"]["bars"]["Shaman Bar"]["backdropSpacing"] = 2
+        E.db["ElvUI_Cooldowns"]["bars"]["Shaman Bar"]["buttonSpacing"] = 2
+        E.db["movers"]["ElvUI_Cooldowns_Mover"] = "BOTTOM,ElvUIParent,BOTTOM,450,4"
+    end
 end
 
 function Installer:Show()

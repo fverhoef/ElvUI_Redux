@@ -707,7 +707,7 @@ function Addon:GetBorderEnabled(styleConfigKey)
     if not config or config.border.enabled == nil then
         config = E.db[addonName].styling.default
     end
-    return config.border.enabled
+    return config and config.border.enabled
 end
 
 function Addon:GetBorderStyle(styleConfigKey)
@@ -715,7 +715,7 @@ function Addon:GetBorderStyle(styleConfigKey)
     if not config or not config.border.style then
         config = E.db[addonName].styling.default
     end
-    return config.border.style
+    return config and config.border.style
 end
 
 function Addon:GetBorderScale(styleConfigKey)
@@ -723,7 +723,7 @@ function Addon:GetBorderScale(styleConfigKey)
     if not config or not config.border.scale then
         config = E.db[addonName].styling.default
     end
-    return config.border.scale
+    return config and config.border.scale
 end
 
 function Addon:GetBorderOffset(styleConfigKey)
@@ -731,7 +731,7 @@ function Addon:GetBorderOffset(styleConfigKey)
     if not config or not config.border.offset then
         config = E.db[addonName].styling.default
     end
-    return config.border.offset
+    return config and config.border.offset
 end
 
 function Addon:GetShadowEnabled(styleConfigKey)
@@ -739,7 +739,7 @@ function Addon:GetShadowEnabled(styleConfigKey)
     if not config or config.shadow.enabled == nil then
         config = E.db[addonName].styling.default
     end
-    return config.shadow.enabled
+    return config and config.shadow.enabled
 end
 
 function Addon:GetShadowColor(styleConfigKey)
@@ -747,7 +747,7 @@ function Addon:GetShadowColor(styleConfigKey)
     if not config or config.shadow.color == nil then
         config = E.db[addonName].styling.default
     end
-    return config.shadow.color
+    return config and config.shadow.color
 end
 
 function Addon:GetShadowSize(styleConfigKey)
@@ -755,5 +755,5 @@ function Addon:GetShadowSize(styleConfigKey)
     if not config or config.shadow.size == nil then
         config = E.db[addonName].styling.default
     end
-    return config.shadow.size
+    return config and config.shadow.size
 end
