@@ -3,6 +3,8 @@
     <Script file="CharacterFrame.lua"/>
     <Script file="ClassTrainerFrame.lua"/>
     <Script file="FriendsFrame.lua"/>
+    <Script file="InspectFrame.lua"/>
     <Script file="QuestLogFrame.lua"/>
+    <Script file="TalentFrame.lua"/>
     <Script file="TradeSkillFrame.lua"/>
 </Ui>

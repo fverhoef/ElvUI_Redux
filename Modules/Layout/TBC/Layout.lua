@@ -17,7 +17,11 @@ function Layout:Initialize()
 end
 
 function Layout:ADDON_LOADED(addonName)
-    if addonName == "Blizzard_TradeSkillUI" then
+    if addonName == "Blizzard_InspectUI" then
+        Layout:ScheduleTimer("LayoutInspectFrame", 0.01)
+    elseif addonName == "Blizzard_TalentUI" then
+        Layout:ScheduleTimer("LayoutTalentFrame", 0.01)
+    elseif addonName == "Blizzard_TradeSkillUI" then
         Layout:ScheduleTimer("LayoutTradeSkillFrame", 0.01)
     elseif addonName == "Blizzard_TrainerUI" then
         Layout:ScheduleTimer("LayoutClassTrainerFrame", 0.01)

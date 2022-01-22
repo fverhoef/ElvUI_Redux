@@ -9,6 +9,7 @@ function Layout:Initialize()
         Layout:CreateMinimapButtonFrame()
     end
 
+    Layout:LayoutBags()
     Layout:HookTooltips()
 
     if Addon.Layout.TBC then
