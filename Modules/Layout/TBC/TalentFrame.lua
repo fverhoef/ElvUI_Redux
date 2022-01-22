@@ -1,5 +1,9 @@
 local addonName, addonTable = ...
 local Addon = addonTable[1]
+if not Addon.isTbc then
+    return
+end
+
 local Layout = Addon.Layout.TBC
 local E, L, V, P, G = unpack(ElvUI)
 

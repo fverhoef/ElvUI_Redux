@@ -1,6 +1,5 @@
 local addonName, addonTable = ...
 local Addon = addonTable[1]
-
 if not Addon.isTbc then
     return
 end
