@@ -436,71 +436,8 @@ function Addon:InsertOptions()
         childGroups = "tab",
         args = {
             name = {order = 1, type = "header", name = Addon.title},
-            layout = {
-                order = 10,
-                type = "group",
-                name = L["Layout"],
-                args = {
-                    frameCustomization = {
-                        order = 10,
-                        type = "group",
-                        name = L["Frame Customization"],
-                        inline = true,
-                        args = {
-                            characterFrame = CreateToggleOption(L["Retail-style Character Frame"], nil, 1, "full",
-                                                                {"layout", "characterFrame", "enabled"}),
-                            classTrainerFrame = CreateToggleOption(L["Larger Trainer Frame"], nil, 2, "full",
-                                                                   {"layout", "classTrainerFrame", "enabled"}),
-                            tradeSkillFrame = CreateToggleOption(L["Larger Profession Frame"], nil, 3, "full",
-                                                                 {"layout", "tradeSkillFrame", "enabled"}),
-                            questLogFrame = CreateToggleOption(L["Larger Quest Log"], nil, 4, "full",
-                                                               {"layout", "questLogFrame", "enabled"}),
-                            guildMemberDetailFrame = CreateToggleOption(L["Add Icons to Guild Member Frame"], nil, 5, "full",
-                                                                        {"layout", "guildMemberDetailFrame", "enabled"})
-                        }
-                    },
-                    minimapButtonFrame = {
-                        order = 20,
-                        type = "group",
-                        name = L["Minimap Button Frame"],
-                        inline = true,
-                        args = {
-                            enabled = CreateToggleOption(L["Enabled"], nil, 1, nil, {"layout", "minimapButtonFrame", "enabled"}),
-                            lineBreak = {type = "header", name = "", order = 2},
-                            iconSize = CreateRangeOption(L["Icon Size"], nil, 11, 4, 100, 1,
-                                                         {"layout", "minimapButtonFrame", "iconSize"}),
-                            buttonSpacing = CreateRangeOption(L["Button Spacing"], nil, 12, 0, 10, 1,
-                                                              {"layout", "minimapButtonFrame", "buttonSpacing"}),
-                            buttonsPerRow = CreateRangeOption(L["Buttons per Row"], nil, 13, 1, 50, 1,
-                                                              {"layout", "minimapButtonFrame", "buttonsPerRow"})
-                        }
-                    },
-                    tooltips = {
-                        order = 40,
-                        type = "group",
-                        name = L["Tooltips"],
-                        inline = true,
-                        args = {
-                            enabled = CreateToggleOption(L["Enabled"], nil, 1, nil, {"layout", "tooltips", "enabled"}),
-                            lineBreak = {type = "header", name = "", order = 2},
-                            showIcons = CreateToggleOption(L["Show Icons"], nil, 10, "full", {"layout", "tooltips", "showIcons"},
-                                                           false, function()
-                                return not GetOptionValue({"layout", "tooltips", "enabled"})
-                            end),
-                            showVendorPrice = CreateToggleOption(L["Show Vendor Price"], nil, 11, "full",
-                                                                 {"layout", "tooltips", "showVendorPrice"}, false, function()
-                                return not GetOptionValue({"layout", "tooltips", "enabled"})
-                            end),
-                            showItemLevel = CreateToggleOption(L["Show Item Level"], nil, 12, "full",
-                                                               {"layout", "tooltips", "showItemLevel"}, false, function()
-                                return not GetOptionValue({"layout", "tooltips", "enabled"})
-                            end)
-                        }
-                    }
-                }
-            },
             styling = {
-                order = 20,
+                order = 10,
                 type = "group",
                 name = L["Styling"],
                 args = {
@@ -511,22 +448,17 @@ function Addon:InsertOptions()
                         name = L["Default Style"],
                         inline = true,
                         args = {
-                            borderEnabled = CreateToggleOption(L["Enable Border"], nil, 1, nil,
-                                                               {"styling", "default", "border", "enabled"}),
+                            borderEnabled = CreateToggleOption(L["Enable Border"], nil, 1, nil, {"styling", "default", "border", "enabled"}),
                             lineBreak1 = {type = "description", name = "", order = 2},
                             borderStyle = CreateBorderStyleOption(L["Border Theme"], 3, {"styling", "default", "border", "style"}),
-                            borderScale = CreateRangeOption(L["Border Scale"], nil, 4, 0.5, 4, 0.1,
-                                                            {"styling", "default", "border", "scale"}),
+                            borderScale = CreateRangeOption(L["Border Scale"], nil, 4, 0.5, 4, 0.1, {"styling", "default", "border", "scale"}),
                             shadowHeader = {type = "header", name = "", order = 10},
-                            shadowEnabled = CreateToggleOption(L["Enable Shadow"], nil, 11, nil,
-                                                               {"styling", "default", "shadow", "enabled"}),
+                            shadowEnabled = CreateToggleOption(L["Enable Shadow"], nil, 11, nil, {"styling", "default", "shadow", "enabled"}),
                             lineBreak2 = {type = "description", name = "", order = 12},
                             shadowColor = CreateColorOption(L["Shadow Color"], 13, {"styling", "default", "shadow", "color"}),
-                            shadowSize = CreateRangeOption(L["Shadow Size"], nil, 14, 3, 30, 1,
-                                                           {"styling", "default", "shadow", "size"}),
+                            shadowSize = CreateRangeOption(L["Shadow Size"], nil, 14, 3, 30, 1, {"styling", "default", "shadow", "size"}),
                             lineBreak3 = {type = "description", name = "", order = 15},
-                            shadowPerButton = CreateToggleOption(L["Shadow Per Button"], nil, 16, nil,
-                                                                 {"styling", "default", "shadow", "shadowPerButton"})
+                            shadowPerButton = CreateToggleOption(L["Shadow Per Button"], nil, 16, nil, {"styling", "default", "shadow", "shadowPerButton"})
                         }
                     },
                     lineBreak1 = {type = "header", name = "Style Overrides", order = 10},
@@ -552,8 +484,7 @@ function Addon:InsertOptions()
                             microButton = CreateStyleGroup(L["Micro Button Style"], 3, STYLE_CONFIG_KEYS.MICRO_BUTTON),
                             itemButton = CreateStyleGroup(L["Item Button Style"], 4, STYLE_CONFIG_KEYS.ITEM_BUTTON),
                             talentButton = CreateStyleGroup(L["Talent Button Style"], 5, STYLE_CONFIG_KEYS.TALENT_BUTTON),
-                            raidUtilityButton = CreateStyleGroup(L["Raid Utility Button Style"], 6,
-                                                                 STYLE_CONFIG_KEYS.RAID_UTILITY_BUTTON),
+                            raidUtilityButton = CreateStyleGroup(L["Raid Utility Button Style"], 6, STYLE_CONFIG_KEYS.RAID_UTILITY_BUTTON),
                             bagSlot = CreateStyleGroup(L["Bag Slot Style"], 7, STYLE_CONFIG_KEYS.BAG_SLOT),
                             bagBar = CreateStyleGroup(L["Bag Button Style"], 8, STYLE_CONFIG_KEYS.BAG_BAR),
                             icon = CreateStyleGroup(L["Icon Style"], 9, STYLE_CONFIG_KEYS.ICON),
@@ -570,8 +501,7 @@ function Addon:InsertOptions()
                             colorPicker = CreateStyleGroup(L["Color Picker Style"], 3, STYLE_CONFIG_KEYS.COLOR_PICKER),
                             dropDownBox = CreateStyleGroup(L["Dropdown Box Style"], 4, STYLE_CONFIG_KEYS.DROP_DOWN_BOX),
                             dropDownList = CreateStyleGroup(L["Dropdown List Style"], 5, STYLE_CONFIG_KEYS.DROP_DOWN_LIST),
-                            dropDownListButton = CreateStyleGroup(L["Dropdown List Button Style"], 6,
-                                                                  STYLE_CONFIG_KEYS.DROP_DOWN_LIST_BUTTON),
+                            dropDownListButton = CreateStyleGroup(L["Dropdown List Button Style"], 6, STYLE_CONFIG_KEYS.DROP_DOWN_LIST_BUTTON),
                             editBox = CreateStyleGroup(L["Editbox Style"], 7, STYLE_CONFIG_KEYS.EDIT_BOX),
                             radioButton = CreateStyleGroup(L["Radio Button Style"], 8, STYLE_CONFIG_KEYS.RADIO_BUTTON),
                             scrollBar = CreateStyleGroup(L["Scrollbar Style"], 9, STYLE_CONFIG_KEYS.SCROLL_BAR),
@@ -620,6 +550,59 @@ function Addon:InsertOptions()
                     }
                 }
             },
+            layout = {
+                order = 20,
+                type = "group",
+                name = L["Layout"],
+                args = {
+                    frameCustomization = {
+                        order = 10,
+                        type = "group",
+                        name = L["Frame Customization"],
+                        inline = true,
+                        hidden = Addon.isRetail,
+                        args = {
+                            characterFrame = CreateToggleOption(L["Retail-style Character Frame"], nil, 1, "full", {"layout", "characterFrame", "enabled"}),
+                            classTrainerFrame = CreateToggleOption(L["Larger Trainer Frame"], nil, 2, "full", {"layout", "classTrainerFrame", "enabled"}),
+                            tradeSkillFrame = CreateToggleOption(L["Larger Profession Frame"], nil, 3, "full", {"layout", "tradeSkillFrame", "enabled"}),
+                            questLogFrame = CreateToggleOption(L["Larger Quest Log"], nil, 4, "full", {"layout", "questLogFrame", "enabled"}),
+                            guildMemberDetailFrame = CreateToggleOption(L["Add Icons to Guild Member Frame"], nil, 5, "full", {"layout", "guildMemberDetailFrame", "enabled"})
+                        }
+                    },
+                    minimapButtonFrame = {
+                        order = 20,
+                        type = "group",
+                        name = L["Minimap Button Frame"],
+                        inline = true,
+                        args = {
+                            enabled = CreateToggleOption(L["Enabled"], nil, 1, nil, {"layout", "minimapButtonFrame", "enabled"}),
+                            lineBreak = {type = "header", name = "", order = 2},
+                            iconSize = CreateRangeOption(L["Icon Size"], nil, 11, 4, 100, 1, {"layout", "minimapButtonFrame", "iconSize"}),
+                            buttonSpacing = CreateRangeOption(L["Button Spacing"], nil, 12, 0, 10, 1, {"layout", "minimapButtonFrame", "buttonSpacing"}),
+                            buttonsPerRow = CreateRangeOption(L["Buttons per Row"], nil, 13, 1, 50, 1, {"layout", "minimapButtonFrame", "buttonsPerRow"})
+                        }
+                    },
+                    tooltips = {
+                        order = 40,
+                        type = "group",
+                        name = L["Tooltips"],
+                        inline = true,
+                        args = {
+                            enabled = CreateToggleOption(L["Enabled"], nil, 1, nil, {"layout", "tooltips", "enabled"}),
+                            lineBreak = {type = "header", name = "", order = 2},
+                            showIcons = CreateToggleOption(L["Show Icons"], nil, 10, "full", {"layout", "tooltips", "showIcons"}, false, function() 
+                                return not GetOptionValue({"layout", "tooltips", "enabled"})
+                            end),
+                            showVendorPrice = CreateToggleOption(L["Show Vendor Price"], nil, 11, "full", {"layout", "tooltips", "showVendorPrice"}, false, function()
+                                return not GetOptionValue({"layout", "tooltips", "enabled"})
+                            end),
+                            showItemLevel = CreateToggleOption(L["Show Item Level"], nil, 12, "full", {"layout", "tooltips", "showItemLevel"}, false, function()
+                                return not GetOptionValue({"layout", "tooltips", "enabled"})
+                            end)
+                        }
+                    }
+                }
+            },
             installer = {
                 order = 100,
                 type = "group",
@@ -642,62 +625,62 @@ function Addon:InsertOptions()
     E.Options.args[addonName] = options
 end
 
-function Addon:GetStyleConfig(styleConfigKey)
-    return E.db[addonName].styling[styleConfigKey] or E.db[addonName].styling.default
+function Addon:GetBorderConfig(styleConfigKey)
+    local config = E.db[addonName].styling[styleConfigKey]
+    return (config and config.border) or Addon:GetDefaultBorderConfig()
+end
+
+function Addon:GetDefaultBorderConfig()
+    return (E.db[addonName].styling.default and E.db[addonName].styling.default.border) or P[addonName].styling.default.border
+end
+
+function Addon:GetBorderSetting(styleConfigKey, setting)
+    local config = Addon:GetBorderConfig(styleConfigKey)
+    if config == nil then return end
+    if config[setting] == nil then config = Addon:GetDefaultBorderConfig() end
+    return config and config[setting]
 end
 
 function Addon:GetBorderEnabled(styleConfigKey)
-    local config = E.db[addonName].styling[styleConfigKey]
-    if not config or config.border.enabled == nil then
-        config = E.db[addonName].styling.default
-    end
-    return config and config.border.enabled
+    return Addon:GetBorderSetting(styleConfigKey, "enabled")
 end
 
 function Addon:GetBorderStyle(styleConfigKey)
-    local config = E.db[addonName].styling[styleConfigKey]
-    if not config or not config.border.style then
-        config = E.db[addonName].styling.default
-    end
-    return config and config.border.style
+    return Addon:GetBorderSetting(styleConfigKey, "style")
 end
 
 function Addon:GetBorderScale(styleConfigKey)
-    local config = E.db[addonName].styling[styleConfigKey]
-    if not config or not config.border.scale then
-        config = E.db[addonName].styling.default
-    end
-    return config and config.border.scale
+    return Addon:GetBorderSetting(styleConfigKey, "scale")
 end
 
 function Addon:GetBorderOffset(styleConfigKey)
+    return Addon:GetBorderSetting(styleConfigKey, "offset")
+end
+
+function Addon:GetShadowConfig(styleConfigKey)
     local config = E.db[addonName].styling[styleConfigKey]
-    if not config or not config.border.offset then
-        config = E.db[addonName].styling.default
-    end
-    return config and config.border.offset
+    return (config and config.shadow) or Addon:GetDefaultShadowConfig()
+end
+
+function Addon:GetDefaultShadowConfig()
+    return (E.db[addonName].styling.default and E.db[addonName].styling.default.shadow) or P[addonName].styling.default.shadow
+end
+
+function Addon:GetShadowSetting(styleConfigKey, setting)
+    local config = Addon:GetShadowConfig(styleConfigKey)
+    if config == nil then return end
+    if config[setting] == nil then config = Addon:GetDefaultShadowConfig() end
+    return config and config[setting]
 end
 
 function Addon:GetShadowEnabled(styleConfigKey)
-    local config = E.db[addonName].styling[styleConfigKey]
-    if not config or config.shadow.enabled == nil then
-        config = E.db[addonName].styling.default
-    end
-    return config and config.shadow.enabled
+    return Addon:GetShadowSetting(styleConfigKey, "enabled")
 end
 
 function Addon:GetShadowColor(styleConfigKey)
-    local config = E.db[addonName].styling[styleConfigKey]
-    if not config or config.shadow.color == nil then
-        config = E.db[addonName].styling.default
-    end
-    return config and config.shadow.color
+    return Addon:GetShadowSetting(styleConfigKey, "color")
 end
 
 function Addon:GetShadowSize(styleConfigKey)
-    local config = E.db[addonName].styling[styleConfigKey]
-    if not config or config.shadow.size == nil then
-        config = E.db[addonName].styling.default
-    end
-    return config and config.shadow.size
+    return Addon:GetShadowSetting(styleConfigKey, "size")
 end
