@@ -27,7 +27,7 @@ function Styling:HandleDataPanel(panel)
     end
 
     local border = panel:GetBorder()
-    if shadow then
+    if border then
         border.isHidden = isBackdropHidden
         border:Update()
     end
