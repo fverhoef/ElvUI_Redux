@@ -11,14 +11,6 @@ function Layout:HookTooltips()
     Layout:HookSetSpell(_G.GameTooltip)
     Layout:HookSetSpell(_G.ItemRefTooltip)
 
-    ElvDB.items = ElvDB.items or {}
-    ElvDB.items[E.myrealm] = ElvDB.items[E.myrealm] or {}
-
-    if E.db[addonName].layout.tooltips.showItemCount then
-        -- disable built-in item counts
-        E.db.tooltip.itemCount = "NONE"
-    end
-
     Layout:SecureHook(TT, "GameTooltip_SetDefaultAnchor", function(self, tt, parent)
         Layout:GameTooltip_SetDefaultAnchor(tt, parent)
     end)
@@ -99,49 +91,6 @@ local function AddIcon(tooltip, icon)
     end
 end
 
-local function AddItemCount(tooltip, itemId)
-    if not itemId or not E.db[addonName].layout.tooltips.showItemCount then
-        return
-    end
-    if not ElvDB or not ElvDB.items or not ElvDB.items.realm or not ElvDB.items.realm[E.myrealm] then
-        return
-    end
-    
-    -- disable built-in item counts
-    E.db.tooltip.itemCount = "NONE"
-
-    if Addon.InventoryDatabase then
-        Addon.InventoryDatabase:UpdateItemCount(itemId)
-    end
-
-    local characterDatabase = ElvDB.items.realm[E.myrealm].character
-    for name, char in next, characterDatabase do
-        local bagCount = char.bags and char.bags[itemId] or 0
-        local bankCount = char.bank and char.bank[itemId] or 0
-        local equippedCount = char.equipped and char.equipped[itemId] or 0
-        if bagCount > 0 or bankCount > 0 or equippedCount > 0 then
-            local value = ""
-            if equippedCount > 0 then
-                value = L["Equipped"] .. ": " .. equippedCount
-            end
-            if bagCount > 0 then
-                if value ~= "" then
-                    value = value .. " | "
-                end
-                value = value .. L["Bags"] .. ": " .. bagCount
-            end
-            if bankCount > 0 then
-                if value ~= "" then
-                    value = value .. " | "
-                end
-                value = value .. L["Bank"] .. ": " .. bankCount
-            end
-
-            tooltip:AddDoubleLine(Addon:Hex(RAID_CLASS_COLORS[char.class or "PRIEST"]) .. name .. "|r:", value)
-        end
-    end
-end
-
 local function AddItemLevel(tooltip, itemLevel)
     if E.db[addonName].layout.tooltips.showItemLevel and itemLevel then
         tooltip:AddLine(L["Item Level"] .. " " .. itemLevel, unpack(E.db[addonName].layout.tooltips.colors.itemLevel))
@@ -188,11 +137,6 @@ function Layout:HookSetItem(tip)
                 AddItemLevel(tooltip, itemLevel)
             end
             AddVendorPrice(tooltip, sellPrice, classID)
-
-            local itemId = Addon:GetItemIdFromLink(itemLink)
-            if itemId then
-                AddItemCount(tooltip, itemId)
-            end
 
             tooltip:Show()
         end

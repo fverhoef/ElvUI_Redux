@@ -116,19 +116,6 @@ Addon.FRAME_BORDERS = FRAME_BORDERS
 Addon.STYLE_CONFIG_KEYS = STYLE_CONFIG_KEYS
 
 P[addonName] = {
-    automation = {
-        enabled = true,
-        fastLoot = true,
-        standDismount = true,
-        acceptSummon = false,
-        acceptResurrection = true,
-        disableLootRollConfirmation = true,
-        disableLootBindConfirmation = true,
-        disableVendorRefundWarning = true,
-        disableMailRefundWarning = true,
-        autoInvite = true,
-        autoInvitePassword = "inv"
-    },
     layout = {
         characterFrame = {enabled = true},
         classTrainerFrame = {enabled = true},
@@ -139,7 +126,6 @@ P[addonName] = {
         tooltips = {
             enabled = true,
             showIcons = true,
-            showItemCount = true,
             showVendorPrice = true,
             showItemLevel = false,
             colors = {itemLevel = {220 / 255, 195 / 255, 30 / 255}}
@@ -450,46 +436,8 @@ function Addon:InsertOptions()
         childGroups = "tab",
         args = {
             name = {order = 1, type = "header", name = Addon.title},
-            automation = {
-                order = 10,
-                type = "group",
-                name = L["Automation"],
-                args = {
-                    enabled = CreateToggleOption(L["Enabled"], nil, 1, nil, {"automation", "enabled"}),
-                    lineBreak = {type = "header", name = "", order = 2},
-                    fastLoot = CreateToggleOption(L["Faster Auto-Loot"], nil, 10, "full", {"automation", "fastLoot"}),
-                    standDismount = CreateToggleOption(L["Auto Stand/Dismount"], nil, 11, "full", {"automation", "standDismount"}),
-                    acceptSummon = CreateToggleOption(L["Accept Summons"], nil, 12, "full", {"automation", "acceptSummon"}),
-                    acceptResurrection = CreateToggleOption(L["Accept Resurrection"], nil, 13, "full",
-                                                            {"automation", "acceptResurrection"}),
-                    disableLootBindConfirmation = CreateToggleOption(L["Disable Bind on Pickup Confirmation"], nil, 14, "full",
-                                                                     {"automation", "disableLootBindConfirmation"}),
-                    disableLootRollConfirmation = CreateToggleOption(L["Disable Loot Roll Confirmation"], nil, 15, "full",
-                                                                     {"automation", "disableLootRollConfirmation"}),
-                    disableVendorRefundWarning = CreateToggleOption(L["Disable Vendor Refund Warning"], nil, 16, "full",
-                                                                    {"automation", "disableVendorRefundWarning"}),
-                    disableMailRefundWarning = CreateToggleOption(L["Disable Mail Refund Warning"], nil, 17, "full",
-                                                                  {"automation", "disableMailRefundWarning"}),
-                    autoInvite = CreateToggleOption(L["Auto Invite"], nil, 18, "full", {"automation", "autoInvite"}),
-                    autoInvitePassword = {
-                        type = "input",
-                        name = L["Auto Invite Password"],
-                        order = 22,
-                        width = "full",
-                        disabled = function()
-                            return not E.db[addonName].automation.autoInvite
-                        end,
-                        get = function()
-                            return E.db[addonName].automation.autoInvitePassword
-                        end,
-                        set = function(_, val)
-                            E.db[addonName].automation.autoInvitePassword = val
-                        end
-                    }
-                }
-            },
             layout = {
-                order = 20,
+                order = 10,
                 type = "group",
                 name = L["Layout"],
                 args = {
@@ -539,15 +487,11 @@ function Addon:InsertOptions()
                                                            false, function()
                                 return not GetOptionValue({"layout", "tooltips", "enabled"})
                             end),
-                            showItemCount = CreateToggleOption(L["Show Item Count"], nil, 11, "full",
-                                                               {"layout", "tooltips", "showItemCount"}, false, function()
-                                return not GetOptionValue({"layout", "tooltips", "enabled"})
-                            end),
-                            showVendorPrice = CreateToggleOption(L["Show Vendor Price"], nil, 12, "full",
+                            showVendorPrice = CreateToggleOption(L["Show Vendor Price"], nil, 11, "full",
                                                                  {"layout", "tooltips", "showVendorPrice"}, false, function()
                                 return not GetOptionValue({"layout", "tooltips", "enabled"})
                             end),
-                            showItemLevel = CreateToggleOption(L["Show Item Level"], nil, 13, "full",
+                            showItemLevel = CreateToggleOption(L["Show Item Level"], nil, 12, "full",
                                                                {"layout", "tooltips", "showItemLevel"}, false, function()
                                 return not GetOptionValue({"layout", "tooltips", "enabled"})
                             end)
@@ -556,7 +500,7 @@ function Addon:InsertOptions()
                 }
             },
             styling = {
-                order = 30,
+                order = 20,
                 type = "group",
                 name = L["Styling"],
                 args = {

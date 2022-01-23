@@ -24,9 +24,6 @@ function Addon:Initialize()
         Addon.Installer:Show()
     end
 
-    Addon.Automation:Initialize()
-    Addon.EquipmentManager:Initialize()
-    Addon.InventoryDatabase:Initialize()
     Addon.Layout:Initialize()
     Addon.Styling:Initialize()
 
