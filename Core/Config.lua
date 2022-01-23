@@ -625,13 +625,17 @@ function Addon:InsertOptions()
     E.Options.args[addonName] = options
 end
 
+function Addon:GetStylingEnabled()
+    return (E.db[addonName] and E.db[addonName].styling or P[addonName].styling).enabled
+end
+
 function Addon:GetBorderConfig(styleConfigKey)
-    local config = E.db[addonName].styling[styleConfigKey]
+    local config = E.db[addonName] and E.db[addonName].styling and E.db[addonName].styling[styleConfigKey]
     return (config and config.border) or Addon:GetDefaultBorderConfig()
 end
 
 function Addon:GetDefaultBorderConfig()
-    return (E.db[addonName].styling.default and E.db[addonName].styling.default.border) or P[addonName].styling.default.border
+    return (E.db[addonName] and E.db[addonName].styling and E.db[addonName].styling.default and E.db[addonName].styling.default.border) or P[addonName].styling.default.border
 end
 
 function Addon:GetBorderSetting(styleConfigKey, setting)
@@ -658,12 +662,12 @@ function Addon:GetBorderOffset(styleConfigKey)
 end
 
 function Addon:GetShadowConfig(styleConfigKey)
-    local config = E.db[addonName].styling[styleConfigKey]
+    local config = E.db[addonName] and E.db[addonName].styling and E.db[addonName].styling[styleConfigKey]
     return (config and config.shadow) or Addon:GetDefaultShadowConfig()
 end
 
 function Addon:GetDefaultShadowConfig()
-    return (E.db[addonName].styling.default and E.db[addonName].styling.default.shadow) or P[addonName].styling.default.shadow
+    return (E.db[addonName] and E.db[addonName].styling and E.db[addonName].styling.default and E.db[addonName].styling.default.shadow) or P[addonName].styling.default.shadow
 end
 
 function Addon:GetShadowSetting(styleConfigKey, setting)

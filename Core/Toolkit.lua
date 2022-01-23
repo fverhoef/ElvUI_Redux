@@ -129,7 +129,7 @@ local function UpdateBorder(border, styleConfigKey)
     local parent = border:GetParent()
     local anchor = border.anchor or parent
 
-    if not E.db[addonName].styling.enabled or not atlas or border.isHidden then
+    if not Addon:GetStylingEnabled() or not atlas or border.isHidden then
         border:Hide()
     else
         border:Show()

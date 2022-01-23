@@ -681,8 +681,10 @@ function Installer:SetupMovers()
     E.db["movers"]["ElvUF_Raid40Mover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,4,269"
     E.db["movers"]["ElvUF_ArenaMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,460,363"
     E.db["movers"]["ArenaHeaderMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-400,363"
-    E.db["movers"]["ExperienceBarMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,465,4"
+    E.db["movers"]["ExperienceBarMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,528,4"
     E.db["movers"]["ReputationBarMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,528,16"
+    E.db["movers"]["AzeriteBarMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-528,4"
+    E.db["movers"]["HonorBarMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-528,16"
     E.db["movers"]["ThreatBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,207"
     E.db["movers"]["DTPanelTop Panel (Center)Mover"] = "TOP,ElvUIParent,TOP,0,0"
     E.db["movers"]["DTPanelTop PanelMover"] = "TOP,ElvUIParent,TOP,0,-12"
@@ -701,15 +703,7 @@ function Installer:SetupPlugins()
         E.db["movers"]["ElvUI_FlyoutBars_Shaman BarMover"] = "BOTTOM,ElvUIParent,BOTTOM,450,4"
     end
     if E.db["ElvUI_Cooldowns"] then
-        E.db["ElvUI_Cooldowns"]["bars"]["Mage Bar"]["backdrop"] = false
-        E.db["ElvUI_Cooldowns"]["bars"]["Mage Bar"]["backdropSpacing"] = 2
-        E.db["ElvUI_Cooldowns"]["bars"]["Mage Bar"]["buttonSpacing"] = 2
-        E.db["movers"]["ElvUI_Cooldowns_Mover"] = "BOTTOM,ElvUIParent,BOTTOM,450,4"
-
-        E.db["ElvUI_Cooldowns"]["bars"]["Shaman Bar"]["backdrop"] = false
-        E.db["ElvUI_Cooldowns"]["bars"]["Shaman Bar"]["backdropSpacing"] = 2
-        E.db["ElvUI_Cooldowns"]["bars"]["Shaman Bar"]["buttonSpacing"] = 2
-        E.db["movers"]["ElvUI_Cooldowns_Mover"] = "BOTTOM,ElvUIParent,BOTTOM,450,4"
+        E.db["movers"]["ElvUI_Cooldowns_Mover"] = "BOTTOM,ElvUIParent,BOTTOM,0,70"
     end
 end
 
@@ -731,7 +725,7 @@ function Installer:Show()
     end)
 
     installer:Queue(Installer.InstallerData)
-    E:ToggleOptionsUI()
+    --E:ToggleOptionsUI()
 end
 
 Installer.InstallerData = {
