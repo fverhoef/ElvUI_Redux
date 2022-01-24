@@ -26,20 +26,20 @@ function Addon:Hex(r, g, b)
 end
 
 local function Offset(frame, point, x, y)
-    if frame then
-
-        if not frame.originalPoints then
-            frame.originalPoints = {}
-            local numRegions = frame:GetNumPoints()
-            for i = 1, numRegions do
-                local anchor, relativeTo, relativePoint, xOfs, yOfs = frame:GetPoint(i)
-                frame.originalPoints[anchor] = {anchor, relativeTo, relativePoint, xOfs, yOfs}
-            end
+    if not frame then
+        return
+    end
+    if not frame.originalPoints then
+        frame.originalPoints = {}
+        local numRegions = frame:GetNumPoints()
+        for i = 1, numRegions do
+            local anchor, relativeTo, relativePoint, xOfs, yOfs = frame:GetPoint(i)
+            frame.originalPoints[anchor] = {anchor, relativeTo, relativePoint, xOfs, yOfs}
         end
-        local originalPoint = frame.originalPoints[point]
-        if originalPoint then
-            frame:SetPoint(originalPoint[1], originalPoint[2], originalPoint[3], originalPoint[4] + x, originalPoint[5] + y)
-        end
+    end
+    local originalPoint = frame.originalPoints[point]
+    if originalPoint then
+        frame:SetPoint(originalPoint[1], originalPoint[2], originalPoint[3], originalPoint[4] + x, originalPoint[5] + y)
     end
 end
 
@@ -112,8 +112,7 @@ local function SetTemplate(frame, template, glossTex, ignoreUpdates, forcePixelM
 end
 
 local function RefreshTemplate(frame)
-    frame:SetTemplate(frame.template, frame.glossTex, frame.ignoreUpdates, frame.forcePixelMode, frame.isUnitFrameElement,
-                      frame.isNamePlateElement)
+    frame:SetTemplate(frame.template, frame.glossTex, frame.ignoreUpdates, frame.forcePixelMode, frame.isUnitFrameElement, frame.isNamePlateElement)
 end
 
 local function UpdateBorder(border, styleConfigKey)
