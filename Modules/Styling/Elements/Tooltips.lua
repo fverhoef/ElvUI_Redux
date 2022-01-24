@@ -45,8 +45,9 @@ function Styling:HandleToolTip(tip)
         end)
         tip.StatusBar.text:SetParent(border)
 
-        if tip.StatusBar.border then
-            tip.StatusBar.border:Hide()
+        local statusBorder = tip.StatusBar:GetBorder()
+        if statusBorder then
+            statusBorder:Hide()
         end
     end
 end

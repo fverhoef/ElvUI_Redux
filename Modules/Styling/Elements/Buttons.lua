@@ -5,15 +5,15 @@ local E, L, V, P, G = unpack(ElvUI)
 local RU = E:GetModule("RaidUtility")
 local S = E:GetModule("Skins")
 
-Styling:SecureHook(S, "HandleItemButton", function(self, button, shrinkIcon)
-    Styling:HandleItemButton(button, shrinkIcon)
+Styling:SecureHook(S, "HandleItemButton", function(self, button, setInside)
+    Styling:HandleItemButton(button, setInside)
 end)
 
 Styling:Hook(S, "HandleNextPrevButton", function(self, button, arrowDir, color, noBackdrop, stripTexts)
     button.artworkType = "NEXT_PREV"
 end)
 
-function Styling:HandleItemButton(button, shrinkIcon)
+function Styling:HandleItemButton(button, setInside)
     if not button then
         return
     end
@@ -27,8 +27,9 @@ function Styling:HandleItemButton(button, shrinkIcon)
             return
         end
 
-        local icon = button.icon or _G[name .. "Icon"] or _G[name .. "IconTexture"]
-        if icon then
+        local name = button:GetName()
+        local icon = button.icon or button.Icon or button.IconTexture or button.iconTexture or (name and (_G[name..'IconTexture'] or _G[name..'Icon']))
+        if icon and setInside then
             icon:SetInside(nil, 2, 2)
         end
     end

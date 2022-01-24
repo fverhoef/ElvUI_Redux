@@ -56,15 +56,13 @@ function Styling:Update(styleConfigKey, onlyShadows, onlyBorders)
     end
 
     for frame in pairs(Addon.templatedFrames) do
-        if frame.shadow and not onlyBorders and
-            (not styleConfigKey or styleConfigKey == Addon.STYLE_CONFIG_KEYS.DEFAULT or frame.shadow.styleConfigKey ==
-                styleConfigKey) then
-            frame.shadow:Update()
+        local shadow = frame:GetShadow()
+        if shadow and not onlyBorders then
+            shadow:Update()
         end
-        if frame.border and not onlyShadows and
-            (not styleConfigKey or styleConfigKey == Addon.STYLE_CONFIG_KEYS.DEFAULT or frame.border.styleConfigKey ==
-                styleConfigKey) then
-            frame.border:Update()
+        local border = frame:GetBorder()
+        if border and not onlyShadows then
+            border:Update()
         end
     end
 end
@@ -75,12 +73,12 @@ function Styling:ApplyStyle(frame, styleConfigKey)
     end
 
     local shadow = frame:GetShadow()
-    if shadow and shadow.styleConfigKey ~= styleConfigKey then
+    if shadow and shadow.styleConfigKey ~= styleConfigKey and shadow.Update then
         shadow:Update(styleConfigKey)
     end
 
     local border = frame:GetBorder()
-    if border and border.styleConfigKey ~= styleConfigKey then
+    if border and border.styleConfigKey ~= styleConfigKey and border.Update then
         border:Update(styleConfigKey)
     end
 end

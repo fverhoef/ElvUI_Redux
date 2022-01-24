@@ -69,11 +69,13 @@ local function SetTemplate(frame, template, glossTex, ignoreUpdates, forcePixelM
     if template == "NoBackdrop" then
         frame:SetBackdrop()
 
-        if frame.border then
-            frame.border:Hide()
+        local border = frame:GetBorder()
+        if border then
+            border:Hide()
         end
-        if frame.shadow then
-            frame.shadow:Hide()
+        local shadow = frame:GetShadow()
+        if shadow then
+            shadow:Hide()
         end
     else
         frame:SetBackdrop({
@@ -269,8 +271,9 @@ local function CreateBorder(frame, configKey, anchor, layer)
     if not frame then
         return
     end
-    if frame.border then
-        return frame.border
+    local border = frame:GetBorder()
+    if border then
+        return border
     end
 
     layer = layer or "BORDER"
@@ -309,7 +312,10 @@ local function CreateBorder(frame, configKey, anchor, layer)
     if frame.SetBackdropBorderColor then
         frame._SetBackdropBorderColor = frame.SetBackdropBorderColor
         frame.SetBackdropBorderColor = function(self, r, g, b, a)
-            self.border:SetColor(r, g, b, a)
+            local border = self:GetBorder()
+            if border then
+                border:SetColor(r, g, b, a)
+            end
         end
     end
 
