@@ -6,9 +6,7 @@ local AS = AS and unpack(AddOnSkins)
 local CH = E:GetModule("Chat")
 local S = E:GetModule("Skins")
 
-Styling:SecureHook(S, "HandleButton",
-                   function(self, button, strip, isDeclineButton, noStyle, setTemplate, styleTemplate, noGlossTex, overrideTex,
-                            frameLevel)
+Styling:SecureHook(S, "HandleButton", function(self, button, strip, isDeclineButton, noStyle, setTemplate, styleTemplate, noGlossTex, overrideTex, frameLevel)
     Styling:HandleButton(button)
 end)
 

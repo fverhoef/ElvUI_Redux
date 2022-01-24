@@ -23,6 +23,7 @@ function Styling:Initialize()
 
     Styling:SkinDecorativePanels()
     Styling:SkinMinimap()
+    Styling:SkinSpellbook()
     
     Styling:Update()
 
@@ -102,4 +103,13 @@ function Styling:SkinMinimap()
     border.frameStrata = _G.MMHolder:GetFrameStrata()
     border.frameLevel = math.max(_G.Minimap:GetFrameLevel(), _G.MMHolder:GetFrameLevel()) + 1000
     border:Update()
+end
+
+function Styling:SkinSpellbook()
+    for i = 1, _G.MAX_SKILLLINE_TABS do
+        Styling:HandleTab(_G["SpellBookSkillLineTab" .. i], false, "RIGHT")
+    end
+    for i = 1, _G.SPELLS_PER_PAGE do
+        _G["SpellButton" .. i].overrideTemplate = "Default"
+    end
 end

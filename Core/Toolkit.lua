@@ -54,6 +54,7 @@ local function GetTemplate(template, isUnitFrameElement)
 end
 
 local function SetTemplate(frame, template, glossTex, ignoreUpdates, forcePixelMode, isUnitFrameElement, isNamePlateElement)
+    template = frame.overrideTemplate or template
     frame.template = template or "Default"
     frame.glossTex = glossTex
     frame.ignoreUpdates = ignoreUpdates
