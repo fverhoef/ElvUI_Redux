@@ -59,7 +59,7 @@ end
 Styling:SecureHook(S, "HandleTab", function(self, tab, noBackdrop)
     local orientation = "DOWN"
     local name = tab and tab:GetName() or ""
-    if string.match(name, "InspectTalentFrameTab") or string.match(name, "CombatConfigTab") then
+    if string.match(name, "InspectTalentFrameTab") or string.match(name, "CombatConfigTab") or string.match(name, "WardrobeCollectionFrameTab") then
         orientation = "UP"
     end
 

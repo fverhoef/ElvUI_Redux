@@ -9,6 +9,7 @@ Addon.Layout.TBC = Layout
 local E, L, V, P, G = unpack(ElvUI)
 
 function Layout:Initialize()
+    Layout:LayoutBags()
     Layout:LayoutCharacterFrame()
     Layout:LayoutGuildMemberDetailFrame()
     Layout:LayoutQuestLogFrame()

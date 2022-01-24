@@ -182,9 +182,9 @@ Styling:SecureHook(S, "HandleStatusBar", function(self, frame, color)
     Styling:HandleStatusBar(frame, color)
 end)
 
-Styling:SecureHook(E, "RegisterStatusBar", function(self, frame, color)
-    Styling:HandleStatusBar(frame, color)
-end)
+--Styling:SecureHook(E, "RegisterStatusBar", function(self, frame, color)
+--    Styling:HandleStatusBar(frame, color)
+--end)
 
 function Styling:HandleStatusBar(bar)
     if not bar then

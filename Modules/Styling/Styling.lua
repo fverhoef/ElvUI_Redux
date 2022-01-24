@@ -73,12 +73,12 @@ function Styling:ApplyStyle(frame, styleConfigKey)
     end
 
     local shadow = frame:GetShadow()
-    if shadow and shadow.styleConfigKey ~= styleConfigKey and shadow.Update then
+    if shadow and shadow.styleConfigKey ~= styleConfigKey then
         shadow:Update(styleConfigKey)
     end
 
     local border = frame:GetBorder()
-    if border and border.styleConfigKey ~= styleConfigKey and border.Update then
+    if border and border.styleConfigKey ~= styleConfigKey then
         border:Update(styleConfigKey)
     end
 end
