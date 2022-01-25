@@ -88,6 +88,14 @@ function Styling:HandleUnitFrame(unitFrame)
             border:SetDrawLayer("OVERLAY")
         end
     end
+    
+    if unitFrame.Portrait then
+        local shadow = unitFrame.Portrait:GetShadow()
+        if shadow then
+            shadow.isHidden = true
+            shadow:Update()
+        end
+    end
 
     if unitFrame.Castbar then
         Styling:ApplyStyle(unitFrame.Castbar, Addon.STYLE_CONFIG_KEYS.UNITFRAME_CASTBAR)
