@@ -137,7 +137,7 @@ P[addonName] = {
             enabled = true,
             showIcons = true,
             showVendorPrice = true,
-            showItemLevel = false,
+            showItemLevel = true,
             colors = {itemLevel = {220 / 255, 195 / 255, 30 / 255}}
         }
     },
@@ -696,7 +696,7 @@ function Addon:InsertOptions()
                             end),
                             showItemLevel = CreateToggleOption(L["Show Item Level"], nil, 12, "full", {"layout", "tooltips", "showItemLevel"}, false, function()
                                 return not GetOptionValue({"layout", "tooltips", "enabled"})
-                            end)
+                            end, Addon.isRetail)
                         }
                     }
                 }

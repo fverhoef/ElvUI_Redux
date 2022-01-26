@@ -30,56 +30,6 @@ function Layout:GameTooltip_SetDefaultAnchor(tt, parent)
     end
 end
 
--- TODO: fix this so it doesn't screw up the following lines
-local function InsertLine(tooltip, position, line)
-    local name = tooltip:GetName()
-    local lines = {}
-    local numLines = tooltip:NumLines()
-    for i = 1, numLines do
-        local tooltipLeft = _G[name .. "TextLeft" .. i]
-        local tooltipRight = _G[name .. "TextRight" .. i]
-        local lR, lG, lB = tooltipLeft:GetTextColor()
-        local rR, rG, rB = tooltipRight:GetTextColor()
-
-        local index = #lines + 1
-
-        if index == position then
-            lines[index] = line
-            index = index + 1
-        end
-        lines[index] = {
-            left = {text = tooltipLeft:GetText(), color = {lR, lG, lB}},
-            right = {text = tooltipRight:GetText(), color = {rR, rG, rB}}
-        }
-    end
-
-    if line.right then
-        tooltip:AddDoubleLine(line.left.text, line.right.text, unpack(line.left.color or {1, 1, 1}),
-                              unpack(line.right.color or {1, 1, 1}))
-    else
-        tooltip:AddLine(line.left.text, unpack(line.left.color))
-    end
-
-    for i, currentLine in next, lines do
-        if currentLine.left then
-            local tooltipLeft = _G[name .. "TextLeft" .. i]
-            tooltipLeft:SetText(currentLine.left.text or "")
-            if currentLine.left.color then
-                tooltipLeft:SetTextColor(unpack(currentLine.left.color or {1, 1, 1}))
-            end
-            tooltipLeft:Show()
-        end
-        if currentLine.right then
-            local tooltipRight = _G[name .. "TextRight" .. i]
-            tooltipRight:SetText(currentLine.right.text or "")
-            if currentLine.right.color then
-                tooltipRight:SetTextColor(unpack(currentLine.right.color or {1, 1, 1}))
-            end
-            tooltipRight:Show()
-        end
-    end
-end
-
 local function AddIcon(tooltip, icon)
     if not icon or not E.db[addonName].layout.tooltips.showIcons then
         return
@@ -93,13 +43,11 @@ end
 
 local function AddItemLevel(tooltip, itemLevel)
     if E.db[addonName].layout.tooltips.showItemLevel and itemLevel then
-        tooltip:AddLine(L["Item Level"] .. " " .. itemLevel, unpack(E.db[addonName].layout.tooltips.colors.itemLevel))
 
-        if TODO then
-            InsertLine(tooltip, 2, {
-                left = {text = L["Item Level"] .. " " .. itemLevel, color = E.db[addonName].layout.tooltips.colors.itemLevel},
-                right = {}
-            })
+        local title = _G[tooltip:GetName() .. "TextLeft1"]
+        if title and not title:GetText():find("Item Level") then
+            title:SetFormattedText([[%s
+%s]], title:GetText(), Addon:Hex(E.db[addonName].layout.tooltips.colors.itemLevel) .. L["Item Level "] .. itemLevel .. "|r")
         end
     end
 end
