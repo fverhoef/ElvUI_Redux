@@ -27,6 +27,9 @@ local BORDERS = {
     ["Redux"] = "Redux",
     ["Retina"] = "Retina"
 }
+local INLAYS = {
+    ["Diamond"] = "Diamond"
+}
 local FRAME_BORDERS = {
     [""] = "(Inherit from Default)",
     ["(ElvUI)"] = "(ElvUI)",
@@ -90,12 +93,12 @@ local STYLE_CONFIG_KEYS = {
     DATA_PANEL = "dataPanel",
 
     -- Nameplates
-    NAMEPLATE_HEALTH = "nameplateHealth",
+    NAMEPLATE = "nameplate",
     NAMEPLATE_POWER = "nameplatePower",
     NAMEPLATE_CASTBAR = "nameplateCastBar",
 
     -- Unit Frames
-    UNITFRAME_HEALTH = "unitFrameHealth",
+    UNITFRAME = "unitFrame",
     UNITFRAME_POWER = "unitFramePower",
     UNITFRAME_CASTBAR = "unitFrameCastBar",
     UNITFRAME_CLASSBAR = "unitFrameClassBar",
@@ -109,9 +112,16 @@ for key, value in pairs(BORDERS) do
     BORDERS_WITH_INHERIT[key] = value
 end
 
+local INLAYS_WITH_INHERIT = {[""] = "(Inherit from Default)"}
+for key, value in pairs(INLAYS) do
+    INLAYS_WITH_INHERIT[key] = value
+end
+
 Addon.BACKGROUNDS = BACKGROUNDS
 Addon.BORDERS = BORDERS
 Addon.BORDERS_WITH_INHERIT = BORDERS_WITH_INHERIT
+Addon.INLAYS = INLAYS
+Addon.INLAYS_WITH_INHERIT = INLAYS_WITH_INHERIT
 Addon.FRAME_BORDERS = FRAME_BORDERS
 Addon.STYLE_CONFIG_KEYS = STYLE_CONFIG_KEYS
 
@@ -135,14 +145,45 @@ P[addonName] = {
         enabled = true,
         default = {
             border = {enabled = true, style = BORDERS["Redux"], scale = 1.0},
-            shadow = {enabled = true, color = {0, 0, 0, 0.7}, size = 5, shadowPerButton = true}
+            shadow = {enabled = true, color = {0, 0, 0, 0.7}, size = 5, shadowPerButton = true},
+            inlay = {enabled = false, style = INLAYS["Diamond"], color = {1, 1, 1, 0.5}, offset = {0, 0, 0, 0}}
+        },
+        [STYLE_CONFIG_KEYS.FRAME] = {
+            border = { overrideScale = true, scale = 1.3 },
+            shadow = {},
+            inlay = {}
+        },
+        [STYLE_CONFIG_KEYS.BUTTON] = {
+            border = { overrideScale = true, scale = 1.2 },
+            shadow = {},
+            inlay = {}
+        },
+        [STYLE_CONFIG_KEYS.ACTION_BUTTON] = {
+            border = { overrideScale = true, scale = 1.2 },
+            shadow = {},
+            inlay = {}
+        },
+        [STYLE_CONFIG_KEYS.UNITFRAME] = {
+            border = { overrideScale = true, scale = 1.2 },
+            shadow = {},
+            inlay = { enabled = true }
+        },
+        [STYLE_CONFIG_KEYS.UNITFRAME_POWER] = {
+            border = { overrideScale = true, scale = 1.2 },
+            shadow = {},
+            inlay = { enabled = true }
+        },
+        [STYLE_CONFIG_KEYS.UNITFRAME_CASTBAR] = {
+            border = { overrideScale = true, scale = 1.2 },
+            shadow = {},
+            inlay = { enabled = true }
         }
     }
 }
 
 for key, value in pairs(STYLE_CONFIG_KEYS) do
     if not P[addonName].styling[value] then
-        P[addonName].styling[value] = {border = {}, shadow = {}}
+        P[addonName].styling[value] = {border = {}, shadow = {}, inlay = {}}
     end
 end
 
@@ -274,6 +315,33 @@ local function CreateBorderStyleOption(caption, order, setting, allowInherit, di
     }
 end
 
+local function CreateInlayStyleOption(caption, order, setting, allowInherit, disabled, hidden)
+    local values = allowInherit and INLAYS_WITH_INHERIT or INLAYS
+    return {
+        order = order,
+        type = "select",
+        name = caption,
+        values = values,
+        disabled = disabled,
+        hidden = hidden,
+        get = function()
+            local optionValue = GetOptionValue(setting)
+            for key, val in pairs(values) do
+                if (optionValue or "") == key then
+                    return key
+                end
+            end
+        end,
+        set = function(_, key)
+            if key == "" then
+                key = nil
+            end
+            SetOptionValue(setting, key)
+            Addon:OnSettingChanged(setting)
+        end
+    }
+end
+
 local function CreateFrameBorderStyleOption(caption, order, setting, disabled, hidden)
     return {
         order = order,
@@ -343,10 +411,7 @@ local function CreateStyleGroup(caption, order, key)
                 local text = L["Enable Border"]
                 local isNil = GetOptionValue({"styling", key, "border", "enabled"}) == nil
                 if isNil then
-                    text = text .. " " ..
-                               L["(Default: " ..
-                                   (GetOptionValue({"styling", "default", "border", "enabled"}) and "Enabled" or "Disabled") ..
-                                   ")"]
+                    text = text .. " " .. L["(Default: " .. (GetOptionValue({"styling", "default", "border", "enabled"}) and "Enabled" or "Disabled") .. ")"]
                 end
                 return text
             end, nil, 11, "double", {"styling", key, "border", "enabled"}, true),
@@ -378,10 +443,7 @@ local function CreateStyleGroup(caption, order, key)
                 local text = L["Enable Shadow"]
                 local isNil = GetOptionValue({"styling", key, "shadow", "enabled"}) == nil
                 if isNil then
-                    text = text .. " " ..
-                               L["(Default: " ..
-                                   (GetOptionValue({"styling", "default", "shadow", "enabled"}) and "Enabled" or "Disabled") ..
-                                   ")"]
+                    text = text .. " " .. L["(Default: " .. (GetOptionValue({"styling", "default", "shadow", "enabled"}) and "Enabled" or "Disabled") .. ")"]
                 end
                 return text
             end, nil, 21, "double", {"styling", key, "shadow", "enabled"}, true),
@@ -423,6 +485,35 @@ local function CreateStyleGroup(caption, order, key)
             shadowSize = CreateRangeOption(L["Shadow Size"], nil, 27, 3, 30, 1, {"styling", key, "shadow", "size"}, nil,
                                            function()
                 return not GetOptionValue({"styling", key, "shadow", "overrideShadowSize"})
+            end),
+            headerInlay = {type = "header", name = "", order = 30},
+            inlayEnabled = CreateToggleOption(function()
+                local text = L["Enable Inlay"]
+                local isNil = GetOptionValue({"styling", key, "inlay", "enabled"}) == nil
+                if isNil then
+                    text = text .. " " .. L["(Default: " .. (GetOptionValue({"styling", "default", "inlay", "enabled"}) and "Enabled" or "Disabled") .. ")"]
+                end
+                return text
+            end, nil, 31, "double", {"styling", key, "inlay", "enabled"}, true),
+            lineBreak6 = {type = "description", name = "", order = 32},
+            inlayStyle = CreateInlayStyleOption(L["Inlay Theme"], 33, {"styling", key, "inlay", "style"}, true),
+            overrideInlayColor = {
+                type = "toggle",
+                name = L["Override Inlay Color"],
+                order = 34,
+                get = function(info)
+                    return GetOptionValue({"styling", key, "inlay", "overrideInlayColor"})
+                end,
+                set = function(info, value)
+                    SetOptionValue({"styling", key, "inlay", "color"}, value and {1, 1, 1, 0.5} or nil)
+                    Addon:OnSettingChanged({"styling", key, "inlay", "color"})
+
+                    SetOptionValue({"styling", key, "inlay", "overrideInlayColor"}, value)
+                    Addon:OnSettingChanged({"styling", key, "inlay", "overrideInlayColor"})
+                end
+            },
+            inlayColor = CreateColorOption(L["Inlay Color"], 35, {"styling", key, "inlay", "color"}, nil, nil, function()
+                return not GetOptionValue({"styling", key, "inlay", "overrideInlayColor"})
             end)
         }
     }
@@ -449,16 +540,23 @@ function Addon:InsertOptions()
                         inline = true,
                         args = {
                             borderEnabled = CreateToggleOption(L["Enable Border"], nil, 1, nil, {"styling", "default", "border", "enabled"}),
-                            lineBreak1 = {type = "description", name = "", order = 2},
+                            --lineBreak1 = {type = "description", name = "", order = 2},
                             borderStyle = CreateBorderStyleOption(L["Border Theme"], 3, {"styling", "default", "border", "style"}),
                             borderScale = CreateRangeOption(L["Border Scale"], nil, 4, 0.5, 4, 0.1, {"styling", "default", "border", "scale"}),
-                            shadowHeader = {type = "header", name = "", order = 10},
+                            lineBreak1 = {type = "description", name = "", order = 10},
+                            --shadowHeader = {type = "header", name = "", order = 10},
                             shadowEnabled = CreateToggleOption(L["Enable Shadow"], nil, 11, nil, {"styling", "default", "shadow", "enabled"}),
-                            lineBreak2 = {type = "description", name = "", order = 12},
+                            --lineBreak2 = {type = "description", name = "", order = 12},
                             shadowColor = CreateColorOption(L["Shadow Color"], 13, {"styling", "default", "shadow", "color"}),
                             shadowSize = CreateRangeOption(L["Shadow Size"], nil, 14, 3, 30, 1, {"styling", "default", "shadow", "size"}),
-                            lineBreak3 = {type = "description", name = "", order = 15},
-                            shadowPerButton = CreateToggleOption(L["Shadow Per Button"], nil, 16, nil, {"styling", "default", "shadow", "shadowPerButton"})
+                            --lineBreak3 = {type = "description", name = "", order = 15},
+                            shadowPerButton = CreateToggleOption(L["Shadow Per Button"], nil, 16, nil, {"styling", "default", "shadow", "shadowPerButton"}),
+                            lineBreak2 = {type = "description", name = "", order = 20},
+                            --inlayHeader = {type = "header", name = "", order = 20},
+                            inlayEnabled = CreateToggleOption(L["Enable Inlay"], nil, 21, nil, {"styling", "default", "inlay", "enabled"}),
+                            --lineBreak5 = {type = "description", name = "", order = 22},
+                            inlayStyle = CreateInlayStyleOption(L["Inlay Theme"], 23, {"styling", "default", "inlay", "style"}),
+                            inlayColor = CreateColorOption(L["Inlay Color"], 24, {"styling", "default", "inlay", "color"})
                         }
                     },
                     lineBreak1 = {type = "header", name = "Style Overrides", order = 10},
@@ -531,7 +629,7 @@ function Addon:InsertOptions()
                         name = L["Nameplates"],
                         childGroups = "select",
                         args = {
-                            nameplateHealth = CreateStyleGroup(L["Health Bar Style"], 1, STYLE_CONFIG_KEYS.NAMEPLATE_HEALTH),
+                            nameplateHealth = CreateStyleGroup(L["Health Bar Style"], 1, STYLE_CONFIG_KEYS.NAMEPLATE),
                             nameplatePower = CreateStyleGroup(L["Power Bar Style"], 2, STYLE_CONFIG_KEYS.NAMEPLATE_POWER),
                             nameplateCastBar = CreateStyleGroup(L["Cast Bar Style"], 3, STYLE_CONFIG_KEYS.NAMEPLATE_CASTBAR)
                         }
@@ -542,7 +640,7 @@ function Addon:InsertOptions()
                         name = L["Unit Frames"],
                         childGroups = "select",
                         args = {
-                            unitFrameHealth = CreateStyleGroup(L["Health Bar Style"], 1, STYLE_CONFIG_KEYS.UNITFRAME_HEALTH),
+                            unitFrameHealth = CreateStyleGroup(L["Health Bar Style"], 1, STYLE_CONFIG_KEYS.UNITFRAME),
                             unitFramePower = CreateStyleGroup(L["Power Bar Style"], 2, STYLE_CONFIG_KEYS.UNITFRAME_POWER),
                             unitFrameCastBar = CreateStyleGroup(L["Cast Bar Style"], 3, STYLE_CONFIG_KEYS.UNITFRAME_CASTBAR),
                             unitFrameClassBar = CreateStyleGroup(L["Class Bar Style"], 4, STYLE_CONFIG_KEYS.UNITFRAME_CLASSBAR)
@@ -625,10 +723,6 @@ function Addon:InsertOptions()
     E.Options.args[addonName] = options
 end
 
-function Addon:GetStylingEnabled()
-    return (E.db[addonName] and E.db[addonName].styling or P[addonName].styling).enabled
-end
-
 function Addon:GetBorderConfig(styleConfigKey)
     local config = E.db[addonName] and E.db[addonName].styling and E.db[addonName].styling[styleConfigKey]
     return (config and config.border) or Addon:GetDefaultBorderConfig()
@@ -687,4 +781,36 @@ end
 
 function Addon:GetShadowSize(styleConfigKey)
     return Addon:GetShadowSetting(styleConfigKey, "size")
+end
+
+function Addon:GetInlayConfig(styleConfigKey)
+    local config = E.db[addonName] and E.db[addonName].styling and E.db[addonName].styling[styleConfigKey]
+    return (config and config.inlay) or Addon:GetDefaultInlayConfig()
+end
+
+function Addon:GetDefaultInlayConfig()
+    return (E.db[addonName] and E.db[addonName].styling and E.db[addonName].styling.default and E.db[addonName].styling.default.inlay) or P[addonName].styling.default.inlay
+end
+
+function Addon:GetInlaySetting(styleConfigKey, setting)
+    local config = Addon:GetInlayConfig(styleConfigKey)
+    if config == nil then return end
+    if config[setting] == nil then config = Addon:GetDefaultInlayConfig() end
+    return config and config[setting]
+end
+
+function Addon:GetInlayEnabled(styleConfigKey)
+    return Addon:GetInlaySetting(styleConfigKey, "enabled")
+end
+
+function Addon:GetInlayStyle(styleConfigKey)
+    return Addon:GetInlaySetting(styleConfigKey, "style")
+end
+
+function Addon:GetInlayColor(styleConfigKey)
+    return Addon:GetInlaySetting(styleConfigKey, "color")
+end
+
+function Addon:GetInlayOffset(styleConfigKey)
+    return Addon:GetInlaySetting(styleConfigKey, "offset")
 end

@@ -105,6 +105,19 @@ Addon.atlas = {
             bottom = {Addon.media.textures.borders.retina, 32, 4, 8 / 64, 56 / 64, 56 / 64, 1},
             left = {Addon.media.textures.borders.retina, 4, 32, 0, 8 / 64, 8 / 64, 56 / 64},
             right = {Addon.media.textures.borders.retina, 4, 32, 56 / 64, 1, 8 / 64, 56 / 64}
+        },
+    },
+    inlay = {
+        ["Diamond"] = {
+            topLeft = {Addon.media.textures.inlays.diamond, 8, 8, 0, 16 / 128, 0, 16 / 128},
+            topRight = {Addon.media.textures.inlays.diamond, 8, 8, 112 / 128, 1, 0, 16 / 128},
+            bottomLeft = {Addon.media.textures.inlays.diamond, 8, 8, 0, 16 / 128, 112 / 128, 1},
+            bottomRight = {Addon.media.textures.inlays.diamond, 8, 8, 112 / 128, 1, 112 / 128, 1},
+            top = {Addon.media.textures.inlays.diamond, 32, 8, 16 / 128, 112 / 128, 0, 16 / 128},
+            bottom = {Addon.media.textures.inlays.diamond, 32, 8, 16 / 128, 112 / 128, 112 / 128, 1},
+            left = {Addon.media.textures.inlays.diamond, 8, 32, 0, 16 / 128, 16 / 128, 112 / 128},
+            right = {Addon.media.textures.inlays.diamond, 8, 32, 112 / 128, 1, 16 / 128, 112 / 128},
+            center = {Addon.media.textures.inlays.diamond, 32, 32, 16 / 128, 112 / 128, 16 / 128, 112 / 128}
         }
     },
     frames = {
@@ -278,4 +291,8 @@ Addon.atlas = {
 
 function Addon:GetBorderAtlas(styleConfigKey)
     return Addon.atlas.borders[Addon:GetBorderStyle(styleConfigKey)]
+end
+
+function Addon:GetInlayAtlas(styleConfigKey)
+    return Addon.atlas.inlay[Addon:GetInlayStyle(styleConfigKey)]
 end

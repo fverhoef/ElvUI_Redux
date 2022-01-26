@@ -24,4 +24,6 @@ function Styling:HandleDataBar(bar, holder)
     local border = holder:GetBorder()
     border.frameLevel = bar:GetFrameLevel() + 1
     border:SetFrameLevel(border.frameLevel)
+    local inlay = holder:GetInlay()
+    inlay:Update()
 end

@@ -29,9 +29,9 @@ Addon.media = {
             onyx = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Borders\\Onyx",
             redux = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Borders\\Redux",
             retina = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Borders\\Retina",
-            gloss1 = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Borders\\Gloss1",
-            gloss2 = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Borders\\Gloss2",
-            gloss3 = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Borders\\Gloss3"
+        },
+        inlays = {
+            diamond = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Inlays\\Diamond"
         },
         closeButtons = {
             alliance = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Borders\\FrameBorder_Alliance_CloseButton",

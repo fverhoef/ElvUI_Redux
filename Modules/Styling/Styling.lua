@@ -32,7 +32,7 @@ function Styling:Initialize()
     end
 end
 
-function Styling:Update(styleConfigKey, onlyShadows, onlyBorders)
+function Styling:Update(styleConfigKey, onlyShadows, onlyBorders, onlyInlays)
     if UnitAffectingCombat("player") then
         Styling:ScheduleTimer("Update", 1)
         return
@@ -57,13 +57,17 @@ function Styling:Update(styleConfigKey, onlyShadows, onlyBorders)
     end
 
     for frame in pairs(Addon.templatedFrames) do
+        local border = frame:GetBorder()
+        if border and not onlyInlays and not onlyShadows then
+            border:Update()
+        end
         local shadow = frame:GetShadow()
-        if shadow and not onlyBorders then
+        if shadow and not onlyBorders and not onlyInlays then
             shadow:Update()
         end
-        local border = frame:GetBorder()
-        if border and not onlyShadows then
-            border:Update()
+        local inlay = frame:GetInlay()
+        if inlay and not onlyBorders and not onlyShadows then
+            inlay:Update()
         end
     end
 end
@@ -73,14 +77,17 @@ function Styling:ApplyStyle(frame, styleConfigKey)
         return
     end
 
+    local border = frame:GetBorder()
+    if border and border.styleConfigKey ~= styleConfigKey then
+        border:Update(styleConfigKey)
+    end
     local shadow = frame:GetShadow()
     if shadow and shadow.styleConfigKey ~= styleConfigKey then
         shadow:Update(styleConfigKey)
     end
-
-    local border = frame:GetBorder()
-    if border and border.styleConfigKey ~= styleConfigKey then
-        border:Update(styleConfigKey)
+    local inlay = frame:GetInlay()
+    if inlay and inlay.styleConfigKey ~= styleConfigKey then
+        inlay:Update(styleConfigKey)
     end
 end
 
@@ -103,6 +110,8 @@ function Styling:SkinMinimap()
     border.frameStrata = _G.MMHolder:GetFrameStrata()
     border.frameLevel = math.max(_G.Minimap:GetFrameLevel(), _G.MMHolder:GetFrameLevel()) + 1000
     border:Update()
+    local inlay = _G.Minimap:GetInlay()
+    inlay:Update()
 end
 
 function Styling:SkinSpellbook()

@@ -22,7 +22,7 @@ function Styling:HandleNamePlate(nameplate)
     end
 
     if nameplate.Health then
-        Styling:ApplyStyle(nameplate.Health, Addon.STYLE_CONFIG_KEYS.NAMEPLATE_HEALTH)
+        Styling:ApplyStyle(nameplate.Health, Addon.STYLE_CONFIG_KEYS.NAMEPLATE)
 
         local border = nameplate.Health:GetBorder()
         if border then

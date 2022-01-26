@@ -209,5 +209,7 @@ function Styling:HandleIcon(icon, backdrop)
         local border = icon:GetBorder()
         border.frameLevel = (icon.GetFrameLevel and icon:GetFrameLevel() or icon:GetParent():GetFrameLevel()) + 4
         border:SetFrameLevel(border.frameLevel)
+        local inlay = icon:GetInlay()
+        inlay:Update()
     end
 end

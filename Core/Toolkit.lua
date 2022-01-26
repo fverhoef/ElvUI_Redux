@@ -84,8 +84,9 @@ local function SetTemplate(frame, template, glossTex, ignoreUpdates, forcePixelM
             insets = {left = 2, right = 2, top = 2, bottom = 2}
         })
 
-        local shadow = frame:CreateShadow(false, Addon.STYLE_CONFIG_KEYS.DEFAULT)
-        local border = frame:CreateBorder(false, Addon.STYLE_CONFIG_KEYS.DEFAULT)
+        frame:CreateShadow(false, Addon.STYLE_CONFIG_KEYS.DEFAULT)
+        frame:CreateBorder(false, Addon.STYLE_CONFIG_KEYS.DEFAULT)
+        frame:CreateInlay(false, Addon.STYLE_CONFIG_KEYS.DEFAULT)
 
         local borderColor, backdropColor = GetTemplate(template, isUnitFrameElement)
 
@@ -131,7 +132,7 @@ local function UpdateBorder(border, styleConfigKey)
     local parent = border:GetParent()
     local anchor = border.anchor or parent
 
-    if not Addon:GetStylingEnabled() or not atlas or border.isHidden then
+    if not Addon:GetBorderEnabled(border.styleConfigKey) or not atlas or border.isHidden then
         border:Hide()
     else
         border:Show()
@@ -396,6 +397,184 @@ local function GetShadow(frame)
     return frame.shadow or (frame.backdrop and frame.backdrop.shadow)
 end
 
+local function UpdateInlay(inlay, styleConfigKey)
+    if not inlay then
+        return
+    end
+
+    inlay.styleConfigKey = styleConfigKey or inlay.styleConfigKey
+
+    local atlas = Addon:GetInlayAtlas(inlay.styleConfigKey)
+
+    if not Addon:GetInlayEnabled(inlay.styleConfigKey) or not atlas or inlay.isHidden then
+        inlay:Hide()
+    else
+        inlay:Show()
+
+        if inlay.atlas ~= atlas then
+            inlay.atlas = atlas
+
+            inlay.TopLeft:SetSize(atlas.topLeft[2], atlas.topLeft[3])
+            inlay.TopLeft:SetTexture(atlas.topLeft[1])
+            inlay.TopLeft:SetTexCoord(atlas.topLeft[4], atlas.topLeft[5], atlas.topLeft[6], atlas.topLeft[7])
+
+            inlay.TopRight:SetSize(atlas.topRight[2], atlas.topRight[3])
+            inlay.TopRight:SetTexture(atlas.topRight[1])
+            inlay.TopRight:SetTexCoord(atlas.topRight[4], atlas.topRight[5], atlas.topRight[6], atlas.topRight[7])
+
+            inlay.BottomLeft:SetSize(atlas.bottomLeft[2], atlas.bottomLeft[3])
+            inlay.BottomLeft:SetTexture(atlas.bottomLeft[1])
+            inlay.BottomLeft:SetTexCoord(atlas.bottomLeft[4], atlas.bottomLeft[5], atlas.bottomLeft[6], atlas.bottomLeft[7])
+
+            inlay.BottomRight:SetSize(atlas.bottomRight[2], atlas.bottomRight[3])
+            inlay.BottomRight:SetTexture(atlas.bottomRight[1])
+            inlay.BottomRight:SetTexCoord(atlas.bottomRight[4], atlas.bottomRight[5], atlas.bottomRight[6], atlas.bottomRight[7])
+
+            inlay.Top:SetSize(atlas.top[2], atlas.top[3])
+            inlay.Top:SetTexture(atlas.top[1], "MIRROR")
+            inlay.Top:SetTexCoord(atlas.top[4], atlas.top[5], atlas.top[6], atlas.top[7])
+            inlay.Top:SetHorizTile(atlas.horizontalTiling)
+
+            inlay.Bottom:SetSize(atlas.bottom[2], atlas.bottom[3])
+            inlay.Bottom:SetTexture(atlas.bottom[1], "MIRROR")
+            inlay.Bottom:SetTexCoord(atlas.bottom[4], atlas.bottom[5], atlas.bottom[6], atlas.bottom[7])
+            inlay.Bottom:SetHorizTile(atlas.horizontalTiling)
+
+            inlay.Left:SetSize(atlas.left[2], atlas.left[3])
+            inlay.Left:SetTexture(atlas.left[1], nil, "MIRROR")
+            inlay.Left:SetTexCoord(atlas.left[4], atlas.left[5], atlas.left[6], atlas.left[7])
+            inlay.Left:SetVertTile(atlas.verticalTiling)
+
+            inlay.Right:SetSize(atlas.right[2], atlas.right[3])
+            inlay.Right:SetTexture(atlas.right[1], nil, "MIRROR")
+            inlay.Right:SetTexCoord(atlas.right[4], atlas.right[5], atlas.right[6], atlas.right[7])
+            inlay.Right:SetVertTile(atlas.verticalTiling)
+
+            inlay.Center:SetSize(atlas.center[2], atlas.center[3])
+            inlay.Center:SetTexture(atlas.center[1])
+            inlay.Center:SetTexCoord(atlas.center[4], atlas.center[5], atlas.center[6], atlas.center[7])
+        end
+
+        local parent = inlay:GetParent()
+        local anchor = inlay.anchor or parent
+        local offset = Addon:GetInlayOffset(inlay.styleConfigKey) or {0, 0, 0, 0}
+        inlay:ClearAllPoints()
+        inlay:SetPoint("TOPLEFT", anchor, "TOPLEFT", offset[1], offset[2])
+        inlay:SetPoint("BOTTOMRIGHT", anchor, "BOTTOMRIGHT", -offset[3], -offset[4])
+
+        local frameLevel = inlay.frameLevel or (parent.border:GetFrameLevel() - 1)
+        inlay:SetFrameLevel(frameLevel)
+
+        local frameStrata = inlay.frameStrata or parent:GetFrameStrata()
+        inlay:SetFrameStrata(frameStrata)
+
+        local r, g, b, a = unpack(Addon:GetInlayColor(inlay.styleConfigKey) or {1, 1, 1, 0.5})
+        inlay:SetColor(r, g, b, a)
+    end
+end
+
+local function SetInlayColor(inlay, r, g, b, a)
+    if not inlay then
+        return
+    end
+
+    local parts = {
+        inlay.TopLeft,
+        inlay.TopRight,
+        inlay.BottomLeft,
+        inlay.BottomRight,
+        inlay.Top,
+        inlay.Bottom,
+        inlay.Left,
+        inlay.Right,
+        inlay.Center
+    }
+    for _, part in ipairs(parts) do
+        if part then
+            part:SetVertexColor(r, g, b, a)
+        end
+    end
+end
+
+local function SetInlayDrawLayer(inlay, layer, subLevel)
+    if not inlay then
+        return
+    end
+
+    local parts = {
+        inlay.TopLeft,
+        inlay.TopRight,
+        inlay.BottomLeft,
+        inlay.BottomRight,
+        inlay.Top,
+        inlay.Bottom,
+        inlay.Left,
+        inlay.Right,
+        inlay.Center
+    }
+    for _, part in ipairs(parts) do
+        if part then
+            part:SetDrawLayer(layer, subLevel)
+        end
+    end
+end
+
+local function CreateInlay(frame, configKey, layer)
+    if not frame then
+        return
+    end
+    if frame.inlay then
+        return frame.inlay
+    end
+
+    layer = layer or "BORDER"
+
+    local inlay = CreateFrame("Frame", nil, frame)
+    inlay.styleConfigKey = configKey or Addon.STYLE_CONFIG_KEYS.DEFAULT
+
+    inlay.TopLeft = inlay:CreateTexture(nil, layer, nil, 2)
+    inlay.TopRight = inlay:CreateTexture(nil, layer, nil, 2)
+    inlay.BottomLeft = inlay:CreateTexture(nil, layer, nil, 2)
+    inlay.BottomRight = inlay:CreateTexture(nil, layer, nil, 2)
+    inlay.Top = inlay:CreateTexture(nil, layer, nil, 2)
+    inlay.Bottom = inlay:CreateTexture(nil, layer, nil, 2)
+    inlay.Left = inlay:CreateTexture(nil, layer, nil, 2)
+    inlay.Right = inlay:CreateTexture(nil, layer, nil, 2)
+    inlay.Center = inlay:CreateTexture(nil, layer, nil, 2)
+
+    inlay.TopLeft:SetPoint("TOPLEFT", inlay, "TOPLEFT")
+    inlay.TopRight:SetPoint("TOPRIGHT", inlay, "TOPRIGHT")
+    inlay.BottomLeft:SetPoint("BOTTOMLEFT", inlay, "BOTTOMLEFT")
+    inlay.BottomRight:SetPoint("BOTTOMRIGHT", inlay, "BOTTOMRIGHT")
+    inlay.Top:SetPoint("TOPLEFT", inlay.TopLeft, "TOPRIGHT")
+    inlay.Top:SetPoint("TOPRIGHT", inlay.TopRight, "TOPLEFT")
+    inlay.Bottom:SetPoint("BOTTOMLEFT", inlay.BottomLeft, "BOTTOMRIGHT")
+    inlay.Bottom:SetPoint("BOTTOMRIGHT", inlay.BottomRight, "BOTTOMLEFT")
+    inlay.Left:SetPoint("TOPLEFT", inlay.TopLeft, "BOTTOMLEFT")
+    inlay.Left:SetPoint("BOTTOMLEFT", inlay.BottomLeft, "TOPLEFT")
+    inlay.Right:SetPoint("TOPRIGHT", inlay.TopRight, "BOTTOMRIGHT")
+    inlay.Right:SetPoint("BOTTOMRIGHT", inlay.BottomRight, "TOPRIGHT")
+    inlay.Center:SetPoint("TOPLEFT", inlay.TopLeft, "BOTTOMRIGHT")
+    inlay.Center:SetPoint("BOTTOMRIGHT", inlay.BottomRight, "TOPLEFT")
+
+    inlay.SetColor = SetInlayColor
+    inlay.SetDrawLayer = SetInlayDrawLayer
+    inlay.Update = UpdateInlay
+    inlay:Update()
+
+    frame.inlay = inlay
+
+    return inlay
+end
+
+local function GetInlay(frame)
+    if not frame then
+        return
+    end
+
+    return frame.inlay or (frame.backdrop and frame.backdrop.inlay)
+end
+
 local function AddApi(object)
     local mt = getmetatable(object).__index
     if not object.Offset then
@@ -419,6 +598,12 @@ local function AddApi(object)
     end
     if not object.GetShadow then
         mt.GetShadow = GetShadow
+    end
+    if not object.CreateInlay then
+        mt.CreateInlay = CreateInlay
+    end
+    if not object.GetInlay then
+        mt.GetInlay = GetInlay
     end
 end
 
