@@ -162,7 +162,7 @@ P[addonName] = {
         [STYLE_CONFIG_KEYS.ACTION_BUTTON] = {
             border = { overrideScale = true, scale = 1.2 },
             shadow = {},
-            inlay = {}
+            inlay = { enabled = true }
         },
         [STYLE_CONFIG_KEYS.UNITFRAME] = {
             border = { overrideScale = true, scale = 1.2 },
