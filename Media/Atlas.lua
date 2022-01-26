@@ -118,6 +118,17 @@ Addon.atlas = {
             left = {Addon.media.textures.inlays.diamond, 8, 32, 0, 16 / 128, 16 / 128, 112 / 128},
             right = {Addon.media.textures.inlays.diamond, 8, 32, 112 / 128, 1, 16 / 128, 112 / 128},
             center = {Addon.media.textures.inlays.diamond, 32, 32, 16 / 128, 112 / 128, 16 / 128, 112 / 128}
+        },
+        ["Diamond (Border Only)"] = {
+            topLeft = {Addon.media.textures.inlays.diamondBorderOnly, 8, 8, 0, 16 / 128, 0, 16 / 128},
+            topRight = {Addon.media.textures.inlays.diamondBorderOnly, 8, 8, 112 / 128, 1, 0, 16 / 128},
+            bottomLeft = {Addon.media.textures.inlays.diamondBorderOnly, 8, 8, 0, 16 / 128, 112 / 128, 1},
+            bottomRight = {Addon.media.textures.inlays.diamondBorderOnly, 8, 8, 112 / 128, 1, 112 / 128, 1},
+            top = {Addon.media.textures.inlays.diamondBorderOnly, 32, 8, 16 / 128, 112 / 128, 0, 16 / 128},
+            bottom = {Addon.media.textures.inlays.diamondBorderOnly, 32, 8, 16 / 128, 112 / 128, 112 / 128, 1},
+            left = {Addon.media.textures.inlays.diamondBorderOnly, 8, 32, 0, 16 / 128, 16 / 128, 112 / 128},
+            right = {Addon.media.textures.inlays.diamondBorderOnly, 8, 32, 112 / 128, 1, 16 / 128, 112 / 128},
+            center = {Addon.media.textures.inlays.diamondBorderOnly, 32, 32, 16 / 128, 112 / 128, 16 / 128, 112 / 128}
         }
     },
     frames = {

@@ -89,6 +89,8 @@ function Installer:SetupGeneral()
     E.private["general"]["dmgfont"] = "Adventure"
     E.private["general"]["normTex"] = DEFAULT_STATUSBAR
     E.private["general"]["namefont"] = DEFAULT_FONT
+    E.private["general"]["nameplateFont"] = DEFAULT_FONT
+    E.private["general"]["nameplateLargeFont"] = DEFAULT_FONT
     E.private["general"]["glossTex"] = DEFAULT_STATUSBAR
     E.private["general"]["chatBubbles"] = "backdrop"
     E.private["general"]["chatBubbleFont"] = DEFAULT_FONT
@@ -222,6 +224,9 @@ function Installer:SetupBags()
     E.db["bags"]["itemLevelFont"] = DEFAULT_FONT
     E.db["bags"]["itemLevelFontOutline"] = "OUTLINE"
     E.db["bags"]["itemLevelFontSize"] = 12
+    E.db["bags"]["itemInfoFont"] = DEFAULT_FONT
+    E.db["bags"]["itemInfoFontOutline"] = "OUTLINE"
+    E.db["bags"]["itemInfoFontSize"] = 12
     E.db["bags"]["countFont"] = DEFAULT_FONT
     E.db["bags"]["countFontOutline"] = "OUTLINE"
     E.db["bags"]["countFontSize"] = 12
@@ -382,6 +387,9 @@ function Installer:SetupUnitFrames()
     E.db["unitframe"]["units"]["player"]["power"]["text_format"] = ""
     E.db["unitframe"]["units"]["player"]["power"]["powerPrediction"] = true
     E.db["unitframe"]["units"]["player"]["power"]["EnergyManaRegen"] = true
+    E.db["unitframe"]["units"]["player"]["portrait"]["enable"] = true
+    E.db["unitframe"]["units"]["player"]["portrait"]["width"] = 34
+    E.db["unitframe"]["units"]["player"]["portrait"]["style"] = "Class"
     E.db["unitframe"]["units"]["player"]["classbar"]["detachFromFrame"] = true
     E.db["unitframe"]["units"]["player"]["classbar"]["detachedWidth"] = 234
     E.db["unitframe"]["units"]["player"]["raidRoleIcons"]["xOffset"] = 2
@@ -442,6 +450,9 @@ function Installer:SetupUnitFrames()
     E.db["unitframe"]["units"]["target"]["name"]["text_format"] = ""
     E.db["unitframe"]["units"]["target"]["health"]["text_format"] = ""
     E.db["unitframe"]["units"]["target"]["power"]["text_format"] = ""
+    E.db["unitframe"]["units"]["target"]["portrait"]["enable"] = true
+    E.db["unitframe"]["units"]["target"]["portrait"]["width"] = 34
+    E.db["unitframe"]["units"]["target"]["portrait"]["style"] = "Class"
     E.db["unitframe"]["units"]["target"]["raidRoleIcons"]["position"] = "TOPRIGHT"
     E.db["unitframe"]["units"]["target"]["raidRoleIcons"]["xOffset"] = 2
     E.db["unitframe"]["units"]["target"]["raidRoleIcons"]["yOffset"] = -18
@@ -534,6 +545,9 @@ function Installer:SetupUnitFrames()
     E.db["unitframe"]["units"]["focus"]["name"]["text_format"] = ""
     E.db["unitframe"]["units"]["focus"]["health"]["text_format"] = ""
     E.db["unitframe"]["units"]["focus"]["power"]["text_format"] = ""
+    E.db["unitframe"]["units"]["focus"]["portrait"]["enable"] = true
+    E.db["unitframe"]["units"]["focus"]["portrait"]["width"] = 30
+    E.db["unitframe"]["units"]["focus"]["portrait"]["style"] = "Class"
     E.db["unitframe"]["units"]["focus"]["raidRoleIcons"] = E.db["unitframe"]["units"]["focus"]["raidRoleIcons"] or {}
     E.db["unitframe"]["units"]["focus"]["raidRoleIcons"]["enable"] = true
     E.db["unitframe"]["units"]["focus"]["raidRoleIcons"]["position"] = "TOPRIGHT"
@@ -604,6 +618,9 @@ function Installer:SetupUnitFrames()
     E.db["unitframe"]["units"]["party"]["name"]["text_format"] = ""
     E.db["unitframe"]["units"]["party"]["health"]["text_format"] = ""
     E.db["unitframe"]["units"]["party"]["power"]["text_format"] = ""
+    E.db["unitframe"]["units"]["party"]["portrait"]["enable"] = true
+    E.db["unitframe"]["units"]["party"]["portrait"]["width"] = 30
+    E.db["unitframe"]["units"]["party"]["portrait"]["style"] = "Class"
     E.db["unitframe"]["units"]["party"]["raidRoleIcons"]["xOffset"] = 2
     E.db["unitframe"]["units"]["party"]["raidRoleIcons"]["yOffset"] = -17
     E.db["unitframe"]["units"]["party"]["rdebuffs"]["font"] = DEFAULT_FONT
@@ -666,7 +683,9 @@ function Installer:SetupMovers()
     E.db["movers"]["PetAB"] = "BOTTOM,ElvUIParent,BOTTOM,0,38"
     E.db["movers"]["ShiftAB"] = "BOTTOM,ElvUIParent,BOTTOM,0,73"
     E.db["movers"]["ClassBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,346"
+    E.db["movers"]["BossButton"] = "BOTTOM,UIParent,BOTTOM,0,130"
     E.db["movers"]["MicrobarMover"] = "TOP,ElvUIParent,TOP,0,-4"
+    E.db["movers"]["AltPowerBarMover"] = "TOP,ElvUIParent,TOP,0,-40"
     E.db["movers"]["ElvUF_PlayerMover"] = "BOTTOM,ElvUIParent,BOTTOM,-290,284"
     E.db["movers"]["ElvUF_PlayerCastbarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,218"
     E.db["movers"]["PlayerPowerBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,324"
@@ -686,6 +705,11 @@ function Installer:SetupMovers()
     E.db["movers"]["AzeriteBarMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-528,4"
     E.db["movers"]["HonorBarMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-528,16"
     E.db["movers"]["ThreatBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,207"
+    E.db["movers"]["TopCenterContainerMover"] = "TOP,ElvUIParent,TOP,0,-48"
+    E.db["movers"]["BelowMinimapContainerMover"] = "TOP,ElvUIParent,TOP,0,-70"
+    E.db["movers"]["MirrorTimer1Mover"] = "TOP,ElvUIParent,TOP,0,-104"
+    E.db["movers"]["MirrorTimer2Mover"] = "TOP,ElvUIParent,TOP,0,-121"
+    E.db["movers"]["MirrorTimer3Mover"] = "TOP,ElvUIParent,TOP,0,-139"
     E.db["movers"]["DTPanelTop Panel (Center)Mover"] = "TOP,ElvUIParent,TOP,0,0"
     E.db["movers"]["DTPanelTop PanelMover"] = "TOP,ElvUIParent,TOP,0,-12"
 end

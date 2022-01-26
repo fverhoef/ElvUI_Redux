@@ -28,7 +28,8 @@ local BORDERS = {
     ["Retina"] = "Retina"
 }
 local INLAYS = {
-    ["Diamond"] = "Diamond"
+    ["Diamond"] = "Diamond",
+    ["Diamond (Border Only)"] = "Diamond (Border Only)"
 }
 local FRAME_BORDERS = {
     [""] = "(Inherit from Default)",

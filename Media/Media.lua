@@ -31,7 +31,8 @@ Addon.media = {
             retina = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Borders\\Retina",
         },
         inlays = {
-            diamond = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Inlays\\Diamond"
+            diamond = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Inlays\\Diamond",
+            diamondBorderOnly = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Inlays\\DiamondBorderOnly"
         },
         closeButtons = {
             alliance = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Borders\\FrameBorder_Alliance_CloseButton",
