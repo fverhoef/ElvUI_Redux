@@ -81,7 +81,7 @@ function Layout:HookSetItem(tip)
             local itemName, itemLink, itemRarity, itemLevel, itemMinLevel, itemType, itemSubType, itemStackCount, itemEquipLoc,
                   itemIcon, sellPrice, classID = GetItemInfo(link)
             AddIcon(tooltip, itemIcon)
-            if itemEquipLoc and itemEquipLoc ~= "" then
+            if not Addon.isRetail and itemEquipLoc and itemEquipLoc ~= "" then
                 AddItemLevel(tooltip, itemLevel)
             end
             AddVendorPrice(tooltip, sellPrice, classID)
