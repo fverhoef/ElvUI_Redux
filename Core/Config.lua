@@ -23,6 +23,7 @@ local BORDERS = {
     ["Diablo"] = "Diablo",
     ["Entropy"] = "Entropy",
     ["Goldpaw"] = "Goldpaw",
+    ["Lightspark"] = "Lightspark",
     ["Onyx"] = "Onyx",
     ["Redux"] = "Redux",
     ["Retina"] = "Retina"

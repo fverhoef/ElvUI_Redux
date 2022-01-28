@@ -26,6 +26,7 @@ Addon.media = {
             diablo = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Borders\\Diablo",
             entropy = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Borders\\Entropy",
             goldpaw = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Borders\\Goldpaw",
+            lightspark = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Borders\\Lightspark",
             onyx = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Borders\\Onyx",
             redux = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Borders\\Redux",
             retina = "Interface\\AddOns\\" .. addonName .. "\\Media\\Textures\\Borders\\Retina",

@@ -86,6 +86,16 @@ Addon.atlas = {
             left = {Addon.media.textures.borders.onyx, 4, 32, 0, 8 / 64, 8 / 64, 56 / 64},
             right = {Addon.media.textures.borders.onyx, 4, 32, 56 / 64, 1, 8 / 64, 56 / 64}
         },
+        ["Lightspark"] = {
+            topLeft = {Addon.media.textures.borders.lightspark, 4, 4, 0, 8 / 64, 0, 8 / 64},
+            topRight = {Addon.media.textures.borders.lightspark, 4, 4, 56 / 64, 1, 0, 8 / 64},
+            bottomLeft = {Addon.media.textures.borders.lightspark, 4, 4, 0, 8 / 64, 56 / 64, 1},
+            bottomRight = {Addon.media.textures.borders.lightspark, 4, 4, 56 / 64, 1, 56 / 64, 1},
+            top = {Addon.media.textures.borders.lightspark, 32, 4, 8 / 64, 56 / 64, 0, 8 / 64},
+            bottom = {Addon.media.textures.borders.lightspark, 32, 4, 8 / 64, 56 / 64, 56 / 64, 1},
+            left = {Addon.media.textures.borders.lightspark, 4, 32, 0, 8 / 64, 8 / 64, 56 / 64},
+            right = {Addon.media.textures.borders.lightspark, 4, 32, 56 / 64, 1, 8 / 64, 56 / 64}
+        },
         ["Redux"] = {
             topLeft = {Addon.media.textures.borders.redux, 4, 4, 0, 8 / 64, 0, 8 / 64},
             topRight = {Addon.media.textures.borders.redux, 4, 4, 56 / 64, 1, 0, 8 / 64},
