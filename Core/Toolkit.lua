@@ -53,7 +53,7 @@ local function GetTemplate(template, isUnitFrameElement)
     end
 end
 
-local function SetTemplate(frame, template, glossTex, ignoreUpdates, forcePixelMode, isUnitFrameElement, isNamePlateElement)
+local function SetTemplate(frame, template, glossTex, ignoreUpdates, forcePixelMode, isUnitFrameElement, isNamePlateElement, noScale)
     template = frame.overrideTemplate or template
     frame.template = template or "Default"
     frame.glossTex = glossTex
@@ -61,6 +61,7 @@ local function SetTemplate(frame, template, glossTex, ignoreUpdates, forcePixelM
     frame.forcePixelMode = forcePixelMode
     frame.isUnitFrameElement = isUnitFrameElement
     frame.isNamePlateElement = isNamePlateElement
+    frame.noScale = noScale
 
     if not frame.SetBackdrop then
         _G.Mixin(frame, _G.BackdropTemplateMixin)
@@ -116,7 +117,7 @@ local function SetTemplate(frame, template, glossTex, ignoreUpdates, forcePixelM
 end
 
 local function RefreshTemplate(frame)
-    frame:SetTemplate(frame.template, frame.glossTex, frame.ignoreUpdates, frame.forcePixelMode, frame.isUnitFrameElement, frame.isNamePlateElement)
+    frame:SetTemplate(frame.template, frame.glossTex, frame.ignoreUpdates, frame.forcePixelMode, frame.isUnitFrameElement, frame.isNamePlateElement, frame.noScale)
 end
 
 local function UpdateBorder(border, styleConfigKey)
