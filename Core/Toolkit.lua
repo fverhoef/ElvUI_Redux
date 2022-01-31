@@ -79,6 +79,10 @@ local function SetTemplate(frame, template, glossTex, ignoreUpdates, forcePixelM
         if shadow then
             shadow:Hide()
         end
+        local inlay = frame:GetInlay()
+        if inlay then
+            inlay:Hide()
+        end
     else
         frame:SetBackdrop({
             bgFile = glossTex and (type(glossTex) == "string" and glossTex or E.media.glossTex) or E.media.blankTex,
@@ -86,8 +90,8 @@ local function SetTemplate(frame, template, glossTex, ignoreUpdates, forcePixelM
         })
 
         frame:CreateShadow(false, Addon.STYLE_CONFIG_KEYS.DEFAULT)
-        frame:CreateBorder(false, Addon.STYLE_CONFIG_KEYS.DEFAULT)
-        frame:CreateInlay(false, Addon.STYLE_CONFIG_KEYS.DEFAULT)
+        frame:CreateBorder(Addon.STYLE_CONFIG_KEYS.DEFAULT)
+        frame:CreateInlay(Addon.STYLE_CONFIG_KEYS.DEFAULT)
 
         local borderColor, backdropColor = GetTemplate(template, isUnitFrameElement)
 
@@ -270,7 +274,7 @@ local function SetBorderDrawLayer(border, layer, subLevel)
     end
 end
 
-local function CreateBorder(frame, configKey, anchor, layer)
+local function CreateBorder(frame, configKey, layer, subLayer)
     if not frame then
         return
     end
@@ -280,19 +284,20 @@ local function CreateBorder(frame, configKey, anchor, layer)
     end
 
     layer = layer or "BORDER"
+    subLayer = subLayer or 2
 
     local border = CreateFrame("Frame", nil, frame)
     border.styleConfigKey = configKey or Addon.STYLE_CONFIG_KEYS.DEFAULT
     border.scale = 1
 
-    border.TopLeft = border:CreateTexture(nil, layer, nil, 2)
-    border.TopRight = border:CreateTexture(nil, layer, nil, 2)
-    border.BottomLeft = border:CreateTexture(nil, layer, nil, 2)
-    border.BottomRight = border:CreateTexture(nil, layer, nil, 2)
-    border.Top = border:CreateTexture(nil, layer, nil, 2)
-    border.Bottom = border:CreateTexture(nil, layer, nil, 2)
-    border.Left = border:CreateTexture(nil, layer, nil, 2)
-    border.Right = border:CreateTexture(nil, layer, nil, 2)
+    border.TopLeft = border:CreateTexture(nil, layer, nil, subLayer)
+    border.TopRight = border:CreateTexture(nil, layer, nil, subLayer)
+    border.BottomLeft = border:CreateTexture(nil, layer, nil, subLayer)
+    border.BottomRight = border:CreateTexture(nil, layer, nil, subLayer)
+    border.Top = border:CreateTexture(nil, layer, nil, subLayer)
+    border.Bottom = border:CreateTexture(nil, layer, nil, subLayer)
+    border.Left = border:CreateTexture(nil, layer, nil, subLayer)
+    border.Right = border:CreateTexture(nil, layer, nil, subLayer)
 
     border.TopLeft:SetPoint("TOPLEFT", border, "TOPLEFT")
     border.TopRight:SetPoint("TOPRIGHT", border, "TOPRIGHT")
@@ -520,7 +525,7 @@ local function SetInlayDrawLayer(inlay, layer, subLevel)
     end
 end
 
-local function CreateInlay(frame, configKey, layer)
+local function CreateInlay(frame, configKey, layer, subLayer)
     if not frame then
         return
     end
@@ -528,20 +533,21 @@ local function CreateInlay(frame, configKey, layer)
         return frame.inlay
     end
 
-    layer = layer or "BORDER"
+    layer = layer or "OVERLAY"
+    subLayer = subLayer or 2
 
     local inlay = CreateFrame("Frame", nil, frame)
     inlay.styleConfigKey = configKey or Addon.STYLE_CONFIG_KEYS.DEFAULT
 
-    inlay.TopLeft = inlay:CreateTexture(nil, layer, nil, 2)
-    inlay.TopRight = inlay:CreateTexture(nil, layer, nil, 2)
-    inlay.BottomLeft = inlay:CreateTexture(nil, layer, nil, 2)
-    inlay.BottomRight = inlay:CreateTexture(nil, layer, nil, 2)
-    inlay.Top = inlay:CreateTexture(nil, layer, nil, 2)
-    inlay.Bottom = inlay:CreateTexture(nil, layer, nil, 2)
-    inlay.Left = inlay:CreateTexture(nil, layer, nil, 2)
-    inlay.Right = inlay:CreateTexture(nil, layer, nil, 2)
-    inlay.Center = inlay:CreateTexture(nil, layer, nil, 2)
+    inlay.TopLeft = inlay:CreateTexture(nil, layer, nil, subLayer)
+    inlay.TopRight = inlay:CreateTexture(nil, layer, nil, subLayer)
+    inlay.BottomLeft = inlay:CreateTexture(nil, layer, nil, subLayer)
+    inlay.BottomRight = inlay:CreateTexture(nil, layer, nil, subLayer)
+    inlay.Top = inlay:CreateTexture(nil, layer, nil, subLayer)
+    inlay.Bottom = inlay:CreateTexture(nil, layer, nil, subLayer)
+    inlay.Left = inlay:CreateTexture(nil, layer, nil, subLayer)
+    inlay.Right = inlay:CreateTexture(nil, layer, nil, subLayer)
+    inlay.Center = inlay:CreateTexture(nil, layer, nil, subLayer)
 
     inlay.TopLeft:SetPoint("TOPLEFT", inlay, "TOPLEFT")
     inlay.TopRight:SetPoint("TOPRIGHT", inlay, "TOPRIGHT")
@@ -581,7 +587,7 @@ local function AddApi(object)
     if not object.Offset then
         mt.Offset = Offset
     end
-    if not mt._SetTemplate then
+    if not mt._SetTemplate and mt.SetTemplate ~= SetTemplate then
         mt._SetTemplate = mt.SetTemplate
         mt.SetTemplate = SetTemplate
     end
